@@ -1,0 +1,31 @@
+{% load i18n wagtailcore_tags %}
+
+<header class="header">
+    <div class="logo">
+        <h1>Sarkari Naukri</h1>
+    </div>
+    <nav>
+        <a href="{% url 'job_list' %}">Jobs</a>
+        <a href="{% url 'result_list' %}">Results</a>
+        <a href="{% url 'admit_card_list' %}">Admit Cards</a>
+        <a href="{% url 'syllabus_list' %}">Syllabus</a>
+        <a href="{% url 'wagtailadmin_home' %}">Admin</a>
+    </nav>
+</header>
+<main class="main">
+    <div class="main-text">
+        <h1>Welcome to Sarkari Naukri Portal</h1>
+        <p>Find the latest government job notifications, exam results, admit cards, and syllabus updates.</p>
+        <div class="links">
+            <a href="{% url 'job_list' %}" class="btn">Browse Jobs</a>
+            <a href="{% url 'result_list' %}" class="btn">Check Results</a>
+        </div>
+    </div>
+</main>
+<style>
+    nav { margin-top: 20px; }
+    nav a { margin: 0 10px; text-decoration: none; color: #007bff; }
+    .btn { display: inline-block; padding: 10px 20px; margin: 10px; background: #007bff; color: white; text-decoration: none; border-radius: 5px; }
+</style>
+    </a>
+</footer>
