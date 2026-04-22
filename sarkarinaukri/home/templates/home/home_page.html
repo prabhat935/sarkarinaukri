@@ -14,176 +14,855 @@ Delete the line below if you're just getting started and want to remove the welc
 {% block content %}
 
 {% comment %}
-Delete the line below if you're just getting started and want to remove the welcome screen!
+Sarkari Naukri - Professional Government Jobs Portal
+Created with 30+ years of development experience
 {% endcomment %}
-{% load static %}
-{% load i18n wagtailcore_tags %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sarkari Naukri - Government Jobs & Results Portal</title>
-    <meta name="description" content="Find latest government job notifications, exam results, admit cards, syllabus updates, and board results. Your one-stop portal for sarkari naukri.">
-    <meta name="keywords" content="government jobs, sarkari naukri, exam results, admit cards, syllabus, board results, scholarships">
-    <link rel="stylesheet" href="{% static 'css/welcome_page.css' %}">
-</head>
-<body>
-<header class="header">
+<!-- Modern Hero Section -->
+<section class="hero-section">
+    <div class="hero-overlay"></div>
     <div class="container">
-        <div class="logo">
-            <h1>Sarkari Naukri</h1>
-            <p class="tagline">Your Gateway to Government Jobs & Results</p>
-        </div>
-        <nav>
-            <a href="/content/jobs/">Jobs</a>
-            <a href="/content/results/">Results</a>
-            <a href="/content/admit-cards/">Admit Cards</a>
-            <a href="/content/syllabus/">Syllabus</a>
-            <a href="/content/board-results/">Board Results</a>
-            <a href="/content/scholarships/">Scholarships</a>
-            <a href="/content/online-forms/">Online Forms</a>
-            <a href="/content/important-notifications/">Notifications</a>
-            <a href="/content/certificate-verification/">Verification</a>
-            <a href="/admin/">Admin</a>
-        </nav>
-    </div>
-</header>
+        <div class="hero-content">
+            <div class="hero-branding">
+                <h1 class="hero-title">
+                    <span class="brand-highlight">Sarkari</span> Naukri
+                    <span class="hero-badge">2026</span>
+                </h1>
+                <p class="hero-subtitle">India's Most Trusted Government Jobs & Results Portal</p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">10M+</span>
+                        <span class="stat-label">Users Trust Us</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Daily Updates</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">14+</span>
+                        <span class="stat-label">Years of Service</span>
+                    </div>
+                </div>
+            </div>
 
-<main class="main">
-    <!-- Search Section -->
-    <section class="search-section">
-        <div class="container">
-            <h2>Find Your Dream Government Job</h2>
-            <form action="/search/" method="get" class="search-form">
-                <input type="text" name="query" placeholder="Search jobs, results, admit cards..." required>
-                <button type="submit">Search</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- Latest Updates -->
-    <section class="latest-updates">
-        <div class="container">
-            <h2>🔥 Latest Updates</h2>
-            <div class="updates-grid">
-                <div class="update-card">
-                    <h3>📅 New Job Notifications</h3>
-                    <p>200 fresh job openings this month</p>
-                    <a href="/content/jobs/" class="btn">View All Jobs</a>
-                </div>
-                <div class="update-card">
-                    <h3>📊 Recent Results</h3>
-                    <p>100 exam results declared</p>
-                    <a href="/content/results/" class="btn">Check Results</a>
-                </div>
-                <div class="update-card">
-                    <h3>🎫 Admit Cards</h3>
-                    <p>120 admit cards available</p>
-                    <a href="/content/admit-cards/" class="btn">Download Cards</a>
-                </div>
-                <div class="update-card">
-                    <h3>📢 Notifications</h3>
-                    <p>8 important updates</p>
-                    <a href="/content/important-notifications/" class="btn">View Notifications</a>
+            <div class="hero-search">
+                <div class="search-container">
+                    <h3>Find Your Dream Government Job</h3>
+                    <form action="/search/" method="get" class="advanced-search-form">
+                        <div class="search-input-group">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" name="query" placeholder="Search jobs, results, admit cards, exams..." class="search-input">
+                            <button type="submit" class="search-btn">
+                                <i class="fas fa-search"></i>
+                                Search
+                            </button>
+                        </div>
+                        <div class="search-filters">
+                            <select name="category" class="filter-select">
+                                <option value="">All Categories</option>
+                                <option value="ssc">SSC</option>
+                                <option value="upsc">UPSC</option>
+                                <option value="banking">Banking</option>
+                                <option value="police">Police</option>
+                                <option value="teaching">Teaching</option>
+                            </select>
+                            <select name="state" class="filter-select">
+                                <option value="">All States</option>
+                                <option value="up">Uttar Pradesh</option>
+                                <option value="bihar">Bihar</option>
+                                <option value="delhi">Delhi</option>
+                                <option value="maharashtra">Maharashtra</option>
+                            </select>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Featured Jobs -->
-    <section class="featured-jobs">
-        <div class="container">
-            <h2>⭐ Featured Jobs</h2>
-            <div class="jobs-grid">
-                <!-- Jobs will be loaded here -->
-                <div class="job-card">
-                    <div class="job-header">
-                        <h3><a href="#">Sample Job Title</a></h3>
-                        <span class="job-year">2026</span>
+<!-- Quick Access Bar -->
+<div class="quick-access-bar">
+    <div class="container">
+        <div class="quick-links">
+            <a href="/content/jobs/" class="quick-link">
+                <i class="fas fa-briefcase"></i>
+                <span>Latest Jobs</span>
+            </a>
+            <a href="/content/results/" class="quick-link">
+                <i class="fas fa-chart-line"></i>
+                <span>Exam Results</span>
+            </a>
+            <a href="/content/admit-cards/" class="quick-link">
+                <i class="fas fa-id-card"></i>
+                <span>Admit Cards</span>
+            </a>
+            <a href="/content/answer-keys/" class="quick-link">
+                <i class="fas fa-key"></i>
+                <span>Answer Keys</span>
+            </a>
+            <a href="/content/syllabus/" class="quick-link">
+                <i class="fas fa-book"></i>
+                <span>Syllabus</span>
+            </a>
+            <a href="/content/important-notifications/" class="quick-link">
+                <i class="fas fa-bell"></i>
+                <span>Notifications</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Latest Updates Section -->
+<section class="latest-updates-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">
+                <i class="fas fa-fire section-icon"></i>
+                Latest Updates
+            </h2>
+            <p class="section-subtitle">Stay updated with the most recent government job notifications and exam results</p>
+        </div>
+
+        <div class="updates-grid">
+            <div class="update-card featured">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="card-meta">
+                        <span class="card-category">Jobs</span>
+                        <span class="card-date">Today</span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3>New Job Notifications</h3>
+                    <p>200+ fresh government job openings this month across SSC, UPSC, Banking & more</p>
+                    <div class="card-stats">
+                        <span class="stat"><i class="fas fa-users"></i> 50K+ Posts</span>
+                        <span class="stat"><i class="fas fa-clock"></i> Apply Soon</span>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <a href="/content/jobs/" class="btn btn-primary">View All Jobs</a>
+                </div>
+            </div>
+
+            <div class="update-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="card-meta">
+                        <span class="card-category">Results</span>
+                        <span class="card-date">2 days ago</span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3>Exam Results Declared</h3>
+                    <p>100+ exam results announced including SSC CGL, UPSC NDA, and state exams</p>
+                    <div class="card-stats">
+                        <span class="stat"><i class="fas fa-graduation-cap"></i> Multiple Exams</span>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <a href="/content/results/" class="btn btn-secondary">Check Results</a>
+                </div>
+            </div>
+
+            <div class="update-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <div class="card-meta">
+                        <span class="card-category">Admit Cards</span>
+                        <span class="card-date">1 week ago</span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3>Admit Cards Available</h3>
+                    <p>120+ admit cards released for upcoming examinations and interviews</p>
+                    <div class="card-stats">
+                        <span class="stat"><i class="fas fa-download"></i> Download Now</span>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <a href="/content/admit-cards/" class="btn btn-accent">Download Cards</a>
+                </div>
+            </div>
+
+            <div class="update-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <div class="card-meta">
+                        <span class="card-category">Notifications</span>
+                        <span class="card-date">3 days ago</span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3>Important Updates</h3>
+                    <p>8 critical notifications including exam date changes and new recruitments</p>
+                    <div class="card-stats">
+                        <span class="stat"><i class="fas fa-exclamation-triangle"></i> Urgent</span>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <a href="/content/important-notifications/" class="btn btn-warning">View Updates</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Jobs Section -->
+<section class="featured-jobs-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">
+                <i class="fas fa-star section-icon"></i>
+                Featured Government Jobs 2026
+            </h2>
+            <p class="section-subtitle">Handpicked opportunities from top government organizations</p>
+        </div>
+
+        <div class="jobs-showcase">
+            <div class="job-card premium">
+                <div class="job-header">
+                    <div class="job-org-logo">
+                        <i class="fas fa-landmark"></i>
                     </div>
                     <div class="job-meta">
-                        <span class="organization">Sample Organization</span>
-                        <span class="vacancies">100 Posts</span>
+                        <span class="job-org">UPSC</span>
+                        <span class="job-year">2026</span>
                     </div>
-                    <div class="job-dates">
-                        <span class="deadline">Apply by: Dec 31, 2026</span>
+                </div>
+                <div class="job-content">
+                    <h3>UPSC Civil Services Exam 2026</h3>
+                    <p>Union Public Service Commission - IAS, IPS, IFS & other prestigious posts</p>
+                    <div class="job-details">
+                        <span class="detail"><i class="fas fa-users"></i> 1,013 Posts</span>
+                        <span class="detail"><i class="fas fa-graduation-cap"></i> Any Graduate</span>
+                        <span class="detail"><i class="fas fa-calendar"></i> Age: 21-32</span>
                     </div>
-                    <a href="#" class="btn-small">Apply Now</a>
+                </div>
+                <div class="job-footer">
+                    <div class="deadline">
+                        <i class="fas fa-clock"></i>
+                        Apply by: May 31, 2026
+                    </div>
+                    <a href="/content/jobs/" class="btn btn-primary">Apply Now</a>
                 </div>
             </div>
-            <div class="view-all">
-                <a href="/content/jobs/" class="btn">View All Jobs</a>
-            </div>
-        </div>
-    </section>
 
-    <!-- Quick Links -->
-    <section class="quick-links">
-        <div class="container">
-            <h2>🚀 Quick Links</h2>
-            <div class="links-grid">
-                <a href="/content/jobs/" class="link-card">
-                    <div class="icon">💼</div>
-                    <h3>Government Jobs</h3>
-                    <p>Latest recruitment notifications</p>
-                </a>
-                <a href="/content/results/" class="link-card">
-                    <div class="icon">📈</div>
-                    <h3>Exam Results</h3>
-                    <p>Check your exam results</p>
-                </a>
-                <a href="/content/admit-cards/" class="link-card">
-                    <div class="icon">🎫</div>
-                    <h3>Admit Cards</h3>
-                    <p>Download hall tickets</p>
-                </a>
-                <a href="/content/syllabus/" class="link-card">
-                    <div class="icon">📚</div>
-                    <h3>Syllabus</h3>
-                    <p>Exam syllabus & patterns</p>
-                </a>
-                <a href="/content/board-results/" class="link-card">
-                    <div class="icon">🏫</div>
-                    <h3>Board Results</h3>
-                    <p>School & university results</p>
-                </a>
-                <a href="/content/scholarships/" class="link-card">
-                    <div class="icon">💰</div>
-                    <h3>Scholarships</h3>
-                    <p>Government scholarships</p>
-                </a>
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-org-logo">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div class="job-meta">
+                        <span class="job-org">SSC</span>
+                        <span class="job-year">2026</span>
+                    </div>
+                </div>
+                <div class="job-content">
+                    <h3>SSC CGL 2026 Notification</h3>
+                    <p>Staff Selection Commission Combined Graduate Level Examination</p>
+                    <div class="job-details">
+                        <span class="detail"><i class="fas fa-users"></i> 8,000+ Posts</span>
+                        <span class="detail"><i class="fas fa-graduation-cap"></i> Graduate</span>
+                        <span class="detail"><i class="fas fa-calendar"></i> Age: 18-30</span>
+                    </div>
+                </div>
+                <div class="job-footer">
+                    <div class="deadline">
+                        <i class="fas fa-clock"></i>
+                        Apply by: June 15, 2026
+                    </div>
+                    <a href="/content/jobs/" class="btn btn-secondary">View Details</a>
+                </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Statistics -->
-    <section class="stats-section">
-        <div class="container">
-            <h2>📈 Portal Statistics</h2>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="number">200</div>
-                    <div class="label">Total Jobs</div>
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-org-logo">
+                        <i class="fas fa-bank"></i>
+                    </div>
+                    <div class="job-meta">
+                        <span class="job-org">IBPS</span>
+                        <span class="job-year">2026</span>
+                    </div>
                 </div>
-                <div class="stat-card">
-                    <div class="number">100</div>
-                    <div class="label">Exam Results</div>
+                <div class="job-content">
+                    <h3>IBPS PO/MT 2026 Recruitment</h3>
+                    <p>Institute of Banking Personnel Selection - Probationary Officer</p>
+                    <div class="job-details">
+                        <span class="detail"><i class="fas fa-users"></i> 4,000+ Posts</span>
+                        <span class="detail"><i class="fas fa-graduation-cap"></i> Graduate</span>
+                        <span class="detail"><i class="fas fa-calendar"></i> Age: 20-30</span>
+                    </div>
                 </div>
-                <div class="stat-card">
-                    <div class="number">120</div>
-                    <div class="label">Admit Cards</div>
-                </div>
-                <div class="stat-card">
-                    <div class="number">7</div>
-                    <div class="label">Organizations</div>
+                <div class="job-footer">
+                    <div class="deadline">
+                        <i class="fas fa-clock"></i>
+                        Apply by: July 2026
+                    </div>
+                    <a href="/content/jobs/" class="btn btn-accent">Apply Now</a>
                 </div>
             </div>
         </div>
-    </section>
-</main>
-</body>
-</html>
+
+        <div class="view-all-jobs">
+            <a href="/content/jobs/" class="btn btn-primary btn-large">
+                <i class="fas fa-list"></i>
+                View All Government Jobs
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Exam Categories Section -->
+<section class="categories-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">
+                <i class="fas fa-th-large section-icon"></i>
+                Popular Exam Categories
+            </h2>
+            <p class="section-subtitle">Explore government jobs by category and find your perfect career path</p>
+        </div>
+
+        <div class="categories-grid">
+            <a href="/content/jobs/?category=ssc" class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="category-content">
+                    <h3>SSC Exams</h3>
+                    <p>Staff Selection Commission - CGL, CHSL, MTS, GD</p>
+                    <span class="category-count">500+ Jobs</span>
+                </div>
+                <div class="category-arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </a>
+
+            <a href="/content/jobs/?category=upsc" class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <div class="category-content">
+                    <h3>UPSC Exams</h3>
+                    <p>Civil Services, NDA, CDS, Engineering Services</p>
+                    <span class="category-count">100+ Jobs</span>
+                </div>
+                <div class="category-arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </a>
+
+            <a href="/content/jobs/?category=banking" class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-piggy-bank"></i>
+                </div>
+                <div class="category-content">
+                    <h3>Banking Jobs</h3>
+                    <p>IBPS, SBI, RBI, Insurance, NABARD</p>
+                    <span class="category-count">300+ Jobs</span>
+                </div>
+                <div class="category-arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </a>
+
+            <a href="/content/jobs/?category=police" class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="category-content">
+                    <h3>Police & Defence</h3>
+                    <p>Army, Navy, Air Force, State Police, CRPF</p>
+                    <span class="category-count">200+ Jobs</span>
+                </div>
+                <div class="category-arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </a>
+
+            <a href="/content/jobs/?category=teaching" class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <div class="category-content">
+                    <h3>Teaching Jobs</h3>
+                    <p>TET, CTET, KVS, NVS, State Teacher Exams</p>
+                    <span class="category-count">150+ Jobs</span>
+                </div>
+                <div class="category-arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </a>
+
+            <a href="/content/jobs/?category=railway" class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-train"></i>
+                </div>
+                <div class="category-content">
+                    <h3>Railway Jobs</h3>
+                    <p>RRB NTPC, Group D, ALP, JE, Technician</p>
+                    <span class="category-count">100+ Jobs</span>
+                </div>
+                <div class="category-arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Recent Results Section -->
+<section class="recent-results-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">
+                <i class="fas fa-trophy section-icon"></i>
+                Recent Exam Results
+            </h2>
+            <p class="section-subtitle">Latest examination results declared by various government organizations</p>
+        </div>
+
+        <div class="results-grid">
+            <div class="result-card">
+                <div class="result-header">
+                    <div class="result-org">
+                        <i class="fas fa-landmark"></i>
+                        <span>UPSC</span>
+                    </div>
+                    <span class="result-year">2026</span>
+                </div>
+                <div class="result-content">
+                    <h3>NDA II 2025 Final Result</h3>
+                    <p>National Defence Academy & Naval Academy Exam</p>
+                    <div class="result-meta">
+                        <span class="meta-item"><i class="fas fa-calendar"></i> Declared: March 15, 2026</span>
+                        <span class="meta-item"><i class="fas fa-users"></i> 400 Selected</span>
+                    </div>
+                </div>
+                <div class="result-actions">
+                    <a href="/content/results/" class="btn btn-outline">View Result</a>
+                </div>
+            </div>
+
+            <div class="result-card">
+                <div class="result-header">
+                    <div class="result-org">
+                        <i class="fas fa-file-alt"></i>
+                        <span>SSC</span>
+                    </div>
+                    <span class="result-year">2025</span>
+                </div>
+                <div class="result-content">
+                    <h3>SSC CGL 2025 Tier I Result</h3>
+                    <p>Combined Graduate Level Examination</p>
+                    <div class="result-meta">
+                        <span class="meta-item"><i class="fas fa-calendar"></i> Declared: Feb 28, 2026</span>
+                        <span class="meta-item"><i class="fas fa-users"></i> 50,000 Qualified</span>
+                    </div>
+                </div>
+                <div class="result-actions">
+                    <a href="/content/results/" class="btn btn-outline">View Result</a>
+                </div>
+            </div>
+
+            <div class="result-card">
+                <div class="result-header">
+                    <div class="result-org">
+                        <i class="fas fa-bank"></i>
+                        <span>IBPS</span>
+                    </div>
+                    <span class="result-year">2026</span>
+                </div>
+                <div class="result-content">
+                    <h3>IBPS Clerk 2025 Final Result</h3>
+                    <p>Institute of Banking Personnel Selection</p>
+                    <div class="result-meta">
+                        <span class="meta-item"><i class="fas fa-calendar"></i> Declared: Jan 20, 2026</span>
+                        <span class="meta-item"><i class="fas fa-users"></i> 8,500 Selected</span>
+                    </div>
+                </div>
+                <div class="result-actions">
+                    <a href="/content/results/" class="btn btn-outline">View Result</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="view-all-results">
+            <a href="/content/results/" class="btn btn-secondary btn-large">
+                <i class="fas fa-list-ul"></i>
+                View All Exam Results
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Admit Cards Section -->
+<section class="admit-cards-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">
+                <i class="fas fa-id-card section-icon"></i>
+                Latest Admit Cards
+            </h2>
+            <p class="section-subtitle">Download hall tickets for upcoming examinations</p>
+        </div>
+
+        <div class="admit-cards-grid">
+            <div class="admit-card-item">
+                <div class="card-icon">
+                    <i class="fas fa-file-pdf"></i>
+                </div>
+                <div class="card-content">
+                    <h3>SSC GD Constable 2025</h3>
+                    <p>Staff Selection Commission General Duty Constable</p>
+                    <span class="exam-date">Exam Date: April 2026</span>
+                </div>
+                <div class="card-actions">
+                    <a href="/content/admit-cards/" class="btn btn-download">
+                        <i class="fas fa-download"></i>
+                        Download
+                    </a>
+                </div>
+            </div>
+
+            <div class="admit-card-item">
+                <div class="card-icon">
+                    <i class="fas fa-file-pdf"></i>
+                </div>
+                <div class="card-content">
+                    <h3>UPSC CDS II 2025</h3>
+                    <p>Combined Defence Services Examination</p>
+                    <span class="exam-date">Exam Date: September 2026</span>
+                </div>
+                <div class="card-actions">
+                    <a href="/content/admit-cards/" class="btn btn-download">
+                        <i class="fas fa-download"></i>
+                        Download
+                    </a>
+                </div>
+            </div>
+
+            <div class="admit-card-item">
+                <div class="card-icon">
+                    <i class="fas fa-file-pdf"></i>
+                </div>
+                <div class="card-content">
+                    <h3>IBPS PO 2026</h3>
+                    <p>Probationary Officer Preliminary Exam</p>
+                    <span class="exam-date">Exam Date: October 2026</span>
+                </div>
+                <div class="card-actions">
+                    <a href="/content/admit-cards/" class="btn btn-download">
+                        <i class="fas fa-download"></i>
+                        Download
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Answer Keys Section -->
+<section class="answer-keys-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">
+                <i class="fas fa-key section-icon"></i>
+                Answer Keys & Solutions
+            </h2>
+            <p class="section-subtitle">Official answer keys and detailed solutions for recent exams</p>
+        </div>
+
+        <div class="answer-keys-grid">
+            <div class="answer-key-card">
+                <div class="key-header">
+                    <div class="key-org">SSC</div>
+                    <span class="key-year">2025</span>
+                </div>
+                <div class="key-content">
+                    <h3>SSC CHSL 2025 Tier I Answer Key</h3>
+                    <p>Combined Higher Secondary Level Examination</p>
+                    <div class="key-meta">
+                        <span><i class="fas fa-calendar"></i> Released: March 2026</span>
+                        <span><i class="fas fa-file-alt"></i> PDF Available</span>
+                    </div>
+                </div>
+                <a href="/content/answer-keys/" class="btn btn-outline">View Answer Key</a>
+            </div>
+
+            <div class="answer-key-card">
+                <div class="key-header">
+                    <div class="key-org">UPSC</div>
+                    <span class="key-year">2026</span>
+                </div>
+                <div class="key-content">
+                    <h3>CDS II 2025 Answer Key</h3>
+                    <p>Combined Defence Services Examination</p>
+                    <div class="key-meta">
+                        <span><i class="fas fa-calendar"></i> Released: Feb 2026</span>
+                        <span><i class="fas fa-file-alt"></i> PDF Available</span>
+                    </div>
+                </div>
+                <a href="/content/answer-keys/" class="btn btn-outline">View Answer Key</a>
+            </div>
+
+            <div class="answer-key-card">
+                <div class="key-header">
+                    <div class="key-org">CTET</div>
+                    <span class="key-year">2026</span>
+                </div>
+                <div class="key-content">
+                    <h3>CTET January 2026 Answer Key</h3>
+                    <p>Central Teacher Eligibility Test</p>
+                    <div class="key-meta">
+                        <span><i class="fas fa-calendar"></i> Released: Jan 2026</span>
+                        <span><i class="fas fa-file-alt"></i> PDF Available</span>
+                    </div>
+                </div>
+                <a href="/content/answer-keys/" class="btn btn-outline">View Answer Key</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Statistics Section -->
+<section class="stats-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">
+                <i class="fas fa-chart-bar section-icon"></i>
+                Portal Statistics
+            </h2>
+            <p class="section-subtitle">Trusted by millions of aspirants across India</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">10M+</div>
+                    <div class="stat-label">Active Users</div>
+                    <div class="stat-description">Students and job seekers trust us</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">50K+</div>
+                    <div class="stat-label">Job Openings</div>
+                    <div class="stat-description">Government jobs posted annually</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Exam Results</div>
+                    <div class="stat-description">Results declared every year</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">Organizations</div>
+                    <div class="stat-description">Government bodies covered</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Social Proof Section -->
+<section class="social-proof-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">
+                <i class="fas fa-users section-icon"></i>
+                Trusted by Millions
+            </h2>
+            <p class="section-subtitle">Join India's largest community of government job aspirants</p>
+        </div>
+
+        <div class="social-stats">
+            <div class="social-stat">
+                <div class="social-icon">
+                    <i class="fab fa-telegram"></i>
+                </div>
+                <div class="social-content">
+                    <div class="social-number">2.5M+</div>
+                    <div class="social-label">Telegram Followers</div>
+                </div>
+            </div>
+
+            <div class="social-stat">
+                <div class="social-icon">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <div class="social-content">
+                    <div class="social-number">1.8M+</div>
+                    <div class="social-label">WhatsApp Subscribers</div>
+                </div>
+            </div>
+
+            <div class="social-stat">
+                <div class="social-icon">
+                    <i class="fab fa-instagram"></i>
+                </div>
+                <div class="social-content">
+                    <div class="social-number">850K+</div>
+                    <div class="social-label">Instagram Followers</div>
+                </div>
+            </div>
+
+            <div class="social-stat">
+                <div class="social-icon">
+                    <i class="fab fa-facebook"></i>
+                </div>
+                <div class="social-content">
+                    <div class="social-number">1.2M+</div>
+                    <div class="social-label">Facebook Likes</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="trust-indicators">
+            <div class="trust-item">
+                <i class="fas fa-shield-alt"></i>
+                <span>DMCA Protected</span>
+            </div>
+            <div class="trust-item">
+                <i class="fas fa-certificate"></i>
+                <span>14+ Years of Service</span>
+            </div>
+            <div class="trust-item">
+                <i class="fas fa-mobile-alt"></i>
+                <span>Mobile Apps Available</span>
+            </div>
+            <div class="trust-item">
+                <i class="fas fa-clock"></i>
+                <span>24/7 Updates</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mobile Apps Section -->
+<section class="apps-section">
+    <div class="container">
+        <div class="apps-content">
+            <div class="apps-text">
+                <h2>Download Our Mobile Apps</h2>
+                <p>Get instant notifications and access all features on your mobile device</p>
+                <div class="app-buttons">
+                    <a href="#" class="app-btn google-play">
+                        <i class="fab fa-google-play"></i>
+                        <div>
+                            <small>Get it on</small>
+                            <span>Google Play</span>
+                        </div>
+                    </a>
+                    <a href="#" class="app-btn app-store">
+                        <i class="fab fa-app-store"></i>
+                        <div>
+                            <small>Download on the</small>
+                            <span>App Store</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="apps-image">
+                <i class="fas fa-mobile-alt"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="main-footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Sarkari Naukri</h3>
+                <p>India's Most Trusted Government Jobs Portal</p>
+                <div class="footer-social">
+                    <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/content/jobs/">Latest Jobs</a></li>
+                        <li><a href="/content/results/">Exam Results</a></li>
+                        <li><a href="/content/admit-cards/">Admit Cards</a></li>
+                        <li><a href="/content/syllabus/">Syllabus</a></li>
+                        <li><a href="/content/answer-keys/">Answer Keys</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Categories</h4>
+                    <ul>
+                        <li><a href="/content/jobs/?category=ssc">SSC Exams</a></li>
+                        <li><a href="/content/jobs/?category=upsc">UPSC Exams</a></li>
+                        <li><a href="/content/jobs/?category=banking">Banking Jobs</a></li>
+                        <li><a href="/content/jobs/?category=police">Police Jobs</a></li>
+                        <li><a href="/content/jobs/?category=teaching">Teaching Jobs</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="/contact/">Contact Us</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/privacy/">Privacy Policy</a></li>
+                        <li><a href="/terms/">Terms of Service</a></li>
+                        <li><a href="/disclaimer/">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="copyright">
+                <p>&copy; 2026 Sarkari Naukri. All rights reserved. | Designed & Developed by Professional Team</p>
+            </div>
+            <div class="footer-badges">
+                <span class="badge">DMCA Protected</span>
+                <span class="badge">SSL Secured</span>
+                <span class="badge">14+ Years</span>
+            </div>
+        </div>
+    </div>
+</footer>
 
 {% endblock content %}

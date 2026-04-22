@@ -22,7 +22,7 @@ from content.models import (
 )
 
 def create_mass_data():
-    print("🚀 Starting mass data population...")
+    print("Starting mass data population...")
 
     # Get existing reference data
     organizations = list(Organization.objects.all())
@@ -49,38 +49,50 @@ def create_mass_data():
         "SSC", "UPSC", "Railway", "Bank", "Police", "Teaching", "Defence", "Insurance"
     ]
 
-    for i in range(200):  # Create 200 job postings
+    for i in range(400):  # Create 400 job postings (increased for 2026)
         org = random.choice(organizations)
         cat = random.choice(categories)
         state = random.choice(states) if random.random() > 0.3 else None
 
         title = f"{random.choice(job_titles)} {random.choice(organizations_list)} Recruitment {2024 + random.randint(0, 2)}"
 
+        # Make more jobs for 2026
+        year = random.choices([2024, 2025, 2026], weights=[20, 30, 50])[0]
+        title = title.replace('2024', str(year)).replace('2025', str(year)).replace('2026', str(year))        
+        # Generate unique slug
+        import uuid
+        slug = f"job-{uuid.uuid4().hex[:8]}"
         start_date = date.today() + timedelta(days=random.randint(-30, 60))
         end_date = start_date + timedelta(days=random.randint(15, 45))
 
-        JobPosting.objects.create(
-            title=title,
-            description=f"Applications are invited for {random.randint(10, 1000)} {title} positions. Detailed notification available on official website.",
-            organization=org,
-            exam_category=cat,
-            state=state,
-            vacancies=random.randint(1, 2000),
-            job_level=random.choice(['A', 'B', 'C', 'D']),
-            qualification_level=random.choice(qualifications) if qualifications else None,
-            min_age=random.randint(18, 25),
-            max_age=random.randint(30, 60),
-            salary_min=Decimal(str(random.randint(15000, 50000))),
-            salary_max=Decimal(str(random.randint(50000, 200000))),
-            eligibility=f"Minimum {random.choice(['10th', '12th', 'Graduate', 'Post Graduate'])} qualification required.",
-            application_start_date=start_date,
-            application_end_date=end_date,
-            exam_date=end_date + timedelta(days=random.randint(30, 90)),
-            application_link=f"https://{org.name.lower()}.gov.in/recruitment-{random.randint(1000, 9999)}",
-            application_fee=Decimal(str(random.randint(100, 1000))),
-            status=random.choice(['Active', 'Active', 'Active', 'Closed']),
-            meta_description=f"Apply for {title} - {org.name} Recruitment {2024 + random.randint(0, 2)}"
-        )
+        try:
+            job = JobPosting(
+                title=title,
+                description=f"Applications are invited for {random.randint(10, 1000)} {title} positions. Detailed notification available on official website.",
+                organization=org,
+                exam_category=cat,
+                state=state,
+                vacancies=random.randint(1, 2000),
+                job_level=random.choice(['A', 'B', 'C', 'D']),
+                qualification_level=random.choice(qualifications) if qualifications else None,
+                min_age=random.randint(18, 25),
+                max_age=random.randint(30, 60),
+                salary_min=Decimal(str(random.randint(15000, 50000))),
+                salary_max=Decimal(str(random.randint(50000, 200000))),
+                eligibility=f"Minimum {random.choice(['10th', '12th', 'Graduate', 'Post Graduate'])} qualification required.",
+                application_start_date=start_date,
+                application_end_date=end_date,
+                exam_date=end_date + timedelta(days=random.randint(30, 90)),
+                application_link=f"https://{org.name.lower()}.gov.in/recruitment-{random.randint(1000, 9999)}",
+                application_fee=Decimal(str(random.randint(100, 1000))),
+                status=random.choice(['Active', 'Active', 'Active', 'Closed']),
+                meta_description=f"Apply for {title} - {org.name} Recruitment {year}"
+            )
+            job.slug = slug
+            job.save()
+        except Exception as e:
+            print(f"Error creating job {i+1}: {e}")
+            continue
 
     print(f"✅ Created {JobPosting.objects.count()} job postings")
 
@@ -93,15 +105,16 @@ def create_mass_data():
         "UPPSC PCS", "BPSC 68th", "MPPSC", "RPSC RAS", "HPSC HCS"
     ]
 
-    for i in range(150):  # Create 150 exam results
+    for i in range(250):  # Create 250 exam results (increased)
         exam_name = random.choice(exam_names)
-        year = random.randint(2020, 2024)
+        year = random.choices([2023, 2024, 2025, 2026], weights=[10, 20, 30, 40])[0]  # More 2026 results
         org = random.choice(organizations)
         cat = random.choice(categories)
         state = random.choice(states) if random.random() > 0.4 else None
 
         ExamResult.objects.create(
             exam_name=f"{exam_name} {year}",
+            slug=f"{exam_name.lower().replace(' ', '-')}-{year}-{random.randint(1000, 9999)}",
             description=f"Result declared for {exam_name} {year} examination conducted by {org.name}.",
             organization=org,
             exam_category=cat,
@@ -119,7 +132,7 @@ def create_mass_data():
 
     # ===== ADMIT CARDS =====
     print("🎫 Creating admit cards...")
-    for i in range(120):  # Create 120 admit cards
+    for i in range(200):  # Create 200 admit cards (increased)
         exam_name = random.choice(exam_names)
         org = random.choice(organizations)
         cat = random.choice(categories)
@@ -128,7 +141,8 @@ def create_mass_data():
         exam_date = date.today() + timedelta(days=random.randint(1, 90))
 
         AdmitCard.objects.create(
-            exam_name=f"{exam_name} {random.randint(2024, 2026)}",
+            exam_name=f"{exam_name} {random.choices([2024, 2025, 2026], weights=[20, 30, 50])[0]}",  # More 2026 admit cards
+            slug=f"{exam_name.lower().replace(' ', '-')}-admit-card-{random.randint(1000, 9999)}",
             description=f"Download admit card for {exam_name} examination.",
             organization=org,
             exam_category=cat,
@@ -154,6 +168,7 @@ def create_mass_data():
 
         AnswerKey.objects.create(
             exam_name=f"{exam_name} {year}",
+            slug=f"{exam_name.lower().replace(' ', '-')}-answer-key-{year}-{random.randint(1000, 9999)}",
             description=f"Official answer key for {exam_name} {year} examination.",
             organization=org,
             exam_category=cat,
@@ -188,6 +203,7 @@ def create_mass_data():
 
         Syllabus.objects.create(
             exam_name=f"{exam_name} {year}",
+            slug=f"{exam_name.lower().replace(' ', '-')}-syllabus-{year}-{random.randint(1000, 9999)}",
             organization=org,
             exam_category=cat,
             state=state,
@@ -202,10 +218,10 @@ def create_mass_data():
 
     # ===== BOARD EXAM RESULTS =====
     print("🏫 Creating board exam results...")
-    boards = ['CBSE', 'ICSE', 'UP Board', 'Bihar Board', 'MP Board', 'Rajasthan Board']
+    boards = ['CBSE', 'ICSE', 'UP Board', 'Bihar Board', 'MP Board', 'Rajasthan Board', 'Haryana Board', 'Punjab Board', 'Gujarat Board', 'Maharashtra Board']
 
     for board in boards:
-        for year in [2023, 2024, 2025]:
+        for year in [2024, 2025, 2026]:  # Include 2026 results
             for exam_type in ['10th', '12th']:
                 BoardExamResult.objects.create(
                     board=board,
@@ -213,8 +229,8 @@ def create_mass_data():
                     year=year,
                     result_link=f"https://{board.lower().replace(' ', '')}.nic.in/results/class-{exam_type}-{year}",
                     digilocker_link="https://digilocker.gov.in/",
-                    result_date=date(year, 5, 15) if year < 2025 else date.today() + timedelta(days=random.randint(-30, 30)),
-                    is_declared=year < 2025 or random.random() > 0.5,
+                    result_date=date(year, 5, 15) if year < 2026 else date.today() + timedelta(days=random.randint(-30, 30)),
+                    is_declared=year < 2026 or random.random() > 0.3,  # Some 2026 results declared
                     total_students=random.randint(500000, 2000000),
                     pass_percentage=Decimal(str(round(random.uniform(85, 98), 1)))
                 )
@@ -251,14 +267,21 @@ def create_mass_data():
     # ===== IMPORTANT NOTIFICATIONS =====
     print("📢 Creating important notifications...")
     notifications = [
-        ("SSC CGL 2025 Notification Released", "Recruitment", "Staff Selection Commission has released the Combined Graduate Level 2025 notification with 5000+ vacancies."),
-        ("UPSC IAS 2025 Application Started", "Recruitment", "Union Public Service Commission invites applications for Indian Administrative Service 2025."),
-        ("Railway RRB NTPC Result Declared", "Exam", "Railway Recruitment Board has declared the NTPC examination result."),
-        ("CBSE Class 10th Date Sheet 2025", "Exam", "Central Board of Secondary Education releases class 10th examination schedule."),
-        ("New Education Policy Implementation", "Government", "Government announces implementation guidelines for New Education Policy 2020."),
-        ("Scholarship Application Deadline Extended", "Admission", "Last date for various scholarship applications extended by 15 days."),
-        ("Bank Exam Calendar 2025 Released", "Exam", "IBPS releases tentative calendar for banking examinations 2025."),
-        ("Police Constable Recruitment 2025", "Recruitment", "Multiple states announce police constable recruitment drive."),
+        ("SSC CGL 2026 Notification Released", "Recruitment", "Staff Selection Commission has released the Combined Graduate Level 2026 notification with 5000+ vacancies."),
+        ("UPSC IAS 2026 Application Started", "Recruitment", "Union Public Service Commission invites applications for Indian Administrative Service 2026."),
+        ("Railway RRB NTPC 2026 Result Declared", "Exam", "Railway Recruitment Board has declared the NTPC examination result for 2026."),
+        ("CBSE Class 10th Date Sheet 2026", "Exam", "Central Board of Secondary Education releases class 10th examination schedule for 2026."),
+        ("SSC CHSL 2026 Tier 1 Result Out", "Exam", "Staff Selection Commission declares CHSL 2026 Tier 1 examination result."),
+        ("UPSC CDS 2026 Notification", "Recruitment", "Combined Defence Services examination 2026 notification released."),
+        ("Bank PO 2026 Calendar Released", "Exam", "IBPS releases tentative calendar for banking examinations 2026."),
+        ("Police Constable Recruitment 2026", "Recruitment", "Multiple states announce police constable recruitment drive for 2026."),
+        ("SSC JE 2026 Admit Card Released", "Exam", "Junior Engineer examination admit cards available for download."),
+        ("Railway Group D 2026 Application", "Recruitment", "Railway Recruitment Board opens Group D applications for 2026."),
+        ("CTET 2026 Notification", "Recruitment", "Central Teacher Eligibility Test 2026 applications open."),
+        ("NEET UG 2026 Registration", "Admission", "National Eligibility cum Entrance Test registration started."),
+        ("JEE Main 2026 Session 1", "Admission", "Joint Entrance Examination Main 2026 first session begins."),
+        ("UPPSC PCS 2026 Prelims Result", "Exam", "Uttar Pradesh Public Service Commission prelims result declared."),
+        ("BPSC 70th Mains Admit Card", "Exam", "Bihar Public Service Commission 70th mains admit cards released."),
     ]
 
     for title, category, description in notifications:
@@ -278,21 +301,29 @@ def create_mass_data():
     # ===== ONLINE FORMS =====
     print("📝 Creating online forms...")
     form_types = [
-        ("SSC Various Post Online Form", "Job Application", "Staff Selection Commission recruitment"),
-        ("UPSC NDA Online Form", "Job Application", "National Defence Academy application"),
-        ("Railway Group D Online Form", "Job Application", "Railway recruitment for Group D posts"),
-        ("Bank PO Online Form", "Job Application", "Probationary Officer recruitment"),
-        ("UP Police Constable Online Form", "Job Application", "Uttar Pradesh Police recruitment"),
-        ("BPSC 69th Online Form", "Job Application", "Bihar Public Service Commission"),
-        ("CTET Online Form", "Job Application", "Central Teacher Eligibility Test"),
-        ("NEET UG Online Form", "Admission", "Medical entrance examination"),
-        ("JEE Main Online Form", "Admission", "Engineering entrance examination"),
-        ("Scholarship Online Form", "Scholarship", "Various government scholarships"),
+        ("SSC CGL 2026 Online Form", "Job Application", "Staff Selection Commission Combined Graduate Level 2026"),
+        ("UPSC NDA 2026 Online Form", "Job Application", "National Defence Academy 2026 application"),
+        ("Railway RRB NTPC 2026 Online Form", "Job Application", "Railway NTPC 2026 recruitment"),
+        ("SSC CHSL 2026 Online Form", "Job Application", "Combined Higher Secondary Level 2026"),
+        ("Bank PO 2026 Online Form", "Job Application", "Probationary Officer 2026 recruitment"),
+        ("UP Police Constable 2026 Online Form", "Job Application", "Uttar Pradesh Police 2026 recruitment"),
+        ("BPSC 70th Online Form", "Job Application", "Bihar Public Service Commission 70th"),
+        ("CTET 2026 Online Form", "Job Application", "Central Teacher Eligibility Test 2026"),
+        ("NEET UG 2026 Online Form", "Admission", "Medical entrance examination 2026"),
+        ("JEE Main 2026 Online Form", "Admission", "Engineering entrance examination 2026"),
+        ("SSC JE 2026 Online Form", "Job Application", "Junior Engineer 2026 recruitment"),
+        ("Railway Group D 2026 Online Form", "Job Application", "Railway Group D 2026 posts"),
+        ("CDS 2026 Online Form", "Job Application", "Combined Defence Services 2026"),
+        ("NDA 2026 Online Form", "Job Application", "National Defence Academy 2026"),
+        ("CAPF 2026 Online Form", "Job Application", "Central Armed Police Forces 2026"),
+        ("Scholarship 2026 Online Form", "Scholarship", "Various government scholarships 2026"),
+        ("Pre Matric 2026 Online Form", "Scholarship", "Pre matric scholarships 2026"),
+        ("Post Matric 2026 Online Form", "Scholarship", "Post matric scholarships 2026"),
     ]
 
     for name, category, description in form_types:
         OnlineForm.objects.create(
-            name=f"{name} {random.randint(2024, 2026)}",
+            name=name,
             category=category,
             organization=random.choice(organizations),
             state=random.choice(states) if random.random() > 0.5 else None,
@@ -318,6 +349,7 @@ def create_mass_data():
         org = random.choice(organizations)
         CertificateVerification.objects.create(
             exam_name=f"{exam} Certificate Verification",
+            slug=f"{exam.lower().replace(' ', '-')}-verification-{random.randint(1000, 9999)}",
             organization=org,
             exam_category=random.choice(categories),
             verification_link=f"https://{org.name.lower()}.gov.in/verify/{exam.lower().replace(' ', '-')}",
