@@ -16,6 +16,174 @@ Delete the line below if you're just getting started and want to remove the welc
 {% comment %}
 Delete the line below if you're just getting started and want to remove the welcome screen!
 {% endcomment %}
-{% include 'home/welcome_page.html' %}
+{% load static %}
+{% load i18n wagtailcore_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarkari Naukri - Government Jobs & Results Portal</title>
+    <meta name="description" content="Find latest government job notifications, exam results, admit cards, syllabus updates, and board results. Your one-stop portal for sarkari naukri.">
+    <meta name="keywords" content="government jobs, sarkari naukri, exam results, admit cards, syllabus, board results, scholarships">
+    <link rel="stylesheet" href="{% static 'css/welcome_page.css' %}">
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <div class="logo">
+            <h1>Sarkari Naukri</h1>
+            <p class="tagline">Your Gateway to Government Jobs & Results</p>
+        </div>
+        <nav>
+            <a href="/content/jobs/">Jobs</a>
+            <a href="/content/results/">Results</a>
+            <a href="/content/admit-cards/">Admit Cards</a>
+            <a href="/content/syllabus/">Syllabus</a>
+            <a href="/content/board-results/">Board Results</a>
+            <a href="/content/scholarships/">Scholarships</a>
+            <a href="/content/online-forms/">Online Forms</a>
+            <a href="/content/important-notifications/">Notifications</a>
+            <a href="/content/certificate-verification/">Verification</a>
+            <a href="/admin/">Admin</a>
+        </nav>
+    </div>
+</header>
+
+<main class="main">
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="container">
+            <h2>Find Your Dream Government Job</h2>
+            <form action="/search/" method="get" class="search-form">
+                <input type="text" name="query" placeholder="Search jobs, results, admit cards..." required>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Latest Updates -->
+    <section class="latest-updates">
+        <div class="container">
+            <h2>🔥 Latest Updates</h2>
+            <div class="updates-grid">
+                <div class="update-card">
+                    <h3>📅 New Job Notifications</h3>
+                    <p>200 fresh job openings this month</p>
+                    <a href="/content/jobs/" class="btn">View All Jobs</a>
+                </div>
+                <div class="update-card">
+                    <h3>📊 Recent Results</h3>
+                    <p>100 exam results declared</p>
+                    <a href="/content/results/" class="btn">Check Results</a>
+                </div>
+                <div class="update-card">
+                    <h3>🎫 Admit Cards</h3>
+                    <p>120 admit cards available</p>
+                    <a href="/content/admit-cards/" class="btn">Download Cards</a>
+                </div>
+                <div class="update-card">
+                    <h3>📢 Notifications</h3>
+                    <p>8 important updates</p>
+                    <a href="/content/important-notifications/" class="btn">View Notifications</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Jobs -->
+    <section class="featured-jobs">
+        <div class="container">
+            <h2>⭐ Featured Jobs</h2>
+            <div class="jobs-grid">
+                <!-- Jobs will be loaded here -->
+                <div class="job-card">
+                    <div class="job-header">
+                        <h3><a href="#">Sample Job Title</a></h3>
+                        <span class="job-year">2026</span>
+                    </div>
+                    <div class="job-meta">
+                        <span class="organization">Sample Organization</span>
+                        <span class="vacancies">100 Posts</span>
+                    </div>
+                    <div class="job-dates">
+                        <span class="deadline">Apply by: Dec 31, 2026</span>
+                    </div>
+                    <a href="#" class="btn-small">Apply Now</a>
+                </div>
+            </div>
+            <div class="view-all">
+                <a href="/content/jobs/" class="btn">View All Jobs</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Links -->
+    <section class="quick-links">
+        <div class="container">
+            <h2>🚀 Quick Links</h2>
+            <div class="links-grid">
+                <a href="/content/jobs/" class="link-card">
+                    <div class="icon">💼</div>
+                    <h3>Government Jobs</h3>
+                    <p>Latest recruitment notifications</p>
+                </a>
+                <a href="/content/results/" class="link-card">
+                    <div class="icon">📈</div>
+                    <h3>Exam Results</h3>
+                    <p>Check your exam results</p>
+                </a>
+                <a href="/content/admit-cards/" class="link-card">
+                    <div class="icon">🎫</div>
+                    <h3>Admit Cards</h3>
+                    <p>Download hall tickets</p>
+                </a>
+                <a href="/content/syllabus/" class="link-card">
+                    <div class="icon">📚</div>
+                    <h3>Syllabus</h3>
+                    <p>Exam syllabus & patterns</p>
+                </a>
+                <a href="/content/board-results/" class="link-card">
+                    <div class="icon">🏫</div>
+                    <h3>Board Results</h3>
+                    <p>School & university results</p>
+                </a>
+                <a href="/content/scholarships/" class="link-card">
+                    <div class="icon">💰</div>
+                    <h3>Scholarships</h3>
+                    <p>Government scholarships</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics -->
+    <section class="stats-section">
+        <div class="container">
+            <h2>📈 Portal Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="number">200</div>
+                    <div class="label">Total Jobs</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">100</div>
+                    <div class="label">Exam Results</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">120</div>
+                    <div class="label">Admit Cards</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">7</div>
+                    <div class="label">Organizations</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>
 
 {% endblock content %}

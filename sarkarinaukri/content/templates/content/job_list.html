@@ -4,10 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Latest Job Postings - Sarkari Naukri</title>
+    <title>Latest Government Job Postings - Sarkari Naukri</title>
+    <meta name="description" content="Find the latest government job notifications, vacancies, and career opportunities in India. Apply for SSC, UPSC, banking, teaching, and other sarkari naukri positions.">
+    <meta name="keywords" content="government jobs, sarkari naukri, job notifications, SSC jobs, UPSC jobs, banking jobs, teaching jobs, police jobs">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="/">Sarkari Naukri</a>
+            <div class="navbar-nav">
+                <a class="nav-link" href="{% url 'job_list' %}">Jobs</a>
+                <a class="nav-link" href="{% url 'result_list' %}">Results</a>
+                <a class="nav-link" href="{% url 'admit_card_list' %}">Admit Cards</a>
+                <a class="nav-link" href="{% url 'syllabus_list' %}">Syllabus</a>
+            </div>
+        </div>
+    </nav>
     <div class="container mt-5">
         <h1 class="mb-4">Latest Government Job Postings</h1>
         <div class="row">
@@ -18,7 +31,7 @@
                         <h5 class="card-title">{{ job.title }}</h5>
                         <p class="card-text">{{ job.description|truncatechars:100 }}</p>
                         <p class="text-muted">Organization: {{ job.organization }}</p>
-                        <p class="text-muted">State: {{ job.state }} | Category: {{ job.category }}</p>
+                        <p class="text-muted">State: {{ job.state }} | Category: {{ job.exam_category }}</p>
                         <a href="{% url 'job_detail' job.pk %}" class="btn btn-primary">View Details</a>
                     </div>
                 </div>

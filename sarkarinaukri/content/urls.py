@@ -4,14 +4,14 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('jobs/', views.job_list, name='job_list'),
-    path('results/', views.result_list, name='result_list'),
-    path('admit-cards/', views.admit_card_list, name='admit_card_list'),
-    path('syllabus/', views.syllabus_list, name='syllabus_list'),
-    path('job/<int:pk>/', views.job_detail, name='job_detail'),
-    path('result/<int:pk>/', views.result_detail, name='result_detail'),
-    path('admit-card/<int:pk>/', views.admit_card_detail, name='admit_card_detail'),
-    path('syllabus/<int:pk>/', views.syllabus_detail, name='syllabus_detail'),
+    path('jobs/', views.JobListView.as_view(), name='job_list'),
+    path('results/', views.ResultListView.as_view(), name='result_list'),
+    path('admit-cards/', views.AdmitCardListView.as_view(), name='admit_card_list'),
+    path('syllabus/', views.SyllabusListView.as_view(), name='syllabus_list'),
+    path('job/<int:pk>/', views.JobDetailView.as_view(), name='job_detail'),
+    path('result/<int:pk>/', views.ResultDetailView.as_view(), name='result_detail'),
+    path('admit-card/<int:pk>/', views.AdmitCardDetailView.as_view(), name='admit_card_detail'),
+    path('syllabus/<int:pk>/', views.SyllabusDetailView.as_view(), name='syllabus_detail'),
     
     # New functionalities
     path('board-results/', views.board_results, name='board_results'),

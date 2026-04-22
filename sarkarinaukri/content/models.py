@@ -88,6 +88,7 @@ class JobPosting(models.Model):
     
     # Job Details
     vacancies = models.PositiveIntegerField(default=0)
+    year = models.IntegerField(db_index=True, help_text="Recruitment year (e.g., 2026)")
     job_level = models.CharField(
         max_length=20,
         choices=[('A', 'Group A'), ('B', 'Group B'), ('C', 'Group C'), ('D', 'Group D')],
@@ -140,8 +141,9 @@ class JobPosting(models.Model):
     meta_keywords = models.CharField(max_length=160, blank=True)
 
     class Meta:
-        ordering = ['-application_end_date', '-created_at']
+        ordering = ['-year', '-application_end_date', '-created_at']
         indexes = [
+            models.Index(fields=['year', '-application_end_date']),
             models.Index(fields=['state', '-created_at']),
             models.Index(fields=['organization', '-created_at']),
             models.Index(fields=['exam_category', '-created_at']),

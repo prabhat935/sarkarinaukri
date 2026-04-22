@@ -65,7 +65,7 @@ class JobListView(ListView):
     def get_queryset(self):
         queryset = JobPosting.objects.select_related(
             'organization', 'state', 'exam_category'
-        ).order_by('-application_end_date', '-created_at')
+        ).order_by('-year', '-application_end_date', '-created_at')
         
         # Apply filters
         filterset = JobPostingFilter(self.request.GET, queryset=queryset)
