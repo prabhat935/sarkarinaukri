@@ -1,15 +1,12 @@
 from .base import *
 
 import os
-import dj_database_url
 
 DEBUG = False
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'your-secret-key-here')
 
 ALLOWED_HOSTS = ['*']
-
-DATABASES['default'] = dj_database_url.config(default='sqlite:///db.sqlite3')
 
 MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 
