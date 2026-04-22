@@ -1,4 +1,4 @@
-Django>=6,<6.1
+Django>=5.2,<6.0
 wagtail==7.3rc1
 django-haystack
 Whoosh
