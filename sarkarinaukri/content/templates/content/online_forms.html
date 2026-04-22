@@ -1,0 +1,119 @@
+<!-- content/templates/content/online_forms.html -->
+{% extends "base.html" %}
+
+{% block title %}Online Forms - Sarkari Naukri{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Government Online Forms</h1>
+
+    <!-- Filters -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="get" class="row g-3">
+                <div class="col-md-4">
+                    <select name="category" class="form-select">
+                        <option value="">All Categories</option>
+                        {% for cat_code, cat_name in categories %}
+                        <option value="{{ cat_code }}" {% if request.GET.category == cat_code %}selected{% endif %}>
+                            {{ cat_name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <select name="state" class="form-select">
+                        <option value="">All States</option>
+                        {% for state in states %}
+                        <option value="{{ state.id }}" {% if request.GET.state == state.id|stringformat:"s" %}selected{% endif %}>
+                            {{ state.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Forms List -->
+    <div class="row">
+        {% for form in forms %}
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ form.name }}</h5>
+                    <div class="mb-2">
+                        <span class="badge bg-secondary">{{ form.get_category_display }}</span>
+                        {% if form.state %}
+                        <span class="badge bg-info">{{ form.state.name }}</span>
+                        {% endif %}
+                        {% if form.organization %}
+                        <span class="badge bg-primary">{{ form.organization.name }}</span>
+                        {% endif %}
+                    </div>
+                    {% if form.eligibility %}
+                    <p class="card-text"><strong>Eligibility:</strong> {{ form.eligibility|truncatechars:100 }}</p>
+                    {% endif %}
+                    <div class="mb-2">
+                        <strong>Application Period:</strong><br>
+                        {{ form.start_date|date:"d M Y" }} - {{ form.end_date|date:"d M Y" }}
+                    </div>
+                    {% if form.application_fee %}
+                    <div class="mb-2">
+                        <strong>Application Fee:</strong> ₹{{ form.application_fee }}
+                    </div>
+                    {% endif %}
+                    <div class="d-flex gap-2">
+                        <a href="{{ form.form_link }}" target="_blank" class="btn btn-primary">Apply Online</a>
+                        <span class="badge {% if form.status == 'Active' %}bg-success{% elif form.status == 'Extended' %}bg-warning{% else %}bg-danger{% endif %}">
+                            {{ form.get_status_display }}
+                        </span>
+                    </div>
+                    {% if form.instructions %}
+                    <div class="mt-2">
+                        <small class="text-muted">{{ form.instructions|truncatechars:150 }}</small>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">No online forms found.</div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if is_paginated %}
+    <nav aria-label="Online forms pagination">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% for key,value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Previous</a>
+            </li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ num }}{% for key,value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">{{ num }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% for key,value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Next</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}

@@ -12,4 +12,11 @@ urlpatterns = [
     path('result/<int:pk>/', views.result_detail, name='result_detail'),
     path('admit-card/<int:pk>/', views.admit_card_detail, name='admit_card_detail'),
     path('syllabus/<int:pk>/', views.syllabus_detail, name='syllabus_detail'),
+    
+    # New functionalities
+    path('board-results/', views.board_results, name='board_results'),
+    path('scholarships/', views.scholarships, name='scholarships'),
+    path('important-notifications/', views.important_notifications, name='important_notifications'),
+    path('online-forms/', views.online_forms, name='online_forms'),
+    path('certificate-verification/', views.certificate_verification, name='certificate_verification'),
 ]

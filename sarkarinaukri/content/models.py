@@ -352,6 +352,189 @@ class CertificateVerification(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.exam_name} - Certificate Verification"
+
+
+class BoardExamResult(models.Model):
+    """School board exam results (10th, 12th, etc.)"""
+    
+    BOARD_CHOICES = [
+        ('CBSE', 'Central Board of Secondary Education'),
+        ('ICSE', 'Indian Certificate of Secondary Education'),
+        ('UP Board', 'Uttar Pradesh Board'),
+        ('Bihar Board', 'Bihar School Examination Board'),
+        ('MP Board', 'Madhya Pradesh Board'),
+        ('Rajasthan Board', 'Rajasthan Board of Secondary Education'),
+        ('Haryana Board', 'Haryana Board of School Education'),
+        ('Punjab Board', 'Punjab School Education Board'),
+        ('Gujarat Board', 'Gujarat Secondary and Higher Secondary Education Board'),
+        ('Maharashtra Board', 'Maharashtra State Board of Secondary and Higher Secondary Education'),
+    ]
+    
+    board = models.CharField(max_length=20, choices=BOARD_CHOICES)
+    exam_type = models.CharField(max_length=10, choices=[('10th', 'Class 10th'), ('12th', 'Class 12th')])
+    year = models.IntegerField()
+    
+    result_link = models.URLField(help_text="Direct link to board result website")
+    digilocker_link = models.URLField(blank=True, help_text="DigiLocker verification link")
+    
+    result_date = models.DateField()
+    is_declared = models.BooleanField(default=False)
+    
+    total_students = models.PositiveIntegerField(null=True, blank=True)
+    pass_percentage = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-result_date']
+        unique_together = ['board', 'exam_type', 'year']
+
+    def __str__(self):
+        return f"{self.board} {self.exam_type} Result {self.year}"
+
+
+class Scholarship(models.Model):
+    """Government scholarships"""
+    
+    name = models.CharField(max_length=200, db_index=True)
+    slug = models.SlugField(unique=True, db_index=True)
+    
+    state = models.ForeignKey(State, on_delete=models.SET_NULL, null=True, blank=True)
+    category = models.CharField(
+        max_length=20,
+        choices=[
+            ('SC/ST', 'SC/ST Scholarship'),
+            ('OBC', 'OBC Scholarship'),
+            ('Minority', 'Minority Scholarship'),
+            ('Merit', 'Merit Scholarship'),
+            ('General', 'General Scholarship'),
+        ]
+    )
+    
+    application_start_date = models.DateField()
+    application_end_date = models.DateField()
+    application_link = models.URLField()
+    
+    eligibility = models.TextField()
+    benefits = models.TextField()
+    documents_required = models.TextField(blank=True)
+    
+    status = models.CharField(
+        max_length=20,
+        choices=[
+            ('Open', 'Open'),
+            ('Closed', 'Closed'),
+            ('Coming Soon', 'Coming Soon'),
+        ],
+        default='Open'
+    )
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-application_end_date']
+
+    def __str__(self):
+        return self.name
+
+
+class ImportantNotification(models.Model):
+    """Important government notifications and updates"""
+    
+    title = models.CharField(max_length=300, db_index=True)
+    slug = models.SlugField(unique=True, db_index=True)
+    
+    category = models.CharField(
+        max_length=50,
+        choices=[
+            ('Government', 'Government Notification'),
+            ('Exam', 'Exam Notification'),
+            ('Admission', 'Admission Notification'),
+            ('Recruitment', 'Recruitment Notification'),
+            ('Policy', 'Policy Update'),
+            ('Other', 'Other'),
+        ]
+    )
+    
+    description = models.TextField()
+    notification_link = models.URLField(blank=True)
+    pdf_link = models.URLField(blank=True)
+    
+    state = models.ForeignKey(State, on_delete=models.SET_NULL, null=True, blank=True)
+    organization = models.ForeignKey(Organization, on_delete=models.SET_NULL, null=True, blank=True)
+    
+    is_urgent = models.BooleanField(default=False)
+    published_date = models.DateField(auto_now_add=True)
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-is_urgent', '-published_date']
+
+    def __str__(self):
+        return self.title
+
+
+class OnlineForm(models.Model):
+    """Various government online forms"""
+    
+    name = models.CharField(max_length=200, db_index=True)
+    slug = models.SlugField(unique=True, db_index=True)
+    
+    category = models.CharField(
+        max_length=50,
+        choices=[
+            ('Job Application', 'Job Application'),
+            ('Admission', 'Admission Form'),
+            ('Certificate', 'Certificate Application'),
+            ('License', 'License Application'),
+            ('Scholarship', 'Scholarship Application'),
+            ('Other', 'Other'),
+        ]
+    )
+    
+    organization = models.ForeignKey(Organization, on_delete=models.SET_NULL, null=True, blank=True)
+    state = models.ForeignKey(State, on_delete=models.SET_NULL, null=True, blank=True)
+    
+    form_link = models.URLField()
+    application_fee = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    
+    start_date = models.DateField()
+    end_date = models.DateField()
+    
+    eligibility = models.TextField(blank=True)
+    instructions = models.TextField(blank=True)
+    
+    status = models.CharField(
+        max_length=20,
+        choices=[
+            ('Active', 'Active'),
+            ('Closed', 'Closed'),
+            ('Extended', 'Extended'),
+        ],
+        default='Active'
+    )
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-start_date']
+
+    def __str__(self):
+        return self.name
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     def __str__(self):
         return f"{self.exam_name} - Certificate Verification"
 

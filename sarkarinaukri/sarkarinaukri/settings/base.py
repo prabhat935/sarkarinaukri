@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     "modelcluster",
     "taggit",
     "django_filters",
-    "django_celery_beat",
+    # "django_celery_beat",  # Temporarily disabled
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -101,12 +101,8 @@ WSGI_APPLICATION = "sarkarinaukri.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("PGDATABASE", "sarkarinaukri"),
-        "USER": os.getenv("PGUSER", "postgres"),
-        "PASSWORD": os.getenv("PGPASSWORD", ""),
-        "HOST": os.getenv("PGHOST", "localhost"),
-        "PORT": os.getenv("PGPORT", "5432"),
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 

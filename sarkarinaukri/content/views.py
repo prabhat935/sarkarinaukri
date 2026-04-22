@@ -7,7 +7,8 @@ from django_filters import FilterSet, CharFilter, ChoiceFilter, DateFromToRangeF
 import django_filters
 from .models import (
     JobPosting, ExamResult, AdmitCard, Syllabus, AnswerKey,
-    Organization, ExamCategory, State
+    Organization, ExamCategory, State, AdmissionForm, CertificateVerification,
+    BoardExamResult, Scholarship, ImportantNotification, OnlineForm
 )
 
 
@@ -278,3 +279,183 @@ def syllabus_list(request):
 def syllabus_detail(request, pk):
     syllabus = get_object_or_404(Syllabus, pk=pk)
     return render(request, 'content/syllabus_detail.html', {'syllabus': syllabus})
+
+
+# ============= NEW FUNCTIONALITY VIEWS =============
+
+class BoardExamResultListView(ListView):
+    """Board exam results listing"""
+    model = BoardExamResult
+    template_name = 'content/board_results.html'
+    context_object_name = 'board_results'
+    paginate_by = 20
+
+    def get_queryset(self):
+        queryset = BoardExamResult.objects.all().order_by('-result_date')
+        
+        # Filter by board
+        board = self.request.GET.get('board')
+        if board:
+            queryset = queryset.filter(board=board)
+        
+        # Filter by exam type
+        exam_type = self.request.GET.get('exam_type')
+        if exam_type:
+            queryset = queryset.filter(exam_type=exam_type)
+        
+        # Filter by year
+        year = self.request.GET.get('year')
+        if year:
+            queryset = queryset.filter(year=year)
+        
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['boards'] = BoardExamResult.BOARD_CHOICES
+        context['exam_types'] = BoardExamResult._meta.get_field('exam_type').choices
+        
+        # Get available years
+        years = BoardExamResult.objects.values_list('year', flat=True).distinct().order_by('-year')
+        context['years'] = years[:10]
+        
+        return context
+
+
+class ScholarshipListView(ListView):
+    """Scholarships listing"""
+    model = Scholarship
+    template_name = 'content/scholarships.html'
+    context_object_name = 'scholarships'
+    paginate_by = 20
+
+    def get_queryset(self):
+        queryset = Scholarship.objects.filter(status='Open').order_by('-application_end_date')
+        
+        # Filter by state
+        state_id = self.request.GET.get('state')
+        if state_id:
+            queryset = queryset.filter(state_id=state_id)
+        
+        # Filter by category
+        category = self.request.GET.get('category')
+        if category:
+            queryset = queryset.filter(category=category)
+        
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['states'] = State.objects.filter(is_featured=True)
+        context['categories'] = Scholarship._meta.get_field('category').choices
+        return context
+
+
+class ImportantNotificationListView(ListView):
+    """Important notifications listing"""
+    model = ImportantNotification
+    template_name = 'content/important_notifications.html'
+    context_object_name = 'notifications'
+    paginate_by = 20
+
+    def get_queryset(self):
+        queryset = ImportantNotification.objects.all().order_by('-is_urgent', '-published_date')
+        
+        # Filter by category
+        category = self.request.GET.get('category')
+        if category:
+            queryset = queryset.filter(category=category)
+        
+        # Filter by state
+        state_id = self.request.GET.get('state')
+        if state_id:
+            queryset = queryset.filter(state_id=state_id)
+        
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = ImportantNotification._meta.get_field('category').choices
+        context['states'] = State.objects.filter(is_featured=True)
+        return context
+
+
+class OnlineFormListView(ListView):
+    """Online forms listing"""
+    model = OnlineForm
+    template_name = 'content/online_forms.html'
+    context_object_name = 'forms'
+    paginate_by = 20
+
+    def get_queryset(self):
+        queryset = OnlineForm.objects.filter(status='Active').order_by('-start_date')
+        
+        # Filter by category
+        category = self.request.GET.get('category')
+        if category:
+            queryset = queryset.filter(category=category)
+        
+        # Filter by state
+        state_id = self.request.GET.get('state')
+        if state_id:
+            queryset = queryset.filter(state_id=state_id)
+        
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = OnlineForm._meta.get_field('category').choices
+        context['states'] = State.objects.filter(is_featured=True)
+        return context
+
+
+class CertificateVerificationListView(ListView):
+    """Certificate verification listing"""
+    model = CertificateVerification
+    template_name = 'content/certificate_verification.html'
+    context_object_name = 'verifications'
+    paginate_by = 20
+
+    def get_queryset(self):
+        queryset = CertificateVerification.objects.select_related(
+            'organization', 'exam_category'
+        ).order_by('-created_at')
+        
+        # Filter by organization
+        org_id = self.request.GET.get('organization')
+        if org_id:
+            queryset = queryset.filter(organization_id=org_id)
+        
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['organizations'] = Organization.objects.filter(is_featured=True)
+        return context
+
+
+# Function-based views for new features
+def board_results(request):
+    """Board exam results page"""
+    view = BoardExamResultListView.as_view()
+    return view(request)
+
+def scholarships(request):
+    """Scholarships page"""
+    view = ScholarshipListView.as_view()
+    return view(request)
+
+def important_notifications(request):
+    """Important notifications page"""
+    view = ImportantNotificationListView.as_view()
+    return view(request)
+
+def online_forms(request):
+    """Online forms page"""
+    view = OnlineFormListView.as_view()
+    return view(request)
+
+def certificate_verification(request):
+    """Certificate verification page"""
+    view = CertificateVerificationListView.as_view()
+    return view(request)

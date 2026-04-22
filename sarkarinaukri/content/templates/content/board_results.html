@@ -1,0 +1,127 @@
+<!-- content/templates/content/board_results.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Board Exam Results - Sarkari Naukri</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="mb-4">Board Exam Results</h1>
+
+    <!-- Filters -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="get" class="row g-3">
+                <div class="col-md-3">
+                    <select name="board" class="form-select">
+                        <option value="">All Boards</option>
+                        {% for board_code, board_name in boards %}
+                        <option value="{{ board_code }}" {% if request.GET.board == board_code %}selected{% endif %}>
+                            {{ board_name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select name="exam_type" class="form-select">
+                        <option value="">All Classes</option>
+                        {% for type_code, type_name in exam_types %}
+                        <option value="{{ type_code }}" {% if request.GET.exam_type == type_code %}selected{% endif %}>
+                            {{ type_name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select name="year" class="form-select">
+                        <option value="">All Years</option>
+                        {% for year in years %}
+                        <option value="{{ year }}" {% if request.GET.year|stringformat:"s" == year|stringformat:"s" %}selected{% endif %}>
+                            {{ year }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Results List -->
+    <div class="row">
+        {% for result in board_results %}
+        <div class="col-md-6 mb-4">
+            <div class="card {% if result.is_declared %}border-success{% else %}border-warning{% endif %}">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        {{ result.get_board_display }} {{ result.get_exam_type_display }} Result {{ result.year }}
+                        {% if result.is_declared %}
+                        <span class="badge bg-success">Declared</span>
+                        {% else %}
+                        <span class="badge bg-warning">Coming Soon</span>
+                        {% endif %}
+                    </h5>
+                    <p class="card-text">
+                        Result Date: {{ result.result_date|date:"d M Y" }}
+                        {% if result.total_students %}
+                        <br>Total Students: {{ result.total_students }}
+                        {% endif %}
+                        {% if result.pass_percentage %}
+                        <br>Pass Percentage: {{ result.pass_percentage }}%
+                        {% endif %}
+                    </p>
+                    <div class="d-flex gap-2">
+                        {% if result.result_link %}
+                        <a href="{{ result.result_link }}" target="_blank" class="btn btn-primary">View Result</a>
+                        {% endif %}
+                        {% if result.digilocker_link %}
+                        <a href="{{ result.digilocker_link }}" target="_blank" class="btn btn-outline-primary">DigiLocker</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">No board exam results found.</div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if is_paginated %}
+    <nav aria-label="Board results pagination">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            </li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
