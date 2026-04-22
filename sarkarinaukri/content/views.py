@@ -2,51 +2,249 @@
 
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
-from .models import JobPosting, ExamResult, AdmitCard, Syllabus
+from django.db.models import Q
+from django_filters import FilterSet, CharFilter, ChoiceFilter, DateFromToRangeFilter
+import django_filters
+from .models import (
+    JobPosting, ExamResult, AdmitCard, Syllabus, AnswerKey,
+    Organization, ExamCategory, State
+)
+
+
+# ============= FILTER CLASSES =============
+
+class JobPostingFilter(django_filters.FilterSet):
+    """Advanced filtering for job postings"""
+    title = django_filters.CharFilter(
+        lookup_expr='icontains',
+        label='Job Title'
+    )
+    organization = django_filters.ModelChoiceFilter(
+        queryset=Organization.objects.all(),
+        label='Organization'
+    )
+    state = django_filters.ModelChoiceFilter(
+        queryset=State.objects.filter(is_featured=True),
+        label='State'
+    )
+    exam_category = django_filters.ModelChoiceFilter(
+        queryset=ExamCategory.objects.all(),
+        label='Category'
+    )
+    status = django_filters.ChoiceFilter(
+        choices=JobPosting._meta.get_field('status').choices
+    )
+    job_level = django_filters.ChoiceFilter(
+        choices=JobPosting._meta.get_field('job_level').choices
+    )
+    application_end_date = django_filters.DateFromToRangeFilter(
+        label='Application Deadline'
+    )
+
+    class Meta:
+        model = JobPosting
+        fields = ['title', 'organization', 'state', 'exam_category', 'status', 'job_level']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Make filters not required
+        for field in self.filters:
+            self.filters[field].extra['required'] = False
+
+
+# ============= VIEW CLASSES =============
 
 class JobListView(ListView):
+    """Job listings with advanced filtering"""
     model = JobPosting
     template_name = 'content/job_list.html'
     context_object_name = 'jobs'
     paginate_by = 20
 
+    def get_queryset(self):
+        queryset = JobPosting.objects.select_related(
+            'organization', 'state', 'exam_category'
+        ).order_by('-application_end_date', '-created_at')
+        
+        # Apply filters
+        filterset = JobPostingFilter(self.request.GET, queryset=queryset)
+        return filterset.qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filterset'] = JobPostingFilter(self.request.GET)
+        
+        # Add filter options
+        context['organizations'] = Organization.objects.filter(is_featured=True)
+        context['states'] = State.objects.filter(is_featured=True)
+        context['categories'] = ExamCategory.objects.filter(is_featured=True)
+        
+        return context
+
+
 class JobDetailView(DetailView):
+    """Job detail page with related jobs"""
     model = JobPosting
     template_name = 'content/job_detail.html'
     context_object_name = 'job'
+    slug_field = 'slug'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        job = self.get_object()
+        
+        # Show related jobs from same organization
+        context['related_jobs'] = JobPosting.objects.filter(
+            organization=job.organization,
+            status='Active'
+        ).exclude(pk=job.pk)[:5]
+        
+        # Check if user has saved this job
+        if self.request.user.is_authenticated:
+            from .models import SavedJob
+            context['is_saved'] = SavedJob.objects.filter(
+                user=self.request.user,
+                job=job
+            ).exists()
+        
+        return context
+
 
 class ResultListView(ListView):
+    """Results listing with year and organization filtering"""
     model = ExamResult
     template_name = 'content/result_list.html'
     context_object_name = 'results'
     paginate_by = 20
 
+    def get_queryset(self):
+        queryset = ExamResult.objects.select_related(
+            'organization', 'state', 'exam_category'
+        ).order_by('-exam_year', '-result_date')
+        
+        # Filter by organization
+        org_id = self.request.GET.get('organization')
+        if org_id:
+            queryset = queryset.filter(organization_id=org_id)
+        
+        # Filter by state
+        state_id = self.request.GET.get('state')
+        if state_id:
+            queryset = queryset.filter(state_id=state_id)
+        
+        # Filter by year
+        year = self.request.GET.get('year')
+        if year:
+            queryset = queryset.filter(exam_year=year)
+        
+        # Search by exam name
+        search = self.request.GET.get('search')
+        if search:
+            queryset = queryset.filter(exam_name__icontains=search)
+        
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['organizations'] = Organization.objects.filter(is_featured=True)
+        context['states'] = State.objects.filter(is_featured=True)
+        
+        # Get available years
+        years = ExamResult.objects.values_list('exam_year', flat=True).distinct().order_by('-exam_year')
+        context['years'] = years[:10]  # Last 10 years
+        
+        # Preserve search params
+        context['selected_org'] = self.request.GET.get('organization')
+        context['selected_state'] = self.request.GET.get('state')
+        context['selected_year'] = self.request.GET.get('year')
+        context['search_query'] = self.request.GET.get('search')
+        
+        return context
+
+
 class ResultDetailView(DetailView):
+    """Result detail page"""
     model = ExamResult
     template_name = 'content/result_detail.html'
     context_object_name = 'result'
+    slug_field = 'slug'
+
 
 class AdmitCardListView(ListView):
+    """Admit cards listing"""
     model = AdmitCard
     template_name = 'content/admit_card_list.html'
     context_object_name = 'admit_cards'
     paginate_by = 20
 
+    def get_queryset(self):
+        queryset = AdmitCard.objects.select_related(
+            'organization', 'state', 'exam_category'
+        ).order_by('-admit_card_date')
+        
+        # Filter by organization
+        org_id = self.request.GET.get('organization')
+        if org_id:
+            queryset = queryset.filter(organization_id=org_id)
+        
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['organizations'] = Organization.objects.filter(is_featured=True)
+        return context
+
+
 class AdmitCardDetailView(DetailView):
+    """Admit card detail page"""
     model = AdmitCard
     template_name = 'content/admit_card_detail.html'
     context_object_name = 'admit_card'
+    slug_field = 'slug'
+
+
+class AnswerKeyListView(ListView):
+    """Answer keys listing"""
+    model = AnswerKey
+    template_name = 'content/answer_key_list.html'
+    context_object_name = 'answer_keys'
+    paginate_by = 20
+
+    def get_queryset(self):
+        return AnswerKey.objects.select_related(
+            'organization', 'state', 'exam_category'
+        ).order_by('-exam_date')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['organizations'] = Organization.objects.filter(is_featured=True)
+        return context
+
 
 class SyllabusListView(ListView):
+    """Syllabus listing"""
     model = Syllabus
     template_name = 'content/syllabus_list.html'
     context_object_name = 'syllabi'
     paginate_by = 20
 
+    def get_queryset(self):
+        return Syllabus.objects.select_related(
+            'organization', 'state', 'exam_category'
+        ).order_by('-exam_year')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['organizations'] = Organization.objects.filter(is_featured=True)
+        return context
+
+
 class SyllabusDetailView(DetailView):
+    """Syllabus detail page"""
     model = Syllabus
     template_name = 'content/syllabus_detail.html'
     context_object_name = 'syllabus'
+    slug_field = 'slug'
 
 # Function-based views for simplicity
 def job_list(request):

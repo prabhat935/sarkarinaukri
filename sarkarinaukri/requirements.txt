@@ -1,8 +1,35 @@
 Django>=5.2,<6.0
-wagtail==7.3rc1
+wagtail>=7.0
 django-haystack
 Whoosh
+
+# Database & Caching
 psycopg2-binary
+redis
 dj-database-url
+
+# Task Queue & Notifications
+celery
+django-celery-beat
+twilio
+
+# SEO & Meta
+django-meta
+
+# Security
+django-cors-headers
 whitenoise
+
+# Filtering
+django-filter
+
+# Utilities
+django-extensions
+python-decouple
+Pillow
+
+# Monitoring
+sentry-sdk
+
+# Deployment
 gunicorn

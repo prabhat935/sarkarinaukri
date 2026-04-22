@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     "home",
     "search",
     "content",
+    "notifications",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.embeds",
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     "modelcluster",
     "taggit",
     "django_filters",
+    "django_celery_beat",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -190,3 +192,64 @@ WAGTAILADMIN_BASE_URL = "http://example.com"
 # if untrusted users are allowed to upload files -
 # see https://docs.wagtail.org/en/stable/advanced_topics/deploying.html#user-uploaded-files
 WAGTAILDOCS_EXTENSIONS = ['csv', 'docx', 'key', 'odt', 'pdf', 'pptx', 'rtf', 'txt', 'xlsx', 'zip']
+
+
+# ============= CELERY CONFIGURATION =============
+
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60  # 30 minutes
+
+# Celery Beat Schedule
+CELERY_BEAT_SCHEDULE = {
+    'send-daily-job-digest': {
+        'task': 'notifications.tasks.send_daily_job_digest',
+        'schedule': 86400.0,  # Every 24 hours
+    },
+    'process-alert-rules': {
+        'task': 'notifications.tasks.process_alert_rules',
+        'schedule': 3600.0,  # Every hour
+    },
+    'cleanup-old-notifications': {
+        'task': 'notifications.tasks.cleanup_old_notifications',
+        'schedule': 604800.0,  # Every week
+    },
+}
+
+
+# ============= EMAIL CONFIGURATION =============
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+DEFAULT_FROM_EMAIL = 'noreply@sarkarinaukri.com'
+
+
+# ============= CACHING CONFIGURATION =============
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+    }
+}
+
+
+# ============= SECURITY SETTINGS =============
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'http://localhost:8000',
+]
+
+# CSRF
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:3000',
+    'http://localhost:8000',
+]
+
