@@ -40,9 +40,7 @@ class Command(BaseCommand):
                 User.objects.create_superuser(
                     username='admin',
                     email='admin@example.com',
-                    password='admin123',
-                    is_staff=True,
-                    is_superuser=True
+                    password='admin123'
                 )
                 self.stdout.write(self.style.SUCCESS('✓ Superuser created: admin/admin123'))
             else:
@@ -64,8 +62,7 @@ class Command(BaseCommand):
 
                 homepage = HomePage(
                     title='Sarkari Naukri',
-                    slug='home',
-                    body='Welcome to Sarkari Naukri - Your gateway to government jobs in India.'
+                    slug='home'
                 )
                 root_page.add_child(instance=homepage)
                 # Publish the homepage
