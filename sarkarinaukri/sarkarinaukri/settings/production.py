@@ -1,24 +1,27 @@
 from .base import *
-
 import os
+import dj_database_url
 
 DEBUG = False
 
-SECRET_KEY = os.environ.get('SECRET_KEY', 'your-secret-key-here')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')  # set in Railway Variables
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['sarkarinaukri-production.up.railway.app']
 
 MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-# ManifestStaticFilesStorage is recommended in production, to prevent
-# outdated JavaScript / CSS assets being served from cache
-# (e.g. after a Wagtail upgrade).
-# See https://docs.djangoproject.com/en/5.2/ref/contrib/staticfiles/#manifeststaticfilesstorage
 STORAGES["staticfiles"]["BACKEND"] = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
-# Skip heavy sample data population during deployment to avoid timeouts
+# Database: use Railway's Postgres
+DATABASES = {
+    "default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))
+}
+
+# Wagtail admin URL
+WAGTAILADMIN_BASE_URL = "https://sarkarinaukri-production.up.railway.app"
+
+# Skip heavy sample data population during deployment
 os.environ.setdefault('SKIP_SAMPLE_DATA', 'true')
 
 try:
