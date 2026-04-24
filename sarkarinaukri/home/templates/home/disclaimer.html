@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Disclaimer - Sarkari Naukri{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/welcome_page.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+    .legal-page {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        line-height: 1.8;
+    }
+    .legal-page h2 {
+        color: #1e3a8a;
+        margin-top: 30px;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #3b82f6;
+        padding-bottom: 10px;
+    }
+    .legal-page h3 {
+        color: #3b82f6;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+    .legal-page p, .legal-page li {
+        color: #333;
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+    .legal-page ul {
+        margin-left: 20px;
+        margin-bottom: 15px;
+    }
+    .disclaimer-box {
+        background: #fff3cd;
+        border-left: 4px solid #ffc107;
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 4px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="body-wrapper">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="/">
+                    <i class="fas fa-exclamation-circle"></i>
+                    Sarkari Naukri
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="{% url 'home' %}" class="nav-link">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="{% url 'job_list' %}" class="nav-link">
+                    <i class="fas fa-briefcase"></i> Jobs
+                </a>
+                <a href="{% url 'privacy_policy' %}" class="nav-link">
+                    <i class="fas fa-shield-alt"></i> Privacy
+                </a>
+                <a href="{% url 'terms_of_service' %}" class="nav-link">
+                    <i class="fas fa-file-contract"></i> Terms
+                </a>
+                <a href="{% url 'disclaimer' %}" class="nav-link active">
+                    <i class="fas fa-exclamation-circle"></i> Disclaimer
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="legal-page">
+        <h1>Disclaimer</h1>
+        <p><strong>Last Updated: April 24, 2026</strong></p>
+
+        <div class="disclaimer-box">
+            <strong>⚠️ Important Notice:</strong> Sarkari Naukri is an independent information portal and is NOT affiliated with any government department or official agency. All information is provided for educational and informational purposes only.
+        </div>
+
+        <h2>1. No Official Affiliation</h2>
+        <p>Sarkari Naukri is an independent website providing aggregated information about government job notifications, exam results, and related updates. We are NOT:</p>
+        <ul>
+            <li>Officially affiliated with Staff Selection Commission (SSC)</li>
+            <li>Affiliated with Union Public Service Commission (UPSC)</li>
+            <li>Affiliated with Railway Recruitment Board (RRB)</li>
+            <li>Affiliated with IBPS, SBI, or any other government organization</li>
+            <li>Affiliated with any state or central government department</li>
+        </ul>
+
+        <h2>2. Information Accuracy</h2>
+        <p>While we strive to provide accurate and up-to-date information, we do NOT guarantee:</p>
+        <ul>
+            <li>Completeness or accuracy of any information</li>
+            <li>Timeliness of notifications or updates</li>
+            <li>Verification of third-party information</li>
+            <li>Absence of errors or omissions</li>
+        </ul>
+        <p>Users are advised to verify all important information from official government sources before taking any action.</p>
+
+        <h2>3. Official Information Sources</h2>
+        <p>For official information, please always consult:</p>
+        <ul>
+            <li><strong>SSC Jobs & Results:</strong> www.ssc.nic.in</li>
+            <li><strong>UPSC Jobs & Results:</strong> www.upsc.gov.in</li>
+            <li><strong>Railway Jobs:</strong> www.indianrailways.gov.in</li>
+            <li><strong>Banking Jobs (IBPS):</strong> www.ibps.in</li>
+            <li><strong>SBI Jobs:</strong> www.sbi.co.in</li>
+            <li><strong>RBI Jobs:</strong> www.rbi.org.in</li>
+        </ul>
+
+        <h2>4. Limitation of Liability</h2>
+        <p>Sarkari Naukri and its owners shall not be liable for:</p>
+        <ul>
+            <li>Any direct, indirect, incidental, special, or consequential damages</li>
+            <li>Loss of data, income, or business opportunities</li>
+            <li>Missed application deadlines or exam dates</li>
+            <li>Any errors or omissions in published information</li>
+            <li>Third-party content or services</li>
+        </ul>
+
+        <h2>5. Advertisements & Third-Party Content</h2>
+        <p>This website contains advertisements and external links to third-party websites. We do NOT:</p>
+        <ul>
+            <li>Endorse any advertised products or services</li>
+            <li>Guarantee the quality or legitimacy of advertisements</li>
+            <li>Assume responsibility for third-party websites or services</li>
+            <li>Verify information provided by external links</li>
+        </ul>
+        <p>Users access third-party content at their own risk. Please read the privacy and terms policies of any third-party website before providing personal information.</p>
+
+        <h2>6. User Responsibility</h2>
+        <p>Users are responsible for:</p>
+        <ul>
+            <li>Verifying all information from official sources</li>
+            <li>Checking official application deadlines independently</li>
+            <li>Ensuring eligibility before applying for positions</li>
+            <li>Complying with all applicable laws and regulations</li>
+            <li>Using the website in a lawful and ethical manner</li>
+        </ul>
+
+        <h2>7. Employment Advice Disclaimer</h2>
+        <p>Information provided on this website should NOT be considered as professional employment advice. We recommend consulting with career counselors, HR professionals, or official job portals for personalized guidance.</p>
+
+        <h2>8. Government Data Usage</h2>
+        <p>Information about government notifications, results, and job postings is sourced from publicly available government websites and documents. This information is for reference purposes only. Always verify critical information from official government sources.</p>
+
+        <h2>9. Changes to Disclaimer</h2>
+        <p>Sarkari Naukri reserves the right to modify this disclaimer at any time. Continued use of the website constitutes acceptance of any modifications.</p>
+
+        <h2>10. Contact & Concerns</h2>
+        <p>If you have concerns about content accuracy or believe any information is misleading, please contact us at admin@sarkarinaukri.com</p>
+
+        <div class="disclaimer-box" style="background: #d4edda; border-left-color: #28a745;">
+            <strong>✓ Always Remember:</strong> Visit official government websites for critical decisions. Sarkari Naukri is an information aggregator, not an official source. Your career decisions should be based on verified, official information.
+        </div>
+
+        <p style="margin-top: 40px; border-top: 1px solid #ddd; padding-top: 20px; text-align: center; color: #666; font-size: 13px;">
+            © 2026 Sarkari Naukri. All rights reserved.
+        </p>
+    </div>
+</div>
+{% endblock %}

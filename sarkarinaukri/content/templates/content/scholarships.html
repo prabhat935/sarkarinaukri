@@ -1,11 +1,72 @@
 <!-- content/templates/content/scholarships.html -->
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Government Scholarships - Sarkari Naukri{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/welcome_page.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}
+
 {% block content %}
-<div class="container mt-5">
-    <h1 class="mb-4">Government Scholarships</h1>
+<div class="body-wrapper">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="/">
+                    <i class="fas fa-money-bill-wave"></i>
+                    Sarkari Naukri
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="{% url 'job_list' %}" class="nav-link">
+                    <i class="fas fa-briefcase"></i> Jobs
+                </a>
+                <a href="{% url 'result_list' %}" class="nav-link">
+                    <i class="fas fa-chart-bar"></i> Results
+                </a>
+                <a href="{% url 'admit_card_list' %}" class="nav-link">
+                    <i class="fas fa-id-card"></i> Admit Cards
+                </a>
+                <a href="{% url 'answer_key_list' %}" class="nav-link">
+                    <i class="fas fa-key"></i> Answer Keys
+                </a>
+                <a href="{% url 'syllabus_list' %}" class="nav-link">
+                    <i class="fas fa-book"></i> Syllabus
+                </a>
+                <a href="{% url 'board_results' %}" class="nav-link">
+                    <i class="fas fa-graduation-cap"></i> Board Results
+                </a>
+                <a href="{% url 'scholarships' %}" class="nav-link active">
+                    <i class="fas fa-money-bill-wave"></i> Scholarships
+                </a>
+                <a href="{% url 'important_notifications' %}" class="nav-link">
+                    <i class="fas fa-bell"></i> Notifications
+                </a>
+                <a href="{% url 'online_forms' %}" class="nav-link">
+                    <i class="fas fa-file-alt"></i> Online Forms
+                </a>
+                <a href="{% url 'certificate_verification' %}" class="nav-link">
+                    <i class="fas fa-certificate"></i> Verification
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">
+                <i class="fas fa-money-bill-wave"></i>
+                Government Scholarships
+            </h1>
+            <p class="page-subtitle">Explore government scholarship programs for students. Apply for scholarships based on merit, category, and state eligibility</p>
+        </div>
+    </section>
+
+    <div class="container">
 
     <!-- Filters -->
     <div class="card mb-4">
@@ -103,5 +164,6 @@
         </ul>
     </nav>
     {% endif %}
+    </div>
 </div>
 {% endblock %}

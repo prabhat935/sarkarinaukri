@@ -88,6 +88,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "sarkarinaukri.context_processors.monetization_context",
             ],
         },
     },
@@ -170,6 +171,19 @@ STORAGES = {
 # Django sets a maximum of 1000 fields per form by default, but particularly complex page models
 # can exceed this limit within Wagtail's page editor.
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10_000
+
+# ============= GOOGLE ANALYTICS & ADSENSE SETTINGS =============
+# Google Analytics
+GOOGLE_ANALYTICS_ID = os.environ.get('GOOGLE_ANALYTICS_ID', '')  # Add your GA ID here
+
+# Google AdSense
+GOOGLE_ADSENSE_CLIENT_ID = os.environ.get('GOOGLE_ADSENSE_CLIENT_ID', '')  # Add your AdSense Client ID
+GOOGLE_ADSENSE_ENABLED = os.environ.get('GOOGLE_ADSENSE_ENABLED', 'False') == 'True'
+
+# SEO & Monetization
+SITE_NAME = 'Sarkari Naukri'
+SITE_DESCRIPTION = 'India\'s most trusted government jobs, exam results, and notifications portal'
+SITE_KEYWORDS = 'government jobs, sarkari naukri, exam results, admit cards, scholarships, SSC, UPSC, bank jobs'
 
 
 # Wagtail settings
