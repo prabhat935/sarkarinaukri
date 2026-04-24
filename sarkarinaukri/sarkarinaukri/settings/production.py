@@ -18,6 +18,9 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # See https://docs.djangoproject.com/en/5.2/ref/contrib/staticfiles/#manifeststaticfilesstorage
 STORAGES["staticfiles"]["BACKEND"] = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
+# Skip heavy sample data population during deployment to avoid timeouts
+os.environ.setdefault('SKIP_SAMPLE_DATA', 'true')
+
 try:
     from .local import *
 except ImportError:

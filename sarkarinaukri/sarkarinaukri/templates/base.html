@@ -15,8 +15,33 @@
         </title>
         {% if page.search_description %}
         <meta name="description" content="{{ page.search_description }}" />
+        {% else %}
+        <meta name="description" content="{{ site_description }}" />
         {% endif %}
+        <meta name="keywords" content="{{ site_keywords }}" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="robots" content="index, follow" />
+        <meta name="language" content="English" />
+        <meta property="og:title" content="{% block og_title %}{{ site_name }}{% endblock %}" />
+        <meta property="og:description" content="{% block og_description %}{{ site_description }}{% endblock %}" />
+        <meta property="og:type" content="website" />
+
+        {# Google Analytics #}
+        {% if google_analytics_id %}
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ google_analytics_id }}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '{{ google_analytics_id }}');
+        </script>
+        {% endif %}
+
+        {# Google AdSense #}
+        {% if google_adsense_enabled and google_adsense_client_id %}
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ google_adsense_client_id }}"
+     crossorigin="anonymous"></script>
+        {% endif %}
 
         {# Force all links in the live preview panel to be opened in a new tab #}
         {% if request.in_preview_panel %}
