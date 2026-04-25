@@ -1,4 +1,4 @@
-from django.core.management.base import BaseCommand
+from django.core.management.base import BaseCommand, CommandError
 from django.core.management import call_command
 from django.contrib.auth.models import User
 from wagtail.models import Site, Page
@@ -17,8 +17,7 @@ class Command(BaseCommand):
             call_command('import_initial_data')
             self.stdout.write(self.style.SUCCESS('✓ Initial data imported'))
         except Exception as e:
-            self.stdout.write(self.style.ERROR(f'❌ Failed to import initial data: {e}'))
-            return
+            raise CommandError(f'Failed to import initial data: {e}') from e
 
         # Skip sample data population in production to avoid deployment timeouts
         if os.environ.get('SKIP_SAMPLE_DATA') != 'true':
@@ -28,8 +27,7 @@ class Command(BaseCommand):
                 call_command('populate_data')
                 self.stdout.write(self.style.SUCCESS('✓ Sample data populated'))
             except Exception as e:
-                self.stdout.write(self.style.ERROR(f'❌ Failed to populate data: {e}'))
-                return
+                raise CommandError(f'Failed to populate data: {e}') from e
         else:
             self.stdout.write('📊 Skipping sample data population (SKIP_SAMPLE_DATA=true)')
 
@@ -46,8 +44,7 @@ class Command(BaseCommand):
             else:
                 self.stdout.write('👤 Superuser already exists, skipping...')
         except Exception as e:
-            self.stdout.write(self.style.ERROR(f'❌ Failed to create superuser: {e}'))
-            return
+            raise CommandError(f'Failed to create superuser: {e}') from e
 
         try:
             # Ensure homepage exists
@@ -57,8 +54,10 @@ class Command(BaseCommand):
                 try:
                     root_page = Page.objects.get(depth=1)
                 except Page.DoesNotExist:
-                    self.stdout.write(self.style.ERROR('❌ Root page not found. Wagtail may not be properly initialized.'))
-                    return
+                    raise CommandError(
+                        'Root page not found. Wagtail may not be properly initialized. '
+                        'Ensure wagtail migrations have been applied.'
+                    )
 
                 homepage = HomePage(
                     title='Sarkari Naukri',
@@ -70,9 +69,10 @@ class Command(BaseCommand):
                 self.stdout.write(self.style.SUCCESS('✓ Homepage created and published'))
             else:
                 self.stdout.write('🏠 Homepage already exists, skipping...')
+        except CommandError:
+            raise
         except Exception as e:
-            self.stdout.write(self.style.ERROR(f'❌ Failed to create homepage: {e}'))
-            return
+            raise CommandError(f'Failed to create homepage: {e}') from e
 
         try:
             # Update site settings
@@ -85,17 +85,9 @@ class Command(BaseCommand):
                 site.root_page = homepage
                 site.save()
             self.stdout.write(self.style.SUCCESS('✓ Site settings updated'))
-        except Exception as e:
-            self.stdout.write(self.style.ERROR(f'❌ Failed to update site settings: {e}'))
-            return
-
-        self.stdout.write(self.style.SUCCESS('🎉 Wagtail CMS setup completed successfully!'))
-        try:
-            site = Site.objects.get(is_default_site=True)
-            site.site_name = 'Sarkari Naukri'
-            site.save()
-            self.stdout.write('🌐 Site settings updated')
         except Site.DoesNotExist:
-            self.stdout.write(self.style.WARNING('⚠️  Default site not found'))
+            self.stdout.write(self.style.WARNING('⚠️  Default site not found, skipping site settings update'))
+        except Exception as e:
+            raise CommandError(f'Failed to update site settings: {e}') from e
 
         self.stdout.write(self.style.SUCCESS('✅ Wagtail setup complete!'))

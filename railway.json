@@ -1,0 +1,6 @@
+{
+  "$schema": "https://railway.com/railway.schema.json",
+  "deploy": {
+    "preDeployCommand": "python sarkarinaukri/manage.py migrate && python sarkarinaukri/manage.py setup_wagtail && python sarkarinaukri/manage.py collectstatic --noinput"
+  }
+}
