@@ -3,8 +3,8 @@ set -e
 
 cd sarkarinaukri
 
-python manage.py migrate --run-syncdb
-python manage.py setup_wagtail
-python manage.py collectstatic --noinput
+DJANGO_SETTINGS_MODULE=sarkarinaukri.settings.production python manage.py migrate --run-syncdb
+DJANGO_SETTINGS_MODULE=sarkarinaukri.settings.production python manage.py setup_wagtail
+DJANGO_SETTINGS_MODULE=sarkarinaukri.settings.production python manage.py collectstatic --noinput
 
 gunicorn sarkarinaukri.wsgi --log-file -
