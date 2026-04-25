@@ -3,7 +3,8 @@ set -e
 
 cd sarkarinaukri
 
-python manage.py migrate --run-syncdb
+python manage.py migrate --fake-initial
+python manage.py migrate
 python manage.py setup_wagtail
 python manage.py collectstatic --noinput
 
