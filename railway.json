@@ -1,6 +1,6 @@
 {
   "$schema": "https://railway.com/railway.schema.json",
   "deploy": {
-    "preDeployCommand": "DJANGO_SETTINGS_MODULE=sarkarinaukri.settings.production python sarkarinaukri/manage.py migrate && DJANGO_SETTINGS_MODULE=sarkarinaukri.settings.production python sarkarinaukri/manage.py setup_wagtail && DJANGO_SETTINGS_MODULE=sarkarinaukri.settings.production python sarkarinaukri/manage.py collectstatic --noinput"
+    "preDeployCommand": "DJANGO_SETTINGS_MODULE=sarkarinaukri.settings.production python sarkarinaukri/manage.py migrate && DJANGO_SETTINGS_MODULE=sarkarinaukri.settings.production python sarkarinaukri/manage.py setup_wagtail && rm -f sarkarinaukri/static/staticfiles.json && DJANGO_SETTINGS_MODULE=sarkarinaukri.settings.production python sarkarinaukri/manage.py collectstatic --noinput"
   }
 }
