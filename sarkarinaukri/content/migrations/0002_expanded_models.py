@@ -187,12 +187,6 @@ class Migration(migrations.Migration):
             model_name='jobposting',
             index=models.Index(fields=['exam_category', '-created_at'], name='content_job_cat_created_idx'),
         ),
-        migrations.AddField(
-            model_name='jobposting',
-            name='title',
-            field=models.CharField(db_index=True, default='', max_length=200),
-            preserve_default=False,
-        ),
         # Update ExamResult
         migrations.AddField(
             model_name='examresult',
