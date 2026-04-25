@@ -57,6 +57,46 @@ WAGTAILADMIN_BASE_URL = "https://gleaming-generosity-production-22ba.up.railway.
 # Skip heavy sample data population during deployment
 os.environ.setdefault('SKIP_SAMPLE_DATA', 'true')
 
+# Logging: surface all errors to stderr so they appear in Railway's log stream.
+# Without this, DEBUG=False silently swallows tracebacks and only returns 500.
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '[{levelname}] {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'stderr': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'root': {
+        'handlers': ['stderr'],
+        'level': 'WARNING',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['stderr'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'django.request': {
+            'handlers': ['stderr'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'django.security': {
+            'handlers': ['stderr'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+    },
+}
+
 try:
     from .local import *
 except ImportError:
