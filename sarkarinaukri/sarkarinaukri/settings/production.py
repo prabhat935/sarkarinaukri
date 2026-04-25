@@ -6,7 +6,8 @@ DEBUG = False
 
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')  # set in Railway Variables
 
-ALLOWED_HOSTS = ['sarkarinaukri-production.up.railway.app']
+ALLOWED_HOSTS = ['gleaming-generosity-production-22ba.up.railway.app']
+
 
 MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 
@@ -19,7 +20,7 @@ DATABASES = {
 }
 
 # Wagtail admin URL
-WAGTAILADMIN_BASE_URL = "https://sarkarinaukri-production.up.railway.app"
+WAGTAILADMIN_BASE_URL = "https://gleaming-generosity-production-22ba.up.railway.app"
 
 # Skip heavy sample data population during deployment
 os.environ.setdefault('SKIP_SAMPLE_DATA', 'true')
