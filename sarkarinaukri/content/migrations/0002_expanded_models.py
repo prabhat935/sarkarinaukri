@@ -263,12 +263,6 @@ class Migration(migrations.Migration):
             name='state',
             field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='content.state'),
         ),
-        migrations.AddField(
-            model_name='examresult',
-            name='exam_name',
-            field=models.CharField(db_index=True, default='', max_length=200),
-            preserve_default=False,
-        ),
         migrations.AlterUniqueTogether(
             name='examresult',
             unique_together={('exam_name', 'exam_year')},
@@ -324,12 +318,6 @@ class Migration(migrations.Migration):
             model_name='admitcard',
             name='state',
             field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='content.state'),
-        ),
-        migrations.AddField(
-            model_name='admitcard',
-            name='exam_name',
-            field=models.CharField(db_index=True, default='', max_length=200),
-            preserve_default=False,
         ),
         # Update Syllabus
         migrations.AddField(
@@ -388,12 +376,6 @@ class Migration(migrations.Migration):
             model_name='syllabus',
             name='state',
             field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='content.state'),
-        ),
-        migrations.AddField(
-            model_name='syllabus',
-            name='exam_name',
-            field=models.CharField(db_index=True, default='', max_length=200),
-            preserve_default=False,
         ),
         # Create new models
         migrations.CreateModel(
