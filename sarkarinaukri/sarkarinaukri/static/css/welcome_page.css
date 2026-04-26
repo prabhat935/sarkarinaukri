@@ -271,44 +271,204 @@
     font-weight: 600;
 }
 
-/* Quick Links */
-.quick-links {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin: 2rem 0;
+/* Quick Access Bar */
+.quick-access-bar {
+    background: #f8f9fa;
+    padding: 2rem 0;
+    border-top: 1px solid #e9ecef;
+    border-bottom: 1px solid #e9ecef;
 }
 
-.quick-link-card {
+/* Latest Updates Section */
+.latest-updates-section {
+    padding: 4rem 0;
     background: white;
-    padding: 1.5rem;
-    border-radius: 8px;
+}
+
+.section-header {
     text-align: center;
-    border: 2px solid #f0f0f0;
-    transition: all 0.3s ease;
+    margin-bottom: 3rem;
 }
 
-.quick-link-card:hover {
-    border-color: #1e3c72;
-    box-shadow: var(--shadow);
-}
-
-.quick-link-icon {
-    font-size: 2.5rem;
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
     color: #1e3c72;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.section-title::before {
+    content: '';
+    width: 4px;
+    height: 2rem;
+    background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+    border-radius: 2px;
+}
+
+.section-icon {
+    color: #ff6b6b;
+}
+
+.section-subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.updates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.update-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e9ecef;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.update-card:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+}
+
+.update-card.featured {
+    border-left: 4px solid #ff6b6b;
+    background: linear-gradient(135deg, #fff 0%, #fefefe 100%);
+}
+
+.update-card.featured::before {
+    content: 'FEATURED';
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #ff6b6b;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-bottom: 1px solid #f8f9fa;
+}
+
+.card-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.25rem;
+}
+
+.card-meta {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-category {
+    background: #e8f4f8;
+    color: #0a7fb4;
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.card-date {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.card-content {
+    padding: 1.5rem;
+}
+
+.card-content h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1e3c72;
+    margin-bottom: 0.75rem;
+}
+
+.card-content p {
+    color: #666;
+    line-height: 1.6;
     margin-bottom: 1rem;
 }
 
-.quick-link-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #1e3c72;
-    margin-bottom: 0.5rem;
+.card-stats {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
 }
 
-.quick-link-text {
-    font-size: 0.9rem;
+.stat {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
     color: #666;
+}
+
+.stat i {
+    color: #1e3c72;
+}
+
+.card-actions {
+    padding: 1.5rem;
+    padding-top: 0;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    font-size: 0.9rem;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(30, 60, 114, 0.3);
+}
+
+.btn-secondary {
+    background: #f8f9fa;
+    color: #1e3c72;
+    border: 1px solid #dee2e6;
+}
+
+.btn-secondary:hover {
+    background: #e9ecef;
 }
 
 /* Responsive Design */
