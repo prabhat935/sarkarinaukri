@@ -533,12 +533,6 @@ class OnlineForm(models.Model):
 
     def __str__(self):
         return self.name
-    
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return f"{self.exam_name} - Certificate Verification"
 
 
 # ============= USER-RELATED MODELS =============
