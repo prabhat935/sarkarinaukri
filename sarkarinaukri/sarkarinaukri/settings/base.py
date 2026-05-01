@@ -25,7 +25,7 @@ BASE_DIR = PROJECT_DIR.parent
 # Application definition
 
 INSTALLED_APPS = [
-    "sarkarinaukri",
+    "sarkarinaukri.apps.SarkarinaukriConfig",
     "home",
     "search",
     "content",
