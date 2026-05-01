@@ -28,9 +28,13 @@ ALLOWED_HOSTS = [
 # WhiteNoise must come directly after SecurityMiddleware (index 1)
 MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 
-# Use WhiteNoise's compressed+hashed storage for static files.
-# Do NOT also set the legacy STATICFILES_STORAGE — it conflicts with STORAGES.
-STORAGES["staticfiles"]["BACKEND"] = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# Use WhiteNoise's compressed storage. CompressedManifestStaticFilesStorage
+# requires every {% static %} reference to be in the manifest — if any are
+# missing (a persistent issue on this deployment) it hard-errors with 500.
+# CompressedStaticFilesStorage serves gzip-compressed files without a manifest,
+# which is safe and correct; switch back to Manifest variant once the static
+# collection pipeline is fully verified.
+STORAGES["staticfiles"]["BACKEND"] = "whitenoise.storage.CompressedStaticFilesStorage"
 
 # Database: use Railway's Postgres via DATABASE_URL
 _database_url = os.environ.get("DATABASE_URL")
