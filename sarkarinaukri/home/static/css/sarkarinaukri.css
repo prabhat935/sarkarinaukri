@@ -2517,6 +2517,236 @@ a.post-item-title:hover { color: var(--accent); text-decoration: none; }
   font-size: 0.72rem; color: #9aa5b4; padding-left: 21px;
 }
 
+/* ============================================================
+   PHASE 3 — VIBRANT CATEGORY COLOR SYSTEM
+   ============================================================ */
+
+:root {
+  --cat-jobs:    #1565c0; --cat-jobs-dk:    #0d47a1;
+  --cat-results: #2e7d32; --cat-results-dk: #1b5e20;
+  --cat-admit:   #e65100; --cat-admit-dk:   #bf360c;
+  --cat-answer:  #6a1b9a; --cat-answer-dk:  #4a148c;
+  --cat-syllabus:#00695c; --cat-syllabus-dk:#004d40;
+  --cat-board:   #c62828; --cat-board-dk:   #b71c1c;
+  --cat-scholar: #283593; --cat-scholar-dk: #1a237e;
+  --cat-alerts:  #e53935; --cat-alerts-dk:  #c62828;
+  --cat-forms:   #558b2f; --cat-verify:     #0277bd;
+}
+
+/* ---- Per-page hero gradients ---- */
+.page-jobs    .page-hero { background: linear-gradient(135deg, var(--cat-jobs-dk), var(--cat-jobs)); }
+.page-results .page-hero { background: linear-gradient(135deg, var(--cat-results-dk), var(--cat-results)); }
+.page-admit   .page-hero { background: linear-gradient(135deg, var(--cat-admit-dk), var(--cat-admit)); }
+.page-answer  .page-hero { background: linear-gradient(135deg, var(--cat-answer-dk), var(--cat-answer)); }
+.page-syllabus .page-hero { background: linear-gradient(135deg, var(--cat-syllabus-dk), var(--cat-syllabus)); }
+.page-board   .page-hero { background: linear-gradient(135deg, var(--cat-board-dk), var(--cat-board)); }
+.page-scholar .page-hero { background: linear-gradient(135deg, var(--cat-scholar-dk), var(--cat-scholar)); }
+.page-alerts  .page-hero { background: linear-gradient(135deg, var(--cat-alerts-dk), var(--cat-alerts)); }
+
+/* ---- Per-page post-item accent strip ---- */
+.page-jobs    .post-item { border-left-color: var(--cat-jobs); }
+.page-results .post-item { border-left-color: var(--cat-results); }
+.page-admit   .post-item { border-left-color: var(--cat-admit); }
+.page-answer  .post-item { border-left-color: var(--cat-answer); }
+.page-syllabus .post-item { border-left-color: var(--cat-syllabus); }
+.page-board   .post-item { border-left-color: var(--cat-board); }
+.page-scholar .post-item { border-left-color: var(--cat-scholar); }
+.page-alerts  .post-item { border-left-color: var(--cat-alerts); }
+
+/* ---- Per-page btn-detail color overrides ---- */
+.page-results .btn-detail  { background: var(--cat-results);  border-color: var(--cat-results); }
+.page-results .btn-detail:hover { background: transparent; color: var(--cat-results); }
+.page-admit   .btn-detail  { background: var(--cat-admit);    border-color: var(--cat-admit); }
+.page-admit   .btn-detail:hover { background: transparent; color: var(--cat-admit); }
+.page-answer  .btn-detail  { background: var(--cat-answer);   border-color: var(--cat-answer); }
+.page-answer  .btn-detail:hover { background: transparent; color: var(--cat-answer); }
+.page-syllabus .btn-detail  { background: var(--cat-syllabus); border-color: var(--cat-syllabus); }
+.page-syllabus .btn-detail:hover { background: transparent; color: var(--cat-syllabus); }
+.page-board   .btn-detail  { background: var(--cat-board);    border-color: var(--cat-board); }
+.page-board   .btn-detail:hover { background: transparent; color: var(--cat-board); }
+.page-scholar .btn-detail  { background: var(--cat-scholar);  border-color: var(--cat-scholar); }
+.page-scholar .btn-detail:hover { background: transparent; color: var(--cat-scholar); }
+.page-alerts  .btn-detail  { background: var(--cat-alerts);   border-color: var(--cat-alerts); }
+.page-alerts  .btn-detail:hover { background: transparent; color: var(--cat-alerts); }
+
+/* ---- Per-page post-item icon strip ---- */
+.page-results .post-item-icon  { background: var(--cat-results); }
+.page-admit   .post-item-icon  { background: var(--cat-admit); }
+.page-answer  .post-item-icon  { background: var(--cat-answer); }
+.page-syllabus .post-item-icon { background: var(--cat-syllabus); }
+.page-board   .post-item-icon  { background: var(--cat-board); }
+.page-scholar .post-item-icon  { background: var(--cat-scholar); }
+.page-alerts  .post-item-icon  { background: var(--cat-alerts); }
+
+/* ============================================================
+   HOMEPAGE DYNAMIC SECTION BOXES  (sarkariresult.com style)
+   ============================================================ */
+
+.hp-sections {
+  padding: 1.75rem 0 2.5rem;
+  background: #eef0f4;
+}
+
+/* Section box container */
+.section-box {
+  background: #fff;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,.09);
+  margin-bottom: 1.25rem;
+}
+
+/* Colored header bar */
+.section-box-header {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 1rem;
+  color: #fff;
+}
+.section-box-header h2 {
+  font-size: 0.92rem; font-weight: 700; margin: 0;
+  letter-spacing: .3px; text-transform: uppercase;
+}
+.section-box-header h2 i { margin-right: 6px; }
+.section-box-more {
+  color: rgba(255,255,255,.9); font-size: 0.78rem;
+  font-weight: 600; text-decoration: none; white-space: nowrap;
+}
+.section-box-more:hover { color: #fff; text-decoration: underline; }
+
+/* Color variants */
+.sb-jobs     .section-box-header { background: linear-gradient(90deg,#0d47a1,#1976d2); }
+.sb-results  .section-box-header { background: linear-gradient(90deg,#1b5e20,#388e3c); }
+.sb-admit    .section-box-header { background: linear-gradient(90deg,#bf360c,#f57c00); }
+.sb-answer   .section-box-header { background: linear-gradient(90deg,#4a148c,#8e24aa); }
+.sb-notify   .section-box-header { background: linear-gradient(90deg,#b71c1c,#e53935); }
+.sb-syllabus .section-box-header { background: linear-gradient(90deg,#004d40,#00897b); }
+.sb-more     .section-box-header { background: linear-gradient(90deg,#283593,#3949ab); }
+
+/* Multi-column body grid inside a section box */
+.sbody-grid-3 {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  border-top: 1px solid #e8eaf0;
+}
+.sbody-grid-2 {
+  display: grid; grid-template-columns: 1fr 1fr;
+  border-top: 1px solid #e8eaf0;
+}
+.sbody-col { border-right: 1px solid #ececec; }
+.sbody-col:last-child { border-right: none; }
+
+/* Row */
+.section-box-row {
+  display: flex; align-items: center; gap: 6px;
+  padding: 0.5rem 0.85rem;
+  border-bottom: 1px solid #f3f3f3;
+  font-size: 0.82rem; line-height: 1.35;
+}
+.section-box-row:last-child { border-bottom: none; }
+.section-box-row:hover { background: #f9f9fb; }
+
+.sbr-link {
+  flex: 1; color: #1a1a2e;
+  text-decoration: none;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  transition: color .15s;
+}
+.sbr-link:hover { color: #1565c0; text-decoration: none; }
+.sb-results  .sbr-link:hover { color: var(--cat-results); }
+.sb-admit    .sbr-link:hover { color: var(--cat-admit); }
+.sb-answer   .sbr-link:hover { color: var(--cat-answer); }
+.sb-notify   .sbr-link:hover { color: var(--cat-alerts); }
+
+.sbr-date {
+  color: #999; font-size: 0.73rem;
+  white-space: nowrap; flex-shrink: 0;
+}
+
+/* NEW / URGENT badges */
+.tag-new {
+  background: #e53935; color: #fff;
+  font-size: 0.58rem; font-weight: 800;
+  padding: 1px 5px; border-radius: 3px;
+  flex-shrink: 0; letter-spacing: .8px;
+  text-transform: uppercase;
+}
+.tag-urgent {
+  background: #ff6f00; color: #fff;
+  font-size: 0.58rem; font-weight: 800;
+  padding: 1px 5px; border-radius: 3px;
+  flex-shrink: 0; letter-spacing: .8px;
+  text-transform: uppercase;
+}
+.tag-hot {
+  background: #1565c0; color: #fff;
+  font-size: 0.58rem; font-weight: 800;
+  padding: 1px 5px; border-radius: 3px;
+  flex-shrink: 0; letter-spacing: .8px;
+  text-transform: uppercase;
+}
+
+.section-box-empty {
+  padding: 1.5rem 1rem; text-align: center;
+  color: #bbb; font-size: 0.85rem;
+}
+
+/* Section grid layouts */
+.hp-row-3 {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.25rem; margin-bottom: 1.25rem;
+}
+.hp-row-2 {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.25rem; margin-bottom: 1.25rem;
+}
+
+@media (max-width: 992px) {
+  .hp-row-3 { grid-template-columns: 1fr 1fr; }
+  .sbody-grid-3 { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .hp-row-3, .hp-row-2 { grid-template-columns: 1fr; }
+  .sbody-grid-3, .sbody-grid-2 { grid-template-columns: 1fr; }
+  .sbody-col { border-right: none; border-bottom: 1px solid #ececec; }
+  .sbody-col:last-child { border-bottom: none; }
+}
+
+/* ---- Colored Quick-Access links ---- */
+.quick-link.ql-jobs     { --ql: #1565c0; }
+.quick-link.ql-results  { --ql: #2e7d32; }
+.quick-link.ql-admit    { --ql: #e65100; }
+.quick-link.ql-answer   { --ql: #6a1b9a; }
+.quick-link.ql-syllabus { --ql: #00695c; }
+.quick-link.ql-board    { --ql: #c62828; }
+.quick-link.ql-scholar  { --ql: #283593; }
+.quick-link.ql-alerts   { --ql: #e53935; }
+.quick-link.ql-forms    { --ql: #558b2f; }
+.quick-link.ql-verify   { --ql: #0277bd; }
+
+.quick-link[class*="ql-"] { border-top: 3px solid var(--ql, var(--accent)); }
+.quick-link[class*="ql-"] i { color: var(--ql, var(--accent)); }
+.quick-link[class*="ql-"]:hover { background: var(--ql, var(--accent)); color: #fff; }
+.quick-link[class*="ql-"]:hover i,
+.quick-link[class*="ql-"]:hover span { color: #fff; }
+
+/* ---- Colored Category cards ---- */
+.cc-ssc     { --cc: #1565c0; }
+.cc-upsc    { --cc: #4a148c; }
+.cc-banking { --cc: #1b5e20; }
+.cc-police  { --cc: #c62828; }
+.cc-teaching{ --cc: #e65100; }
+.cc-railway { --cc: #00695c; }
+.cc-state   { --cc: #283593; }
+.cc-defence { --cc: #b71c1c; }
+
+.category-card[class*="cc-"] .category-icon { background: var(--cc, var(--primary)); }
+.category-card[class*="cc-"]:hover { border-color: var(--cc, var(--primary)); box-shadow: 0 6px 24px rgba(0,0,0,.12); }
+.category-card[class*="cc-"]:hover .category-arrow { background: var(--cc, var(--primary)); color: #fff; }
+.category-card[class*="cc-"] .category-content h3 { color: var(--cc, var(--primary)); }
+
 /* ---- Empty State ---- */
 .empty-state {
   text-align: center; padding: 80px 20px;
