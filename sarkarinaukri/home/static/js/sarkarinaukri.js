@@ -38,7 +38,7 @@
         if (!toggleBtn) {
             toggleBtn = document.createElement('button');
             toggleBtn.className = 'nav-toggle';
-            toggleBtn.innerHTML = 'â˜°';
+            toggleBtn.innerHTML = '☰';
             toggleBtn.style.display = 'none';
             toggleBtn.style.background = 'none';
             toggleBtn.style.border = 'none';
