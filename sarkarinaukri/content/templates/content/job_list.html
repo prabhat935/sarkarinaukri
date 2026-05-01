@@ -1,106 +1,111 @@
-<!-- content/templates/content/job_list.html -->
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Latest Government Job Postings - Sarkari Naukri{% endblock %}
-
-{% block extra_css %}
-
-{% endblock %}
+{% block title %}Latest Government Jobs 2026 - Sarkari Naukri{% endblock %}
+{% block nav_jobs %}active{% endblock %}
 
 {% block content %}
-<div class="body-wrapper">
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <a href="/">
-                    <i class="fas fa-briefcase"></i>
-                    Sarkari Naukri
-                </a>
-            </div>
-            <div class="nav-menu">
-                <a href="{% url 'job_list' %}" class="nav-link active">
-                    <i class="fas fa-briefcase"></i> Jobs
-                </a>
-                <a href="{% url 'result_list' %}" class="nav-link">
-                    <i class="fas fa-chart-bar"></i> Results
-                </a>
-                <a href="{% url 'admit_card_list' %}" class="nav-link">
-                    <i class="fas fa-id-card"></i> Admit Cards
-                </a>
-                <a href="{% url 'answer_key_list' %}" class="nav-link">
-                    <i class="fas fa-key"></i> Answer Keys
-                </a>
-                <a href="{% url 'syllabus_list' %}" class="nav-link">
-                    <i class="fas fa-book"></i> Syllabus
-                </a>
-                <a href="{% url 'board_results' %}" class="nav-link">
-                    <i class="fas fa-graduation-cap"></i> Board Results
-                </a>
-                <a href="{% url 'scholarships' %}" class="nav-link">
-                    <i class="fas fa-money-bill-wave"></i> Scholarships
-                </a>
-                <a href="{% url 'important_notifications' %}" class="nav-link">
-                    <i class="fas fa-bell"></i> Notifications
-                </a>
-                <a href="{% url 'online_forms' %}" class="nav-link">
-                    <i class="fas fa-file-alt"></i> Online Forms
-                </a>
-                <a href="{% url 'certificate_verification' %}" class="nav-link">
-                    <i class="fas fa-certificate"></i> Verification
-                </a>
-            </div>
-        </div>
-    </nav>
+<div class="page-wrapper">
 
-    <!-- Page Header -->
-    <section class="page-header">
+    <div class="breadcrumb-nav">
         <div class="container">
-            <h1 class="page-title">
-                <i class="fas fa-briefcase"></i>
-                Latest Government Job Postings
-            </h1>
-            <p class="page-subtitle">Find your dream government job from thousands of current openings</p>
+            <a href="/">Home</a> <span>&rsaquo;</span> <span>Government Jobs</span>
         </div>
-    </section>
+    </div>
 
-    <!-- Jobs Grid -->
-    <section class="jobs-section">
+    <div class="filter-bar">
         <div class="container">
-            <div class="jobs-grid">
+            <form method="get" class="filter-form">
+                <input type="text" name="title" value="{{ request.GET.title }}" placeholder="Search jobs..." class="filter-input">
+                <select name="exam_category" class="filter-select">
+                    <option value="">All Categories</option>
+                    {% for cat in categories %}
+                    <option value="{{ cat.id }}" {% if request.GET.exam_category == cat.id|stringformat:"s" %}selected{% endif %}>{{ cat.name }}</option>
+                    {% endfor %}
+                </select>
+                <select name="state" class="filter-select">
+                    <option value="">All States</option>
+                    {% for s in states %}
+                    <option value="{{ s.id }}" {% if request.GET.state == s.id|stringformat:"s" %}selected{% endif %}>{{ s.name }}</option>
+                    {% endfor %}
+                </select>
+                <select name="status" class="filter-select">
+                    <option value="">All Status</option>
+                    <option value="Active" {% if request.GET.status == "Active" %}selected{% endif %}>Active</option>
+                    <option value="Closed" {% if request.GET.status == "Closed" %}selected{% endif %}>Closed</option>
+                </select>
+                <button type="submit" class="filter-btn"><i class="fas fa-search"></i> Search</button>
+                <a href="{% url 'job_list' %}" class="filter-reset">Clear</a>
+            </form>
+        </div>
+    </div>
+
+    <section class="list-section">
+        <div class="container">
+            <div class="list-header">
+                <h1 class="list-title"><i class="fas fa-briefcase"></i> Latest Government Jobs</h1>
+                <span class="list-count">{{ paginator.count }} Jobs Found</span>
+            </div>
+
+            {% if jobs %}
+            <div class="post-list">
                 {% for job in jobs %}
-                <div class="job-card">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-briefcase"></i>
+                <div class="post-item">
+                    <div class="post-item-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="post-item-body">
+                        <div class="post-item-top">
+                            <a href="{% url 'job_detail' job.pk %}" class="post-item-title">{{ job.title }}</a>
+                            <div class="post-item-badges">
+                                {% if job.status == 'Active' %}
+                                <span class="status-badge badge-active">Active</span>
+                                {% elif job.status == 'Closed' %}
+                                <span class="status-badge badge-closed">Closed</span>
+                                {% else %}
+                                <span class="status-badge badge-pending">{{ job.status }}</span>
+                                {% endif %}
+                            </div>
                         </div>
-                        <div class="card-meta">
-                            <span class="card-category">{{ job.exam_category }}</span>
-                            <span class="card-date">{{ job.created_at|date:"M d, Y" }}</span>
+                        <div class="post-item-meta">
+                            <span><i class="fas fa-building"></i> {{ job.organization }}</span>
+                            {% if job.state %}<span><i class="fas fa-map-marker-alt"></i> {{ job.state }}</span>{% endif %}
+                            {% if job.vacancies %}<span><i class="fas fa-users"></i> {{ job.vacancies }} Posts</span>{% endif %}
+                            {% if job.application_end_date %}<span><i class="fas fa-calendar-alt"></i> Last Date: {{ job.application_end_date|date:"d M Y" }}</span>{% endif %}
+                            <span class="post-date"><i class="fas fa-clock"></i> {{ job.created_at|date:"d M Y" }}</span>
                         </div>
                     </div>
-                    <div class="card-content">
-                        <h3>{{ job.title }}</h3>
-                        <p>{{ job.description|truncatechars:120 }}</p>
-                        <div class="card-stats">
-                            <span class="stat">
-                                <i class="fas fa-building"></i> {{ job.organization }}
-                            </span>
-                            <span class="stat">
-                                <i class="fas fa-map-marker-alt"></i> {{ job.state }}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="card-actions">
-                        <a href="{% url 'job_detail' job.pk %}" class="btn btn-primary">
-                            <i class="fas fa-eye"></i> View Details
-                        </a>
+                    <div class="post-item-actions">
+                        <a href="{% url 'job_detail' job.pk %}" class="btn-detail">View Details</a>
                     </div>
                 </div>
                 {% endfor %}
             </div>
+
+            {% if is_paginated %}
+            <nav class="pagination-nav" aria-label="Pagination">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.title %}&title={{ request.GET.title }}{% endif %}{% if request.GET.exam_category %}&exam_category={{ request.GET.exam_category }}{% endif %}{% if request.GET.state %}&state={{ request.GET.state }}{% endif %}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}"><i class="fas fa-chevron-left"></i> Prev</a></li>
+                    {% endif %}
+                    <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+                    {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.title %}&title={{ request.GET.title }}{% endif %}{% if request.GET.exam_category %}&exam_category={{ request.GET.exam_category }}{% endif %}{% if request.GET.state %}&state={{ request.GET.state }}{% endif %}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}">Next <i class="fas fa-chevron-right"></i></a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+
+            {% else %}
+            <div class="empty-state">
+                <i class="fas fa-briefcase"></i>
+                <h3>No Jobs Found</h3>
+                <p>Try adjusting your filters or check back later for new job postings.</p>
+                <a href="{% url 'job_list' %}" class="btn btn-primary">View All Jobs</a>
+            </div>
+            {% endif %}
         </div>
     </section>
+
 </div>
 {% endblock %}

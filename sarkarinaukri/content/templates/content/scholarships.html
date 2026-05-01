@@ -1,168 +1,106 @@
-<!-- content/templates/content/scholarships.html -->
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Government Scholarships - Sarkari Naukri{% endblock %}
-
-{% block extra_css %}
-
-{% endblock %}
+{% block title %}Government Scholarships 2026 - Sarkari Naukri{% endblock %}
+{% block nav_scholar %}active{% endblock %}
 
 {% block content %}
-<div class="body-wrapper">
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <a href="/">
-                    <i class="fas fa-money-bill-wave"></i>
-                    Sarkari Naukri
-                </a>
-            </div>
-            <div class="nav-menu">
-                <a href="{% url 'job_list' %}" class="nav-link">
-                    <i class="fas fa-briefcase"></i> Jobs
-                </a>
-                <a href="{% url 'result_list' %}" class="nav-link">
-                    <i class="fas fa-chart-bar"></i> Results
-                </a>
-                <a href="{% url 'admit_card_list' %}" class="nav-link">
-                    <i class="fas fa-id-card"></i> Admit Cards
-                </a>
-                <a href="{% url 'answer_key_list' %}" class="nav-link">
-                    <i class="fas fa-key"></i> Answer Keys
-                </a>
-                <a href="{% url 'syllabus_list' %}" class="nav-link">
-                    <i class="fas fa-book"></i> Syllabus
-                </a>
-                <a href="{% url 'board_results' %}" class="nav-link">
-                    <i class="fas fa-graduation-cap"></i> Board Results
-                </a>
-                <a href="{% url 'scholarships' %}" class="nav-link active">
-                    <i class="fas fa-money-bill-wave"></i> Scholarships
-                </a>
-                <a href="{% url 'important_notifications' %}" class="nav-link">
-                    <i class="fas fa-bell"></i> Notifications
-                </a>
-                <a href="{% url 'online_forms' %}" class="nav-link">
-                    <i class="fas fa-file-alt"></i> Online Forms
-                </a>
-                <a href="{% url 'certificate_verification' %}" class="nav-link">
-                    <i class="fas fa-certificate"></i> Verification
-                </a>
-            </div>
-        </div>
-    </nav>
+<div class="page-wrapper">
 
-    <!-- Page Header -->
-    <section class="page-header">
+    <div class="breadcrumb-nav">
         <div class="container">
-            <h1 class="page-title">
-                <i class="fas fa-money-bill-wave"></i>
-                Government Scholarships
-            </h1>
-            <p class="page-subtitle">Explore government scholarship programs for students. Apply for scholarships based on merit, category, and state eligibility</p>
+            <a href="/">Home</a> <span>&rsaquo;</span> <span>Scholarships</span>
         </div>
-    </section>
+    </div>
 
-    <div class="container">
-
-    <!-- Filters -->
-    <div class="card mb-4">
-        <div class="card-body">
-            <form method="get" class="row g-3">
-                <div class="col-md-4">
-                    <select name="state" class="form-select">
-                        <option value="">All States</option>
-                        {% for state in states %}
-                        <option value="{{ state.id }}" {% if request.GET.state == state.id|stringformat:"s" %}selected{% endif %}>
-                            {{ state.name }}
-                        </option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <select name="category" class="form-select">
-                        <option value="">All Categories</option>
-                        {% for cat_code, cat_name in categories %}
-                        <option value="{{ cat_code }}" {% if request.GET.category == cat_code %}selected{% endif %}>
-                            {{ cat_name }}
-                        </option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary">Filter</button>
-                </div>
+    <div class="filter-bar">
+        <div class="container">
+            <form method="get" class="filter-form">
+                <select name="category" class="filter-select">
+                    <option value="">All Categories</option>
+                    {% for value, label in categories %}
+                    <option value="{{ value }}" {% if request.GET.category == value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+                <select name="state" class="filter-select">
+                    <option value="">All States</option>
+                    {% for s in states %}
+                    <option value="{{ s.id }}" {% if request.GET.state == s.id|stringformat:"s" %}selected{% endif %}>{{ s.name }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="filter-btn"><i class="fas fa-search"></i> Filter</button>
+                <a href="{% url 'scholarships' %}" class="filter-reset">Clear</a>
             </form>
         </div>
     </div>
 
-    <!-- Scholarships List -->
-    <div class="row">
-        {% for scholarship in scholarships %}
-        <div class="col-md-6 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">{{ scholarship.name }}</h5>
-                    <div class="mb-2">
-                        <span class="badge bg-secondary">{{ scholarship.get_category_display }}</span>
-                        {% if scholarship.state %}
-                        <span class="badge bg-info">{{ scholarship.state.name }}</span>
+    <section class="list-section">
+        <div class="container">
+            <div class="list-header">
+                <h1 class="list-title"><i class="fas fa-coins"></i> Government Scholarships</h1>
+                <span class="list-count">{{ paginator.count }} Scholarships</span>
+            </div>
+
+            {% if scholarships %}
+            <div class="post-list">
+                {% for scholarship in scholarships %}
+                <div class="post-item">
+                    <div class="post-item-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <div class="post-item-body">
+                        <div class="post-item-top">
+                            <span class="post-item-title">{{ scholarship.name }}</span>
+                            <div class="post-item-badges">
+                                {% if scholarship.status == 'Open' %}
+                                <span class="status-badge badge-active">Open</span>
+                                {% elif scholarship.status == 'Closed' %}
+                                <span class="status-badge badge-closed">Closed</span>
+                                {% else %}
+                                <span class="status-badge badge-pending">{{ scholarship.status }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="post-item-meta">
+                            <span><i class="fas fa-tag"></i> {{ scholarship.category }}</span>
+                            {% if scholarship.state %}<span><i class="fas fa-map-marker-alt"></i> {{ scholarship.state }}</span>{% endif %}
+                            {% if scholarship.application_end_date %}<span><i class="fas fa-calendar-alt"></i> Last Date: {{ scholarship.application_end_date|date:"d M Y" }}</span>{% endif %}
+                            <span class="post-date"><i class="fas fa-clock"></i> {{ scholarship.created_at|date:"d M Y" }}</span>
+                        </div>
+                    </div>
+                    <div class="post-item-actions">
+                        {% if scholarship.application_link %}
+                        <a href="{{ scholarship.application_link }}" target="_blank" class="btn-detail">Apply Now</a>
                         {% endif %}
                     </div>
-                    <p class="card-text">{{ scholarship.eligibility|truncatechars:150 }}</p>
-                    <div class="mb-2">
-                        <strong>Benefits:</strong> {{ scholarship.benefits|truncatechars:100 }}
-                    </div>
-                    <div class="mb-2">
-                        <strong>Application Period:</strong><br>
-                        {{ scholarship.application_start_date|date:"d M Y" }} - {{ scholarship.application_end_date|date:"d M Y" }}
-                    </div>
-                    <div class="d-flex gap-2">
-                        <a href="{{ scholarship.application_link }}" target="_blank" class="btn btn-primary">Apply Now</a>
-                        <span class="badge {% if scholarship.status == 'Open' %}bg-success{% elif scholarship.status == 'Closed' %}bg-danger{% else %}bg-warning{% endif %}">
-                            {{ scholarship.get_status_display }}
-                        </span>
-                    </div>
                 </div>
+                {% endfor %}
             </div>
+
+            {% if is_paginated %}
+            <nav class="pagination-nav" aria-label="Pagination">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.state %}&state={{ request.GET.state }}{% endif %}"><i class="fas fa-chevron-left"></i> Prev</a></li>
+                    {% endif %}
+                    <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+                    {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.state %}&state={{ request.GET.state }}{% endif %}">Next <i class="fas fa-chevron-right"></i></a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+
+            {% else %}
+            <div class="empty-state">
+                <i class="fas fa-coins"></i>
+                <h3>No Scholarships Found</h3>
+                <p>Government scholarship announcements will appear here.</p>
+                <a href="{% url 'scholarships' %}" class="btn btn-primary">View All</a>
+            </div>
+            {% endif %}
         </div>
-        {% empty %}
-        <div class="col-12">
-            <div class="alert alert-info">No scholarships found.</div>
-        </div>
-        {% endfor %}
-    </div>
+    </section>
 
-    <!-- Pagination -->
-    {% if is_paginated %}
-    <nav aria-label="Scholarships pagination">
-        <ul class="pagination justify-content-center">
-            {% if page_obj.has_previous %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% for key,value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Previous</a>
-            </li>
-            {% endif %}
-
-            {% for num in page_obj.paginator.page_range %}
-            {% if page_obj.number == num %}
-            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
-            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ num }}{% for key,value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">{{ num }}</a>
-            </li>
-            {% endif %}
-            {% endfor %}
-
-            {% if page_obj.has_next %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% for key,value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Next</a>
-            </li>
-            {% endif %}
-        </ul>
-    </nav>
-    {% endif %}
-    </div>
 </div>
 {% endblock %}

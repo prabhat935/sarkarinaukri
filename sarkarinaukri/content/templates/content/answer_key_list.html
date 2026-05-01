@@ -1,89 +1,96 @@
-<!-- content/templates/content/answer_key_list.html -->
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Answer Keys - Sarkari Naukri{% endblock %}
-
-{% block extra_css %}
-
-{% endblock %}
+{% block title %}Answer Keys 2026 - Sarkari Naukri{% endblock %}
+{% block nav_answer %}active{% endblock %}
 
 {% block content %}
-<div class="body-wrapper">
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <a href="/">
-                    <i class="fas fa-key"></i>
-                    Sarkari Naukri
-                </a>
-            </div>
-            <div class="nav-menu">
-                <a href="{% url 'job_list' %}" class="nav-link">
-                    <i class="fas fa-briefcase"></i> Jobs
-                </a>
-                <a href="{% url 'result_list' %}" class="nav-link">
-                    <i class="fas fa-chart-bar"></i> Results
-                </a>
-                <a href="{% url 'admit_card_list' %}" class="nav-link">
-                    <i class="fas fa-id-card"></i> Admit Cards
-                </a>
-                <a href="{% url 'answer_key_list' %}" class="nav-link active">
-                    <i class="fas fa-key"></i> Answer Keys
-                </a>
-                <a href="{% url 'syllabus_list' %}" class="nav-link">
-                    <i class="fas fa-book"></i> Syllabus
-                </a>
-                <a href="{% url 'board_results' %}" class="nav-link">
-                    <i class="fas fa-graduation-cap"></i> Board Results
-                </a>
-                <a href="{% url 'scholarships' %}" class="nav-link">
-                    <i class="fas fa-money-bill-wave"></i> Scholarships
-                </a>
-                <a href="{% url 'important_notifications' %}" class="nav-link">
-                    <i class="fas fa-bell"></i> Notifications
-                </a>
-                <a href="{% url 'online_forms' %}" class="nav-link">
-                    <i class="fas fa-file-alt"></i> Online Forms
-                </a>
-                <a href="{% url 'certificate_verification' %}" class="nav-link">
-                    <i class="fas fa-certificate"></i> Verification
-                </a>
-            </div>
-        </div>
-    </nav>
+<div class="page-wrapper">
 
-    <!-- Page Header -->
-    <section class="page-header">
+    <div class="breadcrumb-nav">
         <div class="container">
-            <h1 class="page-title">
-                <i class="fas fa-key"></i>
-                Latest Answer Keys
-            </h1>
-            <p class="page-subtitle">Download official and unofficial answer keys for recent exams</p>
-        </div>
-    </section>
-        <div class="row">
-            {% for answer_key in answer_keys %}
-            <div class="col-md-6 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ answer_key.exam_name }}</h5>
-                        <p class="card-text">{{ answer_key.description|truncatechars:100 }}</p>
-                        <p class="text-muted">Organization: {{ answer_key.organization }}</p>
-                        <p class="text-muted">Exam Date: {{ answer_key.exam_date }}</p>
-                        <p class="text-muted">Publication Date: {{ answer_key.publication_date }}</p>
-                        {% if answer_key.is_official %}
-                        <span class="badge bg-success">Official</span>
-                        {% else %}
-                        <span class="badge bg-warning">Unofficial</span>
-                        {% endif %}
-                        <a href="{{ answer_key.answer_key_link }}" class="btn btn-primary mt-2" target="_blank">Download Answer Key</a>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
+            <a href="/">Home</a> <span>&rsaquo;</span> <span>Answer Keys</span>
         </div>
     </div>
+
+    <div class="filter-bar">
+        <div class="container">
+            <form method="get" class="filter-form">
+                <select name="organization" class="filter-select">
+                    <option value="">All Organizations</option>
+                    {% for org in organizations %}
+                    <option value="{{ org.id }}" {% if request.GET.organization == org.id|stringformat:"s" %}selected{% endif %}>{{ org.name }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="filter-btn"><i class="fas fa-search"></i> Filter</button>
+                <a href="{% url 'answer_key_list' %}" class="filter-reset">Clear</a>
+            </form>
+        </div>
+    </div>
+
+    <section class="list-section">
+        <div class="container">
+            <div class="list-header">
+                <h1 class="list-title"><i class="fas fa-key"></i> Answer Keys</h1>
+                <span class="list-count">{{ paginator.count }} Answer Keys</span>
+            </div>
+
+            {% if answer_keys %}
+            <div class="post-list">
+                {% for key in answer_keys %}
+                <div class="post-item">
+                    <div class="post-item-icon">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <div class="post-item-body">
+                        <div class="post-item-top">
+                            <span class="post-item-title">{{ key.exam_name }}</span>
+                            <div class="post-item-badges">
+                                <span class="status-badge badge-official">Official</span>
+                            </div>
+                        </div>
+                        <div class="post-item-meta">
+                            <span><i class="fas fa-building"></i> {{ key.organization }}</span>
+                            {% if key.exam_date %}<span><i class="fas fa-calendar-alt"></i> Exam: {{ key.exam_date|date:"d M Y" }}</span>{% endif %}
+                            {% if key.publication_date %}<span><i class="fas fa-download"></i> Released: {{ key.publication_date|date:"d M Y" }}</span>{% endif %}
+                            <span class="post-date"><i class="fas fa-clock"></i> {{ key.created_at|date:"d M Y" }}</span>
+                        </div>
+                    </div>
+                    <div class="post-item-actions">
+                        {% if key.answer_key_link %}
+                        <a href="{{ key.answer_key_link }}" target="_blank" class="btn-detail">Download Key</a>
+                        {% else %}
+                        <span class="btn-detail" style="opacity:0.5;">Coming Soon</span>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            {% if is_paginated %}
+            <nav class="pagination-nav" aria-label="Pagination">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.organization %}&organization={{ request.GET.organization }}{% endif %}"><i class="fas fa-chevron-left"></i> Prev</a></li>
+                    {% endif %}
+                    <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+                    {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.organization %}&organization={{ request.GET.organization }}{% endif %}">Next <i class="fas fa-chevron-right"></i></a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+
+            {% else %}
+            <div class="empty-state">
+                <i class="fas fa-key"></i>
+                <h3>No Answer Keys Available</h3>
+                <p>Answer keys will be published here once released by official bodies.</p>
+                <a href="{% url 'answer_key_list' %}" class="btn btn-primary">View All</a>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+
+</div>
 {% endblock %}

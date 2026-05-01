@@ -1,117 +1,96 @@
-<!-- content/templates/content/admit_card_list.html -->
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Exam Admit Cards - Sarkari Naukri{% endblock %}
-
-{% block extra_css %}
-
-{% endblock %}
+{% block title %}Exam Admit Cards 2026 - Sarkari Naukri{% endblock %}
+{% block nav_admit %}active{% endblock %}
 
 {% block content %}
-<div class="body-wrapper">
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <a href="/">
-                    <i class="fas fa-id-card"></i>
-                    Sarkari Naukri
-                </a>
-            </div>
-            <div class="nav-menu">
-                <a href="{% url 'job_list' %}" class="nav-link">
-                    <i class="fas fa-briefcase"></i> Jobs
-                </a>
-                <a href="{% url 'result_list' %}" class="nav-link">
-                    <i class="fas fa-chart-bar"></i> Results
-                </a>
-                <a href="{% url 'admit_card_list' %}" class="nav-link active">
-                    <i class="fas fa-id-card"></i> Admit Cards
-                </a>
-                <a href="{% url 'answer_key_list' %}" class="nav-link">
-                    <i class="fas fa-key"></i> Answer Keys
-                </a>
-                <a href="{% url 'syllabus_list' %}" class="nav-link">
-                    <i class="fas fa-book"></i> Syllabus
-                </a>
-                <a href="{% url 'board_results' %}" class="nav-link">
-                    <i class="fas fa-graduation-cap"></i> Board Results
-                </a>
-                <a href="{% url 'scholarships' %}" class="nav-link">
-                    <i class="fas fa-money-bill-wave"></i> Scholarships
-                </a>
-                <a href="{% url 'important_notifications' %}" class="nav-link">
-                    <i class="fas fa-bell"></i> Notifications
-                </a>
-                <a href="{% url 'online_forms' %}" class="nav-link">
-                    <i class="fas fa-file-alt"></i> Online Forms
-                </a>
-                <a href="{% url 'certificate_verification' %}" class="nav-link">
-                    <i class="fas fa-certificate"></i> Verification
-                </a>
-            </div>
-        </div>
-    </nav>
+<div class="page-wrapper">
 
-    <!-- Page Header -->
-    <section class="page-header">
+    <div class="breadcrumb-nav">
         <div class="container">
-            <h1 class="page-title">
-                <i class="fas fa-id-card"></i>
-                Exam Admit Cards
-            </h1>
-            <p class="page-subtitle">Download your exam hall tickets and admission cards</p>
+            <a href="/">Home</a> <span>&rsaquo;</span> <span>Admit Cards</span>
         </div>
-    </section>
+    </div>
 
-    <!-- Admit Cards Grid -->
-    <section class="admit-cards-section">
+    <div class="filter-bar">
         <div class="container">
-            <div class="admit-cards-grid">
+            <form method="get" class="filter-form">
+                <select name="organization" class="filter-select">
+                    <option value="">All Organizations</option>
+                    {% for org in organizations %}
+                    <option value="{{ org.id }}" {% if request.GET.organization == org.id|stringformat:"s" %}selected{% endif %}>{{ org.name }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="filter-btn"><i class="fas fa-search"></i> Filter</button>
+                <a href="{% url 'admit_card_list' %}" class="filter-reset">Clear</a>
+            </form>
+        </div>
+    </div>
+
+    <section class="list-section">
+        <div class="container">
+            <div class="list-header">
+                <h1 class="list-title"><i class="fas fa-id-card"></i> Exam Admit Cards</h1>
+                <span class="list-count">{{ paginator.count }} Admit Cards</span>
+            </div>
+
+            {% if admit_cards %}
+            <div class="post-list">
                 {% for admit_card in admit_cards %}
-                <div class="admit-card">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-id-card"></i>
+                <div class="post-item">
+                    <div class="post-item-icon">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                    <div class="post-item-body">
+                        <div class="post-item-top">
+                            <a href="{% url 'admit_card_detail' admit_card.pk %}" class="post-item-title">{{ admit_card.exam_name }}</a>
+                            <div class="post-item-badges">
+                                <span class="status-badge badge-active">Available</span>
+                            </div>
                         </div>
-                        <div class="card-meta">
-                            <span class="card-category">{{ admit_card.organization }}</span>
-                            <span class="card-date">{{ admit_card.created_at|date:"M d, Y" }}</span>
+                        <div class="post-item-meta">
+                            <span><i class="fas fa-building"></i> {{ admit_card.organization }}</span>
+                            {% if admit_card.exam_date %}<span><i class="fas fa-calendar-alt"></i> Exam: {{ admit_card.exam_date|date:"d M Y" }}</span>{% endif %}
+                            {% if admit_card.admit_card_date %}<span><i class="fas fa-download"></i> Released: {{ admit_card.admit_card_date|date:"d M Y" }}</span>{% endif %}
+                            <span class="post-date"><i class="fas fa-clock"></i> {{ admit_card.created_at|date:"d M Y" }}</span>
                         </div>
                     </div>
-                    <div class="card-content">
-                        <h3>{{ admit_card.exam_name }}</h3>
-                        <div class="card-stats">
-                            <span class="stat">
-                                <i class="fas fa-calendar-alt"></i> Exam: {{ admit_card.exam_date|date:"M d, Y" }}
-                            </span>
-                            <span class="stat">
-                                <i class="fas fa-download"></i> Admit Card: {{ admit_card.admit_card_date|date:"M d, Y" }}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="card-actions">
+                    <div class="post-item-actions">
                         {% if admit_card.download_link %}
-                        <a href="{{ admit_card.download_link }}" target="_blank" class="btn btn-primary">
-                            <i class="fas fa-download"></i> Download
-                        </a>
+                        <a href="{{ admit_card.download_link }}" target="_blank" class="btn-detail">Download</a>
+                        {% else %}
+                        <a href="{% url 'admit_card_detail' admit_card.pk %}" class="btn-detail">View Details</a>
                         {% endif %}
-                        <a href="{% url 'admit_card_detail' admit_card.pk %}" class="btn btn-primary">
-                            <i class="fas fa-eye"></i> View Details
-                        </a>
                     </div>
                 </div>
                 {% endfor %}
             </div>
-            {% if not admit_cards %}
-            <div class="no-results">
-                <i class="fas fa-info-circle"></i>
-                <h3>No admit cards available at the moment</h3>
+
+            {% if is_paginated %}
+            <nav class="pagination-nav" aria-label="Pagination">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.organization %}&organization={{ request.GET.organization }}{% endif %}"><i class="fas fa-chevron-left"></i> Prev</a></li>
+                    {% endif %}
+                    <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+                    {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.organization %}&organization={{ request.GET.organization }}{% endif %}">Next <i class="fas fa-chevron-right"></i></a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+
+            {% else %}
+            <div class="empty-state">
+                <i class="fas fa-id-card"></i>
+                <h3>No Admit Cards Available</h3>
                 <p>Please check back later for new admit card releases.</p>
+                <a href="{% url 'admit_card_list' %}" class="btn btn-primary">View All</a>
             </div>
             {% endif %}
         </div>
     </section>
+
 </div>
 {% endblock %}

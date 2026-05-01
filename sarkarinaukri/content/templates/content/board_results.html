@@ -1,184 +1,112 @@
-<!-- content/templates/content/board_results.html -->
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Board Exam Results - Sarkari Naukri{% endblock %}
-
-{% block extra_css %}
-
-{% endblock %}
+{% block title %}Board Exam Results 2026 - Sarkari Naukri{% endblock %}
+{% block nav_board %}active{% endblock %}
 
 {% block content %}
-<div class="body-wrapper">
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <a href="/">
-                    <i class="fas fa-graduation-cap"></i>
-                    Sarkari Naukri
-                </a>
-            </div>
-            <div class="nav-menu">
-                <a href="{% url 'job_list' %}" class="nav-link">
-                    <i class="fas fa-briefcase"></i> Jobs
-                </a>
-                <a href="{% url 'result_list' %}" class="nav-link">
-                    <i class="fas fa-chart-bar"></i> Results
-                </a>
-                <a href="{% url 'admit_card_list' %}" class="nav-link">
-                    <i class="fas fa-id-card"></i> Admit Cards
-                </a>
-                <a href="{% url 'answer_key_list' %}" class="nav-link">
-                    <i class="fas fa-key"></i> Answer Keys
-                </a>
-                <a href="{% url 'syllabus_list' %}" class="nav-link">
-                    <i class="fas fa-book"></i> Syllabus
-                </a>
-                <a href="{% url 'board_results' %}" class="nav-link active">
-                    <i class="fas fa-graduation-cap"></i> Board Results
-                </a>
-                <a href="{% url 'scholarships' %}" class="nav-link">
-                    <i class="fas fa-money-bill-wave"></i> Scholarships
-                </a>
-                <a href="{% url 'important_notifications' %}" class="nav-link">
-                    <i class="fas fa-bell"></i> Notifications
-                </a>
-                <a href="{% url 'online_forms' %}" class="nav-link">
-                    <i class="fas fa-file-alt"></i> Online Forms
-                </a>
-                <a href="{% url 'certificate_verification' %}" class="nav-link">
-                    <i class="fas fa-certificate"></i> Verification
-                </a>
-            </div>
-        </div>
-    </nav>
+<div class="page-wrapper">
 
-    <!-- Page Header -->
-    <section class="page-header">
+    <div class="breadcrumb-nav">
         <div class="container">
-            <h1 class="page-title">
-                <i class="fas fa-graduation-cap"></i>
-                Board Exam Results
-            </h1>
-            <p class="page-subtitle">Check board exam results for all classes and streams from Indian state and central boards</p>
+            <a href="/">Home</a> <span>&rsaquo;</span> <span>Board Results</span>
         </div>
-    </section>
+    </div>
 
-    <div class="container">
-
-    <!-- Filters -->
-    <div class="card mb-4">
-        <div class="card-body">
-            <form method="get" class="row g-3">
-                <div class="col-md-3">
-                    <select name="board" class="form-select">
-                        <option value="">All Boards</option>
-                        {% for board_code, board_name in boards %}
-                        <option value="{{ board_code }}" {% if request.GET.board == board_code %}selected{% endif %}>
-                            {{ board_name }}
-                        </option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <select name="exam_type" class="form-select">
-                        <option value="">All Classes</option>
-                        {% for type_code, type_name in exam_types %}
-                        <option value="{{ type_code }}" {% if request.GET.exam_type == type_code %}selected{% endif %}>
-                            {{ type_name }}
-                        </option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <select name="year" class="form-select">
-                        <option value="">All Years</option>
-                        {% for year in years %}
-                        <option value="{{ year }}" {% if request.GET.year|stringformat:"s" == year|stringformat:"s" %}selected{% endif %}>
-                            {{ year }}
-                        </option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary">Filter</button>
-                </div>
+    <div class="filter-bar">
+        <div class="container">
+            <form method="get" class="filter-form">
+                <select name="board" class="filter-select">
+                    <option value="">All Boards</option>
+                    {% for value, label in boards %}
+                    <option value="{{ value }}" {% if request.GET.board == value %}selected{% endif %}>{{ value }}</option>
+                    {% endfor %}
+                </select>
+                <select name="exam_type" class="filter-select">
+                    <option value="">All Classes</option>
+                    {% for value, label in exam_types %}
+                    <option value="{{ value }}" {% if request.GET.exam_type == value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+                <select name="year" class="filter-select">
+                    <option value="">All Years</option>
+                    {% for yr in years %}
+                    <option value="{{ yr }}" {% if request.GET.year == yr|stringformat:"s" %}selected{% endif %}>{{ yr }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="filter-btn"><i class="fas fa-search"></i> Filter</button>
+                <a href="{% url 'board_results' %}" class="filter-reset">Clear</a>
             </form>
         </div>
     </div>
 
-    <!-- Results List -->
-    <div class="row">
-        {% for result in board_results %}
-        <div class="col-md-6 mb-4">
-            <div class="card {% if result.is_declared %}border-success{% else %}border-warning{% endif %}">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        {{ result.get_board_display }} {{ result.get_exam_type_display }} Result {{ result.year }}
-                        {% if result.is_declared %}
-                        <span class="badge bg-success">Declared</span>
+    <section class="list-section">
+        <div class="container">
+            <div class="list-header">
+                <h1 class="list-title"><i class="fas fa-graduation-cap"></i> Board Exam Results</h1>
+                <span class="list-count">{{ paginator.count }} Results</span>
+            </div>
+
+            {% if board_results %}
+            <div class="post-list">
+                {% for br in board_results %}
+                <div class="post-item">
+                    <div class="post-item-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="post-item-body">
+                        <div class="post-item-top">
+                            <span class="post-item-title">{{ br.board }} Class {{ br.exam_type }} Result {{ br.year }}</span>
+                            <div class="post-item-badges">
+                                {% if br.is_declared %}
+                                <span class="status-badge badge-declared">Declared</span>
+                                {% else %}
+                                <span class="status-badge badge-pending">Awaited</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="post-item-meta">
+                            <span><i class="fas fa-university"></i> {{ br.board }}</span>
+                            <span><i class="fas fa-book"></i> Class {{ br.exam_type }}</span>
+                            {% if br.result_date %}<span><i class="fas fa-calendar-alt"></i> Result Date: {{ br.result_date|date:"d M Y" }}</span>{% endif %}
+                            {% if br.pass_percentage %}<span><i class="fas fa-chart-bar"></i> Pass %: {{ br.pass_percentage }}%</span>{% endif %}
+                        </div>
+                    </div>
+                    <div class="post-item-actions">
+                        {% if br.is_declared and br.result_link %}
+                        <a href="{{ br.result_link }}" target="_blank" class="btn-detail">Check Result</a>
                         {% else %}
-                        <span class="badge bg-warning">Coming Soon</span>
-                        {% endif %}
-                    </h5>
-                    <p class="card-text">
-                        Result Date: {{ result.result_date|date:"d M Y" }}
-                        {% if result.total_students %}
-                        <br>Total Students: {{ result.total_students }}
-                        {% endif %}
-                        {% if result.pass_percentage %}
-                        <br>Pass Percentage: {{ result.pass_percentage }}%
-                        {% endif %}
-                    </p>
-                    <div class="d-flex gap-2">
-                        {% if result.result_link %}
-                        <a href="{{ result.result_link }}" target="_blank" class="btn btn-primary">View Result</a>
-                        {% endif %}
-                        {% if result.digilocker_link %}
-                        <a href="{{ result.digilocker_link }}" target="_blank" class="btn btn-outline-primary">DigiLocker</a>
+                        <span class="btn-detail" style="opacity:0.5;">Awaited</span>
                         {% endif %}
                     </div>
                 </div>
+                {% endfor %}
             </div>
+
+            {% if is_paginated %}
+            <nav class="pagination-nav" aria-label="Pagination">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.board %}&board={{ request.GET.board }}{% endif %}{% if request.GET.exam_type %}&exam_type={{ request.GET.exam_type }}{% endif %}{% if request.GET.year %}&year={{ request.GET.year }}{% endif %}"><i class="fas fa-chevron-left"></i> Prev</a></li>
+                    {% endif %}
+                    <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+                    {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.board %}&board={{ request.GET.board }}{% endif %}{% if request.GET.exam_type %}&exam_type={{ request.GET.exam_type }}{% endif %}{% if request.GET.year %}&year={{ request.GET.year }}{% endif %}">Next <i class="fas fa-chevron-right"></i></a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+
+            {% else %}
+            <div class="empty-state">
+                <i class="fas fa-graduation-cap"></i>
+                <h3>No Board Results Found</h3>
+                <p>Board exam results will be published here once declared.</p>
+                <a href="{% url 'board_results' %}" class="btn btn-primary">View All</a>
+            </div>
+            {% endif %}
         </div>
-        {% empty %}
-        <div class="col-12">
-            <div class="alert alert-info">No board exam results found.</div>
-        </div>
-        {% endfor %}
-    </div>
+    </section>
 
-    <!-- Pagination -->
-    {% if is_paginated %}
-    <nav aria-label="Board results pagination">
-        <ul class="pagination justify-content-center">
-            {% if page_obj.has_previous %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
-            </li>
-            {% endif %}
-
-            {% for num in page_obj.paginator.page_range %}
-            {% if page_obj.number == num %}
-            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
-            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ num }}">{{ num }}</a>
-            </li>
-            {% endif %}
-            {% endfor %}
-
-            {% if page_obj.has_next %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
-            </li>
-            {% endif %}
-        </ul>
-    </nav>
-    {% endif %}
-</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    </div>
 </div>
 {% endblock %}

@@ -1,103 +1,101 @@
-<!-- content/templates/content/result_list.html -->
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Latest Exam Results - Sarkari Naukri{% endblock %}
-
-{% block extra_css %}
-
-{% endblock %}
+{% block title %}Exam Results 2026 - Sarkari Naukri{% endblock %}
+{% block nav_results %}active{% endblock %}
 
 {% block content %}
-<div class="body-wrapper">
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <a href="/">
-                    <i class="fas fa-chart-bar"></i>
-                    Sarkari Naukri
-                </a>
-            </div>
-            <div class="nav-menu">
-                <a href="{% url 'job_list' %}" class="nav-link">
-                    <i class="fas fa-briefcase"></i> Jobs
-                </a>
-                <a href="{% url 'result_list' %}" class="nav-link active">
-                    <i class="fas fa-chart-bar"></i> Results
-                </a>
-                <a href="{% url 'admit_card_list' %}" class="nav-link">
-                    <i class="fas fa-id-card"></i> Admit Cards
-                </a>
-                <a href="{% url 'answer_key_list' %}" class="nav-link">
-                    <i class="fas fa-key"></i> Answer Keys
-                </a>
-                <a href="{% url 'syllabus_list' %}" class="nav-link">
-                    <i class="fas fa-book"></i> Syllabus
-                </a>
-                <a href="{% url 'board_results' %}" class="nav-link">
-                    <i class="fas fa-graduation-cap"></i> Board Results
-                </a>
-                <a href="{% url 'scholarships' %}" class="nav-link">
-                    <i class="fas fa-money-bill-wave"></i> Scholarships
-                </a>
-                <a href="{% url 'important_notifications' %}" class="nav-link">
-                    <i class="fas fa-bell"></i> Notifications
-                </a>
-                <a href="{% url 'online_forms' %}" class="nav-link">
-                    <i class="fas fa-file-alt"></i> Online Forms
-                </a>
-                <a href="{% url 'certificate_verification' %}" class="nav-link">
-                    <i class="fas fa-certificate"></i> Verification
-                </a>
-            </div>
-        </div>
-    </nav>
+<div class="page-wrapper">
 
-    <!-- Page Header -->
-    <section class="page-header">
+    <div class="breadcrumb-nav">
         <div class="container">
-            <h1 class="page-title">
-                <i class="fas fa-chart-bar"></i>
-                Latest Exam Results
-            </h1>
-            <p class="page-subtitle">Check your exam results and stay updated with the latest announcements</p>
+            <a href="/">Home</a> <span>&rsaquo;</span> <span>Exam Results</span>
         </div>
-    </section>
+    </div>
 
-    <!-- Results Grid -->
-    <section class="results-section">
+    <div class="filter-bar">
         <div class="container">
-            <div class="results-grid">
+            <form method="get" class="filter-form">
+                <input type="text" name="search" value="{{ search_query }}" placeholder="Search results..." class="filter-input">
+                <select name="organization" class="filter-select">
+                    <option value="">All Organizations</option>
+                    {% for org in organizations %}
+                    <option value="{{ org.id }}" {% if selected_org == org.id|stringformat:"s" %}selected{% endif %}>{{ org.name }}</option>
+                    {% endfor %}
+                </select>
+                <select name="year" class="filter-select">
+                    <option value="">All Years</option>
+                    {% for yr in years %}
+                    <option value="{{ yr }}" {% if selected_year == yr|stringformat:"s" %}selected{% endif %}>{{ yr }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="filter-btn"><i class="fas fa-search"></i> Search</button>
+                <a href="{% url 'result_list' %}" class="filter-reset">Clear</a>
+            </form>
+        </div>
+    </div>
+
+    <section class="list-section">
+        <div class="container">
+            <div class="list-header">
+                <h1 class="list-title"><i class="fas fa-chart-bar"></i> Exam Results</h1>
+                <span class="list-count">{{ paginator.count }} Results Found</span>
+            </div>
+
+            {% if results %}
+            <div class="post-list">
                 {% for result in results %}
-                <div class="result-card">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-chart-bar"></i>
+                <div class="post-item">
+                    <div class="post-item-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="post-item-body">
+                        <div class="post-item-top">
+                            <a href="{% url 'result_detail' result.pk %}" class="post-item-title">{{ result.exam_name }} {{ result.exam_year }}</a>
+                            <div class="post-item-badges">
+                                {% if result.is_official %}<span class="status-badge badge-official">Official</span>{% endif %}
+                                {% if result.result_date %}<span class="status-badge badge-declared">Declared</span>{% endif %}
+                            </div>
                         </div>
-                        <div class="card-meta">
-                            <span class="card-category">{{ result.exam_category }}</span>
-                            <span class="card-date">{{ result.created_at|date:"M d, Y" }}</span>
+                        <div class="post-item-meta">
+                            <span><i class="fas fa-building"></i> {{ result.organization }}</span>
+                            {% if result.state %}<span><i class="fas fa-map-marker-alt"></i> {{ result.state }}</span>{% endif %}
+                            {% if result.result_date %}<span><i class="fas fa-calendar-alt"></i> Declared: {{ result.result_date|date:"d M Y" }}</span>{% endif %}
+                            {% if result.selected_candidates %}<span><i class="fas fa-users"></i> {{ result.selected_candidates }} Selected</span>{% endif %}
+                            <span class="post-date"><i class="fas fa-clock"></i> {{ result.created_at|date:"d M Y" }}</span>
                         </div>
                     </div>
-                    <div class="card-content">
-                        <h3>{{ result.exam_name }}</h3>
-                        <p>{{ result.description|truncatechars:120 }}</p>
-                        <div class="card-stats">
-                            <span class="stat">
-                                <i class="fas fa-map-marker-alt"></i> {{ result.state }}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="card-actions">
-                        <a href="{% url 'result_detail' result.pk %}" class="btn btn-primary">
-                            <i class="fas fa-eye"></i> View Details
-                        </a>
+                    <div class="post-item-actions">
+                        <a href="{% url 'result_detail' result.pk %}" class="btn-detail">View Result</a>
                     </div>
                 </div>
                 {% endfor %}
             </div>
+
+            {% if is_paginated %}
+            <nav class="pagination-nav" aria-label="Pagination">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_org %}&organization={{ selected_org }}{% endif %}{% if selected_year %}&year={{ selected_year }}{% endif %}"><i class="fas fa-chevron-left"></i> Prev</a></li>
+                    {% endif %}
+                    <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+                    {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_org %}&organization={{ selected_org }}{% endif %}{% if selected_year %}&year={{ selected_year }}{% endif %}">Next <i class="fas fa-chevron-right"></i></a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+
+            {% else %}
+            <div class="empty-state">
+                <i class="fas fa-chart-bar"></i>
+                <h3>No Results Found</h3>
+                <p>Try adjusting your filters or check back later for new result declarations.</p>
+                <a href="{% url 'result_list' %}" class="btn btn-primary">View All Results</a>
+            </div>
+            {% endif %}
         </div>
     </section>
+
 </div>
 {% endblock %}
