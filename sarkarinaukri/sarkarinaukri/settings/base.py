@@ -148,9 +148,9 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
-STATICFILES_DIRS = [
-    PROJECT_DIR / "static",
-]
+# Only use app-level static directories in production.
+# PROJECT_DIR / "static" is not present in the deployment image and causes W004.
+STATICFILES_DIRS = []
 
 STATIC_ROOT = BASE_DIR / "static"
 STATIC_URL = "/static/"
