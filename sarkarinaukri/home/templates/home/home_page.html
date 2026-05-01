@@ -3,13 +3,49 @@
 
 {% block body_class %}template-homepage{% endblock %}
 
-{% block extra_css %}
-
-{% comment %}
-Delete the line below if you're just getting started and want to remove the welcome screen!
-{% endcomment %}
-<link rel="stylesheet" href="{% static 'css/welcome_page.css' %}">
-{% endblock extra_css %}
+{% block header %}
+<header class="site-header">
+    <div class="header-top">
+        <div class="container">
+            <div class="header-top-left">
+                <i class="fas fa-bolt"></i> India's #1 Govt Jobs Portal – Updated Daily
+            </div>
+            <div class="header-top-socials">
+                <a href="#"><i class="fab fa-telegram"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </div>
+    <nav class="main-nav navbar navbar-expand-lg">
+        <div class="container">
+            <a class="brand navbar-brand" href="/">
+                <div class="brand-icon">SN</div>
+                <div class="brand-text">
+                    <span class="brand-name">Sarkari <strong>Naukri</strong></span>
+                    <small class="brand-sub">Government Jobs Portal</small>
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/content/jobs/"><i class="fas fa-briefcase"></i> Jobs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/content/results/"><i class="fas fa-chart-bar"></i> Results</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/content/admit-cards/"><i class="fas fa-id-card"></i> Admit Cards</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/content/answer-keys/"><i class="fas fa-key"></i> Answer Keys</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/content/syllabus/"><i class="fas fa-book"></i> Syllabus</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/content/board-results/"><i class="fas fa-graduation-cap"></i> Board Results</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/content/scholarships/"><i class="fas fa-coins"></i> Scholarships</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/content/important-notifications/"><i class="fas fa-bell"></i> Alerts</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+{% endblock header %}
 
 {% block content %}
 
