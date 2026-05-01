@@ -7,9 +7,23 @@
 {% block content %}
 <div class="page-wrapper">
 
-    <div class="breadcrumb-nav">
+    <div class="page-hero">
         <div class="container">
-            <a href="/">Home</a> <span>&rsaquo;</span> <span>Important Notifications</span>
+            <div class="page-hero-icon"><i class="fas fa-bell"></i></div>
+            <div class="page-hero-body">
+                <nav class="page-hero-eyebrow">
+                    <a href="/">Home</a>
+                    <span class="sep">&rsaquo;</span>
+                    <span class="current">Notifications</span>
+                </nav>
+                <h1 class="page-hero-title">Important Notifications 2026</h1>
+                <p class="page-hero-sub">Critical government alerts — exam date changes, new recruitments, policy updates &amp; urgent notices</p>
+                <div class="page-hero-chips">
+                    <span class="page-hero-chip"><i class="fas fa-list-alt"></i> {{ paginator.count }} Notifications</span>
+                    <span class="page-hero-chip"><i class="fas fa-exclamation-triangle"></i> Urgent Alerts</span>
+                    <span class="page-hero-chip"><i class="fas fa-sync-alt"></i> Real-time Updates</span>
+                </div>
+            </div>
         </div>
     </div>
 

@@ -7,9 +7,23 @@
 {% block content %}
 <div class="page-wrapper">
 
-    <div class="breadcrumb-nav">
+    <div class="page-hero">
         <div class="container">
-            <a href="/">Home</a> <span>&rsaquo;</span> <span>Syllabus</span>
+            <div class="page-hero-icon"><i class="fas fa-book"></i></div>
+            <div class="page-hero-body">
+                <nav class="page-hero-eyebrow">
+                    <a href="/">Home</a>
+                    <span class="sep">&rsaquo;</span>
+                    <span class="current">Syllabus</span>
+                </nav>
+                <h1 class="page-hero-title">Exam Syllabus 2026</h1>
+                <p class="page-hero-sub">Complete &amp; updated syllabus for all government exams — UPSC, SSC, Banking, Railways &amp; State PSCs</p>
+                <div class="page-hero-chips">
+                    <span class="page-hero-chip"><i class="fas fa-list-alt"></i> {{ paginator.count }} Syllabus</span>
+                    <span class="page-hero-chip"><i class="fas fa-file-pdf"></i> Detailed PDF</span>
+                    <span class="page-hero-chip"><i class="fas fa-clock"></i> Previous Papers</span>
+                </div>
+            </div>
         </div>
     </div>
 

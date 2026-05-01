@@ -6,9 +6,23 @@
 {% block content %}
 <div class="page-wrapper">
 
-    <div class="breadcrumb-nav">
+    <div class="page-hero">
         <div class="container">
-            <a href="/">Home</a> <span>&rsaquo;</span> <span>Online Forms</span>
+            <div class="page-hero-icon"><i class="fas fa-file-alt"></i></div>
+            <div class="page-hero-body">
+                <nav class="page-hero-eyebrow">
+                    <a href="/">Home</a>
+                    <span class="sep">&rsaquo;</span>
+                    <span class="current">Online Forms</span>
+                </nav>
+                <h1 class="page-hero-title">Online Government Forms 2026</h1>
+                <p class="page-hero-sub">Active government application forms — jobs, admissions, certificates, licenses &amp; scholarships</p>
+                <div class="page-hero-chips">
+                    <span class="page-hero-chip"><i class="fas fa-list-alt"></i> {{ paginator.count }} Active Forms</span>
+                    <span class="page-hero-chip"><i class="fas fa-mouse-pointer"></i> Apply Online</span>
+                    <span class="page-hero-chip"><i class="fas fa-sync-alt"></i> Updated Daily</span>
+                </div>
+            </div>
         </div>
     </div>
 

@@ -7,9 +7,23 @@
 {% block content %}
 <div class="page-wrapper">
 
-    <div class="breadcrumb-nav">
+    <div class="page-hero">
         <div class="container">
-            <a href="/">Home</a> <span>&rsaquo;</span> <span>Board Results</span>
+            <div class="page-hero-icon"><i class="fas fa-graduation-cap"></i></div>
+            <div class="page-hero-body">
+                <nav class="page-hero-eyebrow">
+                    <a href="/">Home</a>
+                    <span class="sep">&rsaquo;</span>
+                    <span class="current">Board Results</span>
+                </nav>
+                <h1 class="page-hero-title">Board Exam Results 2026</h1>
+                <p class="page-hero-sub">Class 10th &amp; 12th results from CBSE, ICSE, UP Board, Bihar Board &amp; all state boards</p>
+                <div class="page-hero-chips">
+                    <span class="page-hero-chip"><i class="fas fa-list-alt"></i> {{ paginator.count }} Results</span>
+                    <span class="page-hero-chip"><i class="fas fa-university"></i> All Major Boards</span>
+                    <span class="page-hero-chip"><i class="fas fa-external-link-alt"></i> Official Links</span>
+                </div>
+            </div>
         </div>
     </div>
 

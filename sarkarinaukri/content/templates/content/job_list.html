@@ -7,9 +7,23 @@
 {% block content %}
 <div class="page-wrapper">
 
-    <div class="breadcrumb-nav">
+    <div class="page-hero">
         <div class="container">
-            <a href="/">Home</a> <span>&rsaquo;</span> <span>Government Jobs</span>
+            <div class="page-hero-icon"><i class="fas fa-briefcase"></i></div>
+            <div class="page-hero-body">
+                <nav class="page-hero-eyebrow">
+                    <a href="/">Home</a>
+                    <span class="sep">&rsaquo;</span>
+                    <span class="current">Government Jobs</span>
+                </nav>
+                <h1 class="page-hero-title">Latest Government Jobs 2026</h1>
+                <p class="page-hero-sub">Thousands of government job openings from UPSC, SSC, Railways, Banking &amp; more — updated daily</p>
+                <div class="page-hero-chips">
+                    <span class="page-hero-chip"><i class="fas fa-list-alt"></i> {{ paginator.count }} Jobs Listed</span>
+                    <span class="page-hero-chip"><i class="fas fa-sync-alt"></i> Updated Daily</span>
+                    <span class="page-hero-chip"><i class="fas fa-certificate"></i> Official Notifications</span>
+                </div>
+            </div>
         </div>
     </div>
 

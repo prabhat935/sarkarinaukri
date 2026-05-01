@@ -7,9 +7,23 @@
 {% block content %}
 <div class="page-wrapper">
 
-    <div class="breadcrumb-nav">
+    <div class="page-hero">
         <div class="container">
-            <a href="/">Home</a> <span>&rsaquo;</span> <span>Answer Keys</span>
+            <div class="page-hero-icon"><i class="fas fa-key"></i></div>
+            <div class="page-hero-body">
+                <nav class="page-hero-eyebrow">
+                    <a href="/">Home</a>
+                    <span class="sep">&rsaquo;</span>
+                    <span class="current">Answer Keys</span>
+                </nav>
+                <h1 class="page-hero-title">Answer Keys 2026</h1>
+                <p class="page-hero-sub">Official answer keys &amp; detailed solutions for all major government examinations</p>
+                <div class="page-hero-chips">
+                    <span class="page-hero-chip"><i class="fas fa-list-alt"></i> {{ paginator.count }} Answer Keys</span>
+                    <span class="page-hero-chip"><i class="fas fa-file-pdf"></i> PDF Available</span>
+                    <span class="page-hero-chip"><i class="fas fa-shield-alt"></i> Official &amp; Provisional</span>
+                </div>
+            </div>
         </div>
     </div>
 

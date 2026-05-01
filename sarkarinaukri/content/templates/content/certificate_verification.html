@@ -6,9 +6,23 @@
 {% block content %}
 <div class="page-wrapper">
 
-    <div class="breadcrumb-nav">
+    <div class="page-hero">
         <div class="container">
-            <a href="/">Home</a> <span>&rsaquo;</span> <span>Certificate Verification</span>
+            <div class="page-hero-icon"><i class="fas fa-certificate"></i></div>
+            <div class="page-hero-body">
+                <nav class="page-hero-eyebrow">
+                    <a href="/">Home</a>
+                    <span class="sep">&rsaquo;</span>
+                    <span class="current">Certificate Verification</span>
+                </nav>
+                <h1 class="page-hero-title">Certificate Verification</h1>
+                <p class="page-hero-sub">Verify your certificates online — official government portals for all major examinations</p>
+                <div class="page-hero-chips">
+                    <span class="page-hero-chip"><i class="fas fa-list-alt"></i> {{ paginator.count }} Portals</span>
+                    <span class="page-hero-chip"><i class="fas fa-shield-alt"></i> Official Links Only</span>
+                    <span class="page-hero-chip"><i class="fas fa-lock"></i> Secure Verification</span>
+                </div>
+            </div>
         </div>
     </div>
 

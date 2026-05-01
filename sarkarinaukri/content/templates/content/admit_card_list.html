@@ -7,9 +7,23 @@
 {% block content %}
 <div class="page-wrapper">
 
-    <div class="breadcrumb-nav">
+    <div class="page-hero">
         <div class="container">
-            <a href="/">Home</a> <span>&rsaquo;</span> <span>Admit Cards</span>
+            <div class="page-hero-icon"><i class="fas fa-id-card"></i></div>
+            <div class="page-hero-body">
+                <nav class="page-hero-eyebrow">
+                    <a href="/">Home</a>
+                    <span class="sep">&rsaquo;</span>
+                    <span class="current">Admit Cards</span>
+                </nav>
+                <h1 class="page-hero-title">Exam Admit Cards 2026</h1>
+                <p class="page-hero-sub">Download hall tickets for upcoming examinations — UPSC, SSC, IBPS, Railways &amp; more</p>
+                <div class="page-hero-chips">
+                    <span class="page-hero-chip"><i class="fas fa-list-alt"></i> {{ paginator.count }} Admit Cards</span>
+                    <span class="page-hero-chip"><i class="fas fa-download"></i> Direct Download</span>
+                    <span class="page-hero-chip"><i class="fas fa-sync-alt"></i> Updated Daily</span>
+                </div>
+            </div>
         </div>
     </div>
 

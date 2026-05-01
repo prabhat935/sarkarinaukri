@@ -7,9 +7,23 @@
 {% block content %}
 <div class="page-wrapper">
 
-    <div class="breadcrumb-nav">
+    <div class="page-hero">
         <div class="container">
-            <a href="/">Home</a> <span>&rsaquo;</span> <span>Scholarships</span>
+            <div class="page-hero-icon"><i class="fas fa-coins"></i></div>
+            <div class="page-hero-body">
+                <nav class="page-hero-eyebrow">
+                    <a href="/">Home</a>
+                    <span class="sep">&rsaquo;</span>
+                    <span class="current">Scholarships</span>
+                </nav>
+                <h1 class="page-hero-title">Government Scholarships 2026</h1>
+                <p class="page-hero-sub">Central &amp; State government scholarships for SC/ST, OBC, Minorities, Merit students &amp; more</p>
+                <div class="page-hero-chips">
+                    <span class="page-hero-chip"><i class="fas fa-list-alt"></i> {{ paginator.count }} Scholarships</span>
+                    <span class="page-hero-chip"><i class="fas fa-rupee-sign"></i> Financial Aid</span>
+                    <span class="page-hero-chip"><i class="fas fa-user-graduate"></i> All Categories</span>
+                </div>
+            </div>
         </div>
     </div>
 
