@@ -1,6 +1,6 @@
 {
   "$schema": "https://railway.com/railway.schema.json",
   "deploy": {
-    "startCommand": "bash start.sh"
+    "startCommand": "cd sarkarinaukri && DJANGO_SETTINGS_MODULE=sarkarinaukri.settings.production python manage.py collectstatic --noinput --clear && DJANGO_SETTINGS_MODULE=sarkarinaukri.settings.production python manage.py migrate && gunicorn sarkarinaukri.wsgi --log-file -"
   }
 }
