@@ -15,4 +15,5 @@ def monetization_context(request):
         'site_name': settings.SITE_NAME,
         'site_description': settings.SITE_DESCRIPTION,
         'site_keywords': settings.SITE_KEYWORDS,
+        'static_version': getattr(settings, 'STATIC_VERSION', '1'),
     }
