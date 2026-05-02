@@ -1,6 +1,7 @@
 {
   "$schema": "https://railway.com/railway.schema.json",
   "deploy": {
-    "preDeployCommand": "DJANGO_SETTINGS_MODULE=sarkarinaukri.settings.production python sarkarinaukri/manage.py migrate && DJANGO_SETTINGS_MODULE=sarkarinaukri.settings.production python sarkarinaukri/manage.py setup_wagtail && DJANGO_SETTINGS_MODULE=sarkarinaukri.settings.production python sarkarinaukri/manage.py collectstatic --clear --noinput"
+    "preDeployCommand": "DJANGO_SETTINGS_MODULE=sarkarinaukri.settings.production python sarkarinaukri/manage.py collectstatic --clear --noinput && DJANGO_SETTINGS_MODULE=sarkarinaukri.settings.production python sarkarinaukri/manage.py migrate",
+    "startCommand": "gunicorn --chdir sarkarinaukri sarkarinaukri.wsgi --log-file -"
   }
 }
