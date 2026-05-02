@@ -5,6 +5,32 @@
 {% block nav_jobs %}active{% endblock %}
 {% block body_class %}page-jobs{% endblock %}
 
+{% block schema_markup %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "JobPosting",
+  "title": "{{ job.title|escapejs }}",
+  "description": "{{ job.eligibility|default:''|escapejs }}",
+  "datePosted": "{{ job.created_at|date:'Y-m-d' }}",
+  {% if job.application_end_date %}"validThrough": "{{ job.application_end_date|date:'Y-m-d' }}",{% endif %}
+  "hiringOrganization": {
+    "@type": "Organization",
+    "name": "{{ job.organization|escapejs }}"
+  },
+  "jobLocation": {
+    "@type": "Place",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "IN"{% if job.state %},
+      "addressRegion": "{{ job.state|escapejs }}"{% endif %}
+    }
+  }{% if job.total_posts %},
+  "totalJobOpenings": {{ job.total_posts }}{% endif %}
+}
+</script>
+{% endblock %}
+
 {% block content %}
 <div class="page-wrapper">
 

@@ -1,38 +1,227 @@
 {% extends "base.html" %}
-{% load static wagtailcore_tags %}
+{% load static %}
 
-{% block body_class %}template-searchresults{% endblock %}
-
-{% block title %}Search{% endblock %}
+{% block title %}{% if query %}{{ query }} - Search Results{% else %}Search{% endif %} - Sarkari Naukri{% endblock %}
+{% block body_class %}page-search{% endblock %}
 
 {% block content %}
-<h1>Search</h1>
+<div class="page-wrapper">
 
-<form action="{% url 'search' %}" method="get">
-    <input type="text" name="query"{% if search_query %} value="{{ search_query }}"{% endif %}>
-    <input type="submit" value="Search" class="button">
-</form>
+    <!-- Search Hero -->
+    <section class="search-page-hero">
+        <div class="container">
+            <h1 class="search-hero-title">Search Sarkari Naukri</h1>
+            <p class="search-hero-sub">Find jobs, results, admit cards, answer keys &amp; more</p>
+            <form class="search-big-form" action="{% url 'search' %}" method="get">
+                {% if filter_type and filter_type != 'all' %}
+                <input type="hidden" name="type" value="{{ filter_type }}">
+                {% endif %}
+                <input
+                    class="search-big-input"
+                    type="text"
+                    name="query"
+                    value="{{ query }}"
+                    placeholder="e.g. SSC CGL, UPSC IAS, Railway NTPC…"
+                    autocomplete="off"
+                    autofocus
+                >
+                <button class="search-big-btn" type="submit">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </form>
+        </div>
+    </section>
 
-{% if search_results %}
-<ul>
-    {% for result in search_results %}
-    <li>
-        <h4><a href="{% pageurl result %}">{{ result }}</a></h4>
-        {% if result.search_description %}
-        {{ result.search_description }}
+    <div class="container" style="padding-top:2rem;padding-bottom:3rem;">
+
+        {% if query %}
+
+        <!-- Type Filter Tabs -->
+        <div class="search-tabs" style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.5rem;">
+            <a href="{% url 'search' %}?query={{ query|urlencode }}&type=all"
+               class="search-tab {% if filter_type == 'all' or not filter_type %}active{% endif %}">
+                All
+                {% if total_count %}<span class="tab-count">{{ total_count }}</span>{% endif %}
+            </a>
+            <a href="{% url 'search' %}?query={{ query|urlencode }}&type=jobs"
+               class="search-tab {% if filter_type == 'jobs' %}active{% endif %}">
+                <i class="fas fa-briefcase"></i> Jobs
+                {% if type_counts.jobs %}<span class="tab-count">{{ type_counts.jobs }}</span>{% endif %}
+            </a>
+            <a href="{% url 'search' %}?query={{ query|urlencode }}&type=results"
+               class="search-tab {% if filter_type == 'results' %}active{% endif %}">
+                <i class="fas fa-chart-bar"></i> Results
+                {% if type_counts.results %}<span class="tab-count">{{ type_counts.results }}</span>{% endif %}
+            </a>
+            <a href="{% url 'search' %}?query={{ query|urlencode }}&type=admit"
+               class="search-tab {% if filter_type == 'admit' %}active{% endif %}">
+                <i class="fas fa-id-card"></i> Admit Cards
+                {% if type_counts.admit %}<span class="tab-count">{{ type_counts.admit }}</span>{% endif %}
+            </a>
+            <a href="{% url 'search' %}?query={{ query|urlencode }}&type=answer"
+               class="search-tab {% if filter_type == 'answer' %}active{% endif %}">
+                <i class="fas fa-key"></i> Answer Keys
+                {% if type_counts.answer %}<span class="tab-count">{{ type_counts.answer }}</span>{% endif %}
+            </a>
+            <a href="{% url 'search' %}?query={{ query|urlencode }}&type=syllabus"
+               class="search-tab {% if filter_type == 'syllabus' %}active{% endif %}">
+                <i class="fas fa-book"></i> Syllabus
+                {% if type_counts.syllabus %}<span class="tab-count">{{ type_counts.syllabus }}</span>{% endif %}
+            </a>
+            <a href="{% url 'search' %}?query={{ query|urlencode }}&type=notify"
+               class="search-tab {% if filter_type == 'notify' %}active{% endif %}">
+                <i class="fas fa-bell"></i> Notifications
+                {% if type_counts.notify %}<span class="tab-count">{{ type_counts.notify }}</span>{% endif %}
+            </a>
+        </div>
+
+        <!-- Results Header -->
+        <div class="search-results-header">
+            {% if total_count %}
+                <span><strong>{{ total_count }}</strong> result{{ total_count|pluralize }} for "<strong>{{ query }}</strong>"</span>
+            {% else %}
+                <span>No results found for "<strong>{{ query }}</strong>"</span>
+            {% endif %}
+        </div>
+
+        {% if results.object_list %}
+        <!-- Results List -->
+        <div class="search-results-list">
+            {% for item in results %}
+            <div class="search-result-item">
+                <div class="sri-left">
+                    {% if item.type == 'jobs' %}
+                        <span class="search-type-badge stb-jobs"><i class="fas fa-briefcase"></i> Job</span>
+                    {% elif item.type == 'results' %}
+                        <span class="search-type-badge stb-results"><i class="fas fa-chart-bar"></i> Result</span>
+                    {% elif item.type == 'admit' %}
+                        <span class="search-type-badge stb-admit"><i class="fas fa-id-card"></i> Admit Card</span>
+                    {% elif item.type == 'answer' %}
+                        <span class="search-type-badge stb-answer"><i class="fas fa-key"></i> Answer Key</span>
+                    {% elif item.type == 'syllabus' %}
+                        <span class="search-type-badge stb-syllabus"><i class="fas fa-book"></i> Syllabus</span>
+                    {% elif item.type == 'notify' %}
+                        <span class="search-type-badge stb-notify"><i class="fas fa-bell"></i> Notification</span>
+                    {% endif %}
+                    <h3 class="sri-title">
+                        <a href="{{ item.url }}">{{ item.name }}</a>
+                    </h3>
+                    {% if item.org %}
+                    <span class="sri-org"><i class="fas fa-building"></i> {{ item.org }}</span>
+                    {% endif %}
+                </div>
+                <div class="sri-right">
+                    {% if item.date %}
+                    <span class="sri-date"><i class="fas fa-calendar-alt"></i> {{ item.date|date:"d M Y" }}</span>
+                    {% endif %}
+                    <a href="{{ item.url }}" class="sri-btn">View <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if is_paginated %}
+        <nav class="pagination-nav" aria-label="Search results pages">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?query={{ query|urlencode }}&type={{ filter_type }}&page={{ page_obj.previous_page_number }}">
+                        <i class="fas fa-chevron-left"></i> Prev
+                    </a>
+                </li>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                    <li class="page-item active">
+                        <span class="page-link">{{ num }}</span>
+                    </li>
+                    {% elif num > page_obj.number|add:"-3" and num < page_obj.number|add:"3" %}
+                    <li class="page-item">
+                        <a class="page-link" href="?query={{ query|urlencode }}&type={{ filter_type }}&page={{ num }}">{{ num }}</a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?query={{ query|urlencode }}&type={{ filter_type }}&page={{ page_obj.next_page_number }}">
+                        Next <i class="fas fa-chevron-right"></i>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
         {% endif %}
-    </li>
-    {% endfor %}
-</ul>
 
-{% if search_results.has_previous %}
-<a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}">Previous</a>
-{% endif %}
+        {% else %}
+        <!-- No Results -->
+        <div class="no-results-block">
+            <div class="no-results-icon"><i class="fas fa-search"></i></div>
+            <h2>No results found</h2>
+            <p>We couldn't find anything matching "<strong>{{ query }}</strong>".</p>
+            <ul class="search-tips">
+                <li>Check your spelling</li>
+                <li>Try shorter or more general keywords</li>
+                <li>Try searching by organization (e.g. SSC, UPSC, Railways)</li>
+                <li>Browse categories below</li>
+            </ul>
+            <div class="search-tip-links">
+                <a href="{% url 'job_list' %}" class="btn btn-primary"><i class="fas fa-briefcase"></i> Browse Jobs</a>
+                <a href="{% url 'result_list' %}" class="btn btn-secondary"><i class="fas fa-chart-bar"></i> Browse Results</a>
+                <a href="{% url 'admit_card_list' %}" class="btn btn-outline"><i class="fas fa-id-card"></i> Admit Cards</a>
+            </div>
+        </div>
+        {% endif %}
 
-{% if search_results.has_next %}
-<a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">Next</a>
-{% endif %}
-{% elif search_query %}
-No results found
-{% endif %}
+        {% else %}
+        <!-- Landing state — no query yet -->
+        <div class="search-landing">
+            <h2 class="search-landing-title">Popular Searches</h2>
+            <div class="popular-tags">
+                <a href="{% url 'search' %}?query=SSC+CGL" class="popular-tag">SSC CGL</a>
+                <a href="{% url 'search' %}?query=UPSC" class="popular-tag">UPSC</a>
+                <a href="{% url 'search' %}?query=Railway+NTPC" class="popular-tag">Railway NTPC</a>
+                <a href="{% url 'search' %}?query=Banking" class="popular-tag">Banking</a>
+                <a href="{% url 'search' %}?query=Police" class="popular-tag">Police</a>
+                <a href="{% url 'search' %}?query=Teaching" class="popular-tag">Teaching</a>
+                <a href="{% url 'search' %}?query=IBPS" class="popular-tag">IBPS</a>
+                <a href="{% url 'search' %}?query=Army" class="popular-tag">Army</a>
+                <a href="{% url 'search' %}?query=Navy" class="popular-tag">Navy</a>
+                <a href="{% url 'search' %}?query=State+PSC" class="popular-tag">State PSC</a>
+            </div>
+
+            <div class="search-browse-grid">
+                <a href="{% url 'job_list' %}" class="sbg-card sbg-jobs">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Latest Jobs</span>
+                </a>
+                <a href="{% url 'result_list' %}" class="sbg-card sbg-results">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Exam Results</span>
+                </a>
+                <a href="{% url 'admit_card_list' %}" class="sbg-card sbg-admit">
+                    <i class="fas fa-id-card"></i>
+                    <span>Admit Cards</span>
+                </a>
+                <a href="{% url 'answer_key_list' %}" class="sbg-card sbg-answer">
+                    <i class="fas fa-key"></i>
+                    <span>Answer Keys</span>
+                </a>
+                <a href="{% url 'syllabus_list' %}" class="sbg-card sbg-syllabus">
+                    <i class="fas fa-book"></i>
+                    <span>Syllabus</span>
+                </a>
+                <a href="{% url 'important_notifications' %}" class="sbg-card sbg-notify">
+                    <i class="fas fa-bell"></i>
+                    <span>Notifications</span>
+                </a>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+
+</div>
 {% endblock %}

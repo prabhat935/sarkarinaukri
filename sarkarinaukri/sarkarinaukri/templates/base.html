@@ -63,6 +63,26 @@
         <link rel="stylesheet" href="{% static 'css/sarkarinaukri.css' %}">
 
         {% block extra_css %}{% endblock %}
+
+        {# WebSite JSON-LD with SearchAction #}
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": "Sarkari Naukri",
+          "url": "{{ request.scheme }}://{{ request.get_host }}/",
+          "description": "India's Most Trusted Government Jobs Portal – Latest Sarkari Naukri, Results, Admit Cards, Answer Keys",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "{{ request.scheme }}://{{ request.get_host }}/search/?query={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }
+        }
+        </script>
+        {% block schema_markup %}{% endblock %}
     </head>
 
     <body class="{% block body_class %}{% endblock %}">
@@ -179,5 +199,7 @@
             </div>
         </footer>
         {% endblock footer %}
+
+        <button id="back-to-top" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
     </body>
 </html>
