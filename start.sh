@@ -3,9 +3,13 @@ set -e
 
 cd sarkarinaukri
 
-DJANGO_SETTINGS_MODULE=sarkarinaukri.settings.production python manage.py migrate --run-syncdb
-DJANGO_SETTINGS_MODULE=sarkarinaukri.settings.production python manage.py setup_wagtail
-rm -f static/staticfiles.json
-DJANGO_SETTINGS_MODULE=sarkarinaukri.settings.production python manage.py collectstatic --noinput
+export DJANGO_SETTINGS_MODULE=sarkarinaukri.settings.production
 
-gunicorn sarkarinaukri.wsgi --log-file -
+echo "==> Collecting static files..."
+python manage.py collectstatic --noinput --clear
+
+echo "==> Running migrations..."
+python manage.py migrate
+
+echo "==> Starting gunicorn..."
+exec gunicorn sarkarinaukri.wsgi --log-file -
