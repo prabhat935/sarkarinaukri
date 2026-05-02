@@ -28,13 +28,13 @@ ALLOWED_HOSTS = [
 # WhiteNoise must come directly after SecurityMiddleware (index 1)
 MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 
-# Use WhiteNoise's compressed storage. CompressedManifestStaticFilesStorage
-# requires every {% static %} reference to be in the manifest — if any are
-# missing (a persistent issue on this deployment) it hard-errors with 500.
-# CompressedStaticFilesStorage serves gzip-compressed files without a manifest,
-# which is safe and correct; switch back to Manifest variant once the static
-# collection pipeline is fully verified.
-STORAGES["staticfiles"]["BACKEND"] = "whitenoise.storage.CompressedStaticFilesStorage"
+# Manifest storage appends a content hash to every static file URL (e.g.
+# sarkarinaukri.abc123.css). This means the URL changes on every deploy,
+# so browsers never serve a stale cached CSS/JS. The previous 500 errors
+# were caused by setup_wagtail blocking collectstatic (incomplete manifest).
+# Now that collectstatic runs first in the Procfile, the manifest is always
+# complete and this is safe to use.
+STORAGES["staticfiles"]["BACKEND"] = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Database: use Railway's Postgres via DATABASE_URL
 _database_url = os.environ.get("DATABASE_URL")
