@@ -274,7 +274,7 @@
                     {% for result in recent_results %}
                     <div class="section-box-row">
                         {% if forloop.counter <= 2 %}<span class="tag-new">NEW</span>{% endif %}
-                        <a href="/content/results/" class="sbr-link">{{ result.exam_name }}{% if result.year %} {{ result.year }}{% endif %}</a>
+                        <a href="/content/results/" class="sbr-link">{{ result.exam_name }}{% if result.exam_year %} {{ result.exam_year }}{% endif %}</a>
                         {% if result.result_date %}<span class="sbr-date">{{ result.result_date|date:"d/m/y" }}</span>{% endif %}
                     </div>
                     {% endfor %}
@@ -396,7 +396,7 @@
         </div>
 
         <div class="categories-grid">
-            <a href="/content/jobs/?exam_category=SSC" class="category-card cc-ssc">
+            <a href="/search/?query=SSC" class="category-card cc-ssc">
                 <div class="category-icon"><i class="fas fa-file-alt"></i></div>
                 <div class="category-content">
                     <h3>SSC Exams</h3>
@@ -406,7 +406,7 @@
                 <div class="category-arrow"><i class="fas fa-chevron-right"></i></div>
             </a>
 
-            <a href="/content/jobs/?exam_category=UPSC" class="category-card cc-upsc">
+            <a href="/search/?query=UPSC" class="category-card cc-upsc">
                 <div class="category-icon"><i class="fas fa-crown"></i></div>
                 <div class="category-content">
                     <h3>UPSC Exams</h3>
@@ -416,7 +416,7 @@
                 <div class="category-arrow"><i class="fas fa-chevron-right"></i></div>
             </a>
 
-            <a href="/content/jobs/?exam_category=Banking" class="category-card cc-banking">
+            <a href="/search/?query=Banking" class="category-card cc-banking">
                 <div class="category-icon"><i class="fas fa-piggy-bank"></i></div>
                 <div class="category-content">
                     <h3>Banking Jobs</h3>
@@ -426,7 +426,7 @@
                 <div class="category-arrow"><i class="fas fa-chevron-right"></i></div>
             </a>
 
-            <a href="/content/jobs/?exam_category=Police" class="category-card cc-police">
+            <a href="/search/?query=Police" class="category-card cc-police">
                 <div class="category-icon"><i class="fas fa-shield-alt"></i></div>
                 <div class="category-content">
                     <h3>Police &amp; Defence</h3>
@@ -436,7 +436,7 @@
                 <div class="category-arrow"><i class="fas fa-chevron-right"></i></div>
             </a>
 
-            <a href="/content/jobs/?exam_category=Teaching" class="category-card cc-teaching">
+            <a href="/search/?query=Teaching" class="category-card cc-teaching">
                 <div class="category-icon"><i class="fas fa-chalkboard-teacher"></i></div>
                 <div class="category-content">
                     <h3>Teaching Jobs</h3>
@@ -446,7 +446,7 @@
                 <div class="category-arrow"><i class="fas fa-chevron-right"></i></div>
             </a>
 
-            <a href="/content/jobs/?exam_category=Railway" class="category-card cc-railway">
+            <a href="/search/?query=Railway" class="category-card cc-railway">
                 <div class="category-icon"><i class="fas fa-train"></i></div>
                 <div class="category-content">
                     <h3>Railway Jobs</h3>
@@ -654,21 +654,20 @@
                 <div class="footer-column">
                     <h4>Categories</h4>
                     <ul>
-                        <li><a href="/content/jobs/?category=ssc">SSC Exams</a></li>
-                        <li><a href="/content/jobs/?category=upsc">UPSC Exams</a></li>
-                        <li><a href="/content/jobs/?category=banking">Banking Jobs</a></li>
-                        <li><a href="/content/jobs/?category=police">Police Jobs</a></li>
-                        <li><a href="/content/jobs/?category=teaching">Teaching Jobs</a></li>
+                        <li><a href="/search/?query=SSC">SSC Exams</a></li>
+                        <li><a href="/search/?query=UPSC">UPSC Exams</a></li>
+                        <li><a href="/search/?query=Banking">Banking Jobs</a></li>
+                        <li><a href="/search/?query=Police">Police Jobs</a></li>
+                        <li><a href="/search/?query=Teaching">Teaching Jobs</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-column">
                     <h4>Support</h4>
                     <ul>
-                        <li><a href="/contact/">Contact Us</a></li>
-                        <li><a href="/about/">About Us</a></li>
-                        <li><a href="/privacy/">Privacy Policy</a></li>
-                        <li><a href="/terms/">Terms of Service</a></li>
+                        <li><a href="/about-us/">About Us</a></li>
+                        <li><a href="/privacy-policy/">Privacy Policy</a></li>
+                        <li><a href="/terms-of-service/">Terms of Service</a></li>
                         <li><a href="/disclaimer/">Disclaimer</a></li>
                     </ul>
                 </div>

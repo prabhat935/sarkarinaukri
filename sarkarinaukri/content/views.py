@@ -73,13 +73,9 @@ class JobListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['filterset'] = JobPostingFilter(self.request.GET)
-        
-        # Add filter options
         context['organizations'] = Organization.objects.filter(is_featured=True)
         context['states'] = State.objects.filter(is_featured=True)
         context['categories'] = ExamCategory.objects.filter(is_featured=True)
-        
         return context
 
 

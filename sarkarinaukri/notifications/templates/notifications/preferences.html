@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Notification Preferences - Sarkari Naukri{% endblock %}
+{% block body_class %}page-preferences{% endblock %}
+
+{% block content %}
+<div class="page-wrapper">
+    <div class="page-hero">
+        <div class="container">
+            <div class="page-hero-icon"><i class="fas fa-bell"></i></div>
+            <div class="page-hero-body">
+                <nav class="page-hero-eyebrow">
+                    <a href="/">Home</a>
+                    <span class="sep">&rsaquo;</span>
+                    <span class="current">Notification Preferences</span>
+                </nav>
+                <h1 class="page-hero-title">Notification Preferences</h1>
+                <p class="page-hero-sub">Customise how and when you receive job alerts</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="list-section">
+        <div class="container" style="max-width:720px;">
+
+            {% if message %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endif %}
+
+            <form method="post" class="card p-4 shadow-sm">
+                {% csrf_token %}
+
+                <h4 class="mb-3">Alert Channels</h4>
+                <div class="mb-3 form-check">
+                    <input class="form-check-input" type="checkbox" name="email_alerts" id="email_alerts" {% if pref.email_alerts %}checked{% endif %}>
+                    <label class="form-check-label" for="email_alerts"><i class="fas fa-envelope"></i> Email Alerts</label>
+                </div>
+                <div class="mb-3 form-check">
+                    <input class="form-check-input" type="checkbox" name="sms_alerts" id="sms_alerts" {% if pref.sms_alerts %}checked{% endif %}>
+                    <label class="form-check-label" for="sms_alerts"><i class="fas fa-sms"></i> SMS Alerts</label>
+                </div>
+                <div class="mb-3 form-check">
+                    <input class="form-check-input" type="checkbox" name="push_notifications" id="push_notifications" {% if pref.push_notifications %}checked{% endif %}>
+                    <label class="form-check-label" for="push_notifications"><i class="fas fa-mobile-alt"></i> Push Notifications</label>
+                </div>
+                <div class="mb-4 form-check">
+                    <input class="form-check-input" type="checkbox" name="whatsapp_alerts" id="whatsapp_alerts" {% if pref.whatsapp_alerts %}checked{% endif %}>
+                    <label class="form-check-label" for="whatsapp_alerts"><i class="fab fa-whatsapp"></i> WhatsApp Alerts</label>
+                </div>
+
+                <h4 class="mb-3">Alert Frequency</h4>
+                <div class="mb-4">
+                    <select class="form-select" name="alert_frequency">
+                        {% for val, label in frequencies %}
+                        <option value="{{ val }}" {% if pref.alert_frequency == val %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <h4 class="mb-3">Phone Number (for SMS / WhatsApp)</h4>
+                <div class="mb-4">
+                    <input type="tel" class="form-control" name="phone_number" value="{{ pref.phone_number }}" placeholder="+91 98765 43210">
+                </div>
+
+                <h4 class="mb-3">Interested States</h4>
+                <div class="mb-4 row">
+                    {% for state in states %}
+                    <div class="col-6 col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="states" value="{{ state.id }}" id="state_{{ state.id }}"
+                                {% if state in pref.selected_states.all %}checked{% endif %}>
+                            <label class="form-check-label" for="state_{{ state.id }}">{{ state.name }}</label>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <h4 class="mb-3">Interested Categories</h4>
+                <div class="mb-4 row">
+                    {% for cat in categories %}
+                    <div class="col-6 col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="categories" value="{{ cat.id }}" id="cat_{{ cat.id }}"
+                                {% if cat in pref.selected_categories.all %}checked{% endif %}>
+                            <label class="form-check-label" for="cat_{{ cat.id }}">{{ cat.name }}</label>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Preferences</button>
+            </form>
+
+        </div>
+    </section>
+</div>
+{% endblock %}

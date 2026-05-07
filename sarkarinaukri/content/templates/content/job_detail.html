@@ -25,8 +25,8 @@
       "addressCountry": "IN"{% if job.state %},
       "addressRegion": "{{ job.state|escapejs }}"{% endif %}
     }
-  }{% if job.total_posts %},
-  "totalJobOpenings": {{ job.total_posts }}{% endif %}
+  }{% if job.vacancies %},
+  "totalJobOpenings": {{ job.vacancies }}{% endif %}
 }
 </script>
 {% endblock %}
