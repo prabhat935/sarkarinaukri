@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sitemaps",
     "haystack",
 ]
 
@@ -234,6 +235,19 @@ CELERY_BEAT_SCHEDULE = {
     'cleanup-old-notifications': {
         'task': 'notifications.tasks.cleanup_old_notifications',
         'schedule': 604800.0,  # Every week
+    },
+    # --- Daily SEO tasks ---
+    'expire-old-jobs': {
+        'task': 'notifications.tasks.expire_old_jobs',
+        'schedule': 86400.0,  # Every 24 hours (midnight UTC)
+    },
+    'auto-fill-seo-meta': {
+        'task': 'notifications.tasks.auto_fill_seo_meta',
+        'schedule': 86400.0,  # Every 24 hours
+    },
+    'ping-search-engines': {
+        'task': 'notifications.tasks.ping_search_engines',
+        'schedule': 86400.0,  # Every 24 hours
     },
 }
 

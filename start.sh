@@ -11,5 +11,8 @@ python manage.py collectstatic --noinput --clear
 echo "==> Running migrations..."
 python manage.py migrate
 
+echo "==> Running daily SEO update..."
+python manage.py daily_seo_update
+
 echo "==> Starting gunicorn..."
 exec gunicorn sarkarinaukri.wsgi --log-file -

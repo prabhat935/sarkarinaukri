@@ -161,6 +161,116 @@ def cleanup_old_notifications():
     """Delete notifications older than 90 days"""
     from datetime import timedelta
     from django.utils import timezone
-    
+
     cutoff_date = timezone.now() - timedelta(days=90)
     NotificationLog.objects.filter(created_at__lt=cutoff_date).delete()
+
+
+# ============= DAILY SEO TASKS =============
+
+@shared_task
+def expire_old_jobs():
+    """
+    Mark Active jobs as Closed when their application_end_date has passed.
+    Runs daily so search engines immediately see accurate status and
+    we stop serving stale 'Active' listings.
+    """
+    from django.utils import timezone
+
+    today = timezone.now().date()
+    expired = JobPosting.objects.filter(
+        status='Active',
+        application_end_date__lt=today,
+    )
+    count = expired.update(status='Closed')
+    return f"Expired {count} jobs"
+
+
+@shared_task
+def auto_fill_seo_meta():
+    """
+    Auto-generate meta_description for jobs/results that have it empty.
+    Fills only blank fields so manually edited descriptions are preserved.
+    Runs daily so every new item gets SEO meta within 24 hours.
+    """
+    from django.utils import timezone
+
+    year = timezone.now().year
+    filled = 0
+
+    # --- Job postings ---
+    jobs = JobPosting.objects.filter(meta_description='').select_related(
+        'organization', 'state', 'exam_category'
+    )
+    for job in jobs:
+        parts = [f"Apply for {job.title}"]
+        if job.organization:
+            parts.append(f"at {job.organization}")
+        if job.vacancies:
+            parts.append(f"— {job.vacancies} vacancies")
+        if job.application_end_date:
+            parts.append(f"Last date: {job.application_end_date.strftime('%d %b %Y')}")
+        if job.state:
+            parts.append(f"| {job.state}")
+        desc = '. '.join(parts)[:160]
+        job.meta_description = desc
+        job.save(update_fields=['meta_description'])
+        filled += 1
+
+    # --- Exam results ---
+    results = ExamResult.objects.filter(meta_description='').select_related('organization')
+    for result in results:
+        desc = (
+            f"Check {result.exam_name} {result.exam_year} result declared by "
+            f"{result.organization}. Download result PDF and merit list."
+        )[:160]
+        result.meta_description = desc
+        result.save(update_fields=['meta_description'])
+        filled += 1
+
+    # --- Admit cards ---
+    from content.models import AdmitCard
+    for card in AdmitCard.objects.select_related('organization'):
+        # AdmitCard has no meta_description field — skip silently
+        pass
+
+    return f"Filled SEO meta for {filled} items"
+
+
+@shared_task
+def ping_search_engines():
+    """
+    Ping Google and Bing to re-crawl the sitemap after daily updates.
+    Safe to fail — a warning is logged but the task doesn't raise.
+    """
+    import logging
+    import urllib.request
+    import urllib.parse
+
+    logger = logging.getLogger(__name__)
+
+    from django.conf import settings
+
+    # Build the sitemap URL from WAGTAILADMIN_BASE_URL (production domain)
+    base_url = getattr(settings, 'WAGTAILADMIN_BASE_URL', '').rstrip('/')
+    if not base_url or 'example.com' in base_url:
+        return "Skipped: production domain not configured"
+
+    sitemap_url = f"{base_url}/sitemap.xml"
+    encoded = urllib.parse.quote(sitemap_url, safe='')
+
+    engines = {
+        'Google': f"https://www.google.com/ping?sitemap={encoded}",
+        'Bing':   f"https://www.bing.com/ping?sitemap={encoded}",
+    }
+
+    results = []
+    for engine, ping_url in engines.items():
+        try:
+            with urllib.request.urlopen(ping_url, timeout=10) as resp:
+                results.append(f"{engine}: {resp.status}")
+        except Exception as exc:
+            logger.warning("Sitemap ping to %s failed: %s", engine, exc)
+            results.append(f"{engine}: failed ({exc})")
+
+    return ', '.join(results)
