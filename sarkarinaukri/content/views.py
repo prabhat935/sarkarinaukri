@@ -118,44 +118,37 @@ class ResultListView(ListView):
         queryset = ExamResult.objects.select_related(
             'organization', 'state', 'exam_category'
         ).order_by('-exam_year', '-result_date')
-        
-        # Filter by organization
+
         org_id = self.request.GET.get('organization')
         if org_id:
             queryset = queryset.filter(organization_id=org_id)
-        
-        # Filter by state
+
         state_id = self.request.GET.get('state')
         if state_id:
             queryset = queryset.filter(state_id=state_id)
-        
-        # Filter by year
-        year = self.request.GET.get('year')
-        if year:
-            queryset = queryset.filter(exam_year=year)
-        
-        # Search by exam name
+
+        year = self.request.GET.get('year', '2026')
+        queryset = queryset.filter(exam_year=year)
+
         search = self.request.GET.get('search')
         if search:
             queryset = queryset.filter(exam_name__icontains=search)
-        
+
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['organizations'] = Organization.objects.filter(is_featured=True)
         context['states'] = State.objects.filter(is_featured=True)
-        
-        # Get available years
+
         years = ExamResult.objects.values_list('exam_year', flat=True).distinct().order_by('-exam_year')
-        context['years'] = years[:10]  # Last 10 years
-        
-        # Preserve search params
+        context['years'] = years[:10]
+
         context['selected_org'] = self.request.GET.get('organization')
         context['selected_state'] = self.request.GET.get('state')
-        context['selected_year'] = self.request.GET.get('year')
+        context['selected_year'] = self.request.GET.get('year', '2026')
         context['search_query'] = self.request.GET.get('search')
-        
+
         return context
 
 
@@ -178,17 +171,22 @@ class AdmitCardListView(ListView):
         queryset = AdmitCard.objects.select_related(
             'organization', 'state', 'exam_category'
         ).order_by('-admit_card_date')
-        
-        # Filter by organization
+
+        year = int(self.request.GET.get('year', 2026))
+        queryset = queryset.filter(exam_date__year=year)
+
         org_id = self.request.GET.get('organization')
         if org_id:
             queryset = queryset.filter(organization_id=org_id)
-        
+
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['organizations'] = Organization.objects.filter(is_featured=True)
+        context['selected_year'] = self.request.GET.get('year', '2026')
+        years = AdmitCard.objects.dates('exam_date', 'year', order='DESC')
+        context['years'] = [d.year for d in years[:10]]
         return context
 
 
@@ -208,13 +206,25 @@ class AnswerKeyListView(ListView):
     paginate_by = 20
 
     def get_queryset(self):
-        return AnswerKey.objects.select_related(
+        queryset = AnswerKey.objects.select_related(
             'organization', 'state', 'exam_category'
         ).order_by('-exam_date')
+
+        year = self.request.GET.get('year', '2026')
+        queryset = queryset.filter(exam_year=year)
+
+        org_id = self.request.GET.get('organization')
+        if org_id:
+            queryset = queryset.filter(organization_id=org_id)
+
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['organizations'] = Organization.objects.filter(is_featured=True)
+        context['selected_year'] = self.request.GET.get('year', '2026')
+        years = AnswerKey.objects.values_list('exam_year', flat=True).distinct().order_by('-exam_year')
+        context['years'] = years[:10]
         return context
 
 
