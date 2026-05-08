@@ -1,7 +1,8 @@
 #!/bin/bash
 set -e
 
-cd sarkarinaukri
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$REPO_ROOT/sarkarinaukri"
 
 export DJANGO_SETTINGS_MODULE=sarkarinaukri.settings.production
 
