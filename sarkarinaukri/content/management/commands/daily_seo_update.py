@@ -1,38 +1,32 @@
 """
 Management command: python manage.py daily_seo_update
 
-Runs all three SEO maintenance tasks synchronously (no Celery required).
+Runs SEO maintenance tasks synchronously (no Celery required).
 Called by start.sh on every deploy so fresh deployments are SEO-ready
 immediately, and also scheduled as Celery beat tasks for ongoing updates.
 
 Tasks:
   1. expire_old_jobs     — close jobs past their application deadline
   2. auto_fill_seo_meta  — fill blank meta_description on jobs & results
-  3. ping_search_engines — notify Google/Bing of sitemap changes
 """
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 
 
 class Command(BaseCommand):
-    help = 'Run daily SEO update: expire jobs, fill meta, ping search engines'
+    help = 'Run daily SEO update: expire jobs and fill meta descriptions'
 
     def handle(self, *args, **options):
         self.stdout.write('==> Daily SEO update started')
 
         # 1. Expire old jobs
-        self.stdout.write('    [1/3] Expiring past-deadline jobs...')
+        self.stdout.write('    [1/2] Expiring past-deadline jobs...')
         result = self._expire_old_jobs()
         self.stdout.write(self.style.SUCCESS(f'         {result}'))
 
         # 2. Auto-fill SEO meta
-        self.stdout.write('    [2/3] Auto-filling SEO meta descriptions...')
+        self.stdout.write('    [2/2] Auto-filling SEO meta descriptions...')
         result = self._auto_fill_seo_meta()
-        self.stdout.write(self.style.SUCCESS(f'         {result}'))
-
-        # 3. Ping search engines
-        self.stdout.write('    [3/3] Pinging search engines...')
-        result = self._ping_search_engines()
         self.stdout.write(self.style.SUCCESS(f'         {result}'))
 
         self.stdout.write('==> Daily SEO update complete')
@@ -90,27 +84,3 @@ class Command(BaseCommand):
 
         return f'Filled SEO meta for {filled} items'
 
-    def _ping_search_engines(self):
-        import urllib.request
-        import urllib.parse
-        from django.conf import settings
-
-        base_url = getattr(settings, 'WAGTAILADMIN_BASE_URL', '').rstrip('/')
-        if not base_url or 'example.com' in base_url:
-            return 'Skipped: production domain not configured'
-
-        sitemap_url = f'{base_url}/sitemap.xml'
-        encoded = urllib.parse.quote(sitemap_url, safe='')
-        engines = {
-            'Google': f'https://www.google.com/ping?sitemap={encoded}',
-            'Bing':   f'https://www.bing.com/ping?sitemap={encoded}',
-        }
-        results = []
-        for engine, ping_url in engines.items():
-            try:
-                with urllib.request.urlopen(ping_url, timeout=10) as resp:
-                    results.append(f'{engine}: {resp.status}')
-            except Exception as exc:
-                results.append(f'{engine}: failed ({exc})')
-
-        return ', '.join(results)

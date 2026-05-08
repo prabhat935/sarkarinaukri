@@ -245,10 +245,6 @@ CELERY_BEAT_SCHEDULE = {
         'task': 'notifications.tasks.auto_fill_seo_meta',
         'schedule': 86400.0,  # Every 24 hours
     },
-    'ping-search-engines': {
-        'task': 'notifications.tasks.ping_search_engines',
-        'schedule': 86400.0,  # Every 24 hours
-    },
 }
 
 
