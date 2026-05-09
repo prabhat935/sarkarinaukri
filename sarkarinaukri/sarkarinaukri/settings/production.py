@@ -63,6 +63,18 @@ CSRF_TRUSTED_ORIGINS = [
 # Wagtail admin URL
 WAGTAILADMIN_BASE_URL = "https://www.sarkarinaukriresult.online"
 
+# Google AdSense Configuration
+GOOGLE_ADSENSE_ENABLED = True
+GOOGLE_ADSENSE_CLIENT_ID = "ca-pub-2969963906699889"
+
+# Google Analytics
+GOOGLE_ANALYTICS_ID = ""
+
+# Site metadata
+SITE_NAME = "SarkariNaukri"
+SITE_DESCRIPTION = "Find latest government job announcements, exam results, admit cards, and answer keys"
+SITE_KEYWORDS = "sarkari naukri, government jobs, exam results, admit cards"
+
 # Skip heavy sample data population during deployment
 os.environ.setdefault('SKIP_SAMPLE_DATA', 'true')
 
