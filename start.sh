@@ -12,6 +12,9 @@ python manage.py collectstatic --noinput --clear
 echo "==> Running migrations..."
 python manage.py migrate
 
+echo "==> Seeding SarkariResult data..."
+python manage.py add_sarkariresult_data
+
 echo "==> Running daily SEO update..."
 python manage.py daily_seo_update
 
