@@ -23,6 +23,8 @@ _extra_hosts = [
 ALLOWED_HOSTS = [
     'gleaming-generosity-production-22ba.up.railway.app',
     '.railway.app',
+    'sarkarinaukriresult.online',
+    'www.sarkarinaukriresult.online',
 ] + _extra_hosts
 
 # WhiteNoise must come directly after SecurityMiddleware (index 1)
@@ -52,12 +54,14 @@ DATABASES = {
 CSRF_TRUSTED_ORIGINS = [
     'https://gleaming-generosity-production-22ba.up.railway.app',
     'https://*.railway.app',
+    'https://sarkarinaukriresult.online',
+    'https://www.sarkarinaukriresult.online',
 ] + [
     f'https://{h}' for h in _extra_hosts if not h.startswith('http')
 ]
 
 # Wagtail admin URL
-WAGTAILADMIN_BASE_URL = "https://gleaming-generosity-production-22ba.up.railway.app"
+WAGTAILADMIN_BASE_URL = "https://www.sarkarinaukriresult.online"
 
 # Skip heavy sample data population during deployment
 os.environ.setdefault('SKIP_SAMPLE_DATA', 'true')
