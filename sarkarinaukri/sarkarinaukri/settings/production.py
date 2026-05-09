@@ -21,7 +21,7 @@ _extra_hosts = [
     if h.strip()
 ]
 ALLOWED_HOSTS = [
-    'gleaming-generosity-production-22ba.up.railway.app',
+    'gleaming-generosity-production-b80f.up.railway.app',
     '.railway.app',
     'sarkarinaukriresult.online',
     'www.sarkarinaukriresult.online',
@@ -52,7 +52,7 @@ DATABASES = {
 
 # Trust Railway's HTTPS origins for CSRF
 CSRF_TRUSTED_ORIGINS = [
-    'https://gleaming-generosity-production-22ba.up.railway.app',
+    'https://gleaming-generosity-production-b80f.up.railway.app',
     'https://*.railway.app',
     'https://sarkarinaukriresult.online',
     'https://www.sarkarinaukriresult.online',
