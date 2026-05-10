@@ -28,6 +28,12 @@ def robots_txt(request):
     return HttpResponse('\n'.join(lines), content_type='text/plain')
 
 
+def ads_txt(request):
+    content = "google.com, pub-2969963906699889, DIRECT, f08c47fec0942fa0\n"
+    return HttpResponse(content, content_type='text/plain')
+
+
+
 urlpatterns = [
     path("django-admin/", admin.site.urls),
     path("admin/", include(wagtailadmin_urls)),
@@ -40,6 +46,7 @@ urlpatterns = [
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps},
          name="django.contrib.sitemaps.views.sitemap"),
     path("robots.txt", robots_txt, name="robots_txt"),
+    path("ads.txt", ads_txt, name="ads_txt"),
 
     # Legal and Info Pages
     path("privacy-policy/", home_views.privacy_policy, name="privacy_policy"),
