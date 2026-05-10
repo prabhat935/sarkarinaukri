@@ -15,6 +15,9 @@ python manage.py migrate
 echo "==> Seeding SarkariResult data..."
 python manage.py add_sarkariresult_data
 
+echo "==> Adding latest jobs..."
+python manage.py add_latest_jobs
+
 echo "==> Running daily SEO update..."
 python manage.py daily_seo_update
 
