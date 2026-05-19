@@ -10,7 +10,7 @@ ARTICLES = [
         'category': 'career',
         'published_date': datetime.date(2026, 5, 1),
         'excerpt': 'A complete step-by-step guide to applying for government jobs online in India — from finding the official notification to submitting your application and avoiding common mistakes.',
-        'meta_description': 'Learn how to apply for government jobs online in India. Step-by-step guide covering registration, form filling, document upload, fee payment, and common mistakes to avoid.',
+        'meta_description': 'Learn how to apply for government jobs online in India. Step-by-step guide: registration, form filling, document upload, fee payment, and common mistakes.',
         'content': """
 <p>Applying for government jobs online has become the standard process across India. Whether you are targeting SSC, UPSC, IBPS, or any state recruitment board, the application process follows a broadly similar pattern. This guide walks you through every step so you can apply confidently without missing deadlines or making costly mistakes.</p>
 
@@ -441,7 +441,7 @@ Junior Management Grade Scale I → Middle Management Grade Scale II → Scale I
         'category': 'preparation',
         'published_date': datetime.date(2026, 5, 6),
         'excerpt': 'Step-by-step guide to downloading government exam admit cards, fixing common login and download problems, and a complete checklist of what to bring to the examination hall.',
-        'meta_description': 'How to download government exam admit cards online. Solve common problems like login errors, photo not visible, wrong details, and get the exam hall document checklist.',
+        'meta_description': 'How to download government exam admit cards. Fix login errors, missing photos, wrong details. Complete exam hall document checklist for government exams.',
         'content': """
 <p>The admit card (also called hall ticket or call letter) is the single most important document for any government examination. Without it, you will not be permitted to enter the examination hall under any circumstances. This guide explains exactly how to download admit cards, solve the most common problems candidates face, and what you must bring on exam day.</p>
 
