@@ -18,4 +18,6 @@ urlpatterns = [
     path('result/<int:pk>/', views.ResultDetailView.as_view(), name='result_detail'),
     path('admit-card/<int:pk>/', views.AdmitCardDetailView.as_view(), name='admit_card_detail'),
     path('syllabus/<int:pk>/', views.SyllabusDetailView.as_view(), name='syllabus_detail'),
+    path('guides/', views.ArticleListView.as_view(), name='article_list'),
+    path('guides/<slug:slug>/', views.ArticleDetailView.as_view(), name='article_detail'),
 ]

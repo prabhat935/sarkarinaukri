@@ -537,6 +537,34 @@ class OnlineForm(models.Model):
 
 # ============= USER-RELATED MODELS =============
 
+class Article(models.Model):
+    """Original editorial articles for AdSense content quality"""
+
+    CATEGORIES = [
+        ('exam-guide', 'Exam Guide'),
+        ('preparation', 'Preparation Tips'),
+        ('career', 'Career Advice'),
+        ('news', 'News & Updates'),
+    ]
+
+    title = models.CharField(max_length=200, db_index=True)
+    slug = models.SlugField(unique=True, db_index=True)
+    excerpt = models.CharField(max_length=300)
+    content = models.TextField()
+    category = models.CharField(max_length=20, choices=CATEGORIES, default='exam-guide', db_index=True)
+    published_date = models.DateField(db_index=True)
+    meta_description = models.CharField(max_length=160, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-published_date']
+
+    def __str__(self):
+        return self.title
+
+
 class SavedJob(models.Model):
     """Jobs saved by users for later"""
     

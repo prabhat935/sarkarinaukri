@@ -7,7 +7,7 @@ from django.urls import reverse
 
 from content.models import (
     JobPosting, ExamResult, AdmitCard, Syllabus,
-    AnswerKey, ImportantNotification,
+    AnswerKey, ImportantNotification, Article,
 )
 
 
@@ -17,6 +17,7 @@ class StaticPagesSitemap(Sitemap):
 
     def items(self):
         return [
+            ('article_list',              0.9),
             ('job_list',                  1.0),
             ('result_list',               0.9),
             ('admit_card_list',           0.9),
@@ -119,9 +120,24 @@ class SyllabusSitemap(Sitemap):
         return obj.updated_at
 
 
+class ArticleSitemap(Sitemap):
+    changefreq = 'monthly'
+    priority = 0.8
+
+    def items(self):
+        return Article.objects.all()
+
+    def location(self, obj):
+        return reverse('article_detail', args=[obj.slug])
+
+    def lastmod(self, obj):
+        return obj.updated_at
+
+
 # Collected for use in urls.py
 sitemaps = {
     'static':       StaticPagesSitemap,
+    'articles':     ArticleSitemap,
     'jobs':         JobPostingSitemap,
     'jobs-closed':  ClosedJobSitemap,
     'results':      ExamResultSitemap,

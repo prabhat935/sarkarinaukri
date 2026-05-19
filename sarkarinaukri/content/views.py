@@ -8,7 +8,7 @@ import django_filters
 from .models import (
     JobPosting, ExamResult, AdmitCard, Syllabus, AnswerKey,
     Organization, ExamCategory, State, AdmissionForm, CertificateVerification,
-    BoardExamResult, Scholarship, ImportantNotification, OnlineForm
+    BoardExamResult, Scholarship, ImportantNotification, OnlineForm, Article
 )
 
 
@@ -465,3 +465,39 @@ def certificate_verification(request):
     """Certificate verification page"""
     view = CertificateVerificationListView.as_view()
     return view(request)
+
+
+# ============= ARTICLE VIEWS =============
+
+class ArticleListView(ListView):
+    model = Article
+    template_name = 'content/article_list.html'
+    context_object_name = 'articles'
+    paginate_by = 12
+
+    def get_queryset(self):
+        queryset = Article.objects.all()
+        category = self.request.GET.get('category')
+        if category:
+            queryset = queryset.filter(category=category)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Article.CATEGORIES
+        context['selected_category'] = self.request.GET.get('category', '')
+        return context
+
+
+class ArticleDetailView(DetailView):
+    model = Article
+    template_name = 'content/article_detail.html'
+    context_object_name = 'article'
+    slug_url_kwarg = 'slug'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['related'] = Article.objects.exclude(pk=self.object.pk).filter(
+            category=self.object.category
+        )[:3]
+        return context

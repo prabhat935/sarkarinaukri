@@ -21,6 +21,9 @@ python manage.py add_latest_jobs
 echo "==> Fixing job descriptions..."
 python manage.py fix_job_descriptions
 
+echo "==> Adding editorial articles..."
+python manage.py add_articles
+
 echo "==> Running daily SEO update..."
 python manage.py daily_seo_update
 

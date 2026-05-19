@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Exam Guides & Career Tips - Sarkari Naukri{% endblock %}
+{% block nav_guides %}active{% endblock %}
+{% block body_class %}page-guides{% endblock %}
+
+{% block content %}
+<div class="page-wrapper">
+
+    <div class="page-hero">
+        <div class="container">
+            <div class="page-hero-icon"><i class="fas fa-book-open"></i></div>
+            <div class="page-hero-body">
+                <nav class="page-hero-eyebrow">
+                    <a href="/">Home</a>
+                    <span class="sep">&rsaquo;</span>
+                    <span class="current">Exam Guides</span>
+                </nav>
+                <h1 class="page-hero-title">Exam Guides &amp; Career Tips</h1>
+                <p class="page-hero-sub">In-depth guides on government exams, preparation strategies, eligibility, and career advice written by experts</p>
+                <div class="page-hero-chips">
+                    <span class="page-hero-chip"><i class="fas fa-pen-nib"></i> Original Articles</span>
+                    <span class="page-hero-chip"><i class="fas fa-graduation-cap"></i> Expert Advice</span>
+                    <span class="page-hero-chip"><i class="fas fa-sync-alt"></i> Updated Regularly</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="filter-bar">
+        <div class="container">
+            <div class="filter-form">
+                <a href="{% url 'article_list' %}" class="filter-chip {% if not selected_category %}filter-chip-active{% endif %}">All</a>
+                {% for key, label in categories %}
+                <a href="?category={{ key }}" class="filter-chip {% if selected_category == key %}filter-chip-active{% endif %}">{{ label }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <section class="list-section">
+        <div class="container">
+            <div class="article-grid">
+                {% for article in articles %}
+                <article class="article-card">
+                    <div class="article-card-cat">
+                        {% if article.category == 'exam-guide' %}<i class="fas fa-book"></i> Exam Guide
+                        {% elif article.category == 'preparation' %}<i class="fas fa-pencil-alt"></i> Preparation Tips
+                        {% elif article.category == 'career' %}<i class="fas fa-briefcase"></i> Career Advice
+                        {% else %}<i class="fas fa-newspaper"></i> News
+                        {% endif %}
+                    </div>
+                    <h2 class="article-card-title">
+                        <a href="{% url 'article_detail' article.slug %}">{{ article.title }}</a>
+                    </h2>
+                    <p class="article-card-excerpt">{{ article.excerpt }}</p>
+                    <div class="article-card-footer">
+                        <span class="article-card-date"><i class="fas fa-calendar-alt"></i> {{ article.published_date|date:"d M Y" }}</span>
+                        <a href="{% url 'article_detail' article.slug %}" class="article-card-read">Read Guide <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                {% empty %}
+                <div class="empty-state">
+                    <i class="fas fa-book-open"></i>
+                    <p>No articles found.</p>
+                </div>
+                {% endfor %}
+            </div>
+
+            {% if is_paginated %}
+            <nav class="pagination-nav">
+                {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}" class="page-btn">&laquo; Previous</a>
+                {% endif %}
+                <span class="page-info">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="page-btn">Next &raquo;</a>
+                {% endif %}
+            </nav>
+            {% endif %}
+        </div>
+    </section>
+</div>
+
+{% block extra_css %}
+<style>
+.filter-chip {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 20px;
+    background: #f1f5f9;
+    color: #475569;
+    text-decoration: none;
+    font-size: 14px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    transition: all 0.2s;
+}
+.filter-chip:hover, .filter-chip-active {
+    background: #1e3a8a;
+    color: #fff;
+}
+.article-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+}
+.article-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    border: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.2s;
+}
+.article-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+.article-card-cat {
+    font-size: 12px;
+    font-weight: 600;
+    color: #3b82f6;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+}
+.article-card-title {
+    font-size: 17px;
+    font-weight: 700;
+    margin: 0 0 10px;
+    line-height: 1.4;
+}
+.article-card-title a { color: #1e293b; text-decoration: none; }
+.article-card-title a:hover { color: #1e3a8a; }
+.article-card-excerpt {
+    font-size: 14px;
+    color: #64748b;
+    line-height: 1.6;
+    flex: 1;
+    margin-bottom: 16px;
+}
+.article-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 12px;
+}
+.article-card-date { font-size: 12px; color: #94a3b8; }
+.article-card-read {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1e3a8a;
+    text-decoration: none;
+}
+.article-card-read:hover { color: #3b82f6; }
+</style>
+{% endblock %}
+{% endblock %}
