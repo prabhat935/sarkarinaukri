@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Allow: /content/guides/
+Allow: /ads.txt
+Disallow: /admin/
+Disallow: /search/
+
+Sitemap: https://sarkarinaukriresult.online/sitemap.xml

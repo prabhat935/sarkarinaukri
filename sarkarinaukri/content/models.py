@@ -567,7 +567,7 @@ class Article(models.Model):
 
 class SavedJob(models.Model):
     """Jobs saved by users for later"""
-    
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='saved_jobs')
     job = models.ForeignKey(JobPosting, on_delete=models.CASCADE)
     saved_at = models.DateTimeField(auto_now_add=True)
@@ -578,3 +578,34 @@ class SavedJob(models.Model):
 
     def __str__(self):
         return f"{self.user.username} saved {self.job.title}"
+
+
+class FAQ(models.Model):
+    """Frequently Asked Questions about government jobs and exams"""
+
+    CATEGORIES = [
+        ('eligibility', 'Eligibility & Requirements'),
+        ('application', 'Application Process'),
+        ('exams', 'Exams & Selection'),
+        ('age', 'Age & Category Relaxation'),
+        ('documents', 'Documents & Verification'),
+        ('salary', 'Salary & Benefits'),
+        ('career', 'Career Growth'),
+        ('other', 'Other'),
+    ]
+
+    question = models.CharField(max_length=300, db_index=True)
+    slug = models.SlugField(unique=True, db_index=True)
+    answer = models.TextField()
+    category = models.CharField(max_length=20, choices=CATEGORIES, db_index=True)
+    order = models.PositiveIntegerField(default=0, help_text="Display order")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['category', 'order']
+        verbose_name = 'FAQ'
+        verbose_name_plural = 'FAQs'
+
+    def __str__(self):
+        return self.question

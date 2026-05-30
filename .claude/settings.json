@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(findstr /E \"\\(syllabus|answer_key|answer-key\\)\")",
+      "Bash(answer\")",
+      "Bash(Rename-Item \"c:\\\\Users\\\\prabh\\\\OneDrive\\\\Desktop\\\\SarkariNaukri\\\\sarkarinaukri\\\\home\\\\static\\\\css\\\\sarkari.css\" \"sarkarinaukri.css\")",
+      "PowerShell(Rename-Item \"c:\\\\Users\\\\prabh\\\\OneDrive\\\\Desktop\\\\SarkariNaukri\\\\sarkarinaukri\\\\home\\\\static\\\\css\\\\sarkari.css\" \"sarkarinaukri.css\")",
+      "Bash(git rm *)",
+      "PowerShell(cd \"c:\\\\Users\\\\prabh\\\\OneDrive\\\\Desktop\\\\SarkariNaukri\\\\sarkarinaukri\"; $env:DJANGO_SETTINGS_MODULE=\"sarkarinaukri.settings.base\"; python manage.py makemigrations --check 2>&1)"
+    ]
+  }
+}
