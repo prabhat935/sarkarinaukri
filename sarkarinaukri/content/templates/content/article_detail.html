@@ -101,6 +101,29 @@
 .related-card-date { font-size: 12px; color: #94a3b8; margin-top: 6px; }
 .back-link { font-size: 14px; color: #3b82f6; text-decoration: none; }
 .back-link:hover { color: #1e3a8a; }
+.author-byline {
+    background: #f0f9ff;
+    border-left: 4px solid #3b82f6;
+    padding: 16px 16px;
+    margin: 24px 0;
+    border-radius: 6px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+.author-byline-label {
+    font-weight: 700;
+    color: #1e3a8a;
+    display: block;
+    margin-bottom: 4px;
+}
+.author-byline-name {
+    font-weight: 600;
+    color: #1e293b;
+}
+.author-byline-creds {
+    color: #475569;
+    font-size: 13px;
+}
 </style>
 {% endblock %}
 
@@ -111,11 +134,21 @@
   "@type": "Article",
   "headline": "{{ article.title|escapejs }}",
   "description": "{{ article.excerpt|escapejs }}",
+  "image": "https://sarkarinaukriresult.online/static/img/logo.png",
   "datePublished": "{{ article.published_date|date:'Y-m-d' }}",
   "dateModified": "{{ article.updated_at|date:'Y-m-d' }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ article.author_name|escapejs }}",
+    "jobTitle": "{{ article.author_credentials|escapejs }}"
+  },
   "publisher": {
     "@type": "Organization",
-    "name": "Sarkari Naukri"
+    "name": "Sarkari Naukri",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sarkarinaukriresult.online/static/img/logo.png"
+    }
   }
 }
 </script>
@@ -146,6 +179,16 @@
                 <a href="{% url 'article_list' %}" class="back-link">
                     <i class="fas fa-arrow-left"></i> Back to Guides
                 </a>
+
+                <div class="author-byline">
+                    <span class="author-byline-label"><i class="fas fa-user-circle"></i> By:</span>
+                    <span class="author-byline-name">{{ article.author_name }}</span>
+                    <div class="author-byline-creds">{{ article.author_credentials }}</div>
+                    <div style="color: #94a3b8; font-size: 12px; margin-top: 8px;">
+                        <i class="fas fa-calendar-alt"></i> Last updated {{ article.updated_at|date:"d M Y" }}
+                    </div>
+                </div>
+
                 <div class="article-body">
                     {{ article.content|safe }}
                 </div>

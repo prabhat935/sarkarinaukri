@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About Our Editorial Team - Sarkari Naukri{% endblock %}
+{% block nav_about %}active{% endblock %}
+
+{% block extra_css %}
+<style>
+.about-hero {
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+    color: #fff;
+    padding: 60px 0 40px;
+}
+.about-hero h1 {
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 800;
+    margin-bottom: 16px;
+}
+.about-hero p {
+    font-size: 16px;
+    opacity: 0.95;
+    max-width: 600px;
+}
+.about-content {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+.section-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: #1e3a8a;
+    margin: 40px 0 20px;
+    border-left: 4px solid #3b82f6;
+    padding-left: 16px;
+}
+.team-profile {
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 28px;
+    margin: 20px 0;
+    border: 1px solid #e2e8f0;
+}
+.profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+.profile-icon {
+    font-size: 40px;
+    color: #3b82f6;
+    margin-right: 16px;
+    width: 60px;
+    text-align: center;
+}
+.profile-info h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+}
+.profile-info p {
+    font-size: 14px;
+    color: #64748b;
+    margin: 4px 0 0;
+}
+.about-text {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #334155;
+    margin-bottom: 20px;
+}
+.highlight-box {
+    background: #eff6ff;
+    border-left: 4px solid #3b82f6;
+    padding: 20px;
+    border-radius: 6px;
+    margin: 24px 0;
+}
+.highlight-box h4 {
+    color: #1e3a8a;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+.highlight-box ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.highlight-box li {
+    padding: 6px 0;
+    color: #475569;
+    font-size: 14px;
+}
+.highlight-box li:before {
+    content: "✓ ";
+    color: #3b82f6;
+    font-weight: 700;
+    margin-right: 8px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-wrapper">
+    <div class="about-hero">
+        <div class="container">
+            <h1>About Our Editorial Team</h1>
+            <p>Meet the experts behind Sarkari Naukri's comprehensive government job guidance and preparation resources.</p>
+        </div>
+    </div>
+
+    <div class="about-content">
+        <div class="about-text">
+            <p>Sarkari Naukri's editorial team consists of experienced career counselors, government job specialists, and education experts dedicated to providing accurate, actionable guidance for government job aspirants across India. Our mission is to demystify the government recruitment process and empower candidates with the knowledge and resources needed to succeed.</p>
+        </div>
+
+        <h2 class="section-title"><i class="fas fa-users"></i> Our Editorial Team</h2>
+
+        <div class="team-profile">
+            <div class="profile-header">
+                <div class="profile-icon"><i class="fas fa-user-tie"></i></div>
+                <div class="profile-info">
+                    <h3>Sarkari Naukri Editor</h3>
+                    <p>Career Counselor, Government Job Expert</p>
+                </div>
+            </div>
+            <p style="color: #475569; margin: 12px 0;">
+                With 8+ years of dedicated experience in government job placement and career guidance, our editorial lead brings deep expertise in recruitment processes, exam patterns, and government policies. Having personally mentored thousands of successful candidates across SSC, UPSC, Banking, Railways, and other government sectors, our team understands the challenges aspiring government employees face.
+            </p>
+            <p style="color: #475569; margin: 12px 0;">
+                <strong>Specializations:</strong> Career pathway selection, government exam strategy, job eligibility assessment, interview preparation, and career growth planning.
+            </p>
+        </div>
+
+        <h2 class="section-title"><i class="fas fa-shield-alt"></i> Our Commitment to Quality</h2>
+
+        <div class="highlight-box">
+            <h4><i class="fas fa-check-circle"></i> Editorial Standards</h4>
+            <ul>
+                <li>All content verified against official government sources (SSC, UPSC, RRB, Banking bodies, etc.)</li>
+                <li>Regular updates reflecting latest notification changes and policy modifications</li>
+                <li>Fact-checking against official notifications and government websites</li>
+                <li>Original analysis and expert commentary on government recruitment trends</li>
+            </ul>
+        </div>
+
+        <div class="highlight-box">
+            <h4><i class="fas fa-info-circle"></i> Information Sources</h4>
+            <ul>
+                <li>Official government organization websites (SSC, UPSC, RRB, IBPS, SBI, etc.)</li>
+                <li>Ministry of Human Resource Development (MHRD) guidelines</li>
+                <li>Public Service Commission notifications and circulars</li>
+                <li>Banking and insurance regulatory body announcements</li>
+                <li>Verified media reports and official government press releases</li>
+            </ul>
+        </div>
+
+        <h2 class="section-title"><i class="fas fa-lightbulb"></i> Why You Can Trust Us</h2>
+
+        <div class="about-text">
+            <p><strong>Independence & Transparency:</strong> Sarkari Naukri is an independent resource portal with NO affiliation to any government organization. We do not represent SSC, UPSC, RRB, IBPS, SBI, or any other recruiting body. Our role is purely informational — to help you understand the recruitment process and access official information more easily.</p>
+
+            <p><strong>Accuracy & Verification:</strong> Every job notification, eligibility criterion, salary figure, and important date is cross-referenced with official sources. We employ a rigorous fact-checking process before any article or job posting goes live.</p>
+
+            <p><strong>User Focus:</strong> Our content is created exclusively for government job aspirants. We prioritize clarity, actionable advice, and comprehensive coverage over sales or promotions.</p>
+
+            <p><strong>Continuous Improvement:</strong> We actively monitor feedback and update content regularly to reflect the latest government policies, exam patterns, and recruitment procedures.</p>
+        </div>
+
+        <div class="highlight-box">
+            <h4><i class="fas fa-question-circle"></i> Common Questions</h4>
+            <ul>
+                <li><strong>Is Sarkari Naukri affiliated with any government body?</strong> No. We are an independent information portal. See our disclaimer for details.</li>
+                <li><strong>How do you verify job information?</strong> All job postings are verified against official notifications from recruiting organizations.</li>
+                <li><strong>Can I apply for jobs directly through your site?</strong> No. You must apply through official government websites. We provide information and guidance only.</li>
+                <li><strong>How often is content updated?</strong> Articles and job listings are updated daily as new notifications are released.</li>
+                <li><strong>Do you provide coaching or preparation guidance?</strong> We provide free preparation guides, study resources, and expert tips. For intensive coaching, refer to official institutions.</li>
+            </ul>
+        </div>
+
+        <h2 class="section-title"><i class="fas fa-envelope"></i> Contact & Support</h2>
+
+        <div class="about-text">
+            <p>Have questions about government jobs, exam preparation, or our content? We'd love to hear from you.</p>
+            <p><strong>Email:</strong> <a href="mailto:support@sarkarinaukriresult.online" style="color: #3b82f6; text-decoration: none;">support@sarkarinaukriresult.online</a></p>
+            <p><strong>For Corrections:</strong> If you notice any inaccurate information on our site, please report it to us immediately. Accuracy is our top priority.</p>
+        </div>
+
+        <div style="background: #fff3cd; border: 1px solid #ffc107; border-radius: 6px; padding: 16px; margin-top: 32px;">
+            <p style="font-size: 14px; color: #856404; margin: 0;">
+                <i class="fas fa-info-circle"></i> <strong>Important Disclaimer:</strong> Sarkari Naukri is NOT officially affiliated with SSC, UPSC, RRB, IBPS, SBI, RBI, or any government organization. We provide informational support only. Always verify information on official government websites before applying for jobs or exams.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

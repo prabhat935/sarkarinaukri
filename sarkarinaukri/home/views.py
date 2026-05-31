@@ -27,3 +27,9 @@ def disclaimer(request):
 def about_us(request):
     """Render about us page"""
     return render(request, 'home/about_us.html')
+
+
+@require_http_methods(["GET"])
+def about_authors(request):
+    """Render about authors page - E-E-A-T credibility signal"""
+    return render(request, 'home/about_authors.html')
