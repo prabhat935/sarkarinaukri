@@ -20,7 +20,7 @@
         {% endif %}
         <meta name="keywords" content="{{ site_keywords }}" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="robots" content="index, follow" />
+        <meta name="robots" content="{% block robots %}index, follow{% endblock %}" />
         <meta name="language" content="English" />
         <meta name="google-adsense-account" content="ca-pub-2969963906699889">
         <meta property="og:title" content="{% block og_title %}{{ site_name }}{% endblock %}" />
@@ -94,13 +94,7 @@
             <div class="header-top">
                 <div class="container">
                     <div class="header-top-left">
-                        <i class="fas fa-bolt"></i> India's #1 Govt Jobs Portal – Updated Daily
-                    </div>
-                    <div class="header-top-socials">
-                        <a href="#"><i class="fab fa-telegram"></i></a>
-                        <a href="#"><i class="fab fa-whatsapp"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <i class="fas fa-bolt"></i> Government jobs, results &amp; exam guides – checked against official notifications
                     </div>
                 </div>
             </div>
@@ -124,9 +118,10 @@
                             <li class="nav-item"><a class="nav-link {% block nav_answer %}{% endblock %}" href="{% url 'answer_key_list' %}"><i class="fas fa-key"></i> Answer Keys</a></li>
                             <li class="nav-item"><a class="nav-link {% block nav_syllabus %}{% endblock %}" href="{% url 'syllabus_list' %}"><i class="fas fa-book"></i> Syllabus</a></li>
                             <li class="nav-item"><a class="nav-link {% block nav_board %}{% endblock %}" href="{% url 'board_results' %}"><i class="fas fa-graduation-cap"></i> Board</a></li>
-                            <li class="nav-item"><a class="nav-link {% block nav_scholar %}{% endblock %}" href="{% url 'scholarships' %}"><i class="fas fa-coins"></i> Scholarships</a></li>
-                            <li class="nav-item"><a class="nav-link {% block nav_alerts %}{% endblock %}" href="{% url 'important_notifications' %}"><i class="fas fa-bell"></i> Alerts</a></li>
+                            {% if has_scholarships %}<li class="nav-item"><a class="nav-link {% block nav_scholar %}{% endblock %}" href="{% url 'scholarships' %}"><i class="fas fa-coins"></i> Scholarships</a></li>{% endif %}
+                            {% if has_notifications %}<li class="nav-item"><a class="nav-link {% block nav_alerts %}{% endblock %}" href="{% url 'important_notifications' %}"><i class="fas fa-bell"></i> Alerts</a></li>{% endif %}
                             <li class="nav-item"><a class="nav-link {% block nav_guides %}{% endblock %}" href="{% url 'article_list' %}"><i class="fas fa-book-open"></i> Guides</a></li>
+                            {% if has_faqs %}<li class="nav-item"><a class="nav-link {% block nav_faq %}{% endblock %}" href="{% url 'faq' %}"><i class="fas fa-question-circle"></i> FAQ</a></li>{% endif %}
                         </ul>
                     </div>
                 </div>
@@ -148,14 +143,7 @@
                 <div class="footer-content">
                     <div class="footer-brand">
                         <h3>Sarkari Naukri</h3>
-                        <p>India's Most Trusted Government Jobs Portal</p>
-                        <div class="footer-social">
-                            <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
-                            <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
-                            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                            <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
-                            <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
-                        </div>
+                        <p>Government job notifications, results and preparation guides for aspirants across India</p>
                     </div>
                     <div class="footer-links">
                         <div class="footer-column">
@@ -171,10 +159,12 @@
                         <div class="footer-column">
                             <h4>More</h4>
                             <ul>
+                                <li><a href="{% url 'article_list' %}">Exam Guides</a></li>
+                                {% if has_faqs %}<li><a href="{% url 'faq' %}">FAQ</a></li>{% endif %}
                                 <li><a href="{% url 'board_results' %}">Board Results</a></li>
-                                <li><a href="{% url 'scholarships' %}">Scholarships</a></li>
-                                <li><a href="{% url 'important_notifications' %}">Notifications</a></li>
-                                <li><a href="{% url 'online_forms' %}">Online Forms</a></li>
+                                {% if has_scholarships %}<li><a href="{% url 'scholarships' %}">Scholarships</a></li>{% endif %}
+                                {% if has_notifications %}<li><a href="{% url 'important_notifications' %}">Notifications</a></li>{% endif %}
+                                {% if has_online_forms %}<li><a href="{% url 'online_forms' %}">Online Forms</a></li>{% endif %}
                                 <li><a href="{% url 'certificate_verification' %}">Verification</a></li>
                             </ul>
                         </div>
@@ -182,6 +172,7 @@
                             <h4>Support</h4>
                             <ul>
                                 <li><a href="{% url 'about_us' %}">About Us</a></li>
+                                <li><a href="{% url 'about_authors' %}">Editorial Team</a></li>
                                 <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
                                 <li><a href="{% url 'terms_of_service' %}">Terms of Service</a></li>
                                 <li><a href="{% url 'disclaimer' %}">Disclaimer</a></li>
@@ -192,10 +183,6 @@
                 <div class="footer-bottom">
                     <div class="copyright">
                         <p>&copy; 2026 Sarkari Naukri. All rights reserved.</p>
-                    </div>
-                    <div class="footer-badges">
-                        <span class="badge">DMCA Protected</span>
-                        <span class="badge">SSL Secured</span>
                     </div>
                 </div>
             </div>

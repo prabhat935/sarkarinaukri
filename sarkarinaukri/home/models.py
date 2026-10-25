@@ -1,14 +1,21 @@
 from django.db import models
 from wagtail.models import Page
-from content.models import JobPosting, ExamResult, AdmitCard, Organization, ImportantNotification, AnswerKey
+from content.models import JobPosting, ExamResult, AdmitCard, Organization, ImportantNotification, AnswerKey, Article
 
 
 class HomePage(Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
-        # Latest jobs (2026 first, then 2025)
-        context['latest_jobs'] = JobPosting.objects.select_related('organization').order_by('-year', '-application_end_date')[:12]
+        # Latest open jobs, soonest-closing last date first
+        context['latest_jobs'] = JobPosting.objects.select_related('organization').filter(
+            status='Active'
+        ).order_by('application_end_date')[:12]
+        context['active_jobs_count'] = JobPosting.objects.filter(status='Active').count()
+
+        # Latest exam guides
+        context['latest_articles'] = Article.objects.all()[:6]
+        context['total_articles'] = Article.objects.count()
 
         # Recent results
         context['recent_results'] = ExamResult.objects.select_related('organization').order_by('-result_date')[:8]

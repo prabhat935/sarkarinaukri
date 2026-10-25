@@ -1,0 +1,5 @@
+<div class="section-box-row">
+    {% if job.days_remaining is not None and job.days_remaining <= 7 %}<span class="tag-urgent">CLOSING</span>{% endif %}
+    <a href="{% url 'job_detail' job.pk %}" class="sbr-link">{{ job.title }}{% if job.organization %} &mdash; {{ job.organization }}{% endif %}</a>
+    {% if job.application_end_date %}<span class="sbr-date">{{ job.application_end_date|date:"d/m/y" }}</span>{% endif %}
+</div>

@@ -5,7 +5,7 @@ from django.utils.text import slugify
 from content.models import Organization, ExamCategory, State, JobPosting
 import datetime
 
-TODAY = datetime.date(2026, 5, 10)
+TODAY = datetime.date.today()
 
 
 def d(day, month, year=2026):

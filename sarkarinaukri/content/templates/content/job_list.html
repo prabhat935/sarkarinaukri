@@ -46,7 +46,7 @@
                 </select>
                 <select name="status" class="filter-select">
                     <option value="">All Status</option>
-                    <option value="Active" {% if request.GET.status == "Active" %}selected{% endif %}>Active</option>
+                    <option value="Active" {% if request.GET.status == "Active" or "status" not in request.GET %}selected{% endif %}>Active</option>
                     <option value="Closed" {% if request.GET.status == "Closed" %}selected{% endif %}>Closed</option>
                 </select>
                 <button type="submit" class="filter-btn"><i class="fas fa-search"></i> Search</button>

@@ -8,7 +8,7 @@ import django_filters
 from .models import (
     JobPosting, ExamResult, AdmitCard, Syllabus, AnswerKey,
     Organization, ExamCategory, State, AdmissionForm, CertificateVerification,
-    BoardExamResult, Scholarship, ImportantNotification, OnlineForm, Article
+    BoardExamResult, Scholarship, ImportantNotification, OnlineForm, Article, FAQ
 )
 
 
@@ -66,7 +66,11 @@ class JobListView(ListView):
         queryset = JobPosting.objects.select_related(
             'organization', 'state', 'exam_category'
         ).order_by('-year', '-application_end_date', '-created_at')
-        
+
+        # Show open vacancies by default; closed ones stay reachable via the status filter
+        if 'status' not in self.request.GET:
+            queryset = queryset.filter(status='Active')
+
         # Apply filters
         filterset = JobPostingFilter(self.request.GET, queryset=queryset)
         return filterset.qs
@@ -501,3 +505,20 @@ class ArticleDetailView(DetailView):
             category=self.object.category
         )[:3]
         return context
+
+
+# ============= FAQ VIEW =============
+
+def faq_list(request):
+    """All FAQs grouped by category, in the model's category order"""
+    labels = dict(FAQ.CATEGORIES)
+    groups = {}
+    for faq in FAQ.objects.all():
+        groups.setdefault(faq.category, []).append(faq)
+    faq_groups = [
+        (key, labels[key], groups[key]) for key, _ in FAQ.CATEGORIES if key in groups
+    ]
+    return render(request, 'content/faq_list.html', {
+        'faq_groups': faq_groups,
+        'faqs': [faq for _, _, items in faq_groups for faq in items],
+    })

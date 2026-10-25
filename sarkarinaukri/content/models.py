@@ -73,6 +73,11 @@ class QualificationLevel(models.Model):
 
 # ============= MAIN CONTENT MODELS =============
 
+# Phrase from the boilerplate filler written by fix_job_descriptions for jobs
+# that have no hand-written description.
+GENERIC_DESCRIPTION_MARKER = 'has been officially notified for recruitment in'
+
+
 class JobPosting(models.Model):
     """Government job notifications"""
     
@@ -158,6 +163,17 @@ class JobPosting(models.Model):
         if self.application_end_date:
             return (self.application_end_date - date.today()).days
         return None
+
+    @classmethod
+    def indexable(cls):
+        """Active jobs with a real description; everything else is kept out of search."""
+        return cls.objects.filter(status='Active').exclude(
+            description__contains=GENERIC_DESCRIPTION_MARKER
+        )
+
+    @property
+    def is_indexable(self):
+        return self.status == 'Active' and GENERIC_DESCRIPTION_MARKER not in (self.description or '')
 
 
 class ExamResult(models.Model):

@@ -24,6 +24,12 @@ python manage.py fix_job_descriptions
 echo "==> Adding editorial articles..."
 python manage.py add_articles
 
+echo "==> Adding more editorial articles..."
+python manage.py add_more_articles
+
+echo "==> Adding FAQs..."
+python manage.py add_faqs
+
 echo "==> Running daily SEO update..."
 python manage.py daily_seo_update
 

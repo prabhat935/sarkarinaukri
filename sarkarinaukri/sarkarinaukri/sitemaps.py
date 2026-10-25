@@ -10,14 +10,32 @@ from content.models import (
     AnswerKey, ImportantNotification, Article,
 )
 
+from .context_processors import content_section_flags
+
 
 class StaticPagesSitemap(Sitemap):
     """Home page, list pages, and legal pages."""
     changefreq = 'daily'
 
+    # List pages that are left out while they have nothing to show
+    OPTIONAL_PAGES = {
+        'scholarships':            'has_scholarships',
+        'important_notifications': 'has_notifications',
+        'online_forms':            'has_online_forms',
+        'faq':                     'has_faqs',
+    }
+
     def items(self):
+        flags = content_section_flags()
+        return [
+            item for item in self._all_items()
+            if flags.get(self.OPTIONAL_PAGES.get(item[0]), True)
+        ]
+
+    def _all_items(self):
         return [
             ('article_list',              0.9),
+            ('faq',                       0.8),
             ('job_list',                  1.0),
             ('result_list',               0.9),
             ('admit_card_list',           0.9),
@@ -45,31 +63,12 @@ class StaticPagesSitemap(Sitemap):
 
 
 class JobPostingSitemap(Sitemap):
-    """Active job postings — high priority, checked weekly."""
+    """Active jobs with real descriptions. Closed and boilerplate jobs are noindexed."""
     changefreq = 'weekly'
     priority = 0.8
 
     def items(self):
-        return JobPosting.objects.filter(
-            status='Active'
-        ).order_by('-created_at')
-
-    def location(self, obj):
-        return reverse('job_detail', args=[obj.pk])
-
-    def lastmod(self, obj):
-        return obj.updated_at
-
-
-class ClosedJobSitemap(Sitemap):
-    """Closed/expired jobs — kept for result-seekers, lower priority."""
-    changefreq = 'monthly'
-    priority = 0.4
-
-    def items(self):
-        return JobPosting.objects.exclude(
-            status='Active'
-        ).order_by('-updated_at')[:500]
+        return JobPosting.indexable().order_by('-created_at')
 
     def location(self, obj):
         return reverse('job_detail', args=[obj.pk])
@@ -139,7 +138,6 @@ sitemaps = {
     'static':       StaticPagesSitemap,
     'articles':     ArticleSitemap,
     'jobs':         JobPostingSitemap,
-    'jobs-closed':  ClosedJobSitemap,
     'results':      ExamResultSitemap,
     'admit-cards':  AdmitCardSitemap,
     'syllabus':     SyllabusSitemap,

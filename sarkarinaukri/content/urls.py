@@ -20,4 +20,5 @@ urlpatterns = [
     path('syllabus/<int:pk>/', views.SyllabusDetailView.as_view(), name='syllabus_detail'),
     path('guides/', views.ArticleListView.as_view(), name='article_list'),
     path('guides/<slug:slug>/', views.ArticleDetailView.as_view(), name='article_detail'),
+    path('faq/', views.faq_list, name='faq'),
 ]

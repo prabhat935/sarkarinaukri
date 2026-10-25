@@ -4,6 +4,21 @@ Context processors for passing global settings to templates
 from django.conf import settings
 
 
+def content_section_flags():
+    """
+    Which optional sections have something to show. Empty sections are hidden
+    from navigation and the sitemap so visitors never land on a blank page.
+    """
+    from content.models import FAQ, ImportantNotification, OnlineForm, Scholarship
+
+    return {
+        'has_scholarships': Scholarship.objects.filter(status='Open').exists(),
+        'has_notifications': ImportantNotification.objects.exists(),
+        'has_online_forms': OnlineForm.objects.filter(status='Active').exists(),
+        'has_faqs': FAQ.objects.exists(),
+    }
+
+
 def monetization_context(request):
     """
     Add monetization settings (Google AdSense, Analytics) to template context
@@ -16,4 +31,5 @@ def monetization_context(request):
         'site_description': settings.SITE_DESCRIPTION,
         'site_keywords': settings.SITE_KEYWORDS,
         'static_version': getattr(settings, 'STATIC_VERSION', '1'),
+        **content_section_flags(),
     }
