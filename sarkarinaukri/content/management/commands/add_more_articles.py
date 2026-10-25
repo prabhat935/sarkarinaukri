@@ -313,6 +313,174 @@ Some state PSC exams grant age relaxation to candidates who are domiciled in tha
 <p>Document verification determines whether your success in written exams translates into a job offer. Meticulous preparation weeks in advance prevents last-minute panic and rejections.</p>
 """,
     },
+    {
+        'title': '7th Pay Commission In-Hand Salary for Pay Level 4 to Level 7: Full Breakdown with Deductions',
+        'slug': '7th-pay-commission-in-hand-salary-level-4-to-7',
+        'category': 'career',
+        'published_date': datetime.date(2026, 10, 25),
+        'excerpt': 'What a central government employee at Pay Level 4, 5, 6 or 7 actually takes home each month: basic pay, DA, HRA and transport allowance, minus NPS, CGHS and CGEGIS, with the formula to recalculate when DA changes.',
+        'meta_description': 'In-hand salary for 7th CPC Pay Level 4, 5, 6 and 7: basic pay, DA, HRA, TA and deductions explained, with X and Z city examples and the formula.',
+        'content': """<p>Job notifications mention a pay level, such as "Pay Level 7 (₹44,900 – ₹1,42,400)", but that range says little about what reaches your bank account. The first salary slip usually surprises new joiners in both directions: the gross is higher than the basic pay because of allowances, and the in-hand is lower than the gross because of deductions. This guide works through the numbers for Pay Levels 4 to 7, the levels of most SSC CGL, CHSL and similar Group B and C posts.</p>
+
+<h2>Which Posts Fall in Levels 4 to 7?</h2>
+<p>The pay level is always printed in the notification against each post. As a rough guide from recent SSC notifications:</p>
+<ul>
+<li><strong>Level 4 (starting basic ₹25,500):</strong> Postal / Sorting Assistant, Tax Assistant, Upper Division Clerk, Data Entry Operator (some departments)</li>
+<li><strong>Level 5 (₹29,200):</strong> Auditor, Accountant, Junior Accountant</li>
+<li><strong>Level 6 (₹35,400):</strong> Junior Statistical Officer, Sub-Inspector in CBI, Divisional Accountant</li>
+<li><strong>Level 7 (₹44,900):</strong> Assistant Section Officer, Inspector (Income Tax / Central GST / Customs), Assistant Enforcement Officer</li>
+</ul>
+<p>The same post can sit at different levels in different departments, so always confirm the level in the official notification for your post.</p>
+
+<h2>The Components of Your Salary</h2>
+
+<h3>1. Basic Pay</h3>
+<p>Every new joiner starts at the first cell of their level in the 7th CPC pay matrix: ₹25,500 for Level 4, ₹29,200 for Level 5, ₹35,400 for Level 6 and ₹44,900 for Level 7. Basic pay rises by one cell (about 3%) at each annual increment, which falls on 1 January or 1 July. Almost every other component is calculated from the basic, so it is the number that matters most.</p>
+
+<h3>2. Dearness Allowance (DA)</h3>
+<p>DA compensates for inflation and is a percentage of basic pay. The government revises it twice a year, effective January and July, usually announcing the change a few months late with arrears. <strong>The examples below use 58%</strong>, the rate in effect from July 2025. If the rate has changed when you read this, recalculate with the formula at the end of this guide.</p>
+
+<h3>3. House Rent Allowance (HRA)</h3>
+<p>HRA depends on the city you are posted in. Since DA crossed 50% in January 2024, the rates are:</p>
+<ul>
+<li><strong>X cities</strong> (Delhi, Mumbai, Kolkata, Chennai, Bengaluru, Hyderabad, Ahmedabad, Pune): 30% of basic</li>
+<li><strong>Y cities</strong> (most other large cities and state capitals): 20% of basic</li>
+<li><strong>Z cities</strong> (all other places): 10% of basic</li>
+</ul>
+<p>You do not get HRA if you live in government accommodation; instead, a licence fee is deducted.</p>
+
+<h3>4. Transport Allowance (TA)</h3>
+<p>For Levels 3 to 8, TA is ₹3,600 a month in the larger cities on the government's transport allowance list, and ₹1,800 elsewhere. DA is paid on TA too, so at 58% DA the actual amounts are ₹5,688 and ₹2,844.</p>
+
+<h2>The Deductions</h2>
+<ul>
+<li><strong>Pension contribution:</strong> under NPS, 10% of (basic + DA) is deducted, and the government adds 14% to your pension account. Employees who opt for the Unified Pension Scheme (UPS), available from April 2025, also contribute 10%, with a higher government share. The deduction from your salary is the same either way.</li>
+<li><strong>CGHS:</strong> in cities covered by the Central Government Health Scheme, a monthly subscription is deducted: ₹250 for Levels 1 to 5, ₹450 for Level 6 and ₹650 for Levels 7 to 11.</li>
+<li><strong>CGEGIS (group insurance):</strong> ₹30 a month for Group C posts and ₹60 for Group B posts.</li>
+<li><strong>Income tax:</strong> covered in its own section below.</li>
+</ul>
+
+<h2>Monthly Salary: X City (Highest HRA and TA)</h2>
+<table>
+<thead><tr><th>Component</th><th>Level 4</th><th>Level 5</th><th>Level 6</th><th>Level 7</th></tr></thead>
+<tbody>
+<tr><td>Basic pay</td><td>₹25,500</td><td>₹29,200</td><td>₹35,400</td><td>₹44,900</td></tr>
+<tr><td>DA (58%)</td><td>₹14,790</td><td>₹16,936</td><td>₹20,532</td><td>₹26,042</td></tr>
+<tr><td>HRA (30%)</td><td>₹7,650</td><td>₹8,760</td><td>₹10,620</td><td>₹13,470</td></tr>
+<tr><td>TA + DA on TA</td><td>₹5,688</td><td>₹5,688</td><td>₹5,688</td><td>₹5,688</td></tr>
+<tr><td><strong>Gross</strong></td><td><strong>₹53,628</strong></td><td><strong>₹60,584</strong></td><td><strong>₹72,240</strong></td><td><strong>₹90,100</strong></td></tr>
+<tr><td>NPS (10% of basic + DA)</td><td>₹4,029</td><td>₹4,614</td><td>₹5,593</td><td>₹7,094</td></tr>
+<tr><td>CGHS</td><td>₹250</td><td>₹250</td><td>₹450</td><td>₹650</td></tr>
+<tr><td>CGEGIS</td><td>₹30</td><td>₹30</td><td>₹30</td><td>₹60</td></tr>
+<tr><td><strong>In-hand (before income tax)</strong></td><td><strong>₹49,319</strong></td><td><strong>₹55,690</strong></td><td><strong>₹66,167</strong></td><td><strong>₹82,296</strong></td></tr>
+</tbody>
+</table>
+
+<h2>Monthly Salary: Z City (Lowest HRA and TA)</h2>
+<table>
+<thead><tr><th>Component</th><th>Level 4</th><th>Level 5</th><th>Level 6</th><th>Level 7</th></tr></thead>
+<tbody>
+<tr><td>Basic + DA</td><td>₹40,290</td><td>₹46,136</td><td>₹55,932</td><td>₹70,942</td></tr>
+<tr><td>HRA (10%)</td><td>₹2,550</td><td>₹2,920</td><td>₹3,540</td><td>₹4,490</td></tr>
+<tr><td>TA + DA on TA</td><td>₹2,844</td><td>₹2,844</td><td>₹2,844</td><td>₹2,844</td></tr>
+<tr><td><strong>Gross</strong></td><td><strong>₹45,684</strong></td><td><strong>₹51,900</strong></td><td><strong>₹62,316</strong></td><td><strong>₹78,276</strong></td></tr>
+<tr><td>Total deductions</td><td>₹4,309</td><td>₹4,894</td><td>₹6,073</td><td>₹7,804</td></tr>
+<tr><td><strong>In-hand (before income tax)</strong></td><td><strong>₹41,375</strong></td><td><strong>₹47,006</strong></td><td><strong>₹56,243</strong></td><td><strong>₹70,472</strong></td></tr>
+</tbody>
+</table>
+<p>The Z city figures assume CGHS is deducted; in places without CGHS cover there is no CGHS deduction, so the in-hand pay is slightly higher. Y city salaries fall between the two tables, with the TA depending on whether the city is on the transport allowance list.</p>
+
+<h2>Is Income Tax Deducted?</h2>
+<p>Under the new tax regime for FY 2025-26, salaried income up to ₹12.75 lakh a year (₹12 lakh plus the ₹75,000 standard deduction) attracts no tax because of the Section 87A rebate. Even the highest example above, Level 7 in an X city, comes to about ₹10.8 lakh a year in gross pay, so a new joiner at any of these levels pays no income tax in the first year under the new regime. That changes as DA and increments rise, so check each year, especially at Level 7.</p>
+
+<h2>Recalculate It Yourself When DA Changes</h2>
+<ol>
+<li>DA = basic × current DA rate</li>
+<li>HRA = basic × 30%, 20% or 10% depending on your city</li>
+<li>TA = ₹3,600 or ₹1,800, plus the same DA percentage on it</li>
+<li>Gross = basic + DA + HRA + TA</li>
+<li>Deductions = 10% of (basic + DA) + CGHS + CGEGIS</li>
+<li>In-hand = gross − deductions − any income tax</li>
+</ol>
+<p>Each 2% rise in DA adds roughly ₹500 (Level 4) to ₹900 (Level 7) to your gross each month, and the pension deduction rises by about a tenth of that.</p>
+
+<h2>What About the 8th Pay Commission?</h2>
+<p>The 8th Pay Commission has been set up to revise central government pay, but its recommendations had not been implemented at the time of writing. When they are, the pay matrix will be replaced and DA will typically reset to zero on a higher basic. Until then, the 7th CPC figures above are what employees are paid. Treat any "8th Pay Commission salary" figures you see online as estimates until an official notification is issued.</p>
+
+<p><em>The figures in this guide are worked examples, not official numbers. Your department's pay slip and the official pay matrix are the final authority.</em></p>
+""",
+    },
+    {
+        'title': 'How to Read a Government Job Notification: A Section-by-Section Walkthrough',
+        'slug': 'how-to-read-government-job-notification',
+        'category': 'exam-guide',
+        'published_date': datetime.date(2026, 10, 25),
+        'excerpt': 'A government job notification can run to 30 pages. Here is what each section means, which lines decide whether you are eligible, and the details candidates most often miss.',
+        'meta_description': 'How to read a sarkari job notification: vacancy tables, age and qualification cut-off dates, reservation, fees, selection process and common mistakes.',
+        'content': """<p>Every government recruitment begins with an official notification, sometimes called an advertisement or information bulletin. It is a legal document: if you are found ineligible under its terms at any stage, even after selection, your candidature can be cancelled. Yet most candidates only skim the important dates and the fee. This guide walks through a typical notification section by section and points out the lines that actually decide your eligibility.</p>
+
+<h2>1. Advertisement Number and Date</h2>
+<p>At the top you will find an advertisement number, for example "Advt. No. 03/2026", and the date of publication. Note both down. You will need the number on application forms and in any correspondence, and the date matters because some eligibility conditions are counted from it. Always download the notification from the recruiting body's official website, not from a forwarded PDF, because corrigenda (corrections) are published there.</p>
+
+<h2>2. Important Dates</h2>
+<p>Look for three or four separate dates, not one:</p>
+<ul>
+<li>Opening date of online applications</li>
+<li>Closing date for applications, often with a time such as 11 PM</li>
+<li>Last date for fee payment, which can be a day or two after the closing date</li>
+<li>Correction window dates, if the body allows edits after submission</li>
+</ul>
+<p>Exam dates are usually marked "tentative". Treat them as a planning guide, not a promise.</p>
+
+<h2>3. Vacancy Details</h2>
+<p>The vacancy table lists posts with category-wise numbers, usually in columns such as UR (unreserved), OBC, SC, ST and EWS, plus horizontal categories such as PwBD (persons with disabilities) and ESM (ex-servicemen). Two points are often misunderstood:</p>
+<ul>
+<li><strong>Vacancies are often "tentative".</strong> The final number can rise or fall before results.</li>
+<li><strong>Horizontal reservation cuts across categories.</strong> A PwBD vacancy is not extra; it is counted within the UR, OBC, SC, ST or EWS seats.</li>
+</ul>
+<p>Check the pay level printed for each post. Two posts in the same exam can have very different salaries.</p>
+
+<h2>4. Age Limit and the "As On" Date</h2>
+<p>This is the most common reason for rejection. The notification gives a minimum and maximum age <strong>as on a specific date</strong>, for example "18–27 years as on 01-01-2026". That date is often neither the notification date nor the closing date. Work out your age on that exact date, and check whether the notification states a range of birth dates (for example, "born not earlier than 02-01-1999 and not later than 01-01-2008"), which removes any doubt.</p>
+<p>Age relaxation for reserved categories is listed in a separate table. Relaxation only applies if you hold a valid certificate in the format the notification prescribes.</p>
+
+<h2>5. Educational Qualification</h2>
+<p>Read three things carefully:</p>
+<ul>
+<li><strong>The cut-off date for qualification.</strong> Usually you must hold the qualification by the closing date. Final-year students may or may not be allowed; the notification says so explicitly.</li>
+<li><strong>Essential versus desirable qualifications.</strong> Essential ones are mandatory. Desirable ones may only help in shortlisting.</li>
+<li><strong>Subject conditions.</strong> Some posts within the same exam need a specific subject, such as Statistics at graduation level.</li>
+</ul>
+<p>"Equivalent" qualifications are accepted only if the notification or a government order says so. If you have an unusual degree, check before applying, not after selection.</p>
+
+<h2>6. Application Fee</h2>
+<p>The fee table lists who pays and who is exempt. Women, SC/ST, PwBD and ex-servicemen candidates are commonly exempt, but this varies by recruiting body. Keep the payment receipt or transaction ID: if the payment fails but money is debited, you will need it to raise a complaint.</p>
+
+<h2>7. Selection Process and Exam Pattern</h2>
+<p>This section lists every stage, such as a computer-based test, typing or skill test, physical test, interview and document verification, and tells you which stages are qualifying only and which count towards the final merit. It also states whether there is negative marking and how marks are normalised across shifts. Your preparation plan should start from this section.</p>
+
+<h2>8. Reservation Certificates</h2>
+<p>If you are applying under OBC, EWS, SC, ST or PwBD, the notification specifies the certificate format and, often, the date by which it must have been issued. OBC candidates applying for central government posts need an OBC (Non-Creamy Layer) certificate in the central government format; a state OBC certificate may not be accepted. EWS certificates usually have to be for the correct financial year. Many selected candidates lose their seat at document verification because of an outdated or wrongly formatted certificate.</p>
+
+<h2>9. How to Apply</h2>
+<p>This section explains registration, photo and signature sizes, and any upload requirements. Prepare scanned documents in the exact sizes and formats requested before you start the form. Read the declaration before you submit; it is legally binding.</p>
+
+<h2>10. General Instructions and Corrigenda</h2>
+<p>The final pages cover rules on multiple applications, use of unfair means, and the authority's right to cancel the recruitment. After you apply, check the official website every week or so for corrigenda. They can change vacancies, dates or even eligibility, and they apply to you whether or not you have seen them.</p>
+
+<h2>A Quick Checklist Before You Apply</h2>
+<ul>
+<li>Downloaded from the official website, and checked for corrigenda</li>
+<li>Age calculated on the exact "as on" date</li>
+<li>Qualification held by the required date, with any subject conditions met</li>
+<li>Category certificate in the right format and validity period</li>
+<li>Pay level and posting conditions of the post understood</li>
+<li>Fee, closing date and closing time noted</li>
+</ul>
+
+<p>Ten minutes spent reading the notification properly can save months of preparation for an exam you were never eligible for. When in doubt, the notification itself and the recruiting body's helpline are the final authority, not coaching material or social media summaries.</p>
+""",
+    },
 ]
 
 
