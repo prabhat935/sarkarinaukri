@@ -131,7 +131,7 @@ class ArticleSitemap(HttpsSitemap):
     priority = 0.8
 
     def items(self):
-        return Article.objects.all()
+        return Article.published()
 
     def location(self, obj):
         return reverse('article_detail', args=[obj.slug])

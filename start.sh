@@ -27,6 +27,9 @@ python manage.py add_articles
 echo "==> Adding more editorial articles..."
 python manage.py add_more_articles
 
+echo "==> Adding scheduled guides..."
+python manage.py add_scheduled_guides
+
 echo "==> Adding FAQs..."
 python manage.py add_faqs
 

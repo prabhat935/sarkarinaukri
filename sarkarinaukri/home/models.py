@@ -14,8 +14,8 @@ class HomePage(Page):
         context['active_jobs_count'] = JobPosting.objects.filter(status='Active').count()
 
         # Latest exam guides
-        context['latest_articles'] = Article.objects.all()[:6]
-        context['total_articles'] = Article.objects.count()
+        context['latest_articles'] = Article.published()[:6]
+        context['total_articles'] = Article.published().count()
 
         # Recent results
         context['recent_results'] = ExamResult.objects.select_related('organization').order_by('-result_date')[:8]

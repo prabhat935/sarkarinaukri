@@ -607,6 +607,11 @@ class Article(models.Model):
     def __str__(self):
         return self.title
 
+    @classmethod
+    def published(cls):
+        """Articles whose publish date has arrived; future-dated ones stay hidden until then."""
+        return cls.objects.filter(published_date__lte=timezone.localdate())
+
 
 class SavedJob(models.Model):
     """Jobs saved by users for later"""

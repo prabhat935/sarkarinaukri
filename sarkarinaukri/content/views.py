@@ -480,7 +480,7 @@ class ArticleListView(ListView):
     paginate_by = 12
 
     def get_queryset(self):
-        queryset = Article.objects.all()
+        queryset = Article.published()
         category = self.request.GET.get('category')
         if category:
             queryset = queryset.filter(category=category)
@@ -499,9 +499,12 @@ class ArticleDetailView(DetailView):
     context_object_name = 'article'
     slug_url_kwarg = 'slug'
 
+    def get_queryset(self):
+        return Article.published()
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['related'] = Article.objects.exclude(pk=self.object.pk).filter(
+        context['related'] = Article.published().exclude(pk=self.object.pk).filter(
             category=self.object.category
         )[:3]
         return context
