@@ -145,9 +145,9 @@
   "datePublished": "{{ article.published_date|date:'Y-m-d' }}",
   "dateModified": "{{ article.updated_at|date:'Y-m-d' }}",
   "author": {
-    "@type": "Person",
+    "@type": "Organization",
     "name": "{{ article.author_name|escapejs }}",
-    "jobTitle": "{{ article.author_credentials|escapejs }}"
+    "url": "https://sarkarinaukriresult.online/about-authors/"
   },
   "publisher": {
     "@type": "Organization",
@@ -189,7 +189,7 @@
 
                 <div class="author-byline">
                     <span class="author-byline-label"><i class="fas fa-user-circle"></i> By:</span>
-                    <span class="author-byline-name">{{ article.author_name }}</span>
+                    <a href="{% url 'about_authors' %}" class="author-byline-name">{{ article.author_name }}</a>
                     <div class="author-byline-creds">{{ article.author_credentials }}</div>
                     <div style="color: #94a3b8; font-size: 12px; margin-top: 8px;">
                         <i class="fas fa-calendar-alt"></i> Last updated {{ article.updated_at|date:"d M Y" }}

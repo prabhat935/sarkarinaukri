@@ -572,9 +572,9 @@ class Article(models.Model):
     meta_description = models.CharField(max_length=160, blank=True)
 
     # Author credentials for E-E-A-T (Expertise, Authority, Trustworthiness)
-    author_name = models.CharField(max_length=100, default='Sarkari Naukri Editor', help_text="Author name for byline")
-    author_credentials = models.CharField(max_length=150, default='Career Counselor, Government Job Expert', help_text="Author expertise/credentials")
-    author_bio = models.CharField(max_length=300, default='Specialist in government job guidance with 8+ years of experience', help_text="Author bio for byline")
+    author_name = models.CharField(max_length=100, default='Sarkari Naukri Editorial Team', help_text="Author name for byline")
+    author_credentials = models.CharField(max_length=150, default='Checked against official notifications', help_text="Author expertise/credentials")
+    author_bio = models.CharField(max_length=300, default='Written and reviewed by the Sarkari Naukri editorial team.', help_text="Author bio for byline")
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
