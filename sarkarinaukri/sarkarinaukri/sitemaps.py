@@ -13,7 +13,12 @@ from content.models import (
 from .context_processors import content_section_flags
 
 
-class StaticPagesSitemap(Sitemap):
+class HttpsSitemap(Sitemap):
+    # The site is only served over HTTPS; Railway terminates TLS before Django
+    protocol = 'https'
+
+
+class StaticPagesSitemap(HttpsSitemap):
     """Home page, list pages, and legal pages."""
     changefreq = 'daily'
 
@@ -62,7 +67,7 @@ class StaticPagesSitemap(Sitemap):
         return prio
 
 
-class JobPostingSitemap(Sitemap):
+class JobPostingSitemap(HttpsSitemap):
     """Active jobs with real descriptions. Closed and boilerplate jobs are noindexed."""
     changefreq = 'weekly'
     priority = 0.8
@@ -77,12 +82,13 @@ class JobPostingSitemap(Sitemap):
         return obj.updated_at
 
 
-class ExamResultSitemap(Sitemap):
+class ExamResultSitemap(HttpsSitemap):
     changefreq = 'monthly'
     priority = 0.7
 
     def items(self):
-        return ExamResult.objects.all().order_by('-result_date')
+        # Only results with a written description; title-and-link pages are noindexed
+        return [r for r in ExamResult.objects.order_by('-result_date') if r.is_indexable]
 
     def location(self, obj):
         return reverse('result_detail', args=[obj.pk])
@@ -91,12 +97,13 @@ class ExamResultSitemap(Sitemap):
         return obj.updated_at
 
 
-class AdmitCardSitemap(Sitemap):
+class AdmitCardSitemap(HttpsSitemap):
     changefreq = 'weekly'
     priority = 0.8
 
     def items(self):
-        return AdmitCard.objects.all().order_by('-admit_card_date')
+        # Only admit cards with written details; title-and-link pages are noindexed
+        return [a for a in AdmitCard.objects.order_by('-admit_card_date') if a.is_indexable]
 
     def location(self, obj):
         return reverse('admit_card_detail', args=[obj.pk])
@@ -105,7 +112,7 @@ class AdmitCardSitemap(Sitemap):
         return obj.updated_at
 
 
-class SyllabusSitemap(Sitemap):
+class SyllabusSitemap(HttpsSitemap):
     changefreq = 'monthly'
     priority = 0.6
 
@@ -119,7 +126,7 @@ class SyllabusSitemap(Sitemap):
         return obj.updated_at
 
 
-class ArticleSitemap(Sitemap):
+class ArticleSitemap(HttpsSitemap):
     changefreq = 'monthly'
     priority = 0.8
 

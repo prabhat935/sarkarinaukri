@@ -192,7 +192,7 @@
                 </div>
                 {% for result in recent_results %}
                 <div class="section-box-row">
-                    <a href="{% url 'result_detail' result.pk %}" class="sbr-link">{{ result.exam_name }}{% if result.exam_year %} {{ result.exam_year }}{% endif %}</a>
+                    <a href="{% url 'result_detail' result.pk %}" class="sbr-link">{{ result.display_name }}</a>
                     {% if result.result_date %}<span class="sbr-date">{{ result.result_date|date:"d/m/y" }}</span>{% endif %}
                 </div>
                 {% empty %}

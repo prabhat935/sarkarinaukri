@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block title %}{{ admit_card.exam_name }} Admit Card - Sarkari Naukri{% endblock %}
+{% block robots %}{% if admit_card.is_indexable %}index, follow{% else %}noindex, follow{% endif %}{% endblock %}
 {% block nav_admit %}active{% endblock %}
 {% block body_class %}page-admit{% endblock %}
 

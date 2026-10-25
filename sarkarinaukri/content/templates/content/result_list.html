@@ -66,7 +66,7 @@
                     </div>
                     <div class="post-item-body">
                         <div class="post-item-top">
-                            <a href="{% url 'result_detail' result.pk %}" class="post-item-title">{{ result.exam_name }} {{ result.exam_year }}</a>
+                            <a href="{% url 'result_detail' result.pk %}" class="post-item-title">{{ result.display_name }}</a>
                             <div class="post-item-badges">
                                 {% if result.is_official %}<span class="status-badge badge-official">Official</span>{% endif %}
                                 {% if result.result_date %}<span class="status-badge badge-declared">Declared</span>{% endif %}

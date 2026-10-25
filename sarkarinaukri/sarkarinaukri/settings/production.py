@@ -27,6 +27,10 @@ ALLOWED_HOSTS = [
     'www.sarkarinaukriresult.online',
 ] + _extra_hosts
 
+# Railway terminates TLS and forwards plain HTTP; trust its header so
+# request.scheme (sitemap, JSON-LD) reports https
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 # WhiteNoise must come directly after SecurityMiddleware (index 1)
 MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 

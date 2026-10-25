@@ -77,6 +77,14 @@ class QualificationLevel(models.Model):
 # that have no hand-written description.
 GENERIC_DESCRIPTION_MARKER = 'has been officially notified for recruitment in'
 
+# Result and admit card pages need at least this much written text to be
+# worth indexing; shorter ones are just a title and a link.
+MIN_INDEXABLE_WORDS = 150
+
+
+def word_count(*texts):
+    return sum(len((t or '').split()) for t in texts)
+
 
 class JobPosting(models.Model):
     """Government job notifications"""
@@ -212,7 +220,17 @@ class ExamResult(models.Model):
         unique_together = ['exam_name', 'exam_year']
 
     def __str__(self):
-        return f"{self.exam_name} {self.exam_year}"
+        return self.display_name
+
+    @property
+    def display_name(self):
+        """Exam name with the year, without repeating it if the name already has it"""
+        year = str(self.exam_year)
+        return self.exam_name if year in self.exam_name else f"{self.exam_name} {year}"
+
+    @property
+    def is_indexable(self):
+        return word_count(self.description) >= MIN_INDEXABLE_WORDS
 
 
 class AdmitCard(models.Model):
@@ -243,6 +261,10 @@ class AdmitCard(models.Model):
 
     def __str__(self):
         return f"{self.exam_name} - Admit Card"
+
+    @property
+    def is_indexable(self):
+        return word_count(self.description, self.instructions) >= MIN_INDEXABLE_WORDS
 
 
 class AnswerKey(models.Model):
