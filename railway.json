@@ -4,7 +4,8 @@
     "buildCommand": "echo 'Build handled by start.sh'"
   },
   "deploy": {
-    "startCommand": "bash start.sh"
+    "startCommand": "bash start.sh",
+    "healthcheckPath": "/robots.txt",
+    "healthcheckTimeout": 300
   }
 }
-
