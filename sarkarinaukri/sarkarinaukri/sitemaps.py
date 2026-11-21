@@ -39,6 +39,7 @@ class StaticPagesSitemap(HttpsSitemap):
 
     def _all_items(self):
         return [
+            ('home',                      1.0),
             ('article_list',              0.9),
             ('faq',                       0.8),
             ('job_list',                  1.0),
@@ -51,8 +52,8 @@ class StaticPagesSitemap(HttpsSitemap):
             ('important_notifications',   0.8),
             ('online_forms',              0.7),
             ('certificate_verification',  0.6),
-            ('search',                    0.5),
             ('about_us',                  0.4),
+            ('about_authors',             0.4),
             ('privacy_policy',            0.3),
             ('terms_of_service',          0.3),
             ('disclaimer',                0.3),
@@ -60,6 +61,8 @@ class StaticPagesSitemap(HttpsSitemap):
 
     def location(self, item):
         url_name, _ = item
+        if url_name == 'home':
+            return '/'  # Served by Wagtail, so it has no Django URL name
         return reverse(url_name)
 
     def priority(self, item):

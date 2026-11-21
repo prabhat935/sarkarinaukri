@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block title %}{% if query %}{{ query }} - Search Results{% else %}Search{% endif %} - Sarkari Naukri{% endblock %}
+{% block robots %}noindex, follow{% endblock %}
 {% block body_class %}page-search{% endblock %}
 
 {% block content %}
