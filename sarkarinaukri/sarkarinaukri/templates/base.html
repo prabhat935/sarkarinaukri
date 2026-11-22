@@ -64,6 +64,17 @@
         {# Global stylesheet #}
         <link rel="stylesheet" href="{% static 'css/sarkarinaukri.css' %}?v={{ static_version }}">
 
+        <style>
+        .header-search { flex:1; max-width:460px; margin:0 20px; display:flex; align-items:center; background:#fff; border-radius:8px; padding:3px 3px 3px 12px; }
+        .header-search i { color:#94a3b8; font-size:.85rem; }
+        .header-search input { flex:1; min-width:0; border:none; outline:none; padding:7px 8px; font-size:.88rem; color:#1e293b; background:transparent; }
+        .header-search button { border:none; background:#f97316; color:#fff; font-weight:700; font-size:.82rem; padding:7px 14px; border-radius:6px; cursor:pointer; }
+        .header-search button:hover { background:#ea580c; }
+        @media (max-width: 991px) {
+            .main-nav .container { flex-wrap:wrap; }
+            .header-search { order:3; flex-basis:100%; max-width:none; margin:8px 0 4px; }
+        }
+        </style>
         {% block extra_css %}{% endblock %}
 
         {# WebSite JSON-LD with SearchAction #}
@@ -92,13 +103,6 @@
 
         {% block header %}
         <header class="site-header">
-            <div class="header-top">
-                <div class="container">
-                    <div class="header-top-left">
-                        <i class="fas fa-bolt"></i> Government jobs, results &amp; exam guides – checked against official notifications
-                    </div>
-                </div>
-            </div>
             <nav class="main-nav navbar navbar-expand-lg">
                 <div class="container">
                     <a class="brand navbar-brand" href="/">
@@ -111,6 +115,11 @@
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#baseNavMenu" aria-controls="baseNavMenu" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
+                    <form action="/search/" method="get" class="header-search" role="search">
+                        <i class="fas fa-search"></i>
+                        <input type="text" name="query" placeholder="Search jobs, exams, guides..." aria-label="Search" value="{{ request.GET.query|default:'' }}">
+                        <button type="submit">Search</button>
+                    </form>
                     <div class="collapse navbar-collapse" id="baseNavMenu">
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item"><a class="nav-link {% block nav_jobs %}{% endblock %}" href="{% url 'job_list' %}"><i class="fas fa-briefcase"></i> Jobs</a></li>
@@ -123,6 +132,7 @@
                             {% if has_notifications %}<li class="nav-item"><a class="nav-link {% block nav_alerts %}{% endblock %}" href="{% url 'important_notifications' %}"><i class="fas fa-bell"></i> Alerts</a></li>{% endif %}
                             <li class="nav-item"><a class="nav-link {% block nav_guides %}{% endblock %}" href="{% url 'article_list' %}"><i class="fas fa-book-open"></i> Guides</a></li>
                             {% if has_faqs %}<li class="nav-item"><a class="nav-link {% block nav_faq %}{% endblock %}" href="{% url 'faq' %}"><i class="fas fa-question-circle"></i> FAQ</a></li>{% endif %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'certificate_verification' %}"><i class="fas fa-certificate"></i> Verification</a></li>
                         </ul>
                     </div>
                 </div>
