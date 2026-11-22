@@ -16,6 +16,7 @@ ORGANIZATIONS = [
     {'name': 'ASRB (ICAR)', 'slug': 'asrb', 'website': 'https://www.asrb.gov.in'},
     {'name': 'DSSSB', 'slug': 'dsssb', 'website': 'https://dsssb.delhi.gov.in'},
     {'name': 'RRC Central Railway', 'slug': 'rrc-central-railway', 'website': 'https://www.rrccr.com'},
+    {'name': 'RRC Northern Railway', 'slug': 'rrc-northern-railway', 'website': 'https://www.rrcnr.org'},
 ]
 
 
@@ -331,6 +332,62 @@ VERIFIED_JOBS = [
             'there are only subject grades, average the midpoints of all subjects. Work this out before you fill '
             'in the form, because a mismatch between the figure you enter and RRC\'s own calculation leads to '
             'rejection.'
+        ),
+    },
+    {
+        # Source: RRC Northern Railway Notification No. RRC/NR/03/2026/Act Apprentice dated 06 Nov 2026 (official PDF on rrcnr.org)
+        'slug': 'rrc-northern-railway-act-apprentice-2026',
+        'title': 'Northern Railway Act Apprentice Recruitment 2026 (4651 Slots, 10th + ITI, Merit Based)',
+        'organization': 'rrc-northern-railway',
+        'category': 'railway',
+        'vacancies': 4651,
+        'application_start_date': datetime.date(2026, 11, 11),
+        'application_end_date': datetime.date(2026, 12, 11),
+        'exam_date': None,
+        'max_age': 24,
+        'min_age': 15,
+        'salary_min': None,
+        'salary_max': None,
+        'application_fee': Decimal('100'),
+        'application_link': 'https://www.rrcnr.org',
+        'meta_description': (
+            'Northern Railway Apprentice 2026: 4651 slots in Lucknow, Delhi, Ambala, Firozpur, Moradabad and '
+            'Jammu for 10th + ITI. No exam. Apply by 11 Dec 2026.'
+        ),
+        'eligibility': (
+            'Class 10 (or equivalent) passed with at least 50% aggregate marks, and an ITI pass in the relevant '
+            'trade (NCVT or SCVT). Both results must already be out on 6 November 2026, the date of the '
+            'notification; candidates whose Class 10 or ITI result was still awaited then cannot apply.\n\n'
+            'Age on 11 December 2026: at least 15 and below 24. Upper age relaxation: 5 years for SC/ST, '
+            '3 years for OBC, 10 years for PwBD, and up to 10 more years for ex-servicemen depending on their '
+            'service.'
+        ),
+        'description': (
+            'Railway Recruitment Cell, Northern Railway (New Delhi) has notified 4651 Act Apprentice training '
+            'slots under the Apprentices Act 1961 (Notification No. RRC/NR/03/2026/Act Apprentice, dated 6 '
+            'November 2026). It is open to ITI holders in a wide range of trades, with slots across north India.\n\n'
+            'Slots by cluster: Lucknow 1525, Delhi 1312, Ambala 979, Firozpur 740, Moradabad 63 and Jammu 32. '
+            'The units include workshops and sheds such as Charbagh and Alambagh in Lucknow, Tughlakabad diesel '
+            'shed and Tilak Bridge in Delhi, and the Jagadhri workshop. The trade-wise and category-wise slot '
+            'tables are in Annexure A of the notification.\n\n'
+            'Selection is purely on marks: there is no written test or viva. RRC averages your Class 10 '
+            'percentage and your ITI percentage with equal weight and prepares a separate merit list for each '
+            'cluster, trade and category. Ties go to the older candidate, and then to the one who passed Class '
+            '10 earlier. The merit list is expected in February 2027.\n\n'
+            'Pick the right cluster and unit. Choose only where slots are notified for your ITI trade; an '
+            'application for a cluster or unit with no slots in your trade is rejected and the fee is not '
+            'refunded. You cannot change anything after final submission, and if you submit more than one '
+            'application, all of them are rejected.\n\n'
+            'Training: the stipend and training period follow the current apprenticeship rules. Before training '
+            'starts, selected candidates sign a contract of apprenticeship (a guardian signs for a minor). '
+            'Completing the training does not guarantee a railway job.\n\n'
+            'Fee: Rs 100, paid online only. SC, ST, PwBD and women candidates pay nothing.\n\n'
+            'Important dates: apply online at rrcnr.org from 11 November to 11 December 2026 (11:59 pm). RRC '
+            'advises applying well before the last day, when the site gets slow.\n\n'
+            'If your Class 10 board gave grades: RRC takes the midpoint of each subject\'s grade range, treats '
+            'each subject as out of 100 and averages them. Convert your CGPA or grades to marks this way before '
+            'you fill in the form, and add all subjects, not just a group of them. Applying to Central Railway '
+            'too? Its apprentice notice (2861 slots) closes earlier, on 2 December, at 5 pm.'
         ),
     },
 ]
