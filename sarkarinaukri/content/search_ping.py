@@ -57,7 +57,8 @@ def ping_indexnow(urls):
 
 
 def _google_session():
-    raw = os.environ.get('GOOGLE_INDEXING_CREDENTIALS', '').strip()
+    raw = (os.environ.get('GOOGLE_INDEXING_CREDENTIALS')
+           or os.environ.get('GOOGLE_INDEXING_CREDENTIAL', '')).strip()
     if not raw:
         return None
     from google.oauth2 import service_account
