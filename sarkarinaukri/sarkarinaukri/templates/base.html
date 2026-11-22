@@ -74,6 +74,18 @@
             .main-nav .container { flex-wrap:wrap; }
             .header-search { order:3; flex-basis:100%; max-width:none; margin:8px 0 4px; }
         }
+        .sub-nav { background:#111; border-top:1px solid #333; }
+        .sub-nav-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; }
+        .sub-nav-list::-webkit-scrollbar { display:none; }
+        .sub-nav-list > li > a { display:block; color:#fff; font-weight:600; font-size:.92rem; padding:11px 16px; text-decoration:none; white-space:nowrap; border-right:1px solid #333; }
+        .sub-nav-list > li:first-child > a { border-left:1px solid #333; }
+        .sub-nav-list > li > a:hover { background:#f97316; color:#fff; }
+        .sub-nav .dropdown-menu { font-size:.9rem; }
+        .sub-nav-inner { display:flex; align-items:stretch; }
+        .sub-nav-list { flex:1; min-width:0; }
+        .sub-nav-more > a { display:block; color:#fff; font-weight:600; font-size:.92rem; padding:11px 16px; text-decoration:none; white-space:nowrap; background:#222; border-left:1px solid #333; }
+        .sub-nav-more > a:hover, .sub-nav-more > a.show { background:#f97316; color:#fff; }
+        @media (max-width: 600px) { .sub-nav-list > li > a { font-size:.85rem; padding:10px 12px; } }
         </style>
         {% block extra_css %}{% endblock %}
 
@@ -135,6 +147,37 @@
                             <li class="nav-item"><a class="nav-link" href="{% url 'certificate_verification' %}"><i class="fas fa-certificate"></i> Verification</a></li>
                         </ul>
                     </div>
+                </div>
+            </nav>
+            <!-- Black menu bar: main sections. Results, admit cards, syllabus and
+                 scholarships appear here automatically once they have real entries -->
+            <nav class="sub-nav" aria-label="Sections">
+                <div class="container sub-nav-inner">
+                    <ul class="sub-nav-list">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="{% url 'job_list' %}">Latest Jobs</a></li>
+                        {% if has_admit_cards %}<li><a href="{% url 'admit_card_list' %}">Admit Card</a></li>{% endif %}
+                        {% if has_results %}<li><a href="{% url 'result_list' %}">Results</a></li>{% endif %}
+                        {% if has_answer_keys %}<li><a href="{% url 'answer_key_list' %}">Answer Key</a></li>{% endif %}
+                        {% if has_syllabus %}<li><a href="{% url 'syllabus_list' %}">Syllabus</a></li>{% endif %}
+                        {% if has_scholarships %}<li><a href="{% url 'scholarships' %}">Scholarship</a></li>{% endif %}
+                        <li><a href="{% url 'job_list' %}?qualification=10th">10th / ITI Jobs</a></li>
+                        <li><a href="{% url 'job_list' %}?qualification=12th">12th Jobs</a></li>
+                        <li><a href="{% url 'job_list' %}?qualification=graduate">Graduate Jobs</a></li>
+                        <li><a href="{% url 'job_list' %}?qualification=engineering">Engineering Jobs</a></li>
+                        <li><a href="{% url 'article_list' %}">Exam Guides</a></li>
+                    </ul>
+                    <div class="dropdown sub-nav-more">
+                        <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">More</a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            {% if has_faqs %}<li><a class="dropdown-item" href="{% url 'faq' %}">FAQ</a></li>{% endif %}
+                            <li><a class="dropdown-item" href="{% url 'job_list' %}?qualification=pg">PG / CA / MBA Jobs</a></li>
+                            <li><a class="dropdown-item" href="{% url 'job_list' %}?status=Closed">Closed Jobs</a></li>
+                            <li><a class="dropdown-item" href="{% url 'certificate_verification' %}">Certificate Verification</a></li>
+                            <li><a class="dropdown-item" href="{% url 'about_us' %}">About Us</a></li>
+                            <li><a class="dropdown-item" href="{% url 'about_authors' %}">Editorial Team</a></li>
+                        </ul>
+                </div>
                 </div>
             </nav>
         </header>
