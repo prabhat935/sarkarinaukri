@@ -53,6 +53,10 @@ class HomePage(Page):
         # Recent answer keys
         context['recent_answer_keys'] = AnswerKey.listed(AnswerKey.objects.select_related('organization').order_by('-exam_date'))[:6]
 
+        # Top-of-page scrolling lines: open jobs, three per line
+        top = list(context['latest_jobs'][:9])
+        context['highlight_lines'] = [top[i:i + 3] for i in range(0, len(top), 3)]
+
         context.update(job_highlights())
         context['guides_by_topic'] = guides_by_topic()
 

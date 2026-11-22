@@ -9,16 +9,21 @@
 {% block extra_css %}
 <style>
 .hl-bar { background:#fff; border-bottom:3px solid var(--accent); padding:8px 0; }
-.hl-line { text-align:center; padding:7px 10px; margin:5px 0; border-radius:6px; line-height:1.5; }
+.hl-line { overflow:hidden; padding:8px 0; margin:5px 0; border-radius:6px; white-space:nowrap; }
 .hl-line:nth-child(3n+1) { background:#fef3c7; }
 .hl-line:nth-child(3n+2) { background:#dbeafe; }
 .hl-line:nth-child(3n)   { background:#dcfce7; }
-.hl-link { font-size:1.02rem; font-weight:700; color:#b91c1c; text-decoration:none; }
+.hl-track { display:inline-flex; align-items:center; width:max-content; animation: ticker-move 40s linear infinite; }
+.hl-reverse { animation-direction: reverse; }
+.hl-line:hover .hl-track { animation-play-state: paused; }
+.hl-link { font-size:1.02rem; font-weight:700; color:#b91c1c; text-decoration:none; padding:0 4px; }
 .hl-line:nth-child(3n+2) .hl-link { color:#1d4ed8; }
 .hl-line:nth-child(3n) .hl-link { color:#15803d; }
 .hl-link:hover { text-decoration:underline; }
-.hl-sep { color:#9ca3af; margin:0 10px; font-weight:700; }
-@media (max-width: 600px) { .hl-link { font-size:.92rem; } .hl-sep { margin:0 5px; } }
+.hl-date { font-weight:600; font-size:.85rem; opacity:.8; }
+.hl-sep { color:#9ca3af; margin:0 14px; font-weight:700; }
+@media (prefers-reduced-motion: reduce) { .hl-track { animation:none; } .hl-line { overflow-x:auto; } }
+@media (max-width: 600px) { .hl-link { font-size:.92rem; } .hl-track { animation-duration: 30s; } }
 .ticker-bar { padding: 13px 0; border-bottom-width: 3px; }
 .ticker-label { font-size: .9rem; padding: 7px 16px; margin-right: 20px; }
 .ticker-item { font-size: 1.02rem; font-weight: 600; color: #fff; text-decoration: none; padding: 0 34px; }
@@ -67,35 +72,20 @@ a.ticker-item:hover { color: var(--accent-light); text-decoration: underline; }
 
 {% block content %}
 
-<!-- Scrolling ticker of open jobs -->
-<div class="ticker-bar">
-    <div class="container">
-        <div class="ticker-wrap">
-            <span class="ticker-label"><i class="fas fa-bolt"></i>&nbsp;Latest</span>
-            <div class="ticker-content">
-                <div class="ticker-inner">
-                    {% for pass in "12" %}{# rendered twice for a seamless loop #}
-                    {% for job in latest_jobs %}
-                    <a href="{% url 'job_detail' job.pk %}" class="ticker-item"><i class="fas fa-briefcase"></i> {{ job.short_title }}{% if job.application_end_date %} — Last Date {{ job.application_end_date|date:"d M" }}{% endif %}</a>
-                    <span class="ticker-dot">&#9679;</span>
-                    {% empty %}
-                    <span class="ticker-item"><i class="fas fa-book-open"></i> New exam guides and preparation tips added regularly</span>
-                    <span class="ticker-dot">&#9679;</span>
-                    {% endfor %}
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Highlight lines: open jobs, three to a line -->
+<!-- Highlight lines: open jobs, three per line, each line scrolling -->
 <div class="hl-bar">
     <div class="container">
-        {% for job in latest_jobs|slice:":9" %}
-        {% if forloop.counter0|divisibleby:3 %}<div class="hl-line">{% endif %}
-            <a href="{% url 'job_detail' job.pk %}" class="hl-link">{{ job.short_title }}{% if job.vacancies %} ({{ job.vacancies }} Posts){% endif %}</a>
-        {% if forloop.counter|divisibleby:3 or forloop.last %}</div>{% else %}<span class="hl-sep">||</span>{% endif %}
+        {% for line in highlight_lines %}
+        <div class="hl-line">
+            <div class="hl-track{% if forloop.counter|divisibleby:2 %} hl-reverse{% endif %}">
+                {% for copy in "1234" %}{# repeated so the scroll loops without a gap #}
+                {% for job in line %}
+                <a href="{% url 'job_detail' job.pk %}" class="hl-link"{% if copy != "1" %} tabindex="-1" aria-hidden="true"{% endif %}>{{ job.short_title }}{% if job.vacancies %} ({{ job.vacancies }} Posts){% endif %}{% if job.application_end_date %} <span class="hl-date">Last Date {{ job.application_end_date|date:"d M" }}</span>{% endif %}</a>
+                <span class="hl-sep">||</span>
+                {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
         {% empty %}
         <div class="hl-line"><a href="{% url 'article_list' %}" class="hl-link">New exam guides and preparation tips added regularly</a></div>
         {% endfor %}
