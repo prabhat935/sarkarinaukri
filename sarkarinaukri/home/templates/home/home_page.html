@@ -8,6 +8,16 @@
 
 {% block extra_css %}
 <style>
+.hero-compact { background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, var(--primary-light) 100%); color:#fff; padding: 14px 0; }
+.hero-compact-inner { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.hero-compact-title { font-size:1.35rem; font-weight:800; margin:0; letter-spacing:-.3px; white-space:nowrap; }
+.hero-compact-year { font-size:.7rem; font-weight:700; color:var(--accent-light); border:1px solid rgba(249,115,22,.5); border-radius:999px; padding:1px 8px; vertical-align:middle; }
+.hero-compact-search { flex:1; max-width:520px; display:flex; align-items:center; background:#fff; border-radius:8px; padding:3px 3px 3px 12px; }
+.hero-compact-search i { color:#94a3b8; font-size:.85rem; }
+.hero-compact-search input { flex:1; min-width:0; border:none; outline:none; padding:7px 8px; font-size:.88rem; color:#1e293b; background:transparent; }
+.hero-compact-search button { border:none; background:var(--primary); color:#fff; font-weight:600; font-size:.82rem; padding:8px 16px; border-radius:6px; cursor:pointer; }
+.hero-compact-search button:hover { background:var(--primary-light); }
+@media (max-width: 600px) { .hero-compact-title { font-size:1.1rem; } .hero-compact-search { max-width:none; flex-basis:100%; } }
 .sb-closing .section-box-header { background: linear-gradient(90deg,#b45309,#d97706); }
 .sb-new     .section-box-header { background: linear-gradient(90deg,#be123c,#e11d48); }
 .sb-exams   .section-box-header { background: linear-gradient(90deg,#0f766e,#0d9488); }
@@ -61,66 +71,15 @@
     </div>
 </div>
 
-<!-- Modern Hero Section -->
-<section class="hero-section">
-    <div class="hero-overlay"></div>
-    <div class="container">
-        <div class="hero-content">
-            <div class="hero-branding">
-                <h1 class="hero-title">
-                    <span class="brand-highlight">Sarkari</span> Naukri
-                    <span class="hero-badge">2026</span>
-                </h1>
-                <p class="hero-subtitle">Government job notifications, results, admit cards and preparation guides</p>
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <span class="stat-number">{{ active_jobs_count }}</span>
-                        <span class="stat-label">Open Vacancies</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">{{ total_articles }}</span>
-                        <span class="stat-label">Exam Guides</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">{{ total_organizations }}</span>
-                        <span class="stat-label">Recruiters Covered</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="hero-search">
-                <div class="search-container">
-                    <h3>Find Your Dream Government Job</h3>
-                    <form action="/search/" method="get" class="advanced-search-form">
-                        <div class="search-input-group">
-                            <i class="fas fa-search search-icon"></i>
-                            <input type="text" name="query" placeholder="Search jobs, results, admit cards, exams..." class="search-input">
-                            <button type="submit" class="search-btn">
-                                <i class="fas fa-search"></i>
-                                Search
-                            </button>
-                        </div>
-                        <div class="search-filters">
-                            <select name="category" class="filter-select">
-                                <option value="">All Categories</option>
-                                <option value="ssc">SSC</option>
-                                <option value="upsc">UPSC</option>
-                                <option value="banking">Banking</option>
-                                <option value="police">Police</option>
-                                <option value="teaching">Teaching</option>
-                            </select>
-                            <select name="state" class="filter-select">
-                                <option value="">All States</option>
-                                <option value="up">Uttar Pradesh</option>
-                                <option value="bihar">Bihar</option>
-                                <option value="delhi">Delhi</option>
-                                <option value="maharashtra">Maharashtra</option>
-                            </select>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+<!-- Compact hero: name and search on one line -->
+<section class="hero-compact">
+    <div class="container hero-compact-inner">
+        <h1 class="hero-compact-title"><span class="brand-highlight">Sarkari</span> Naukri <span class="hero-compact-year">2026</span></h1>
+        <form action="/search/" method="get" class="hero-compact-search" role="search">
+            <i class="fas fa-search"></i>
+            <input type="text" name="query" placeholder="Search jobs, exams, guides..." aria-label="Search">
+            <button type="submit">Search</button>
+        </form>
     </div>
 </section>
 
@@ -506,69 +465,6 @@
                 </div>
                 <div class="category-arrow"><i class="fas fa-chevron-right"></i></div>
             </a>
-        </div>
-    </div>
-</section>
-
-<!-- Statistics Section -->
-<section class="stats-section">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">
-                <i class="fas fa-chart-bar section-icon"></i>
-                Portal Statistics
-            </h2>
-            <p class="section-subtitle">Everything on the site, counted live from our database</p>
-        </div>
-
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon" style="background:linear-gradient(135deg,#1565c0,#1976d2);">
-                    <i class="fas fa-briefcase"></i>
-                </div>
-                <div class="stat-content">
-                    <div class="stat-number">{{ total_jobs }}</div>
-                    <div class="stat-label">Job Listings</div>
-                    <div class="stat-description">Open and past notifications</div>
-                </div>
-            </div>
-
-            {% if has_results %}
-<div class="stat-card">
-                <div class="stat-icon" style="background:linear-gradient(135deg,#2e7d32,#388e3c);">
-                    <i class="fas fa-chart-bar"></i>
-                </div>
-                <div class="stat-content">
-                    <div class="stat-number">{{ total_results }}</div>
-                    <div class="stat-label">Exam Results</div>
-                    <div class="stat-description">Results updated regularly</div>
-                </div>
-            </div>
-{% endif %}
-
-            {% if has_admit_cards %}
-<div class="stat-card">
-                <div class="stat-icon" style="background:linear-gradient(135deg,#e65100,#f57c00);">
-                    <i class="fas fa-id-card"></i>
-                </div>
-                <div class="stat-content">
-                    <div class="stat-number">{{ total_admit_cards }}</div>
-                    <div class="stat-label">Admit Cards</div>
-                    <div class="stat-description">Hall tickets for top exams</div>
-                </div>
-            </div>
-{% endif %}
-
-            <div class="stat-card">
-                <div class="stat-icon" style="background:linear-gradient(135deg,#6a1b9a,#8e24aa);">
-                    <i class="fas fa-building"></i>
-                </div>
-                <div class="stat-content">
-                    <div class="stat-number">{{ total_organizations }}</div>
-                    <div class="stat-label">Organizations</div>
-                    <div class="stat-description">Government bodies covered</div>
-                </div>
-            </div>
         </div>
     </div>
 </section>
