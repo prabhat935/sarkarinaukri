@@ -183,23 +183,6 @@ a.ticker-item:hover { color: var(--accent-light); text-decoration: underline; }
 
         </div>
 
-        <!-- JOBS BY QUALIFICATION -->
-        <div class="section-box sb-qual">
-            <div class="section-box-header">
-                <h2><i class="fas fa-graduation-cap"></i> Jobs by Qualification</h2>
-                <a href="{% url 'job_list' %}" class="section-box-more">All Jobs &raquo;</a>
-            </div>
-            <div class="qual-grid">
-                {% for q in qualification_counts %}
-                <a href="{% url 'job_list' %}?qualification={{ q.key }}" class="qual-card{% if not q.count %} qual-empty{% endif %}">
-                    <i class="fas {{ q.icon }}"></i>
-                    <span class="qual-label">{{ q.label }}</span>
-                    <span class="qual-count">{{ q.count }} open job{{ q.count|pluralize }}</span>
-                </a>
-                {% endfor %}
-            </div>
-        </div>
-
         <!-- ROW 2: Results | Admit Cards | Guides -->
         {% if has_results or has_admit_cards or important_notifications %}
         <div class="hp-row-3">
