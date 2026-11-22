@@ -18,6 +18,7 @@ ORGANIZATIONS = [
     {'name': 'DSSSB', 'slug': 'dsssb', 'website': 'https://dsssb.delhi.gov.in'},
     {'name': 'RRC Central Railway', 'slug': 'rrc-central-railway', 'website': 'https://www.rrccr.com'},
     {'name': 'RRC Northern Railway', 'slug': 'rrc-northern-railway', 'website': 'https://www.rrcnr.org'},
+    {'name': 'UKSSSC', 'slug': 'uksssc', 'website': 'https://sssc.uk.gov.in'},
 ]
 
 
@@ -389,6 +390,68 @@ VERIFIED_JOBS = [
             'each subject as out of 100 and averages them. Convert your CGPA or grades to marks this way before '
             'you fill in the form, and add all subjects, not just a group of them. Applying to Central Railway '
             'too? Its apprentice notice (2861 slots) closes earlier, on 2 December, at 5 pm.'
+        ),
+    },
+    {
+        # Source: UKSSSC Advt. No. 84/UKSSSC/2026 dated 17 Nov 2026 (official PDF on sssc.uk.gov.in, in Hindi)
+        'slug': 'uksssc-uniformed-constable-1694-posts-2026',
+        'title': 'UKSSSC Uniformed Constable Recruitment 2026 (1694 Posts: Police, PAC, Fireman, Forest, Jail and More)',
+        'organization': 'uksssc',
+        'category': 'police',
+        'state': 'Uttarakhand',
+        'vacancies': 1694,
+        'application_start_date': datetime.date(2026, 11, 25),
+        'application_end_date': datetime.date(2026, 12, 25),
+        'exam_date': datetime.date(2027, 4, 4),
+        'max_age': 35,
+        'min_age': 18,
+        'salary_min': Decimal('21700'),
+        'salary_max': Decimal('69100'),
+        'application_fee': Decimal('300'),
+        'application_link': 'https://sssc.uk.gov.in',
+        'meta_description': (
+            'UKSSSC Constable 2026: 1694 posts in Uttarakhand Police, PAC, Fire, Forest, Jail and more. 12th pass, '
+            'Rs 21,700-69,100. Apply 25 Nov to 25 Dec 2026.'
+        ),
+        'eligibility': (
+            'Education: Intermediate (Class 12) from the Uttarakhand board (Ramnagar) or an equivalent. Preference '
+            'is given to candidates with at least two years in the Territorial Army or an NCC B or C certificate.\n\n'
+            'Uttarakhand link: as for other Group C posts outside UKPSC, you need one of these: an Uttarakhand '
+            'domicile or permanent residence certificate, registration with an employment exchange in Uttarakhand '
+            'by 25 December 2026, or Class 10 and Class 12 passed from schools in Uttarakhand.\n\n'
+            'Age on 1 July 2026 depends on the post: Civil Police (men and women), PAC/IRB, Fireman, Forest '
+            'Constable and Special Tiger Guard 18 to 25; Jail Warder (men and women) 21 to 35; Secretariat Guard '
+            'and Transport Constable 18 to 30; Excise Constable 18 to 35. Reserved categories of Uttarakhand get '
+            'age relaxation as per state rules.\n\n'
+            'Height (men): 165 cm for General, SC and OBC, 160 cm for hill-area candidates, 157.5 cm for ST. '
+            'Height (women): 152 cm for General, SC and OBC, 147 cm for ST and hill-area candidates. Chest for '
+            'men: 78.8 cm unexpanded and 83.8 cm expanded (76.5 and 81.5 for ST and hill-area candidates).'
+        ),
+        'description': (
+            'The Uttarakhand Subordinate Service Selection Commission (UKSSSC) has advertised 1694 uniformed '
+            'constable (Group C) posts in several state departments under Advertisement No. 84/UKSSSC/2026, '
+            'dated 17 November 2026. All the posts are in pay level 3 (Rs 21,700 to 69,100).\n\n'
+            'Posts: Uttarakhand Police Constable, civil police (men) 464; Constable PAC/IRB (men) 284; Police '
+            'Constable (women) 238; Fireman (men and women) 201; Forest Constable 171; Jail Warder 117; Special '
+            'Tiger Guards 75; Secretariat Guard 54; Excise Constable 45; Women Jail Warder 27; and Transport '
+            'Constable 18.\n\n'
+            'Selection has two stages. First, a physical standards test and a physical efficiency test under the '
+            'Uttarakhand uniformed constable recruitment rules (2025, as amended in 2026). The efficiency test is '
+            'scored, and you must reach the minimum marks in every event; for the Excise Constable post, for '
+            'example, the events include a run (5 km for men, 2 km for women), long jump, cricket ball throw, '
+            'chin-ups for men and a shuttle race for women. Candidates who pass then sit a 100-mark, two-hour '
+            'objective written test on an OMR sheet, offline. A quarter mark is deducted for each wrong answer, '
+            'and you need at least 45% (UR, EWS, OBC) or 35% (SC, ST) to qualify. The written exam is '
+            'provisionally fixed for 4 April 2027.\n\n'
+            'Fee: Rs 300 for Unreserved and Uttarakhand OBC candidates; Rs 150 for Uttarakhand SC, ST and EWS '
+            'candidates and for disabled candidates of Uttarakhand; no fee for orphans.\n\n'
+            'Important dates: apply online at sssc.uk.gov.in from 25 November to 25 December 2026. A correction '
+            'window runs from 28 to 30 December 2026. Admit cards will be on the website only, not sent by post.\n\n'
+            'Before you apply: upload your high school certificate and both sides of your Aadhaar card, along with '
+            'any reservation and hill-area certificates you are claiming; these are compulsory. Candidates for the '
+            'Civil Police, PAC/IRB and Fireman posts sign a bond to serve at least five years after training, or '
+            'repay the training cost and stipend. Check the age band for the exact post you want, because it '
+            'ranges from 18-25 to 21-35 across this advertisement.'
         ),
     },
 ]
