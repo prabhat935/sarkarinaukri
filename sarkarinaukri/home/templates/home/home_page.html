@@ -8,6 +8,17 @@
 
 {% block extra_css %}
 <style>
+.hl-bar { background:#fff; border-bottom:3px solid var(--accent); padding:8px 0; }
+.hl-line { text-align:center; padding:7px 10px; margin:5px 0; border-radius:6px; line-height:1.5; }
+.hl-line:nth-child(3n+1) { background:#fef3c7; }
+.hl-line:nth-child(3n+2) { background:#dbeafe; }
+.hl-line:nth-child(3n)   { background:#dcfce7; }
+.hl-link { font-size:1.02rem; font-weight:700; color:#b91c1c; text-decoration:none; }
+.hl-line:nth-child(3n+2) .hl-link { color:#1d4ed8; }
+.hl-line:nth-child(3n) .hl-link { color:#15803d; }
+.hl-link:hover { text-decoration:underline; }
+.hl-sep { color:#9ca3af; margin:0 10px; font-weight:700; }
+@media (max-width: 600px) { .hl-link { font-size:.92rem; } .hl-sep { margin:0 5px; } }
 .ticker-bar { padding: 13px 0; border-bottom-width: 3px; }
 .ticker-label { font-size: .9rem; padding: 7px 16px; margin-right: 20px; }
 .ticker-item { font-size: 1.02rem; font-weight: 600; color: #fff; text-decoration: none; padding: 0 34px; }
@@ -56,25 +67,16 @@ a.ticker-item:hover { color: var(--accent-light); text-decoration: underline; }
 
 {% block content %}
 
-<!-- Breaking News Ticker -->
-<div class="ticker-bar">
+<!-- Highlight lines: open jobs, three to a line -->
+<div class="hl-bar">
     <div class="container">
-        <div class="ticker-wrap">
-            <span class="ticker-label"><i class="fas fa-bolt"></i>&nbsp;Latest</span>
-            <div class="ticker-content">
-                <div class="ticker-inner">
-                    {% for pass in "12" %}{# rendered twice for a seamless loop #}
-                    {% for job in latest_jobs|slice:":6" %}
-                    <a href="{% url 'job_detail' job.pk %}" class="ticker-item"><i class="fas fa-briefcase"></i> {{ job.title }}{% if job.application_end_date %} — Last Date {{ job.application_end_date|date:"d M" }}{% endif %}</a>
-                    <span class="ticker-dot">&#9679;</span>
-                    {% empty %}
-                    <span class="ticker-item"><i class="fas fa-book-open"></i> New exam guides and preparation tips added regularly</span>
-                    <span class="ticker-dot">&#9679;</span>
-                    {% endfor %}
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
+        {% for job in latest_jobs|slice:":9" %}
+        {% if forloop.counter0|divisibleby:3 %}<div class="hl-line">{% endif %}
+            <a href="{% url 'job_detail' job.pk %}" class="hl-link">{{ job.short_title }}{% if job.vacancies %} ({{ job.vacancies }} Posts){% endif %}</a>
+        {% if forloop.counter|divisibleby:3 or forloop.last %}</div>{% else %}<span class="hl-sep">||</span>{% endif %}
+        {% empty %}
+        <div class="hl-line"><a href="{% url 'article_list' %}" class="hl-link">New exam guides and preparation tips added regularly</a></div>
+        {% endfor %}
     </div>
 </div>
 

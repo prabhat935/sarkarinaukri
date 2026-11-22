@@ -182,6 +182,11 @@ class JobPosting(models.Model):
         return self.title
 
     @property
+    def short_title(self):
+        """Title without the bracketed details, e.g. for one-line link lists."""
+        return self.title.split(' (')[0].replace(' Recruitment', '').strip()
+
+    @property
     def days_remaining(self):
         from datetime import date
         if self.application_end_date:
