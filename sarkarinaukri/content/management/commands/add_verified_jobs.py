@@ -15,6 +15,7 @@ ORGANIZATIONS = [
     {'name': 'SIDBI', 'slug': 'sidbi', 'website': 'https://www.sidbi.in'},
     {'name': 'ASRB (ICAR)', 'slug': 'asrb', 'website': 'https://www.asrb.gov.in'},
     {'name': 'DSSSB', 'slug': 'dsssb', 'website': 'https://dsssb.delhi.gov.in'},
+    {'name': 'RRC Central Railway', 'slug': 'rrc-central-railway', 'website': 'https://www.rrccr.com'},
 ]
 
 
@@ -273,6 +274,63 @@ VERIFIED_JOBS = [
             'change any detail, including category, after you submit the form, so check it twice. The MTS test '
             'gives Hindi and English 40 marks each, as much as General Awareness or Arithmetic, so practise '
             'both languages instead of treating them as easy marks.'
+        ),
+    },
+    {
+        # Source: RRC Central Railway Notification No. RRC/CR/AA/2026 dated 03 Nov 2026 (official PDF on rrccr.com)
+        'slug': 'rrc-central-railway-act-apprentice-2026',
+        'title': 'Central Railway Act Apprentice Recruitment 2026 (2861 Slots, 10th + ITI, No Exam)',
+        'organization': 'rrc-central-railway',
+        'category': 'railway',
+        'vacancies': 2861,
+        'application_start_date': datetime.date(2026, 11, 3),
+        'application_end_date': datetime.date(2026, 12, 2),
+        'exam_date': None,
+        'max_age': 24,
+        'min_age': 15,
+        'salary_min': Decimal('9600'),
+        'salary_max': Decimal('9600'),
+        'application_fee': Decimal('100'),
+        'application_link': 'https://www.rrccr.com',
+        'meta_description': (
+            'Central Railway Apprentice 2026: 2861 slots for 10th pass with ITI, merit-based with no exam, '
+            'Rs 9,600 stipend. Apply at rrccr.com by 2 Dec 2026, 5 pm.'
+        ),
+        'eligibility': (
+            'Class 10 (or equivalent) passed with at least 50% aggregate marks, plus an ITI certificate (NCVT, or '
+            'a provisional NCVT/SCVT certificate) in the trade you apply for. Engineering graduates and diploma '
+            'holders cannot apply under this notification.\n\n'
+            'Age on 3 November 2026: at least 15 and below 24 (UR candidates born between 3 November 2002 and '
+            '3 November 2011). Upper age relaxation: 5 years for SC/ST, 3 years for OBC, 10 years for PwBD, and '
+            'extra relaxation for ex-servicemen based on their service.'
+        ),
+        'description': (
+            'Railway Recruitment Cell, Central Railway (Mumbai) is taking online applications for 2861 Act '
+            'Apprentice training slots under the Apprentices Act 1961 (Notification No. RRC/CR/AA/2026). The '
+            'training is at Central Railway workshops, loco sheds, carriage and wagon depots and other units in '
+            'five clusters: Mumbai, Bhusawal, Pune, Nagpur and Solapur.\n\n'
+            'There is no written test or interview. RRC makes a merit list from the simple average of your '
+            'Class 10 percentage and your ITI percentage in the trade you apply for. The merit list is made '
+            'separately for each cluster, unit, trade and category. If two candidates have the same marks, the '
+            'older one ranks higher, and if the dates of birth also match, the one who passed Class 10 earlier.\n\n'
+            'Trades include Fitter, Electrician, Welder, Turner, Machinist, several Mechanic trades, Painter, '
+            'Carpenter, Mason, Crane Driver, Motor Mechanic and Stenographer (English or Hindi shorthand). The trade-wise slot tables in the notification show how many seats each unit has '
+            'for your trade and category.\n\n'
+            'Choose your cluster carefully. You may pick only one cluster, and within it you list the units you '
+            'prefer. If you choose a cluster or unit with no slots for your ITI trade, your application is of '
+            'no use, and you cannot edit it after final submission. Submitting more than one application gets '
+            'all of them rejected.\n\n'
+            'Training and stipend: one year of training for every trade, with a stipend of Rs 9,600 a month for '
+            'National or State Trade Certificate holders. No hostel is provided. Completing the apprenticeship '
+            'does not give you a right to a railway job.\n\n'
+            'Fee: Rs 100 (non-refundable), paid online. SC, ST, PwBD and women candidates pay nothing.\n\n'
+            'Important dates: apply only online at rrccr.com from 3 November 2026 (11 am) to 2 December 2026 '
+            '(5 pm). Note the 5 pm deadline: the portal does not stay open until midnight on the last day.\n\n'
+            'Tip for students with grades: if your board gave letter grades instead of marks, RRC asks you to '
+            'enter the midpoint of the grade range (for example, 84.5 for an A grade covering 80 to 89). If '
+            'there are only subject grades, average the midpoints of all subjects. Work this out before you fill '
+            'in the form, because a mismatch between the figure you enter and RRC\'s own calculation leads to '
+            'rejection.'
         ),
     },
 ]
