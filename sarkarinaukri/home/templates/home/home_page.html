@@ -8,6 +8,11 @@
 
 {% block extra_css %}
 <style>
+.sb-jobs .sbody-grid-3 { grid-template-columns: 1fr; }
+.sb-jobs .sbody-col { border-right: none; }
+.sb-jobs .sbody-col:not(:last-child) .section-box-row:last-child { border-bottom: 1px solid var(--n-50); }
+.hp-stack { display:flex; flex-direction:column; }
+.sb-jobs .sbr-link, .hp-stack .sbr-link { -webkit-line-clamp: 2; }
 .hl-bar { background:#fff; padding:8px 0; }
 .hl-line { overflow:hidden; padding:8px 0; margin:5px 0; border-radius:6px; white-space:nowrap; }
 .hl-line:nth-child(3n+1) { background:#fef3c7; }
@@ -122,8 +127,8 @@ a.ticker-item:hover { color: var(--accent-light); text-decoration: underline; }
         </div>
 
 
-        <!-- ROW: Closing soon | Newly added | Upcoming exams -->
-        <div class="hp-row-3">
+        <!-- Closing soon, newly added and upcoming exams, stacked -->
+        <div class="hp-stack">
 
             <!-- CLOSING SOON -->
             <div class="section-box sb-closing">
