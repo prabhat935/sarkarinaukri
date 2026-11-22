@@ -19,6 +19,7 @@ ORGANIZATIONS = [
     {'name': 'RRC Central Railway', 'slug': 'rrc-central-railway', 'website': 'https://www.rrccr.com'},
     {'name': 'RRC Northern Railway', 'slug': 'rrc-northern-railway', 'website': 'https://www.rrcnr.org'},
     {'name': 'UKSSSC', 'slug': 'uksssc', 'website': 'https://sssc.uk.gov.in'},
+    {'name': 'Exim Bank', 'slug': 'exim-bank', 'website': 'https://www.eximbankindia.in'},
 ]
 
 
@@ -452,6 +453,137 @@ VERIFIED_JOBS = [
             'Civil Police, PAC/IRB and Fireman posts sign a bond to serve at least five years after training, or '
             'repay the training cost and stipend. Check the age band for the exact post you want, because it '
             'ranges from 18-25 to 21-35 across this advertisement.'
+        ),
+    },
+    {
+        # Source: Exim Bank Advt. No. HRM/MT/M/2026-27/05 and addendum dated 20 Nov 2026 (official PDFs on eximbankindia.in/careers)
+        'slug': 'exim-bank-management-trainee-manager-2026',
+        'title': 'Exim Bank Management Trainee and Manager Recruitment 2026 (120 Posts)',
+        'organization': 'exim-bank',
+        'category': 'bank',
+        'vacancies': 120,
+        'application_start_date': datetime.date(2026, 11, 27),
+        'application_end_date': datetime.date(2026, 12, 11),
+        'exam_date': None,
+        'max_age': 30,
+        'min_age': 21,
+        'salary_min': Decimal('48480'),
+        'salary_max': Decimal('93960'),
+        'application_fee': Decimal('600'),
+        'application_link': 'https://www.eximbankindia.in/careers',
+        'meta_description': (
+            'Exim Bank 2026: 90 Management Trainee and 30 Manager posts. Rs 65,000 stipend, about Rs 25 lakh CTC '
+            'after training. Apply 27 Nov to 11 Dec 2026.'
+        ),
+        'eligibility': (
+            'Management Trainee: generally at least 60% in a three-year full-time graduation, plus a two-year '
+            'full-time MBA/PGDBA/PGDBM/MMS (60%) in the specialisation the stream asks for, or CA (ICAI '
+            'membership needed) or CMA for the banking operations streams. Some streams have their own rules: '
+            'Legal needs an LLB with 60%; Digital Technology and Cyber Security need a B.E./B.Tech (or MCA) in '
+            'CS, IT or ECE with 60%; Compliance needs ACS. Degrees through distance, part-time or online '
+            'learning are not accepted. Final-year students can apply if they will finish by May 2027 and can '
+            'show the qualification before joining (by 30 June 2027 at the latest).\n\n'
+            'Manager (MM-II): the same kind of degree plus at least four years of relevant post-qualification '
+            'experience in a bank, financial institution or a reputed organisation.\n\n'
+            'Age on 1 November 2026: Management Trainee 21 to 28; Manager 24 to 30. Upper age limit goes up by '
+            '5 years for SC/ST, 3 years for OBC (Non-Creamy Layer) and 10 years for PwBD (more for PwBD in '
+            'reserved categories).'
+        ),
+        'description': (
+            'Export-Import Bank of India (Exim Bank), the government-owned bank that finances India\'s '
+            'international trade, is recruiting 120 officers under Advertisement No. HRM/MT/M/2026-27/05: '
+            '90 Management Trainees and 30 Managers in Grade MM-II. By category, the trainee posts are UR 40, '
+            'OBC 25, ST 9, EWS 9 and SC 7; the manager posts are UR 15, OBC 7, SC 3, EWS 3 and ST 2.\n\n'
+            'Management Trainee streams: after an addendum on 20 November, there is now one combined stream of '
+            '60 posts for Banking Operations (credit and loans, treasury and accounts, internal audit and risk '
+            'management), which also accepts CMA. The other trainee streams are Legal 10, Digital Technology 9, '
+            'Cyber Security 2, Compliance 2, Human Resources 2, Administration 2, International Relations 1, ESG '
+            '1 and Corporate Communications 1. Manager posts cover areas such as credit appraisal, loan '
+            'operations and documentary credit, internal audit, MSME lending and corporate communications or '
+            'CSR, each needing four years of experience. You can apply for only one post; if you submit more, '
+            'only your latest complete application is kept and the other fees are lost.\n\n'
+            'Selection: a written test and then a personal interview. The written test is unusual for a bank '
+            'exam: it is fully subjective, two and a half hours long and worth 100 marks. Part I (40 marks) is a '
+            'compulsory question or case study on your chosen specialisation, and Part II (60 marks) asks you to '
+            'answer 6 of 8 questions on the same specialisation. The exam is expected in December 2026 at '
+            'Chennai, Guwahati, Kolkata, Mumbai or New Delhi, with interviews in Mumbai or New Delhi.\n\n'
+            'Pay: trainees get a stipend of Rs 65,000 a month for one year and then become Deputy Managers '
+            '(JM-I, basic pay Rs 48,480 to 85,920), which the bank puts at about Rs 25 lakh a year in CTC. '
+            'Managers (MM-II, Rs 64,820 to 93,960) start at about Rs 30 lakh a year. Officers can be posted '
+            'anywhere in India, and abroad with their consent.\n\n'
+            'Service bond: trainees sign a Rs 3 lakh bond to serve one year as a trainee and at least five years '
+            'as a Deputy Manager; managers sign a Rs 3 lakh bond for at least three years.\n\n'
+            'Fee: Rs 600 for General and OBC candidates. SC, ST, PwBD, EWS and women candidates pay only Rs 100 '
+            'as intimation charges.\n\n'
+            'Important dates: the online application link opens on 27 November 2026 and closes on 11 December '
+            '2026, which is also the last day to pay the fee. Registration counts only once the fee is paid.\n\n'
+            'Preparing: with the exam likely within weeks of the last date, practise writing structured answers '
+            'and short case analyses in your specialisation under time pressure; there is no objective section '
+            'to make up marks. OBC candidates need a Non-Creamy Layer certificate issued within one year before '
+            'the last date, with the caste name matching the central list exactly.'
+        ),
+    },
+    {
+        # Source: NLCIL Advt. No. 11/2026 (official PDF on web.nlcindia.in/rec112026)
+        'slug': 'nlc-india-executive-recruitment-advt-11-2026',
+        'title': 'NLC India Executive Recruitment 2026 (145 Experienced Posts, E1 to E7 Grades, Advt. 11/2026)',
+        'organization': 'nlc-india',
+        'category': 'engineering',
+        'vacancies': 145,
+        'application_start_date': datetime.date(2026, 11, 20),
+        'application_end_date': datetime.date(2026, 12, 19),
+        'exam_date': None,
+        'max_age': 36,
+        'min_age': None,
+        'salary_min': Decimal('50000'),
+        'salary_max': Decimal('260000'),
+        'application_fee': Decimal('854'),
+        'application_link': 'https://www.nlcindia.in',
+        'meta_description': (
+            'NLC India Advt 11/2026: 145 executive posts for experienced engineers, HR, legal and security '
+            'professionals. CTC up to Rs 29 lakh. Apply by 19 Dec 2026.'
+        ),
+        'eligibility': (
+            'These are posts for experienced professionals, not freshers. Most are Executive Engineer (E-4) posts '
+            'that need a full-time or part-time bachelor\'s degree in the relevant engineering branch and at least '
+            'five years of post-qualification experience in the stated area (for example opencast or underground '
+            'mines, heavy earth-moving machinery, or coal or lignite thermal power stations of 200 MW and above). '
+            'Deputy General Manager (E-7) posts need 19 years of experience. HR, legal, security and other posts '
+            'have their own qualification and experience rules in the notification.\n\n'
+            'Upper age limit on 1 November 2026, including relaxation: E-7 52 (UR/EWS), 55 (OBC), 57 (SC/ST); '
+            'E-6 47/50/52; E-4 36/39/41; E-3 32/35/37; E-2 and E-1 30/33/35. PwBD candidates get 10 more years '
+            '(13 for OBC, 15 for SC/ST), with a ceiling of 58. Candidates from PSUs, government or public sector '
+            'banks usually need at least two years in the next lower pay scale (one year for E-3 posts).'
+        ),
+        'description': (
+            'NLC India Limited, the Navratna company behind the lignite mines and power stations at Neyveli, has '
+            'advertised 145 executive posts under Advertisement No. 11/2026 for its units in Tamil Nadu, '
+            'Rajasthan, Odisha and Jharkhand, its solar and wind sites, and its joint ventures at Tuticorin and '
+            'Ghatampur. This is a lateral recruitment for experienced people, separate from NLC\'s Graduate '
+            'Executive Trainee notice for GATE 2025 candidates.\n\n'
+            'Posts range from E-1 to E-7 grade. The largest group is Executive Engineer (E-4): Mechanical (Mines) '
+            'alone has 40 posts, and there are E-4 posts in mechanical thermal and projects, electrical, civil, '
+            'mining (12), chemical and safety. There are also Deputy General Manager (E-7) posts in mechanical, '
+            'electrical and civil, Manager (Scientific) posts at E-2, Deputy Manager posts in HR (7) and Legal '
+            '(3) at E-3, and security posts at E-6 (Manager) and E-1 (Assistant Manager, for former armed forces '
+            'officers).\n\n'
+            'Pay and CTC (approximate, per year): E-7 Rs 1,00,000 to 2,60,000 basic (about Rs 29 lakh CTC); E-6 '
+            'Rs 90,000 to 2,40,000 (about Rs 26 lakh); E-4 Rs 70,000 to 2,00,000 (about Rs 20.3 lakh); E-3 Rs '
+            '60,000 to 1,80,000 (about Rs 17.4 lakh); E-2 Rs 50,000 to 1,60,000 (about Rs 14.5 lakh). Performance '
+            'related pay, medical cover and township housing (subject to availability) are extra. New joiners '
+            'are on probation for one year and can be posted to any NLC unit, subsidiary or joint venture.\n\n'
+            'Selection: for most posts it is a personal interview only. If a post gets more than six applicants '
+            'per vacancy, NLC may hold a computer-based screening test first and call candidates in a 1:6 ratio. '
+            'You need at least 50% in the interview (40% for SC, ST, OBC and PwBD candidates on reserved posts). '
+            'Legal posts have an 80-mark written test (50% to qualify) and a 20-mark interview.\n\n'
+            'Fee: Rs 854 for UR, EWS and OBC (NCL) candidates (Rs 500 application fee plus Rs 354 processing '
+            'fee). SC, ST, PwBD and ex-servicemen candidates pay only the Rs 354 processing fee.\n\n'
+            'Important dates: register online from 20 November 2026 (10 am) to 19 December 2026 (5 pm). '
+            'Category status, experience and age are all counted as on 1 November 2026.\n\n'
+            'Before you apply: upload proof of every year of experience you claim in the exact area the post '
+            'asks for, because NLC shortlists on the documents you upload. OBC (NCL) and EWS certificates must '
+            'be issued on or after 1 April 2026, and if you work in a PSU or government body you will need a '
+            'No Objection Certificate at the interview. Interviewed candidates get their travel fare reimbursed.'
         ),
     },
 ]
