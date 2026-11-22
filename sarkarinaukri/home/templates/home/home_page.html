@@ -6,6 +6,37 @@
 {% block title_suffix %}{% endblock %}
 {% block meta_description %}Open government job vacancies, results and admit cards, plus original guides on eligibility, reservation certificates, salary and exam preparation.{% endblock %}
 
+{% block extra_css %}
+<style>
+.sb-closing .section-box-header { background: linear-gradient(90deg,#b45309,#d97706); }
+.sb-new     .section-box-header { background: linear-gradient(90deg,#be123c,#e11d48); }
+.sb-exams   .section-box-header { background: linear-gradient(90deg,#0f766e,#0d9488); }
+.sb-qual    .section-box-header { background: linear-gradient(90deg,#1e3a8a,#2563eb); }
+.sb-guides  .section-box-header { background: linear-gradient(90deg,#4338ca,#6366f1); }
+.sb-closed  .section-box-header { background: linear-gradient(90deg,#374151,#4b5563); }
+.tag-days { background:#d97706; color:#fff; font-size:.6rem; font-weight:800; padding:2px 6px; border-radius:3px; flex-shrink:0; white-space:nowrap; }
+.tag-days-red { background:#dc2626; }
+.tag-exam { background:#ccfbf1; color:#0f766e; font-size:.62rem; font-weight:700; padding:2px 6px; border-radius:3px; flex-shrink:0; white-space:nowrap; }
+.tag-next { background:#f3f4f6; color:#374151; font-size:.68rem; font-weight:600; padding:2px 7px; border-radius:3px; flex-shrink:0; white-space:nowrap; }
+.sbr-note { font-size:.7rem; color:#6b7280; background:#f9fafb; }
+.qual-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; padding:12px; border-top:1px solid var(--border); }
+.qual-card { display:flex; flex-direction:column; align-items:center; gap:4px; padding:14px 8px; border:1px solid #dbeafe; border-radius:8px; background:#f8fbff; text-decoration:none; text-align:center; transition:all .2s; }
+.qual-card:hover { border-color:#2563eb; background:#eff6ff; transform:translateY(-2px); }
+.qual-card i { font-size:1.3rem; color:#2563eb; }
+.qual-label { font-weight:700; color:#1e293b; font-size:.85rem; }
+.qual-count { font-size:.72rem; color:#475569; }
+.qual-empty { opacity:.55; }
+.guides-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); border-top:1px solid var(--border); }
+.guides-topic { padding:9px 11px 6px; font-size:.75rem; font-weight:800; color:#4338ca; text-transform:uppercase; letter-spacing:.4px; border-bottom:1px solid var(--n-150); }
+.guides-topic span { color:#9ca3af; font-weight:600; }
+@media (max-width: 900px) { .qual-grid { grid-template-columns:repeat(3,1fr); } }
+@media (max-width: 560px) {
+  .qual-grid { grid-template-columns:repeat(2,1fr); }
+  .tag-next { white-space:normal; }
+}
+</style>
+{% endblock %}
+
 {% block content %}
 
 <!-- Breaking News Ticker -->
@@ -194,7 +225,82 @@
             {% endif %}
         </div>
 
+
+        <!-- ROW: Closing soon | Newly added | Upcoming exams -->
+        <div class="hp-row-3">
+
+            <!-- CLOSING SOON -->
+            <div class="section-box sb-closing">
+                <div class="section-box-header">
+                    <h2><i class="fas fa-hourglass-half"></i> Closing Soon</h2>
+                    <a href="{% url 'job_list' %}" class="section-box-more">All Jobs &raquo;</a>
+                </div>
+                {% for job in closing_soon %}
+                <div class="section-box-row">
+                    {% with d=job.days_remaining %}<span class="tag-days{% if d <= 3 %} tag-days-red{% endif %}">{% if d == 0 %}Today{% elif d == 1 %}1 day{% else %}{{ d }} days{% endif %}</span>{% endwith %}
+                    <a href="{% url 'job_detail' job.pk %}" class="sbr-link">{{ job.title }}</a>
+                    <span class="sbr-date">{{ job.application_end_date|date:"d M" }}</span>
+                </div>
+                {% empty %}
+                <div class="section-box-row"><span class="sbr-link">No deadlines in the next 10 days. See all open jobs for later dates.</span></div>
+                {% endfor %}
+            </div>
+
+            <!-- NEWLY ADDED -->
+            <div class="section-box sb-new">
+                <div class="section-box-header">
+                    <h2><i class="fas fa-star"></i> Newly Added</h2>
+                    <a href="{% url 'job_list' %}" class="section-box-more">All Jobs &raquo;</a>
+                </div>
+                {% for job in newly_added %}
+                <div class="section-box-row">
+                    {% if job.is_new %}<span class="tag-new">NEW</span>{% endif %}
+                    <a href="{% url 'job_detail' job.pk %}" class="sbr-link">{{ job.title }}</a>
+                    <span class="sbr-date">{{ job.created_at|date:"d M" }}</span>
+                </div>
+                {% empty %}
+                <div class="section-box-row"><span class="sbr-link">New job posts appear here as soon as they are published.</span></div>
+                {% endfor %}
+            </div>
+
+            <!-- UPCOMING EXAM DATES -->
+            <div class="section-box sb-exams">
+                <div class="section-box-header">
+                    <h2><i class="fas fa-calendar-check"></i> Upcoming Exam Dates</h2>
+                </div>
+                {% for job in upcoming_exams %}
+                <div class="section-box-row">
+                    <span class="tag-exam">{{ job.exam_date|date:"d M Y" }}</span>
+                    <a href="{% url 'job_detail' job.pk %}" class="sbr-link">{{ job.title }}</a>
+                    <span class="sbr-date">{% if job.days_to_exam <= 60 %}in {{ job.days_to_exam }} days{% endif %}</span>
+                </div>
+                {% empty %}
+                <div class="section-box-row"><span class="sbr-link">Exam dates appear here once a recruiter announces them.</span></div>
+                {% endfor %}
+                <div class="section-box-row sbr-note">Dates are as announced in the official notices and can change. Always confirm on the recruiter's website.</div>
+            </div>
+
+        </div>
+
+        <!-- JOBS BY QUALIFICATION -->
+        <div class="section-box sb-qual">
+            <div class="section-box-header">
+                <h2><i class="fas fa-graduation-cap"></i> Jobs by Qualification</h2>
+                <a href="{% url 'job_list' %}" class="section-box-more">All Jobs &raquo;</a>
+            </div>
+            <div class="qual-grid">
+                {% for q in qualification_counts %}
+                <a href="{% url 'job_list' %}?qualification={{ q.key }}" class="qual-card{% if not q.count %} qual-empty{% endif %}">
+                    <i class="fas {{ q.icon }}"></i>
+                    <span class="qual-label">{{ q.label }}</span>
+                    <span class="qual-count">{{ q.count }} open job{{ q.count|pluralize }}</span>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+
         <!-- ROW 2: Results | Admit Cards | Guides -->
+        {% if has_results or has_admit_cards or important_notifications %}
         <div class="hp-row-3">
 
             {% if has_results %}
@@ -248,24 +354,49 @@
                 </div>
                 {% endfor %}
             </div>
-            {% else %}
-            <!-- EXAM GUIDES -->
-            <div class="section-box sb-notify">
-                <div class="section-box-header">
-                    <h2><i class="fas fa-book-open"></i> Latest Exam Guides</h2>
-                    <a href="{% url 'article_list' %}" class="section-box-more">All Guides &raquo;</a>
-                </div>
-                {% for article in latest_articles %}
-                <div class="section-box-row">
-                    <a href="{% url 'article_detail' article.slug %}" class="sbr-link">{{ article.title }}</a>
-                </div>
-                {% empty %}
-                <div class="section-box-row"><span class="sbr-link">Guides coming soon.</span></div>
-                {% endfor %}
-            </div>
             {% endif %}
 
         </div><!-- /hp-row-3 -->
+        {% endif %}
+
+
+        <!-- EXAM GUIDES BY TOPIC -->
+        {% if guides_by_topic %}
+        <div class="section-box sb-guides">
+            <div class="section-box-header">
+                <h2><i class="fas fa-book-open"></i> Exam Guides by Topic</h2>
+                <a href="{% url 'article_list' %}" class="section-box-more">All Guides &raquo;</a>
+            </div>
+            <div class="guides-grid">
+                {% for group in guides_by_topic %}
+                <div class="sbody-col">
+                    <div class="guides-topic"><i class="fas {{ group.icon }}"></i> {{ group.label }} <span>({{ group.articles|length }})</span></div>
+                    {% for article in group.articles %}
+                    <div class="section-box-row">
+                        <a href="{% url 'article_detail' article.slug %}" class="sbr-link">{{ article.title }}</a>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- RECENTLY CLOSED: WHAT'S NEXT -->
+        {% if recently_closed %}
+        <div class="section-box sb-closed">
+            <div class="section-box-header">
+                <h2><i class="fas fa-route"></i> Recently Closed: What's Next</h2>
+                <a href="{% url 'job_list' %}?status=Closed" class="section-box-more">Closed Jobs &raquo;</a>
+            </div>
+            {% for job in recently_closed %}
+            <div class="section-box-row">
+                <a href="{% url 'job_detail' job.pk %}" class="sbr-link">{{ job.title }}</a>
+                <span class="tag-next">{{ job.next_step }}</span>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
 
         <!-- ROW 3: Answer Keys | More Resources -->
         <div class="hp-row-2">

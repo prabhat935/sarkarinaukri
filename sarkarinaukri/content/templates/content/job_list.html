@@ -3,6 +3,8 @@
 
 {% block title %}Latest Government Jobs 2026 - Sarkari Naukri{% endblock %}
 {% block meta_description %}Open government job vacancies in central government, PSUs and banks, with eligibility, dates, fees and official application links.{% endblock %}
+{# Filtered copies of the job list (by qualification, search, page) stay out of the index; the canonical tag points to /content/jobs/ #}
+{% block robots %}{% if request.GET %}noindex, follow{% else %}index, follow{% endif %}{% endblock %}
 {% block nav_jobs %}active{% endblock %}
 {% block body_class %}page-jobs{% endblock %}
 
@@ -59,7 +61,7 @@
     <section class="list-section">
         <div class="container">
             <div class="list-header">
-                <h1 class="list-title"><i class="fas fa-briefcase"></i> Latest Government Jobs</h1>
+                <h1 class="list-title"><i class="fas fa-briefcase"></i> {% if qualification_label %}Government Jobs for {{ qualification_label }}{% else %}Latest Government Jobs{% endif %}</h1>
                 <span class="list-count">{{ paginator.count }} Jobs Found</span>
             </div>
 
@@ -102,11 +104,11 @@
             <nav class="pagination-nav" aria-label="Pagination">
                 <ul class="pagination justify-content-center">
                     {% if page_obj.has_previous %}
-                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.title %}&title={{ request.GET.title }}{% endif %}{% if request.GET.exam_category %}&exam_category={{ request.GET.exam_category }}{% endif %}{% if request.GET.state %}&state={{ request.GET.state }}{% endif %}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}"><i class="fas fa-chevron-left"></i> Prev</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.title %}&title={{ request.GET.title }}{% endif %}{% if request.GET.exam_category %}&exam_category={{ request.GET.exam_category }}{% endif %}{% if request.GET.state %}&state={{ request.GET.state }}{% endif %}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}{% if request.GET.qualification %}&qualification={{ request.GET.qualification }}{% endif %}"><i class="fas fa-chevron-left"></i> Prev</a></li>
                     {% endif %}
                     <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
                     {% if page_obj.has_next %}
-                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.title %}&title={{ request.GET.title }}{% endif %}{% if request.GET.exam_category %}&exam_category={{ request.GET.exam_category }}{% endif %}{% if request.GET.state %}&state={{ request.GET.state }}{% endif %}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}">Next <i class="fas fa-chevron-right"></i></a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.title %}&title={{ request.GET.title }}{% endif %}{% if request.GET.exam_category %}&exam_category={{ request.GET.exam_category }}{% endif %}{% if request.GET.state %}&state={{ request.GET.state }}{% endif %}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}{% if request.GET.qualification %}&qualification={{ request.GET.qualification }}{% endif %}">Next <i class="fas fa-chevron-right"></i></a></li>
                     {% endif %}
                 </ul>
             </nav>

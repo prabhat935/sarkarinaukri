@@ -71,6 +71,14 @@ class JobListView(ListView):
         if 'status' not in self.request.GET:
             queryset = queryset.filter(status='Active')
 
+        # Qualification buttons on the homepage: "engineering" matches the job
+        # category, the others the job's qualification level
+        qualification = self.request.GET.get('qualification')
+        if qualification == 'engineering':
+            queryset = queryset.filter(exam_category__slug='engineering')
+        elif qualification:
+            queryset = queryset.filter(qualification_level__level=qualification)
+
         # Apply filters
         filterset = JobPostingFilter(self.request.GET, queryset=queryset)
         return filterset.qs
@@ -80,6 +88,9 @@ class JobListView(ListView):
         context['organizations'] = Organization.objects.filter(is_featured=True)
         context['states'] = State.objects.filter(is_featured=True)
         context['categories'] = ExamCategory.objects.filter(is_featured=True)
+        from home.models import QUALIFICATION_BUCKETS
+        labels = {key: label for key, label, _ in QUALIFICATION_BUCKETS}
+        context['qualification_label'] = labels.get(self.request.GET.get('qualification'))
         return context
 
 
