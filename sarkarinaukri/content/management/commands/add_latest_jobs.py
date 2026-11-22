@@ -352,7 +352,14 @@ class Command(BaseCommand):
                 self.stdout.write(self.style.WARNING(f'  SKIP (no org): {title}'))
                 continue
 
-            final_status = forced_status if forced_status else status(end_date)
+            # These are old placeholder rows with no write-up. Never show one as
+            # open unless its last date is known and still ahead: rows without
+            # a date stayed "Active" for months, and forcing past-dated rows
+            # back to Active on each deploy made them flip open and shut.
+            if forced_status == 'Closed' or end_date is None or end_date < TODAY:
+                final_status = 'Closed'
+            else:
+                final_status = 'Active'
 
             obj, created = JobPosting.objects.update_or_create(
                 title=title,
