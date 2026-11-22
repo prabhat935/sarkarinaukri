@@ -57,7 +57,7 @@ class JobPostingAdmin(admin.ModelAdmin):
             'fields': ('organization', 'exam_category', 'state')
         }),
         ('Job Details', {
-            'fields': ('vacancies', 'job_level', 'qualification_level', 'min_age', 'max_age', 'salary_min', 'salary_max')
+            'fields': ('year', 'vacancies', 'job_level', 'qualification_level', 'min_age', 'max_age', 'salary_min', 'salary_max')
         }),
         ('Eligibility', {
             'fields': ('eligibility', 'experience_required', 'gender_preference')
