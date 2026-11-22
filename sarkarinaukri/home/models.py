@@ -18,30 +18,33 @@ class HomePage(Page):
         context['total_articles'] = Article.published().count()
 
         # Recent results
-        context['recent_results'] = ExamResult.objects.select_related('organization').order_by('-result_date')[:8]
+        # Only entries with a real write-up; title-and-link placeholders stay hidden
+        listed_results = ExamResult.listed(ExamResult.objects.select_related('organization').order_by('-result_date'))
+        listed_admit_cards = AdmitCard.listed(AdmitCard.objects.select_related('organization').order_by('-admit_card_date'))
+        context['recent_results'] = listed_results[:8]
 
         # Recent admit cards
-        context['recent_admit_cards'] = AdmitCard.objects.select_related('organization').order_by('-admit_card_date')[:6]
+        context['recent_admit_cards'] = listed_admit_cards[:6]
 
         # Important notifications
         context['important_notifications'] = ImportantNotification.objects.order_by('-is_urgent', '-published_date')[:6]
 
         # Statistics
         context['latest_jobs_count'] = JobPosting.objects.filter(year=2026).count()
-        context['recent_results_count'] = ExamResult.objects.filter(exam_year__gte=2024).count()
-        context['admit_cards_count'] = AdmitCard.objects.count()
+        context['recent_results_count'] = len(listed_results)
+        context['admit_cards_count'] = len(listed_admit_cards)
         context['notifications_count'] = ImportantNotification.objects.count()
 
         # Overall stats
         context['total_jobs'] = JobPosting.objects.count()
-        context['total_results'] = ExamResult.objects.count()
-        context['total_admit_cards'] = AdmitCard.objects.count()
+        context['total_results'] = len(listed_results)
+        context['total_admit_cards'] = len(listed_admit_cards)
         context['total_organizations'] = Organization.objects.count()
 
         # Featured organizations
         context['featured_organizations'] = Organization.objects.filter(is_featured=True)[:8]
 
         # Recent answer keys
-        context['recent_answer_keys'] = AnswerKey.objects.select_related('organization').order_by('-exam_date')[:6]
+        context['recent_answer_keys'] = AnswerKey.listed(AnswerKey.objects.select_related('organization').order_by('-exam_date'))[:6]
 
         return context

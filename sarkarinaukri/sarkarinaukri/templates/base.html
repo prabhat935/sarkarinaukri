@@ -114,11 +114,11 @@
                     <div class="collapse navbar-collapse" id="baseNavMenu">
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item"><a class="nav-link {% block nav_jobs %}{% endblock %}" href="{% url 'job_list' %}"><i class="fas fa-briefcase"></i> Jobs</a></li>
-                            <li class="nav-item"><a class="nav-link {% block nav_results %}{% endblock %}" href="{% url 'result_list' %}"><i class="fas fa-chart-bar"></i> Results</a></li>
-                            <li class="nav-item"><a class="nav-link {% block nav_admit %}{% endblock %}" href="{% url 'admit_card_list' %}"><i class="fas fa-id-card"></i> Admit Cards</a></li>
-                            <li class="nav-item"><a class="nav-link {% block nav_answer %}{% endblock %}" href="{% url 'answer_key_list' %}"><i class="fas fa-key"></i> Answer Keys</a></li>
-                            <li class="nav-item"><a class="nav-link {% block nav_syllabus %}{% endblock %}" href="{% url 'syllabus_list' %}"><i class="fas fa-book"></i> Syllabus</a></li>
-                            <li class="nav-item"><a class="nav-link {% block nav_board %}{% endblock %}" href="{% url 'board_results' %}"><i class="fas fa-graduation-cap"></i> Board</a></li>
+                            {% if has_results %}<li class="nav-item"><a class="nav-link {% block nav_results %}{% endblock %}" href="{% url 'result_list' %}"><i class="fas fa-chart-bar"></i> Results</a></li>{% endif %}
+                            {% if has_admit_cards %}<li class="nav-item"><a class="nav-link {% block nav_admit %}{% endblock %}" href="{% url 'admit_card_list' %}"><i class="fas fa-id-card"></i> Admit Cards</a></li>{% endif %}
+                            {% if has_answer_keys %}<li class="nav-item"><a class="nav-link {% block nav_answer %}{% endblock %}" href="{% url 'answer_key_list' %}"><i class="fas fa-key"></i> Answer Keys</a></li>{% endif %}
+                            {% if has_syllabus %}<li class="nav-item"><a class="nav-link {% block nav_syllabus %}{% endblock %}" href="{% url 'syllabus_list' %}"><i class="fas fa-book"></i> Syllabus</a></li>{% endif %}
+                            {% if has_board_results %}<li class="nav-item"><a class="nav-link {% block nav_board %}{% endblock %}" href="{% url 'board_results' %}"><i class="fas fa-graduation-cap"></i> Board</a></li>{% endif %}
                             {% if has_scholarships %}<li class="nav-item"><a class="nav-link {% block nav_scholar %}{% endblock %}" href="{% url 'scholarships' %}"><i class="fas fa-coins"></i> Scholarships</a></li>{% endif %}
                             {% if has_notifications %}<li class="nav-item"><a class="nav-link {% block nav_alerts %}{% endblock %}" href="{% url 'important_notifications' %}"><i class="fas fa-bell"></i> Alerts</a></li>{% endif %}
                             <li class="nav-item"><a class="nav-link {% block nav_guides %}{% endblock %}" href="{% url 'article_list' %}"><i class="fas fa-book-open"></i> Guides</a></li>
@@ -151,10 +151,10 @@
                             <h4>Quick Links</h4>
                             <ul>
                                 <li><a href="{% url 'job_list' %}">Latest Jobs</a></li>
-                                <li><a href="{% url 'result_list' %}">Exam Results</a></li>
-                                <li><a href="{% url 'admit_card_list' %}">Admit Cards</a></li>
-                                <li><a href="{% url 'syllabus_list' %}">Syllabus</a></li>
-                                <li><a href="{% url 'answer_key_list' %}">Answer Keys</a></li>
+                                {% if has_results %}<li><a href="{% url 'result_list' %}">Exam Results</a></li>{% endif %}
+                                {% if has_admit_cards %}<li><a href="{% url 'admit_card_list' %}">Admit Cards</a></li>{% endif %}
+                                {% if has_syllabus %}<li><a href="{% url 'syllabus_list' %}">Syllabus</a></li>{% endif %}
+                                {% if has_answer_keys %}<li><a href="{% url 'answer_key_list' %}">Answer Keys</a></li>{% endif %}
                             </ul>
                         </div>
                         <div class="footer-column">
@@ -162,7 +162,7 @@
                             <ul>
                                 <li><a href="{% url 'article_list' %}">Exam Guides</a></li>
                                 {% if has_faqs %}<li><a href="{% url 'faq' %}">FAQ</a></li>{% endif %}
-                                <li><a href="{% url 'board_results' %}">Board Results</a></li>
+                                {% if has_board_results %}<li><a href="{% url 'board_results' %}">Board Results</a></li>{% endif %}
                                 {% if has_scholarships %}<li><a href="{% url 'scholarships' %}">Scholarships</a></li>{% endif %}
                                 {% if has_notifications %}<li><a href="{% url 'important_notifications' %}">Notifications</a></li>{% endif %}
                                 {% if has_online_forms %}<li><a href="{% url 'online_forms' %}">Online Forms</a></li>{% endif %}

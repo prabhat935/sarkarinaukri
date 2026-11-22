@@ -101,26 +101,36 @@
                 <i class="fas fa-briefcase"></i>
                 <span>Latest Jobs</span>
             </a>
-            <a href="/content/results/" class="quick-link ql-results">
+            {% if has_results %}
+<a href="/content/results/" class="quick-link ql-results">
                 <i class="fas fa-chart-line"></i>
                 <span>Exam Results</span>
             </a>
-            <a href="/content/admit-cards/" class="quick-link ql-admit">
+{% endif %}
+            {% if has_admit_cards %}
+<a href="/content/admit-cards/" class="quick-link ql-admit">
                 <i class="fas fa-id-card"></i>
                 <span>Admit Cards</span>
             </a>
-            <a href="/content/answer-keys/" class="quick-link ql-answer">
+{% endif %}
+            {% if has_answer_keys %}
+<a href="/content/answer-keys/" class="quick-link ql-answer">
                 <i class="fas fa-key"></i>
                 <span>Answer Keys</span>
             </a>
-            <a href="/content/syllabus/" class="quick-link ql-syllabus">
+{% endif %}
+            {% if has_syllabus %}
+<a href="/content/syllabus/" class="quick-link ql-syllabus">
                 <i class="fas fa-book"></i>
                 <span>Syllabus</span>
             </a>
-            <a href="/content/board-results/" class="quick-link ql-board">
+{% endif %}
+            {% if has_board_results %}
+<a href="/content/board-results/" class="quick-link ql-board">
                 <i class="fas fa-graduation-cap"></i>
                 <span>Board Results</span>
             </a>
+{% endif %}
             <a href="{% url 'article_list' %}" class="quick-link ql-forms">
                 <i class="fas fa-book-open"></i>
                 <span>Exam Guides</span>
@@ -187,7 +197,8 @@
         <!-- ROW 2: Results | Admit Cards | Guides -->
         <div class="hp-row-3">
 
-            <!-- RESULTS -->
+            {% if has_results %}
+<!-- RESULTS -->
             <div class="section-box sb-results">
                 <div class="section-box-header">
                     <h2><i class="fas fa-chart-bar"></i> Exam Results</h2>
@@ -202,8 +213,10 @@
                 <div class="section-box-row"><span class="sbr-link">No results published yet.</span></div>
                 {% endfor %}
             </div>
+{% endif %}
 
-            <!-- ADMIT CARDS -->
+            {% if has_admit_cards %}
+<!-- ADMIT CARDS -->
             <div class="section-box sb-admit">
                 <div class="section-box-header">
                     <h2><i class="fas fa-id-card"></i> Admit Cards</h2>
@@ -218,6 +231,7 @@
                 <div class="section-box-row"><span class="sbr-link">No admit cards published yet.</span></div>
                 {% endfor %}
             </div>
+{% endif %}
 
             {% if important_notifications %}
             <!-- NOTIFICATIONS -->
@@ -256,7 +270,8 @@
         <!-- ROW 3: Answer Keys | More Resources -->
         <div class="hp-row-2">
 
-            <!-- ANSWER KEYS -->
+            {% if has_answer_keys %}
+<!-- ANSWER KEYS -->
             <div class="section-box sb-answer">
                 <div class="section-box-header">
                     <h2><i class="fas fa-key"></i> Answer Keys</h2>
@@ -271,14 +286,19 @@
                 <div class="section-box-row"><span class="sbr-link">No answer keys published yet.</span></div>
                 {% endfor %}
             </div>
+{% endif %}
 
             <!-- MORE RESOURCES -->
             <div class="section-box sb-more">
                 <div class="section-box-header">
                     <h2><i class="fas fa-layer-group"></i> More Resources</h2>
                 </div>
-                <div class="section-box-row"><a href="{% url 'syllabus_list' %}" class="sbr-link">Syllabus &amp; Exam Pattern — SSC, UPSC, Banking</a></div>
-                <div class="section-box-row"><a href="{% url 'board_results' %}" class="sbr-link">10th &amp; 12th Board Exam Results — CBSE, UP, Bihar Board</a></div>
+                {% if has_syllabus %}
+<div class="section-box-row"><a href="{% url 'syllabus_list' %}" class="sbr-link">Syllabus &amp; Exam Pattern — SSC, UPSC, Banking</a></div>
+{% endif %}
+                {% if has_board_results %}
+<div class="section-box-row"><a href="{% url 'board_results' %}" class="sbr-link">10th &amp; 12th Board Exam Results — CBSE, UP, Bihar Board</a></div>
+{% endif %}
                 {% if has_faqs %}<div class="section-box-row"><a href="{% url 'faq' %}" class="sbr-link">FAQ — Eligibility, Age Relaxation, Documents &amp; Salary</a></div>{% endif %}
                 {% if has_scholarships %}<div class="section-box-row"><a href="{% url 'scholarships' %}" class="sbr-link">Government Scholarships — SC/ST, OBC, Minority, Merit</a></div>{% endif %}
                 {% if has_online_forms %}<div class="section-box-row"><a href="{% url 'online_forms' %}" class="sbr-link">Active Online Application Forms</a></div>{% endif %}
@@ -382,7 +402,8 @@
                 </div>
             </div>
 
-            <div class="stat-card">
+            {% if has_results %}
+<div class="stat-card">
                 <div class="stat-icon" style="background:linear-gradient(135deg,#2e7d32,#388e3c);">
                     <i class="fas fa-chart-bar"></i>
                 </div>
@@ -392,8 +413,10 @@
                     <div class="stat-description">Results updated regularly</div>
                 </div>
             </div>
+{% endif %}
 
-            <div class="stat-card">
+            {% if has_admit_cards %}
+<div class="stat-card">
                 <div class="stat-icon" style="background:linear-gradient(135deg,#e65100,#f57c00);">
                     <i class="fas fa-id-card"></i>
                 </div>
@@ -403,6 +426,7 @@
                     <div class="stat-description">Hall tickets for top exams</div>
                 </div>
             </div>
+{% endif %}
 
             <div class="stat-card">
                 <div class="stat-icon" style="background:linear-gradient(135deg,#6a1b9a,#8e24aa);">

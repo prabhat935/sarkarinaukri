@@ -86,6 +86,22 @@ def word_count(*texts):
     return sum(len((t or '').split()) for t in texts)
 
 
+def substantive(queryset, *text_fields):
+    """
+    Items worth showing in lists and on the homepage: those with a real
+    write-up (MIN_INDEXABLE_WORDS or more), not just a title and a link.
+    A cheap length filter in the database first, then the exact word count.
+    """
+    from django.db.models import Q
+    from django.db.models.functions import Length
+
+    annotations = {f'_len_{f}': Length(f) for f in text_fields}
+    long_enough = Q()
+    for f in text_fields:
+        long_enough |= Q(**{f'_len_{f}__gte': MIN_INDEXABLE_WORDS * 2})
+    return [o for o in queryset.annotate(**annotations).filter(long_enough) if o.is_indexable]
+
+
 class JobPosting(models.Model):
     """Government job notifications"""
     
@@ -232,6 +248,11 @@ class ExamResult(models.Model):
     def is_indexable(self):
         return word_count(self.description) >= MIN_INDEXABLE_WORDS
 
+    @classmethod
+    def listed(cls, queryset=None):
+        qs = queryset if queryset is not None else cls.objects.select_related('organization')
+        return substantive(qs, 'description')
+
 
 class AdmitCard(models.Model):
     """Admit card information and downloads"""
@@ -265,6 +286,11 @@ class AdmitCard(models.Model):
     @property
     def is_indexable(self):
         return word_count(self.description, self.instructions) >= MIN_INDEXABLE_WORDS
+
+    @classmethod
+    def listed(cls, queryset=None):
+        qs = queryset if queryset is not None else cls.objects.select_related('organization')
+        return substantive(qs, 'description', 'instructions')
 
 
 class AnswerKey(models.Model):
@@ -302,6 +328,15 @@ class AnswerKey(models.Model):
     def __str__(self):
         return f"{self.exam_name} - Answer Key"
 
+    @property
+    def is_indexable(self):
+        return word_count(self.description) >= MIN_INDEXABLE_WORDS
+
+    @classmethod
+    def listed(cls, queryset=None):
+        qs = queryset if queryset is not None else cls.objects.select_related('organization')
+        return substantive(qs, 'description')
+
 
 class Syllabus(models.Model):
     """Exam syllabus and study material"""
@@ -328,6 +363,15 @@ class Syllabus(models.Model):
     class Meta:
         ordering = ['-exam_year']
         verbose_name_plural = "Syllabi"
+
+    @property
+    def is_indexable(self):
+        return word_count(self.subjects, self.important_topics) >= MIN_INDEXABLE_WORDS
+
+    @classmethod
+    def listed(cls, queryset=None):
+        qs = queryset if queryset is not None else cls.objects.select_related('organization')
+        return substantive(qs, 'subjects', 'important_topics')
 
     def __str__(self):
         return f"{self.exam_name} - Syllabus"

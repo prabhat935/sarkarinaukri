@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block title %}{{ syllabus.exam_name }}{% if "Syllabus" not in syllabus.exam_name %} Syllabus{% endif %}{% if syllabus.exam_year|stringformat:"s" not in syllabus.exam_name %} {{ syllabus.exam_year }}{% endif %} - Sarkari Naukri{% endblock %}
+{% block robots %}{% if syllabus.is_indexable %}index, follow{% else %}noindex, follow{% endif %}{% endblock %}
 {% block meta_description %}Syllabus and exam pattern for {{ syllabus.exam_name }}{% if "Syllabus" not in syllabus.exam_name %} Syllabus{% endif %}{% if syllabus.exam_year|stringformat:"s" not in syllabus.exam_name %} {{ syllabus.exam_year }}{% endif %}: subjects, topics and marking scheme, with the official syllabus link.{% endblock %}
 {% block nav_syllabus %}active{% endblock %}
 {% block body_class %}page-syllabus{% endblock %}

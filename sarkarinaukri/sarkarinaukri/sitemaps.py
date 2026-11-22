@@ -28,6 +28,11 @@ class StaticPagesSitemap(HttpsSitemap):
         'important_notifications': 'has_notifications',
         'online_forms':            'has_online_forms',
         'faq':                     'has_faqs',
+        'result_list':             'has_results',
+        'admit_card_list':         'has_admit_cards',
+        'answer_key_list':         'has_answer_keys',
+        'syllabus_list':           'has_syllabus',
+        'board_results':           'has_board_results',
     }
 
     def items(self):
@@ -120,7 +125,8 @@ class SyllabusSitemap(HttpsSitemap):
     priority = 0.6
 
     def items(self):
-        return Syllabus.objects.all().order_by('-exam_year')
+        # Only syllabus pages with a real write-up; the rest are noindexed
+        return Syllabus.listed()
 
     def location(self, obj):
         return reverse('syllabus_detail', args=[obj.pk])

@@ -138,7 +138,8 @@ class ResultListView(ListView):
         if search:
             queryset = queryset.filter(exam_name__icontains=search)
 
-        return queryset
+        # Only results with a real write-up; title-and-link entries stay hidden
+        return ExamResult.listed(queryset)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -183,7 +184,7 @@ class AdmitCardListView(ListView):
         if org_id:
             queryset = queryset.filter(organization_id=org_id)
 
-        return queryset
+        return AdmitCard.listed(queryset)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -221,7 +222,7 @@ class AnswerKeyListView(ListView):
         if org_id:
             queryset = queryset.filter(organization_id=org_id)
 
-        return queryset
+        return AnswerKey.listed(queryset)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -240,9 +241,9 @@ class SyllabusListView(ListView):
     paginate_by = 20
 
     def get_queryset(self):
-        return Syllabus.objects.select_related(
+        return Syllabus.listed(Syllabus.objects.select_related(
             'organization', 'state', 'exam_category'
-        ).order_by('-exam_year')
+        ).order_by('-exam_year'))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
