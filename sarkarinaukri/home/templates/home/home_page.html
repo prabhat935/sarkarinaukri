@@ -8,6 +8,13 @@
 
 {% block extra_css %}
 <style>
+.ticker-bar { padding: 13px 0; border-bottom-width: 3px; }
+.ticker-label { font-size: .9rem; padding: 7px 16px; margin-right: 20px; }
+.ticker-item { font-size: 1.02rem; font-weight: 600; color: #fff; text-decoration: none; padding: 0 34px; }
+.ticker-item i { font-size: .9rem; }
+a.ticker-item:hover { color: var(--accent-light); text-decoration: underline; }
+.ticker-dot { font-size: .6rem; }
+@media (max-width: 600px) { .ticker-item { font-size: .92rem; } .ticker-label { font-size: .78rem; padding: 6px 11px; } }
 .hero-compact { background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, var(--primary-light) 100%); color:#fff; padding: 14px 0; }
 .hero-compact-inner { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
 .hero-compact-title { font-size:1.35rem; font-weight:800; margin:0; letter-spacing:-.3px; white-space:nowrap; }
@@ -58,7 +65,7 @@
                 <div class="ticker-inner">
                     {% for pass in "12" %}{# rendered twice for a seamless loop #}
                     {% for job in latest_jobs|slice:":6" %}
-                    <span class="ticker-item"><i class="fas fa-briefcase"></i> {{ job.title }}{% if job.application_end_date %} — Last Date {{ job.application_end_date|date:"d M" }}{% endif %}</span>
+                    <a href="{% url 'job_detail' job.pk %}" class="ticker-item"><i class="fas fa-briefcase"></i> {{ job.title }}{% if job.application_end_date %} — Last Date {{ job.application_end_date|date:"d M" }}{% endif %}</a>
                     <span class="ticker-dot">&#9679;</span>
                     {% empty %}
                     <span class="ticker-item"><i class="fas fa-book-open"></i> New exam guides and preparation tips added regularly</span>
