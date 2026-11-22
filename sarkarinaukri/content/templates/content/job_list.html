@@ -76,9 +76,9 @@
                         <div class="post-item-top">
                             <a href="{% url 'job_detail' job.pk %}" class="post-item-title">{{ job.title }}</a>
                             <div class="post-item-badges">
-                                {% if job.status == 'Active' %}
+                                {% if job.is_open %}
                                 <span class="status-badge badge-active">Active</span>
-                                {% elif job.status == 'Closed' %}
+                                {% elif job.status == 'Closed' or job.status == 'Active' %}
                                 <span class="status-badge badge-closed">Closed</span>
                                 {% else %}
                                 <span class="status-badge badge-pending">{{ job.status }}</span>

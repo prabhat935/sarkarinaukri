@@ -194,15 +194,34 @@ class JobPosting(models.Model):
         return None
 
     @classmethod
-    def indexable(cls):
-        """Active jobs with a real description; everything else is kept out of search."""
-        return cls.objects.filter(status='Active').exclude(
-            description__contains=GENERIC_DESCRIPTION_MARKER
+    def open_q(cls):
+        """Filter for jobs still open today: marked Active and the last date not
+        yet passed. The date check means a job counts as closed the day after its
+        last date even before the daily update marks it Closed."""
+        from datetime import date
+        return models.Q(status='Active') & (
+            models.Q(application_end_date__isnull=True) | models.Q(application_end_date__gte=date.today())
         )
+
+    @classmethod
+    def open_jobs(cls):
+        return cls.objects.filter(cls.open_q())
+
+    @property
+    def is_open(self):
+        from datetime import date
+        return self.status == 'Active' and (
+            self.application_end_date is None or self.application_end_date >= date.today()
+        )
+
+    @classmethod
+    def indexable(cls):
+        """Open jobs with a real description; everything else is kept out of search."""
+        return cls.open_jobs().exclude(description__contains=GENERIC_DESCRIPTION_MARKER)
 
     @property
     def is_indexable(self):
-        return self.status == 'Active' and GENERIC_DESCRIPTION_MARKER not in (self.description or '')
+        return self.is_open and GENERIC_DESCRIPTION_MARKER not in (self.description or '')
 
 
 class ExamResult(models.Model):

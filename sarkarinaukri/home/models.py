@@ -14,10 +14,8 @@ class HomePage(Page):
         context = super().get_context(request, *args, **kwargs)
 
         # Latest open jobs, soonest-closing last date first
-        context['latest_jobs'] = JobPosting.objects.select_related('organization').filter(
-            status='Active'
-        ).order_by('application_end_date')[:12]
-        context['active_jobs_count'] = JobPosting.objects.filter(status='Active').count()
+        context['latest_jobs'] = JobPosting.open_jobs().select_related('organization').order_by('application_end_date')[:12]
+        context['active_jobs_count'] = JobPosting.open_jobs().count()
 
         # Latest exam guides
         context['latest_articles'] = Article.published()[:6]
@@ -106,7 +104,8 @@ def job_highlights(today=None):
     recent_window = today - timedelta(days=45)
     written = [
         j for j in JobPosting.objects.select_related('organization').filter(
-            Q(exam_date__gte=today) | Q(status='Closed', application_end_date__gte=recent_window)
+            Q(exam_date__gte=today) | Q(application_end_date__gte=recent_window, application_end_date__lt=today)
+            | Q(status='Closed', application_end_date__gte=recent_window)
         )
         if _written_up(j)
     ]
@@ -115,12 +114,14 @@ def job_highlights(today=None):
         j.days_to_exam = (j.exam_date - today).days
 
     recently_closed = sorted(
-        [j for j in written if j.status == 'Closed' and j.application_end_date and j.application_end_date >= recent_window],
+        [j for j in written if not j.is_open and j.application_end_date and j.application_end_date >= recent_window],
         key=lambda j: j.application_end_date, reverse=True,
     )[:6]
     for j in recently_closed:
         if j.exam_date and j.exam_date >= today:
             j.next_step = f"Exam on {j.exam_date.strftime('%d %b %Y')}"
+        elif 'apprentice' in j.title.lower():
+            j.next_step = 'Merit list awaited'  # apprentice selection is on marks, no exam
         else:
             j.next_step = 'Admit card and exam date awaited'
 

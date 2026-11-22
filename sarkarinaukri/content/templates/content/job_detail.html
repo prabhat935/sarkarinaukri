@@ -73,9 +73,9 @@
                             </div>
                             <div class="detail-meta-top">
                                 <span class="detail-org">{{ job.organization }}</span>
-                                {% if job.status == 'Active' %}
+                                {% if job.is_open %}
                                 <span class="status-badge badge-active">Active</span>
-                                {% elif job.status == 'Closed' %}
+                                {% elif job.status == 'Closed' or job.status == 'Active' %}
                                 <span class="status-badge badge-closed">Closed</span>
                                 {% else %}
                                 <span class="status-badge badge-pending">{{ job.status }}</span>
@@ -175,7 +175,7 @@
                             {% endif %}
 
                             <div class="action-btn-group">
-                                {% if job.application_link and job.status == 'Active' %}
+                                {% if job.application_link and job.is_open %}
                                 <a href="{{ job.application_link }}" target="_blank" class="btn btn-primary btn-action">
                                     <i class="fas fa-external-link-alt"></i> Apply Online
                                 </a>

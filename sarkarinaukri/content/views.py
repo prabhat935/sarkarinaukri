@@ -67,9 +67,13 @@ class JobListView(ListView):
             'organization', 'state', 'exam_category'
         ).order_by('-year', '-application_end_date', '-created_at')
 
-        # Show open vacancies by default; closed ones stay reachable via the status filter
-        if 'status' not in self.request.GET:
-            queryset = queryset.filter(status='Active')
+        # Open vacancies by default. "Closed" also covers jobs whose last date has
+        # passed but which the daily update has not marked Closed yet.
+        status = self.request.GET.get('status')
+        if status is None or status == 'Active':
+            queryset = queryset.filter(JobPosting.open_q())
+        elif status == 'Closed':
+            queryset = queryset.exclude(JobPosting.open_q())
 
         # Qualification buttons on the homepage: "engineering" matches the job
         # category, the others the job's qualification level
@@ -80,7 +84,9 @@ class JobListView(ListView):
             queryset = queryset.filter(qualification_level__level=qualification)
 
         # Apply filters
-        filterset = JobPostingFilter(self.request.GET, queryset=queryset)
+        params = self.request.GET.copy()
+        params.pop('status', None)  # handled above
+        filterset = JobPostingFilter(params, queryset=queryset)
         return filterset.qs
 
     def get_context_data(self, **kwargs):
@@ -106,9 +112,8 @@ class JobDetailView(DetailView):
         job = self.get_object()
         
         # Show related jobs from same organization
-        context['related_jobs'] = JobPosting.objects.filter(
-            organization=job.organization,
-            status='Active'
+        context['related_jobs'] = JobPosting.open_jobs().filter(
+            organization=job.organization
         ).exclude(pk=job.pk)[:5]
         
         # Check if user has saved this job
