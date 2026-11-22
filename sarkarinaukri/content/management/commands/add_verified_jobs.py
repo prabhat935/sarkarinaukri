@@ -7,12 +7,14 @@ import datetime
 from decimal import Decimal
 
 from django.core.management.base import BaseCommand
-from content.models import ExamCategory, JobPosting, Organization
+from content.models import ExamCategory, JobPosting, Organization, State
 
 
 ORGANIZATIONS = [
     {'name': 'NLC India Limited', 'slug': 'nlc-india', 'website': 'https://www.nlcindia.in'},
     {'name': 'SIDBI', 'slug': 'sidbi', 'website': 'https://www.sidbi.in'},
+    {'name': 'ASRB (ICAR)', 'slug': 'asrb', 'website': 'https://www.asrb.gov.in'},
+    {'name': 'DSSSB', 'slug': 'dsssb', 'website': 'https://dsssb.delhi.gov.in'},
 ]
 
 
@@ -140,6 +142,139 @@ VERIFIED_JOBS = [
             'taking in objective tests.'
         ),
     },
+    {
+        # Source: ASRB F. No. 2(2)/2025-Exam dated 11 Nov 2026 (official PDF on asrb.gov.in)
+        'slug': 'asrb-icar-technical-assistant-t3-t4-2026',
+        'title': 'ASRB ICAR Technical Assistant (T-3) and Senior Technical Assistant (T-4) Recruitment 2026 (1393 Posts)',
+        'organization': 'asrb',
+        'category': 'ssc-central',
+        'vacancies': 1393,
+        'application_start_date': datetime.date(2026, 11, 18),
+        'application_end_date': datetime.date(2026, 12, 17),
+        'exam_date': None,
+        'max_age': 30,
+        'min_age': 21,
+        'salary_min': Decimal('29200'),
+        'salary_max': Decimal('112400'),
+        'application_fee': Decimal('300'),
+        'application_link': 'https://www.asrb.gov.in',
+        'meta_description': (
+            'ICAR Technical Assistant 2026: 1393 T-3 and T-4 posts for agriculture, veterinary, fisheries, '
+            'engineering, IT and library graduates. Apply by 17 Dec 2026.'
+        ),
+        'eligibility': (
+            'A bachelor\'s degree in the subject that matches the functional group you apply for, completed '
+            'by 17 December 2026. Agriculture group: B.Sc. Agriculture, Horticulture, Agricultural Engineering, '
+            'Agro-forestry, Food Science, Biotechnology, Environmental Science, Home/Community Science or '
+            'Natural Farming. Animal Science: B.V.Sc. & A.H. Fisheries: B.F.Sc. Workshop posts (Civil, '
+            'Agricultural/Mechanical, Electrical, Electronics): B.E./B.Tech or a three-year diploma in that '
+            'branch. Library: a bachelor\'s in Library (and Information) Science. IT: BCA, B.Sc. Computer '
+            'Science/IT, or B.E./B.Tech in IT, CS or ECE.\n\n'
+            'Age on 17 December 2026: 21 to 30 years. Upper age relaxation: 5 years for SC/ST, 3 years for '
+            'OBC (Non-Creamy Layer), 10 years for PwBD, and 3 years after deducting military service for '
+            'ex-servicemen. In-service ICAR technical staff can apply up to 40 (UR).'
+        ),
+        'description': (
+            'The Agricultural Scientists Recruitment Board (ASRB) is holding the Centralized Combined '
+            'Examination 2026 to fill 1393 technical posts in the Indian Council of Agricultural Research: '
+            '1254 Technical Assistant (T-3) posts in ICAR institutes and 139 Senior Technical Assistant (T-4) '
+            'posts in Krishi Vigyan Kendras (KVKs). Most posts are for agriculture, veterinary and fisheries '
+            'graduates, but there are also engineering, IT and library posts.\n\n'
+            'Where the T-3 vacancies are: Agriculture 699 (476 field/farm technician and 223 laboratory '
+            'technician), Information Technology 133, Animal Science 115, Fisheries 90, Library 59, Workshop '
+            'Civil 51, Workshop Agricultural Engineering 42, Workshop Electrical 35, Workshop Electronics 25, '
+            'and Home/Community Science 5. The T-4 posts in KVKs are Agriculture 73, IT 48, Animal Science 9, '
+            'Fisheries 7 and Home/Community Science 2. ASRB says these numbers are tentative.\n\n'
+            'Choose your group carefully. You can apply in only one functional group, even if your degree fits '
+            'more than one. Within that group you can ask to be considered for T-3, T-4 or both, and if you pick '
+            'both you must rank them. That order of preference cannot be changed later.\n\n'
+            'How selection works: there is no interview. First comes a one-hour preliminary test of 100 '
+            'questions (General Knowledge, General English, Quantitative Aptitude and General Agriculture, 25 '
+            'each), with 0.25 marks deducted for each wrong answer. It only qualifies you: you need 30% (UR), '
+            '25% (EWS/OBC) or 20% (SC/ST/PwBD), and about 15 candidates per vacancy in each group go through to '
+            'the mains. The mains is a two-hour, 300-mark paper of 100 questions on your own subject, with one '
+            'mark cut for each wrong answer. Your mains score alone decides the final merit list. Both papers '
+            'are computer-based and in Hindi and English.\n\n'
+            'Pay: T-3 is at Pay Level 5 (Rs 29,200 to 92,300) and T-4 at Pay Level 6 (Rs 35,400 to 1,12,400), '
+            'plus central government allowances.\n\n'
+            'Fee: Rs 300 for one post (T-3 or T-4) or Rs 600 for both if you are UR; Rs 150 or Rs 300 for EWS '
+            'and OBC. Women, SC, ST, PwBD, transgender and ex-servicemen candidates pay nothing. The fee is paid '
+            'through Bharatkosh, and a payment without a submitted form is neither counted nor refunded.\n\n'
+            'Important dates: apply online at asrb.gov.in from 18 November to 17 December 2026 (11:59 pm); fee '
+            'payment closes at the same time. A correction window runs from 18 to 20 December 2026. The '
+            'preliminary exam is expected in February 2027, and the mains date will be announced later.\n\n'
+            'Tips: ASRB checks documents only after the final result, so a wrong category or a certificate in '
+            'the wrong format can cost you the job at the last step. Get your caste, EWS or OBC (Non-Creamy '
+            'Layer) certificate in the central government format before you apply; our guides on these '
+            'certificates list the usual mistakes. Since the mains carries a full one-mark penalty on a '
+            'three-mark question, read our negative marking guide before deciding how much to guess.'
+        ),
+    },
+    {
+        # Source: DSSSB Advertisement No. 06/2026 dated 06 Nov 2026 (official PDF on dsssb.delhi.gov.in)
+        'slug': 'dsssb-mts-junior-engineer-electrical-2026',
+        'title': 'DSSSB MTS and Junior Engineer (Electrical) Recruitment 2026 (1260 Posts, Advt. 06/2026)',
+        'organization': 'dsssb',
+        'category': 'state-psc',
+        'state': 'Delhi',
+        'vacancies': 1260,
+        'application_start_date': datetime.date(2026, 11, 12),
+        'application_end_date': datetime.date(2026, 12, 11),
+        'exam_date': None,
+        'max_age': 27,
+        'min_age': 18,
+        'salary_min': Decimal('18000'),
+        'salary_max': Decimal('151100'),
+        'application_fee': Decimal('100'),
+        'application_link': 'https://dsssbonline.nic.in',
+        'meta_description': (
+            'DSSSB 2026: 1075 MTS posts for 10th pass and 185 Junior Engineer (Electrical) posts in Delhi. '
+            'Age 18-27, fee Rs 100, last date 11 Dec 2026.'
+        ),
+        'eligibility': (
+            'Multi-Tasking Staff (all departments): 10th (Matriculation) pass from a recognised board; for the '
+            'DUSIB MTS post an ITI pass also qualifies. Age 18 to 27 years.\n\n'
+            'Junior Engineer (Electrical): Delhi Transco and DUSIB accept a degree or a diploma in Electrical '
+            'Engineering with no experience. NDMC and MCD need a degree, or a diploma plus 2 years of '
+            'professional experience. Delhi Agricultural Marketing Board needs a diploma plus 2 years of '
+            'electrical installation or maintenance work. Age 18 to 27 years, except NDMC (18 to 32).\n\n'
+            'Eligibility and age are judged on 11 December 2026. Upper age relaxation: 5 years for SC/ST, '
+            '3 years for OBC, 10 years for PwBD (15 for PwBD SC/ST, 13 for PwBD OBC), plus further relaxation '
+            'for ex-servicemen, departmental candidates and, for Group C posts, widowed or divorced women (up '
+            'to 35). OBC relaxation and reservation apply only to holders of an OBC (Delhi) certificate.'
+        ),
+        'description': (
+            'The Delhi Subordinate Services Selection Board (DSSSB) has announced 1260 posts under Advertisement '
+            'No. 06/2026: 1075 Multi-Tasking Staff posts open to 10th-pass candidates, and 185 Junior Engineer '
+            '(Electrical) posts for electrical diploma and degree holders. The jobs are in departments and local '
+            'bodies of the Government of NCT of Delhi.\n\n'
+            'MTS vacancies (post code 810/26): Directorate of Education 757 MTS (General Duty) and 239 MTS Aaya '
+            '(women only), Department of Trade and Taxes 26, DUSIB 20, Weights and Measures 19, Land and '
+            'Building 7, Directorate of Higher Education 3, Principal Accounts Office 2 and the Chief Electoral '
+            'Officer 2. MTS posts are Group C at Pay Level 1 (Rs 18,000 to 56,900).\n\n'
+            'Junior Engineer vacancies (post code 809/26): Delhi Transco 75, NDMC 67, MCD 26, DUSIB 14 and the '
+            'Delhi Agricultural Marketing Board 3. These are Group B posts at Pay Level 6 (Rs 35,400 to '
+            '1,12,400), except Delhi Transco, which is at Pay Level 8. Delhi Transco also accepts fresh diploma '
+            'holders, so it is the best fit for most new electrical diploma graduates. Note that the '
+            'qualification rules differ by department (see Eligibility).\n\n'
+            'Exam pattern: MTS candidates take a single two-hour computer-based test of 200 one-mark questions, '
+            '40 each on General Awareness, Reasoning, Arithmetic, Hindi and English. JE candidates take two '
+            'tiers. Tier I (two hours) has 100 general questions and 100 electrical engineering questions; it '
+            'only shortlists you for Tier II. Tier II (two and a half hours) has 100 one-mark and 50 two-mark '
+            'questions on electrical engineering, and its marks decide the merit list. Wrong answers cost 0.25 '
+            'marks on one-mark questions and 0.50 on two-mark questions. The minimum qualifying marks are 40% '
+            'for General/EWS, 35% for OBC (Delhi) and 30% for SC/ST/PwBD.\n\n'
+            'Fee: Rs 100, paid online through SBI e-pay. Women and SC, ST, PwBD and ex-servicemen candidates '
+            'do not pay.\n\n'
+            'Important dates: apply only online at dsssbonline.nic.in from 12 November 2026 (noon) to 11 '
+            'December 2026 (11:59 pm). DSSSB will announce exam dates on its website later.\n\n'
+            'Tips: if you are OBC from outside Delhi, you must apply as Unreserved, because DSSSB gives OBC '
+            'benefits only for an OBC (Delhi) certificate issued on or before 11 December 2026. You cannot '
+            'change any detail, including category, after you submit the form, so check it twice. The MTS test '
+            'gives Hindi and English 40 marks each, as much as General Awareness or Arithmetic, so practise '
+            'both languages instead of treating them as easy marks.'
+        ),
+    },
 ]
 
 
@@ -154,9 +289,13 @@ class Command(BaseCommand):
             org = Organization.objects.get(slug=data['organization'])
             category = ExamCategory.objects.filter(slug=data['category']).first()
             end = data['application_end_date']
+            extra = {}
+            if data.get('state'):
+                extra['state'] = State.objects.filter(name__iexact=data['state']).first()
             obj, created = JobPosting.objects.update_or_create(
                 slug=data['slug'],
                 defaults={
+                    **extra,
                     'title': data['title'],
                     'organization': org,
                     'exam_category': category,
