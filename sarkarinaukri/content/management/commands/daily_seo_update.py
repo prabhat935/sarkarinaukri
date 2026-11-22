@@ -55,18 +55,17 @@ class Command(BaseCommand):
             'organization', 'state'
         )
         for job in jobs:
-            parts = [f"Apply for {job.title}"]
+            desc = f"{job.title}"
             if job.organization:
-                parts.append(f"at {job.organization}")
+                desc += f" by {job.organization}"
             if job.vacancies:
-                parts.append(f"— {job.vacancies} vacancies")
+                desc += f": {job.vacancies} vacancies"
+            desc += "."
             if job.application_end_date:
-                parts.append(
-                    f"Last date: {job.application_end_date.strftime('%d %b %Y')}"
-                )
+                desc += f" Last date {job.application_end_date.strftime('%d %b %Y')}."
             if job.state:
-                parts.append(f"| {job.state}")
-            job.meta_description = '. '.join(parts)[:160]
+                desc += f" {job.state}."
+            job.meta_description = desc[:160]
             job.save(update_fields=['meta_description'])
             filled += 1
 

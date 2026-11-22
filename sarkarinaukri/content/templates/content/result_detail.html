@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block title %}{{ result.display_name }}{% if "Result" not in result.exam_name %} Result{% endif %} - Sarkari Naukri{% endblock %}
+{% block meta_description %}{% if result.meta_description %}{{ result.meta_description|truncatechars:160 }}{% else %}{{ result.display_name }} result: how to check it, merit list and next steps, with the official result link.{% endif %}{% endblock %}
 {% block robots %}{% if result.is_indexable %}index, follow{% else %}noindex, follow{% endif %}{% endblock %}
 {% block nav_results %}active{% endblock %}
 {% block body_class %}page-results{% endblock %}

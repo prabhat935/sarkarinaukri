@@ -33,6 +33,10 @@ VERIFIED_JOBS = [
         'salary_max': Decimal('160000'),
         'application_fee': Decimal('854'),
         'application_link': 'https://www.nlcindia.in',
+        'meta_description': (
+            'NLC India GET 2026: 143 posts via GATE 2025 in Mechanical, Electrical, Civil and Mining. '
+            'Rs 50,000 basic pay, last date 14 Dec 2026.'
+        ),
         'eligibility': (
             'A full-time or part-time bachelor\'s degree in Mechanical, Electrical, Civil or Mining '
             'Engineering (or the closely related branches listed in the notification), with at least '
@@ -89,6 +93,10 @@ VERIFIED_JOBS = [
         'salary_max': Decimal('126100'),
         'application_fee': None,
         'application_link': 'https://www.sidbi.in/en/careers',
+        'meta_description': (
+            'SIDBI Assistant Manager Grade A and Manager Grade B 2026: 68 posts, 2 years experience needed, '
+            'exam 27 Dec 2026, last date 11 Dec 2026.'
+        ),
         'eligibility': (
             'Assistant Manager Grade A (General stream): a graduation degree in Commerce, Economics, '
             'Mathematics, Statistics, Business Administration or Engineering with at least 60% marks (50% '
@@ -165,6 +173,7 @@ class Command(BaseCommand):
                     'application_link': data['application_link'],
                     'eligibility': data['eligibility'],
                     'description': data['description'],
+                    'meta_description': data['meta_description'],
                     'status': 'Active' if end >= datetime.date.today() else 'Closed',
                 },
             )
