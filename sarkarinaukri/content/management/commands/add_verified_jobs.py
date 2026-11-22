@@ -20,6 +20,10 @@ ORGANIZATIONS = [
     {'name': 'RRC Northern Railway', 'slug': 'rrc-northern-railway', 'website': 'https://www.rrcnr.org'},
     {'name': 'UKSSSC', 'slug': 'uksssc', 'website': 'https://sssc.uk.gov.in'},
     {'name': 'Exim Bank', 'slug': 'exim-bank', 'website': 'https://www.eximbankindia.in'},
+    {'name': 'RRB', 'slug': 'rrb', 'website': 'https://rrb.indianrailways.gov.in'},
+    {'name': 'Banaras Hindu University (BHU)', 'slug': 'bhu', 'website': 'https://www.bhu.ac.in'},
+    {'name': 'RSSB Rajasthan', 'slug': 'rssb', 'website': 'https://rssb.rajasthan.gov.in'},
+    {'name': 'Bihar Vidhan Sabha', 'slug': 'bihar-vidhan-sabha', 'website': 'https://vidhansabha.bihar.gov.in'},
 ]
 
 
@@ -593,6 +597,256 @@ VERIFIED_JOBS = [
             'asks for, because NLC shortlists on the documents you upload. OBC (NCL) and EWS certificates must '
             'be issued on or after 1 April 2026, and if you work in a PSU or government body you will need a '
             'No Objection Certificate at the interview. Interviewed candidates get their travel fare reimbursed.'
+        ),
+    },
+    {
+        # Source: RRB CEN No. 09/2026 (Isolated Categories) detailed notice, FAQs and corrigendum
+        # (rrb.indianrailways.gov.in; downloaded by the site owner)
+        'slug': 'rrb-isolated-categories-cen-09-2026',
+        'qualification': 'graduate',
+        'title': 'RRB Ministerial and Isolated Categories Recruitment 2026 (CEN 09/2026, 191 Posts)',
+        'organization': 'rrb',
+        'category': 'railway',
+        'vacancies': 191,
+        'application_start_date': datetime.date(2026, 11, 5),
+        'application_end_date': datetime.date(2026, 12, 4),
+        'exam_date': None,
+        'max_age': 40,
+        'min_age': 18,
+        'salary_min': Decimal('19900'),
+        'salary_max': Decimal('44900'),
+        'application_fee': Decimal('500'),
+        'application_link': 'https://www.rrbapply.gov.in',
+        'meta_description': (
+            'RRB CEN 09/2026: 191 railway posts incl. 79 Junior Translator (Hindi), Lab Assistant, Public '
+            'Prosecutor. Single CBT. Apply by 4 Dec 2026.'
+        ),
+        'eligibility': (
+            'Each post has its own qualification. Chief Law Assistant: law degree with 3 years of practice at '
+            'the bar. Public Prosecutor: law degree with 5 years as an advocate. Senior Publicity Inspector: '
+            'degree plus a diploma in public relations, advertising, journalism or mass communication. Junior '
+            'Translator/Hindi: master\'s degree in Hindi or English (with the other language at degree level), '
+            'or in another subject with Hindi and English at degree level, plus a translation diploma or two '
+            'years of translation experience. Staff and Welfare Inspector: graduation plus a diploma in labour '
+            'or social welfare, labour laws, an LLB with labour law papers, or an MBA/PG diploma in personnel '
+            'management or HR. Scientific Assistant (Training): master\'s in Psychology with 50%. Lab Assistant '
+            'Grade III: Class 12 with Physics and Chemistry.\n\n'
+            'Age on 1 January 2027: from 18, with the upper limit set per post - 40 for Chief Law Assistant, '
+            '35 for Scientific Assistant, 33 for Junior Translator, Publicity and Welfare Inspector, 32 for '
+            'Public Prosecutor and 30 for Lab Assistant. Usual relaxations apply for reserved categories, '
+            'PwBD and ex-servicemen.'
+        ),
+        'description': (
+            'The Railway Recruitment Boards have notified 191 posts in the "Isolated Categories" under '
+            'Centralised Employment Notification (CEN) No. 09/2026. These are specialist posts that railways '
+            'recruit only now and then, so this notice matters for law, Hindi, HR, psychology and science '
+            'candidates who rarely see railway openings in their field.\n\n'
+            'Posts and pay: Chief Law Assistant 17 and Public Prosecutor 21 (Level 7, Rs 44,900 starting pay); '
+            'Junior Translator/Hindi 79, Staff and Welfare Inspector 27, Senior Publicity Inspector 8 and '
+            'Scientific Assistant (Training) 3 (Level 6, Rs 35,400); and Lab Assistant Grade III (Chemist and '
+            'Metallurgist) 36 (Level 2, Rs 19,900). The vacancies are spread over 16 RRBs; Chandigarh and '
+            'Kolkata have 31 each, Guwahati 30 and Secunderabad 21.\n\n'
+            'Apply to only one RRB. Applying to more than one gets all your applications rejected and can '
+            'bar you from future RRB exams. Once chosen, the RRB cannot be changed.\n\n'
+            'Selection: a single computer-based test of 100 questions in 90 minutes (120 minutes for scribe '
+            'users), with a third of a mark deducted per wrong answer. For all posts except Junior Translator, '
+            'the paper has Professional Ability 50, General Awareness 15, Reasoning 15, Mathematics 10 and '
+            'General Science 10 (up to Class 10 level). Minimum marks to be considered: 40% for UR and EWS, '
+            '30% for OBC and SC, 25% for ST. Junior Translator candidates take a language-heavy CBT, and ten '
+            'times the vacancies are then called for a qualifying translation test (60% needed); their merit '
+            'is based on the CBT alone. Document verification and a medical test follow.\n\n'
+            'Fee: Rs 500, of which Rs 400 is refunded after you appear in the CBT. SC, ST, ex-servicemen, PwBD, '
+            'women, transgender, minority and Economically Backward Class candidates pay Rs 250, all of it '
+            'refunded on appearing.\n\n'
+            'Important dates: apply on rrbapply.gov.in from 5 November to 4 December 2026 (11:59 pm); fee '
+            'payment by 6 December. A paid correction window runs from 7 to 16 December 2026 (Rs 250 each '
+            'time), but your chosen RRB and account details cannot be changed.\n\n'
+            'Tip: the EBC fee concession is not the same as OBC or EWS, and not the "Extremely Backward Class" '
+            'certificate some states issue. You need the railway\'s EBC income certificate, a BPL card or a '
+            'similar central scheme certificate issued on or before 4 December 2026.'
+        ),
+    },
+    {
+        # Source: BHU Advertisement No. 06/2026-27, Non-Teaching Group A, B & C (Medical Sector), bhu.ac.in
+        'slug': 'bhu-non-teaching-medical-advt-06-2026-27',
+        'qualification': 'graduate',
+        'title': 'BHU Non-Teaching Recruitment 2026 (601 Medical Posts incl. 381 Nursing Officers, Advt 06/2026-27)',
+        'organization': 'bhu',
+        'category': 'medical',
+        'state': 'Uttar Pradesh',
+        'vacancies': 601,
+        'application_start_date': None,
+        'application_end_date': datetime.date(2026, 12, 15),
+        'exam_date': None,
+        'max_age': 35,
+        'min_age': None,
+        'salary_min': Decimal('18000'),
+        'salary_max': Decimal('209200'),
+        'application_fee': Decimal('500'),
+        'application_link': 'https://www.bhu.ac.in/rac',
+        'meta_description': (
+            'BHU Advt 06/2026-27: 601 hospital posts incl. 381 Nursing Officers, Medical Officers, technicians '
+            'and lab attendants. Apply by 15 Dec 2026, 5 pm.'
+        ),
+        'eligibility': (
+            'Every post has its own qualification and age limit; check yours in the advertisement. Nursing '
+            'Officer (Level 7): GNM diploma with 5 years\' experience as a Nursing Officer, or B.Sc. Nursing '
+            '(or Post Basic B.Sc. Nursing) with 55% and 3 years\' experience, in a hospital of at least 100 '
+            'beds or a government/corporate hospital, plus registration as a nurse/midwife with a State '
+            'Nursing Council; age limit 35. Medical Officer (Level 10): MBBS with two years of clinical '
+            'experience after internship; age limit 40. Technical Assistant posts generally need a B.Sc. in '
+            'the speciality with 55% and experience; age limit 32. Laboratory Attendant: B.Sc. or I.Sc. with '
+            'three years\' experience; Laboratory Attendant (OT-cum-Anaesthesia): Class 12 Science with a '
+            'diploma in OT/Anaesthesia technology; both up to 32.\n\n'
+            'Age relaxation for SC, ST, OBC, PwBD and ex-servicemen follows central government rules, and '
+            'there is no age bar for permanent BHU employees.'
+        ),
+        'description': (
+            'Banaras Hindu University has advertised 601 non-teaching posts in its medical sector under '
+            'Advertisement No. 06/2026-27, for Sir Sunderlal Hospital, the Trauma Centre, the Institute of '
+            'Medical Sciences, the National Centre of Ageing, the Faculty of Ayurveda and the RGSC at '
+            'Barkachha, Mirzapur.\n\n'
+            'The big opening is Nursing Officer: 381 posts in all (233 female and 65 male at the hospital '
+            'complex, 67 female and 16 male at the National Centre of Ageing), at Level 7 (Rs 44,900 to '
+            '1,42,400). Other large groups are Laboratory Attendant 64, Laboratory Attendant (OT-cum-Anaesthesia) '
+            '41 (both Level 1, Rs 18,000 to 56,900) and Medical Officer 29 across three units (Level 10). '
+            'There are also posts for physiotherapists, medical social workers, dialysis, cath lab, OT and '
+            'perfusion technicians, optometrists, radiology and speech-and-hearing staff, a dietician, '
+            'Panchakarma and biofeedback therapists, and senior posts such as Deputy Medical Superintendent '
+            '(Level 12). By group, there are 39 Group A, 407 Group B and 155 Group C posts.\n\n'
+            'Selection: for Group B and C posts BHU will hold a written test, followed by a skill test for '
+            'those shortlisted, and then document verification. For Group A posts BHU may hold a written test '
+            'or presentation to shortlist, followed by an interview.\n\n'
+            'Fee: Rs 1,000 for Group A and Rs 500 for Group B and C posts, for UR, EWS and OBC candidates. SC, '
+            'ST, PwBD and women candidates pay nothing.\n\n'
+            'Important dates: apply online only, through bhu.ac.in/rac, by 15 December 2026 at 5 pm, which is '
+            'also the fee deadline.\n\n'
+            'Worth knowing: several posts advertised back in 2018 (Advt. 06/2018-19) were never filled and '
+            'have now been cancelled. If you paid a fee then, you can claim a refund by emailing the Assistant '
+            'Registrar (RAC) with the post, your transaction ID and bank details. Experience is checked '
+            'carefully for most posts here, so keep certificates that show the hospital\'s bed strength and '
+            'your exact role.'
+        ),
+    },
+    {
+        # Source: RSSB Advt. No. 10/2026 Junior Engineer combined direct recruitment 2026, revised notice
+        # (rssb.rajasthan.gov.in; downloaded by the site owner; in Hindi)
+        'slug': 'rssb-junior-engineer-2026-revised-1909-posts',
+        'qualification': 'graduate',
+        'title': 'RSSB Rajasthan Junior Engineer Recruitment 2026, Revised (1909 Posts, Advt 10/2026)',
+        'organization': 'rssb',
+        'category': 'engineering',
+        'state': 'Rajasthan',
+        'vacancies': 1909,
+        'application_start_date': datetime.date(2026, 11, 18),
+        'application_end_date': datetime.date(2026, 12, 17),
+        'exam_date': datetime.date(2027, 2, 3),
+        'max_age': 40,
+        'min_age': 18,
+        'salary_min': None,
+        'salary_max': None,
+        'application_fee': Decimal('600'),
+        'application_link': 'https://sso.rajasthan.gov.in',
+        'meta_description': (
+            'RSSB JE 2026 revised: posts up from 874 to 1909 (civil, electrical, mechanical; degree and '
+            'diploma). New applications till 17 Dec 2026; exam from 3 Feb 2027.'
+        ),
+        'eligibility': (
+            'A degree or diploma in the branch named in the post (Civil, Electrical or Mechanical/Electrical), '
+            'as listed for each department in the notice.\n\n'
+            'Age on 1 January 2027: 18 to 40. Because these departments had no recruitment for some years, '
+            'everyone gets one extra year for the PWD, Water Resources, PHED, Agricultural Marketing Board and '
+            'Local Self Government (civil degree) posts, and three extra years for the UDH and Local Self '
+            'Government electrical degree posts. Further relaxation: 5 years for SC, ST, OBC, MBC and EWS men '
+            'of Rajasthan and for general category women; 10 years for reserved category women of Rajasthan; '
+            '5 years over the category relaxation for benchmark disabled candidates; and other relaxations in '
+            'the notice. Relaxations do not add up; only the most favourable one applies.'
+        ),
+        'description': (
+            'The Rajasthan Staff Selection Board (RSSB) has revised Advertisement No. 10/2026 for the Junior '
+            'Engineer combined direct recruitment 2026. The original August notice had 874 posts in the Public '
+            'Works, Water Resources and Public Health Engineering departments. New requests added 41 posts from '
+            'the Rajasthan State Agricultural Marketing Board, 770 from the Urban Development and Housing '
+            'department and 150 from Local Self Government, and revised some others, so the total is now 1909 '
+            '(1814 in non-scheduled areas and 95 in scheduled areas).\n\n'
+            'Biggest groups: UDH Junior Engineer Civil (Degree) 583, PWD Civil (Degree) 351, PHED Civil '
+            '(Diploma) 196, Water Resources Civil (Diploma) 179, UDH Civil (Diploma) 154 and Local Self '
+            'Government Civil (Degree) 134. There are also electrical and mechanical posts in PWD, UDH, PHED '
+            'and Local Self Government, and 41 civil degree posts in the Agricultural Marketing Board.\n\n'
+            'If you applied in August, you do not need to apply again. You can change your department '
+            'preference order free of charge from 22 to 31 December 2026; other corrections cost Rs 300 '
+            'through a fresh application. After selection, departments are allotted on merit and on the '
+            'preference order you give, so fill it carefully.\n\n'
+            'New candidates apply through the SSO portal (sso.rajasthan.gov.in > Recruitment Portal) from 18 '
+            'November to 17 December 2026 (11:59 pm). You need a one-time registration (OTR) first: Rs 600 for '
+            'General and creamy-layer OBC/MBC candidates, Rs 400 for non-creamy-layer OBC/MBC, EWS, SC and ST '
+            'candidates of Rajasthan and for all disabled candidates. Candidates from other states pay the '
+            'general fee. If you already paid the OTR fee, you do not pay again. A photo no more than a month '
+            'old is required.\n\n'
+            'Exam: RSSB plans to hold the exams from 3 to 6 February 2027, by computer, tablet or OMR, '
+            'possibly in more than one shift with normalised scores. Admit cards will be issued only online.\n\n'
+            'Watch out: under Rajasthan\'s OTR rules, if you register for exams but skip two in the same '
+            'financial year, your OTR is blocked until you pay a penalty of Rs 750 (Rs 1,500 the second '
+            'time). Apply only for exams you intend to take.'
+        ),
+    },
+    {
+        # Source: Bihar Vidhan Sabha Secretariat Advt. No. 01/2026 (Junior Secretariat Assistant) and
+        # 02/2026 (Office Attendant), vidhansabha.bihar.gov.in (in Hindi)
+        'slug': 'bihar-vidhan-sabha-jsa-office-attendant-2026',
+        'qualification': '12th',
+        'title': 'Bihar Vidhan Sabha Junior Secretariat Assistant and Office Attendant Recruitment 2026 (20 Posts)',
+        'organization': 'bihar-vidhan-sabha',
+        'category': 'state-psc',
+        'state': 'Bihar',
+        'vacancies': 20,
+        'application_start_date': datetime.date(2026, 11, 7),
+        'application_end_date': datetime.date(2026, 12, 6),
+        'exam_date': None,
+        'max_age': 42,
+        'min_age': 18,
+        'salary_min': Decimal('18000'),
+        'salary_max': Decimal('63200'),
+        'application_fee': Decimal('600'),
+        'application_link': 'https://vidhansabha.bihar.gov.in',
+        'meta_description': (
+            'Bihar Vidhan Sabha 2026: 15 Junior Secretariat Assistant (12th pass + typing) and 5 Office '
+            'Attendant (10th pass) posts. Apply by 6 Dec 2026.'
+        ),
+        'eligibility': (
+            'Junior Secretariat Assistant: Intermediate (Class 12) in any subject from a recognised board. '
+            'Office Attendant: Matriculation (Class 10). Both must be passed by 6 December 2026.\n\n'
+            'Age on 1 August 2026: at least 18. Upper limit: 37 for unreserved men; 40 for unreserved women and '
+            'for BC and EBC candidates; 42 for SC and ST candidates. Regular Bihar government employees get 5 '
+            'more years (if they have not used 5 attempts), disabled candidates 10 more years, and '
+            'ex-servicemen 3 years plus their service period, up to 57. Age is taken from the Class 10 '
+            'certificate.\n\n'
+            'Reservation, including the 35% horizontal reservation for women, is only for permanent residents '
+            'of Bihar; candidates from other states apply as unreserved.'
+        ),
+        'description': (
+            'The Bihar Vidhan Sabha Secretariat in Patna is recruiting for two posts: 15 Junior Secretariat '
+            'Assistants (Advertisement No. 01/2026, Pay Level 2, Rs 19,900 to 63,200) and 5 Office Attendants '
+            '(Advertisement No. 02/2026, Pay Level 1, Rs 18,000 to 56,900).\n\n'
+            'Vacancies: Junior Secretariat Assistant - unreserved 7, EWS 2, SC 4, EBC 2, with 4 of the 15 for '
+            'women. Office Attendant - unreserved 1, ST 1, EBC 1, BC 2, with 3 of the 5 for women.\n\n'
+            'Junior Secretariat Assistant selection: a 2-hour OMR preliminary exam of 100 questions for 400 '
+            'marks (4 marks each, 1 mark deducted per wrong answer), at matriculation level, in Hindi and '
+            'English: General Studies 50 questions, General Science and Maths 20, and Mental Ability and '
+            'Logical Reasoning 30. You must score at least 40% (General), 36.5% (BC), 34% (EBC) or 32% (SC, '
+            'ST, women and disabled). About ten times the vacancies are then called for a computer typing test '
+            'in Hindi and English, 30 words a minute each for 10 minutes, with Hindi typed in the Kruti Dev '
+            'font; up to 1.5% mistakes are allowed. The merit list comes from those who pass the typing test.\n\n'
+            'Office Attendant selection: a 100-mark interview decides the merit list, with the same minimum '
+            'percentages. If more than 40,000 people apply, an OMR preliminary exam may be held first to '
+            'shortlist about ten candidates per post.\n\n'
+            'Fee: Rs 600 for Junior Secretariat Assistant and Rs 400 for Office Attendant for Bihar EBC, BC, '
+            'EWS and unreserved men and all candidates from other states. Bihar SC, ST, 40% or more disabled '
+            'candidates and all women from Bihar pay Rs 150 (Junior Secretariat Assistant) or Rs 100 (Office '
+            'Attendant). Pay online by card or net banking.\n\n'
+            'Important dates: apply online from 7 November to 6 December 2026, which is also the last day for '
+            'the fee. If you will type in Hindi, practise on the Kruti Dev layout now; it is different from '
+            'phonetic Hindi typing.'
         ),
     },
 ]
