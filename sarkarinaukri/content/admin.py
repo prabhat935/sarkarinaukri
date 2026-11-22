@@ -11,6 +11,32 @@ from .models import (
 from .search_ping import job_url, notify, notify_jobs
 
 
+class IndexNowAdminMixin:
+    """Tell Bing and other IndexNow engines when a page is added, edited or
+    removed in the admin. Google's Indexing API only allows job pages, so
+    these pages reach Google through the sitemap instead."""
+    detail_url_name = None
+
+    def _page_url(self, obj):
+        from django.urls import reverse
+        from .search_ping import SITE_URL
+        return SITE_URL + reverse(self.detail_url_name, args=[obj.pk])
+
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+        notify([self._page_url(obj)], google=False)
+
+    def delete_model(self, request, obj):
+        url = self._page_url(obj)
+        super().delete_model(request, obj)
+        notify([url], google=False)
+
+    def delete_queryset(self, request, queryset):
+        urls = [self._page_url(o) for o in queryset]
+        super().delete_queryset(request, queryset)
+        notify(urls, google=False)
+
+
 # ============= REFERENCE MODELS =============
 
 @admin.register(Organization)
@@ -94,7 +120,8 @@ class JobPostingAdmin(admin.ModelAdmin):
 
 
 @admin.register(ExamResult)
-class ExamResultAdmin(admin.ModelAdmin):
+class ExamResultAdmin(IndexNowAdminMixin, admin.ModelAdmin):
+    detail_url_name = 'result_detail'
     list_display = ('exam_name', 'organization', 'state', 'exam_year', 'result_date', 'is_official')
     search_fields = ('exam_name', 'organization__name', 'state__name')
     list_filter = ('is_official', 'organization', 'state', 'exam_year', 'result_date')
@@ -117,7 +144,8 @@ class ExamResultAdmin(admin.ModelAdmin):
 
 
 @admin.register(AdmitCard)
-class AdmitCardAdmin(admin.ModelAdmin):
+class AdmitCardAdmin(IndexNowAdminMixin, admin.ModelAdmin):
+    detail_url_name = 'admit_card_detail'
     list_display = ('exam_name', 'organization', 'exam_date', 'admit_card_date')
     search_fields = ('exam_name', 'organization__name')
     list_filter = ('organization', 'state', 'exam_date', 'admit_card_date')
@@ -160,7 +188,8 @@ class AnswerKeyAdmin(admin.ModelAdmin):
 
 
 @admin.register(Syllabus)
-class SyllabusAdmin(admin.ModelAdmin):
+class SyllabusAdmin(IndexNowAdminMixin, admin.ModelAdmin):
+    detail_url_name = 'syllabus_detail'
     list_display = ('exam_name', 'organization', 'exam_year')
     search_fields = ('exam_name', 'organization__name')
     list_filter = ('organization', 'state', 'exam_year')
