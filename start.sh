@@ -30,6 +30,9 @@ python manage.py add_more_articles
 echo "==> Adding scheduled guides..."
 python manage.py add_scheduled_guides
 
+echo "==> Adding verified job posts..."
+python manage.py add_verified_jobs
+
 echo "==> Adding FAQs..."
 python manage.py add_faqs
 
