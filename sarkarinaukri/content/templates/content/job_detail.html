@@ -13,13 +13,31 @@
   "@context": "https://schema.org/",
   "@type": "JobPosting",
   "title": "{{ job.title|escapejs }}",
-  "description": "{{ job.eligibility|default:''|escapejs }}",
+  "description": "{{ job.description|default:''|linebreaks|escapejs }}{% if job.eligibility %}{{ '<h3>Eligibility</h3>'|escapejs }}{{ job.eligibility|linebreaks|escapejs }}{% endif %}",
   "datePosted": "{{ job.created_at|date:'Y-m-d' }}",
-  {% if job.application_end_date %}"validThrough": "{{ job.application_end_date|date:'Y-m-d' }}",{% endif %}
+  {% if job.application_end_date %}"validThrough": "{{ job.application_end_date|date:'Y-m-d' }}T23:59:59+05:30",{% endif %}
+  "employmentType": "FULL_TIME",
+  "directApply": false,
+  "identifier": {
+    "@type": "PropertyValue",
+    "name": "{{ job.organization|escapejs }}",
+    "value": "{{ job.slug|default:job.pk|escapejs }}"
+  },
   "hiringOrganization": {
     "@type": "Organization",
-    "name": "{{ job.organization|escapejs }}"
-  },
+    "name": "{{ job.organization|escapejs }}"{% if job.organization.website %},
+    "sameAs": "{{ job.organization.website|escapejs }}"{% endif %}
+  },{% if job.salary_min %}
+  "baseSalary": {
+    "@type": "MonetaryAmount",
+    "currency": "INR",
+    "value": {
+      "@type": "QuantitativeValue",
+      "minValue": {{ job.salary_min|floatformat:0 }},{% if job.salary_max %}
+      "maxValue": {{ job.salary_max|floatformat:0 }},{% endif %}
+      "unitText": "MONTH"
+    }
+  },{% endif %}
   "jobLocation": {
     "@type": "Place",
     "address": {
