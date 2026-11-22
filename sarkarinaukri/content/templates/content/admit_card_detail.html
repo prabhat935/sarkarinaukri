@@ -74,6 +74,13 @@
                                 {% endif %}
                             </div>
 
+                            {% if admit_card.description %}
+                            <div class="detail-content-block">
+                                <h3><i class="fas fa-file-alt"></i> About This Admit Card</h3>
+                                <div class="content-text">{{ admit_card.description|linebreaks }}</div>
+                            </div>
+                            {% endif %}
+
                             {% if admit_card.instructions %}
                             <div class="detail-content-block">
                                 <h3><i class="fas fa-info-circle"></i> Important Instructions</h3>

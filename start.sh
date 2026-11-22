@@ -33,6 +33,9 @@ python manage.py add_scheduled_guides
 echo "==> Adding verified job posts..."
 python manage.py add_verified_jobs
 
+echo "==> Adding verified results and admit cards..."
+python manage.py add_verified_updates
+
 echo "==> Adding FAQs..."
 python manage.py add_faqs
 
