@@ -8,6 +8,7 @@ from .models import (
     JobPosting, ExamResult, AdmitCard, AnswerKey, Syllabus,
     AdmissionForm, CertificateVerification, SavedJob
 )
+from .search_ping import job_url, notify, notify_jobs
 
 
 # ============= REFERENCE MODELS =============
@@ -74,6 +75,22 @@ class JobPostingAdmin(admin.ModelAdmin):
     )
     readonly_fields = ('created_at', 'updated_at')
     date_hierarchy = 'created_at'
+
+    # Tell Google (Indexing API) and Bing (IndexNow) straight away when a job
+    # is added, edited or removed, instead of waiting for the next crawl.
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+        notify_jobs([obj])
+
+    def delete_model(self, request, obj):
+        url = job_url(obj)
+        super().delete_model(request, obj)
+        notify([url], deleted=True)
+
+    def delete_queryset(self, request, queryset):
+        urls = [job_url(j) for j in queryset]
+        super().delete_queryset(request, queryset)
+        notify(urls, deleted=True)
 
 
 @admin.register(ExamResult)

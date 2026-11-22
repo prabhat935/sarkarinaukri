@@ -37,13 +37,20 @@ class Command(BaseCommand):
 
     def _expire_old_jobs(self):
         from content.models import JobPosting
+        from content.search_ping import notify_jobs
 
         today = timezone.now().date()
         expired = JobPosting.objects.filter(
             status='Active',
             application_end_date__lt=today,
         )
+        pks = list(expired.values_list('pk', flat=True))
         count = expired.update(status='Closed')
+        if pks:
+            # Closed pages switch to noindex; ask Google and Bing to recrawl them
+            result = notify_jobs(pks, background=False)
+            if result:
+                self.stdout.write(f'         search ping: {result}')
         return f'Expired {count} jobs'
 
     def _auto_fill_seo_meta(self):

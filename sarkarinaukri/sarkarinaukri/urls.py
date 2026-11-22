@@ -11,6 +11,7 @@ from wagtail.documents import urls as wagtaildocs_urls
 from search import views as search_views
 from home import views as home_views
 from .sitemaps import sitemaps
+from content.search_ping import INDEXNOW_KEY
 
 
 def robots_txt(request):
@@ -26,6 +27,11 @@ def robots_txt(request):
         f"Sitemap: {host}/sitemap.xml",
     ]
     return HttpResponse('\n'.join(lines), content_type='text/plain')
+
+
+def indexnow_key(request):
+    # IndexNow checks this file to confirm the pings really come from us
+    return HttpResponse(INDEXNOW_KEY, content_type='text/plain')
 
 
 def ads_txt(request):
@@ -47,6 +53,7 @@ urlpatterns = [
          name="django.contrib.sitemaps.views.sitemap"),
     path("robots.txt", robots_txt, name="robots_txt"),
     path("ads.txt", ads_txt, name="ads_txt"),
+    path(f"{INDEXNOW_KEY}.txt", indexnow_key, name="indexnow_key"),
 
     # Legal and Info Pages
     path("privacy-policy/", home_views.privacy_policy, name="privacy_policy"),

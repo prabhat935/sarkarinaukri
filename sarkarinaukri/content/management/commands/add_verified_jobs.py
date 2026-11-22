@@ -8,6 +8,7 @@ from decimal import Decimal
 
 from django.core.management.base import BaseCommand
 from content.models import ExamCategory, JobPosting, Organization, State
+from content.search_ping import notify_jobs
 
 
 ORGANIZATIONS = [
@@ -432,5 +433,11 @@ class Command(BaseCommand):
                 },
             )
             self.stdout.write(f"  {'Created' if created else 'Updated'}: {obj.title[:60]} ({obj.status})")
+            if created:
+                # New post: tell Google and Bing now (runs on deploy, so only
+                # for posts that did not exist before)
+                result = notify_jobs([obj], background=False)
+                if result:
+                    self.stdout.write(f'    search ping: {result}')
 
         self.stdout.write(self.style.SUCCESS(f'\nDone. {len(VERIFIED_JOBS)} verified jobs.'))
