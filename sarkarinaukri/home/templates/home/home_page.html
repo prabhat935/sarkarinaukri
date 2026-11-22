@@ -67,6 +67,28 @@ a.ticker-item:hover { color: var(--accent-light); text-decoration: underline; }
 
 {% block content %}
 
+<!-- Scrolling ticker of open jobs -->
+<div class="ticker-bar">
+    <div class="container">
+        <div class="ticker-wrap">
+            <span class="ticker-label"><i class="fas fa-bolt"></i>&nbsp;Latest</span>
+            <div class="ticker-content">
+                <div class="ticker-inner">
+                    {% for pass in "12" %}{# rendered twice for a seamless loop #}
+                    {% for job in latest_jobs %}
+                    <a href="{% url 'job_detail' job.pk %}" class="ticker-item"><i class="fas fa-briefcase"></i> {{ job.short_title }}{% if job.application_end_date %} — Last Date {{ job.application_end_date|date:"d M" }}{% endif %}</a>
+                    <span class="ticker-dot">&#9679;</span>
+                    {% empty %}
+                    <span class="ticker-item"><i class="fas fa-book-open"></i> New exam guides and preparation tips added regularly</span>
+                    <span class="ticker-dot">&#9679;</span>
+                    {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Highlight lines: open jobs, three to a line -->
 <div class="hl-bar">
     <div class="container">
