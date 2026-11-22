@@ -18,14 +18,15 @@ class Command(BaseCommand):
     help = 'Ping Google Indexing API and IndexNow for job pages'
 
     def add_arguments(self, parser):
-        parser.add_argument('--active', action='store_true', help='all Active jobs')
+        parser.add_argument('--active', action='store_true', help='all open, indexable jobs')
         parser.add_argument('--job', type=int, action='append', default=[], help='job id (repeatable)')
         parser.add_argument('--url', action='append', default=[], help='non-job URL, IndexNow only')
 
     def handle(self, *args, **opts):
         jobs = list(JobPosting.objects.filter(pk__in=opts['job']))
         if opts['active']:
-            jobs += [j for j in JobPosting.objects.filter(status='Active') if j.pk not in opts['job']]
+            # Only pages Google may index: open jobs with a real write-up
+            jobs += [j for j in JobPosting.indexable() if j.pk not in opts['job']]
         if jobs:
             self.stdout.write(f'Jobs: {[j.pk for j in jobs]}')
             self.stdout.write(str(notify_jobs(jobs, force=True, background=False)))
