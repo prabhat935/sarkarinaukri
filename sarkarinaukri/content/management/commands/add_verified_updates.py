@@ -9,6 +9,7 @@ import datetime
 from django.core.management.base import BaseCommand
 
 from content.models import AdmitCard, ExamCategory, ExamResult, Organization
+from content.seeding import upsert
 from content.search_ping import SITE_URL, notify
 
 
@@ -123,7 +124,7 @@ class Command(BaseCommand):
             if org is None:
                 self.stdout.write(self.style.WARNING(f"  SKIP (no org {data['organization']}): {data['slug']}"))
                 continue
-            obj, created = ExamResult.objects.update_or_create(
+            obj, created = upsert(ExamResult, 
                 slug=data['slug'],
                 defaults={
                     'exam_name': data['exam_name'],
@@ -147,7 +148,7 @@ class Command(BaseCommand):
             if org is None:
                 self.stdout.write(self.style.WARNING(f"  SKIP (no org {data['organization']}): {data['slug']}"))
                 continue
-            obj, created = AdmitCard.objects.update_or_create(
+            obj, created = upsert(AdmitCard, 
                 slug=data['slug'],
                 defaults={
                     'exam_name': data['exam_name'],

@@ -6,6 +6,7 @@ on the site every few days without a deploy.
 import datetime
 from django.core.management.base import BaseCommand
 from content.models import Article
+from content.seeding import upsert
 
 
 SCHEDULED_GUIDES = [
@@ -52,7 +53,7 @@ SCHEDULED_GUIDES = [
 <p>Movement between groups is possible. Group C employees can reach Group B through departmental promotion or limited departmental competitive examinations, and Group B officers can be promoted into Group A in many services. Many senior officers began their careers in Group C.</p>
 
 <h2>Which Group Should You Aim For?</h2>
-<p>There is no single right answer. Group A posts offer the most responsibility and pay, but the competition is intense and preparation can take years. Group B and Group C posts through SSC exams are more achievable, offer job security from the start, and still allow progress through promotions. A common and sensible path is to secure a Group B or C post first and continue preparing for higher exams while employed. Our guide to preparing while working full-time explains how to manage that.</p>
+<p>There is no single right answer. Group A posts offer the most responsibility and pay, but the competition is intense and preparation can take years. Group B and Group C posts through SSC exams are more achievable, offer job security from the start, and still allow progress through promotions. A common and sensible path is to secure a Group B or C post first and continue preparing for higher exams while employed. Our guide to <a href="/content/guides/prepare-government-exams-while-working/">preparing for government exams while working full-time</a> explains how to manage that.</p>
 
 <p><em>Classifications can differ between departments and between central and state governments. Always check the group and pay level printed in the official notification.</em></p>
 """,
@@ -486,7 +487,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         created = 0
         for data in SCHEDULED_GUIDES:
-            obj, was_created = Article.objects.update_or_create(
+            obj, was_created = upsert(Article, 
                 slug=data['slug'],
                 defaults={
                     'title': data['title'],

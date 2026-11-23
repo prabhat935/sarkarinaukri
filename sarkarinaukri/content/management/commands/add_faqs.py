@@ -2,6 +2,7 @@
 
 from django.core.management.base import BaseCommand
 from content.models import FAQ
+from content.seeding import upsert
 
 
 FAQS = [
@@ -197,7 +198,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         created = 0
         for data in FAQS:
-            obj, was_created = FAQ.objects.update_or_create(
+            obj, was_created = upsert(FAQ, 
                 slug=data['slug'],
                 defaults={
                     'question': data['question'],

@@ -133,6 +133,8 @@ class JobDetailView(GoneIfThinMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         job = self.get_object()
+        from .related import related_guides
+        context['related_guides'] = related_guides(job.description, job.eligibility)
         
         # Show related jobs from same organization
         context['related_jobs'] = written_up_jobs(JobPosting.open_jobs().filter(
@@ -203,6 +205,12 @@ class ResultDetailView(GoneIfThinMixin, DetailView):
     context_object_name = 'result'
     slug_field = 'slug'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        from .related import related_guides
+        context['related_guides'] = related_guides(self.object.exam_name, self.object.description)
+        return context
+
 
 class AdmitCardListView(ListView):
     """Admit cards listing"""
@@ -240,6 +248,12 @@ class AdmitCardDetailView(GoneIfThinMixin, DetailView):
     template_name = 'content/admit_card_detail.html'
     context_object_name = 'admit_card'
     slug_field = 'slug'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        from .related import related_guides
+        context['related_guides'] = related_guides(self.object.exam_name, self.object.description, self.object.instructions)
+        return context
 
 
 class AnswerKeyListView(ListView):

@@ -1,6 +1,7 @@
 import datetime
 from django.core.management.base import BaseCommand
 from content.models import Article
+from content.seeding import upsert
 
 
 ADDITIONAL_ARTICLES = [
@@ -210,7 +211,7 @@ Some state PSC exams grant age relaxation to candidates who are domiciled in tha
 <ul>
 <li>Age limit is calculated as on a specific cutoff date mentioned in the notification (usually January 1 of exam year) — not from when you fill the form</li>
 <li>OBC-NCL certificate is valid only if issued within last 1 year by competent authority</li>
-<li>EWS certificate requires annual income less than ₹8 lakh (as of 2024; check current year's limit)</li>
+<li>An EWS certificate for central government jobs requires gross family income below ₹8 lakh in the previous financial year, as set by the government in 2019 (see our <a href="/content/guides/ews-certificate-central-government-jobs/">EWS certificate guide</a> for the asset limits)</li>
 <li>Some exams have NO upper age limit for certain categories (e.g., ex-servicemen in some recruitment)</li>
 <li>For women candidates applying to defense forces, age relaxation rules are different — check specific exam notification</li>
 <li>State government jobs may have different age relaxation from central jobs for the same category</li>
@@ -338,7 +339,7 @@ Some state PSC exams grant age relaxation to candidates who are domiciled in tha
 <p>Every new joiner starts at the first cell of their level in the 7th CPC pay matrix: ₹25,500 for Level 4, ₹29,200 for Level 5, ₹35,400 for Level 6 and ₹44,900 for Level 7. Basic pay rises by one cell (about 3%) at each annual increment, which falls on 1 January or 1 July. Almost every other component is calculated from the basic, so it is the number that matters most.</p>
 
 <h3>2. Dearness Allowance (DA)</h3>
-<p>DA compensates for inflation and is a percentage of basic pay. The government revises it twice a year, effective January and July, usually announcing the change a few months late with arrears. <strong>The examples below use 58%</strong>, the rate in effect from July 2025. If the rate has changed when you read this, recalculate with the formula at the end of this guide.</p>
+<p>DA compensates for inflation and is a percentage of basic pay. The government revises it twice a year, effective January and July, usually announcing the change a few months late with arrears. <strong>The examples below use 63%</strong>, the rate in effect from 1 July 2026 (it was 58% from July 2025 and 60% from January 2026). If the rate has changed when you read this, recalculate with the formula at the end of this guide.</p>
 
 <h3>3. House Rent Allowance (HRA)</h3>
 <p>HRA depends on the city you are posted in. Since DA crossed 50% in January 2024, the rates are:</p>
@@ -350,7 +351,7 @@ Some state PSC exams grant age relaxation to candidates who are domiciled in tha
 <p>You do not get HRA if you live in government accommodation; instead, a licence fee is deducted.</p>
 
 <h3>4. Transport Allowance (TA)</h3>
-<p>For Levels 3 to 8, TA is ₹3,600 a month in the larger cities on the government's transport allowance list, and ₹1,800 elsewhere. DA is paid on TA too, so at 58% DA the actual amounts are ₹5,688 and ₹2,844.</p>
+<p>For Levels 3 to 8, TA is ₹3,600 a month in the larger cities on the government's transport allowance list, and ₹1,800 elsewhere. DA is paid on TA too, so at 63% DA the actual amounts are ₹5,868 and ₹2,934.</p>
 
 <h2>The Deductions</h2>
 <ul>
@@ -365,14 +366,14 @@ Some state PSC exams grant age relaxation to candidates who are domiciled in tha
 <thead><tr><th>Component</th><th>Level 4</th><th>Level 5</th><th>Level 6</th><th>Level 7</th></tr></thead>
 <tbody>
 <tr><td>Basic pay</td><td>₹25,500</td><td>₹29,200</td><td>₹35,400</td><td>₹44,900</td></tr>
-<tr><td>DA (58%)</td><td>₹14,790</td><td>₹16,936</td><td>₹20,532</td><td>₹26,042</td></tr>
+<tr><td>DA (63%)</td><td>₹16,065</td><td>₹18,396</td><td>₹22,302</td><td>₹28,287</td></tr>
 <tr><td>HRA (30%)</td><td>₹7,650</td><td>₹8,760</td><td>₹10,620</td><td>₹13,470</td></tr>
-<tr><td>TA + DA on TA</td><td>₹5,688</td><td>₹5,688</td><td>₹5,688</td><td>₹5,688</td></tr>
-<tr><td><strong>Gross</strong></td><td><strong>₹53,628</strong></td><td><strong>₹60,584</strong></td><td><strong>₹72,240</strong></td><td><strong>₹90,100</strong></td></tr>
-<tr><td>NPS (10% of basic + DA)</td><td>₹4,029</td><td>₹4,614</td><td>₹5,593</td><td>₹7,094</td></tr>
+<tr><td>TA + DA on TA</td><td>₹5,868</td><td>₹5,868</td><td>₹5,868</td><td>₹5,868</td></tr>
+<tr><td><strong>Gross</strong></td><td><strong>₹55,083</strong></td><td><strong>₹62,224</strong></td><td><strong>₹74,190</strong></td><td><strong>₹92,525</strong></td></tr>
+<tr><td>NPS (10% of basic + DA)</td><td>₹4,157</td><td>₹4,760</td><td>₹5,770</td><td>₹7,319</td></tr>
 <tr><td>CGHS</td><td>₹250</td><td>₹250</td><td>₹450</td><td>₹650</td></tr>
 <tr><td>CGEGIS</td><td>₹30</td><td>₹30</td><td>₹30</td><td>₹60</td></tr>
-<tr><td><strong>In-hand (before income tax)</strong></td><td><strong>₹49,319</strong></td><td><strong>₹55,690</strong></td><td><strong>₹66,167</strong></td><td><strong>₹82,296</strong></td></tr>
+<tr><td><strong>In-hand (before income tax)</strong></td><td><strong>₹50,646</strong></td><td><strong>₹57,184</strong></td><td><strong>₹67,940</strong></td><td><strong>₹84,496</strong></td></tr>
 </tbody>
 </table>
 
@@ -380,18 +381,18 @@ Some state PSC exams grant age relaxation to candidates who are domiciled in tha
 <table>
 <thead><tr><th>Component</th><th>Level 4</th><th>Level 5</th><th>Level 6</th><th>Level 7</th></tr></thead>
 <tbody>
-<tr><td>Basic + DA</td><td>₹40,290</td><td>₹46,136</td><td>₹55,932</td><td>₹70,942</td></tr>
+<tr><td>Basic + DA</td><td>₹41,565</td><td>₹47,596</td><td>₹57,702</td><td>₹73,187</td></tr>
 <tr><td>HRA (10%)</td><td>₹2,550</td><td>₹2,920</td><td>₹3,540</td><td>₹4,490</td></tr>
-<tr><td>TA + DA on TA</td><td>₹2,844</td><td>₹2,844</td><td>₹2,844</td><td>₹2,844</td></tr>
-<tr><td><strong>Gross</strong></td><td><strong>₹45,684</strong></td><td><strong>₹51,900</strong></td><td><strong>₹62,316</strong></td><td><strong>₹78,276</strong></td></tr>
-<tr><td>Total deductions</td><td>₹4,309</td><td>₹4,894</td><td>₹6,073</td><td>₹7,804</td></tr>
-<tr><td><strong>In-hand (before income tax)</strong></td><td><strong>₹41,375</strong></td><td><strong>₹47,006</strong></td><td><strong>₹56,243</strong></td><td><strong>₹70,472</strong></td></tr>
+<tr><td>TA + DA on TA</td><td>₹2,934</td><td>₹2,934</td><td>₹2,934</td><td>₹2,934</td></tr>
+<tr><td><strong>Gross</strong></td><td><strong>₹47,049</strong></td><td><strong>₹53,450</strong></td><td><strong>₹64,176</strong></td><td><strong>₹80,611</strong></td></tr>
+<tr><td>Total deductions</td><td>₹4,437</td><td>₹5,040</td><td>₹6,250</td><td>₹8,029</td></tr>
+<tr><td><strong>In-hand (before income tax)</strong></td><td><strong>₹42,612</strong></td><td><strong>₹48,410</strong></td><td><strong>₹57,926</strong></td><td><strong>₹72,582</strong></td></tr>
 </tbody>
 </table>
 <p>The Z city figures assume CGHS is deducted; in places without CGHS cover there is no CGHS deduction, so the in-hand pay is slightly higher. Y city salaries fall between the two tables, with the TA depending on whether the city is on the transport allowance list.</p>
 
 <h2>Is Income Tax Deducted?</h2>
-<p>Under the new tax regime for FY 2025-26, salaried income up to ₹12.75 lakh a year (₹12 lakh plus the ₹75,000 standard deduction) attracts no tax because of the Section 87A rebate. Even the highest example above, Level 7 in an X city, comes to about ₹10.8 lakh a year in gross pay, so a new joiner at any of these levels pays no income tax in the first year under the new regime. That changes as DA and increments rise, so check each year, especially at Level 7.</p>
+<p>Under the new tax regime, which Budget 2026 left unchanged for FY 2026-27, salaried income up to ₹12.75 lakh a year (₹12 lakh plus the ₹75,000 standard deduction) attracts no tax because of the Section 87A rebate. Even the highest example above, Level 7 in an X city, comes to about ₹11.1 lakh a year in gross pay, so a new joiner at any of these levels pays no income tax in the first year under the new regime. That changes as DA and increments rise, so check each year, especially at Level 7.</p>
 
 <h2>Recalculate It Yourself When DA Changes</h2>
 <ol>
@@ -490,7 +491,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         created = 0
         for data in ADDITIONAL_ARTICLES:
-            obj, was_created = Article.objects.update_or_create(
+            obj, was_created = upsert(Article, 
                 slug=data['slug'],
                 defaults={
                     'title': data['title'],

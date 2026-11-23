@@ -1,6 +1,7 @@
 import datetime
 from django.core.management.base import BaseCommand
 from content.models import Article
+from content.seeding import upsert
 
 
 ARTICLES = [
@@ -948,7 +949,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         created = 0
         for data in ARTICLES:
-            obj, was_created = Article.objects.update_or_create(
+            obj, was_created = upsert(Article, 
                 slug=data['slug'],
                 defaults={
                     'title': data['title'],

@@ -83,6 +83,15 @@
                                 <div class="content-text">{{ result.description|linebreaks }}</div>
                             </div>
                             {% endif %}
+                            {% if related_guides %}
+                            <div class="detail-content-block related-guides">
+                                <h3><i class="fas fa-book-open"></i> Related Guides</h3>
+                                <ul style="margin:0; padding-left:20px; line-height:1.9;">
+                                    {% for g in related_guides %}<li><a href="{% url 'article_detail' g.slug %}">{{ g.title }}</a></li>{% endfor %}
+                                </ul>
+                            </div>
+                            {% endif %}
+
 
                             <div class="action-btn-group">
                                 {% if result.result_pdf_link %}

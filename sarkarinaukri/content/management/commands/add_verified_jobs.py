@@ -8,6 +8,7 @@ from decimal import Decimal
 
 from django.core.management.base import BaseCommand
 from content.models import ExamCategory, JobPosting, Organization, QualificationLevel, State
+from content.seeding import upsert
 from content.search_ping import notify_jobs
 
 
@@ -883,7 +884,7 @@ class Command(BaseCommand):
                 extra['qualification_level'], _ = QualificationLevel.objects.get_or_create(level=data['qualification'])
             if data.get('state'):
                 extra['state'] = State.objects.filter(name__iexact=data['state']).first()
-            obj, created = JobPosting.objects.update_or_create(
+            obj, created = upsert(JobPosting, 
                 slug=data['slug'],
                 defaults={
                     **extra,

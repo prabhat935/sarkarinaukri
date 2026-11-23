@@ -694,6 +694,14 @@ class Article(models.Model):
     class Meta:
         ordering = ['-published_date']
 
+    @property
+    def seo_title(self):
+        """Title for the browser tab and Google: the part before the colon when
+        the full title is too long to show in search results."""
+        if len(self.title) > 60 and ':' in self.title:
+            return self.title.split(':')[0].strip()
+        return self.title
+
     def __str__(self):
         return self.title
 
