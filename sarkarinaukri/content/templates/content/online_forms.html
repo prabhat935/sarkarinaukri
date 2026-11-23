@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block title %}Online Government Forms 2026 - Sarkari Naukri{% endblock %}
+{% block robots %}{% if has_online_forms %}index, follow{% else %}noindex, follow{% endif %}{% endblock %}
 {% block body_class %}page-forms{% endblock %}
 
 {% block content %}
@@ -21,7 +22,7 @@
                 <div class="page-hero-chips">
                     <span class="page-hero-chip"><i class="fas fa-list-alt"></i> {{ paginator.count }} Active Forms</span>
                     <span class="page-hero-chip"><i class="fas fa-mouse-pointer"></i> Apply Online</span>
-                    <span class="page-hero-chip"><i class="fas fa-sync-alt"></i> Updated Daily</span>
+                    <span class="page-hero-chip"><i class="fas fa-file-alt"></i> Written from official notices</span>
                 </div>
             </div>
         </div>

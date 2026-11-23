@@ -56,7 +56,6 @@ class StaticPagesSitemap(HttpsSitemap):
             ('scholarships',              0.7),
             ('important_notifications',   0.8),
             ('online_forms',              0.7),
-            ('certificate_verification',  0.6),
             ('about_us',                  0.4),
             ('about_authors',             0.4),
             ('contact',                   0.3),

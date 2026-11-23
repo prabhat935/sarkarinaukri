@@ -63,6 +63,9 @@
 
         {# Global stylesheet #}
         <link rel="stylesheet" href="{% static 'css/sarkarinaukri.css' %}?v={{ static_version }}">
+        <link rel="icon" href="{% static 'img/favicon.ico' %}" sizes="any">
+        <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
+        <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icon.png' %}">
 
         <style>
         .header-search { flex:1; max-width:460px; margin:0 20px; display:flex; align-items:center; background:#fff; border-radius:8px; padding:3px 3px 3px 12px; }
@@ -144,7 +147,6 @@
                             {% if has_notifications %}<li class="nav-item"><a class="nav-link {% block nav_alerts %}{% endblock %}" href="{% url 'important_notifications' %}"><i class="fas fa-bell"></i> Alerts</a></li>{% endif %}
                             <li class="nav-item"><a class="nav-link {% block nav_guides %}{% endblock %}" href="{% url 'article_list' %}"><i class="fas fa-book-open"></i> Guides</a></li>
                             {% if has_faqs %}<li class="nav-item"><a class="nav-link {% block nav_faq %}{% endblock %}" href="{% url 'faq' %}"><i class="fas fa-question-circle"></i> FAQ</a></li>{% endif %}
-                            <li class="nav-item"><a class="nav-link" href="{% url 'certificate_verification' %}"><i class="fas fa-certificate"></i> Verification</a></li>
                         </ul>
                     </div>
                 </div>
@@ -173,7 +175,6 @@
                             {% if has_faqs %}<li><a class="dropdown-item" href="{% url 'faq' %}">FAQ</a></li>{% endif %}
                             <li><a class="dropdown-item" href="{% url 'job_list' %}?qualification=pg">PG / CA / MBA Jobs</a></li>
                             {% if has_closed_jobs %}<li><a class="dropdown-item" href="{% url 'job_list' %}?status=Closed">Closed Jobs</a></li>{% endif %}
-                            <li><a class="dropdown-item" href="{% url 'certificate_verification' %}">Certificate Verification</a></li>
                             <li><a class="dropdown-item" href="{% url 'about_us' %}">About Us</a></li>
                             <li><a class="dropdown-item" href="{% url 'about_authors' %}">Editorial Team</a></li>
                             <li><a class="dropdown-item" href="{% url 'contact' %}">Contact Us</a></li>
@@ -220,7 +221,6 @@
                                 {% if has_scholarships %}<li><a href="{% url 'scholarships' %}">Scholarships</a></li>{% endif %}
                                 {% if has_notifications %}<li><a href="{% url 'important_notifications' %}">Notifications</a></li>{% endif %}
                                 {% if has_online_forms %}<li><a href="{% url 'online_forms' %}">Online Forms</a></li>{% endif %}
-                                <li><a href="{% url 'certificate_verification' %}">Verification</a></li>
                             </ul>
                         </div>
                         <div class="footer-column">

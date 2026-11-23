@@ -253,7 +253,7 @@ CELERY_BEAT_SCHEDULE = {
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025
-DEFAULT_FROM_EMAIL = 'noreply@sarkarinaukri.com'
+DEFAULT_FROM_EMAIL = 'noreply@sarkarinaukriresult.online'
 
 
 # ============= CACHING CONFIGURATION =============

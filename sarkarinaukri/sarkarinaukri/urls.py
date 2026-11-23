@@ -3,6 +3,7 @@ from django.urls import include, path
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.http import HttpResponse
+from django.views.generic.base import RedirectView
 
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail import urls as wagtail_urls
@@ -53,6 +54,7 @@ urlpatterns = [
          name="django.contrib.sitemaps.views.sitemap"),
     path("robots.txt", robots_txt, name="robots_txt"),
     path("ads.txt", ads_txt, name="ads_txt"),
+    path("favicon.ico", RedirectView.as_view(url="/static/img/favicon.ico", permanent=True)),
     path(f"{INDEXNOW_KEY}.txt", indexnow_key, name="indexnow_key"),
 
     # Legal and Info Pages

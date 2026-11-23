@@ -37,7 +37,7 @@ def send_job_alert_email(user_id, job_ids):
         send_mail(
             subject,
             message,
-            'noreply@sarkarinaukri.com',
+            'noreply@sarkarinaukriresult.online',
             [user.email],
             html_message=html_message,
             fail_silently=False,
