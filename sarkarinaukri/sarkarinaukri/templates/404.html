@@ -1,11 +1,31 @@
 {% extends "base.html" %}
 
-{% block title %}Page not found{% endblock %}
-
+{% block title %}Page Not Found - Sarkari Naukri{% endblock %}
+{% block meta_description %}This page could not be found. Search the site or browse open government jobs and exam guides.{% endblock %}
+{% block robots %}noindex, follow{% endblock %}
 {% block body_class %}template-404{% endblock %}
 
 {% block content %}
-<h1>Page not found</h1>
-
-<h2>Sorry, this page could not be found.</h2>
+<div class="page-wrapper">
+    <section class="list-section">
+        <div class="container" style="max-width:760px; padding:48px 16px;">
+            <h1 style="font-size:1.7rem; font-weight:800; color:#1e3a8a;">Page not found</h1>
+            <p style="font-size:1rem; line-height:1.7; color:#334155;">
+                The page you are looking for does not exist or may have moved. Try searching, or use one of the links below.
+            </p>
+            <form action="/search/" method="get" role="search" style="display:flex; gap:8px; max-width:520px; margin:18px 0 22px;">
+                <input type="text" name="query" placeholder="Search jobs, exams, guides..." aria-label="Search"
+                       style="flex:1; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:1rem;">
+                <button type="submit" style="padding:10px 18px; border:none; border-radius:8px; background:#f97316; color:#fff; font-weight:700;">Search</button>
+            </form>
+            <ul style="font-size:1rem; line-height:2;">
+                <li><a href="{% url 'job_list' %}">Open government jobs</a></li>
+                <li><a href="{% url 'article_list' %}">Exam guides</a></li>
+                <li><a href="{% url 'faq' %}">Frequently asked questions</a></li>
+                <li><a href="/">Home page</a></li>
+                <li><a href="{% url 'contact' %}">Contact us</a> if you followed a broken link on our site</li>
+            </ul>
+        </div>
+    </section>
+</div>
 {% endblock %}

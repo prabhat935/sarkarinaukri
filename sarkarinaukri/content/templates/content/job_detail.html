@@ -16,7 +16,7 @@
   "description": "{{ job.description|default:''|linebreaks|escapejs }}{% if job.eligibility %}{{ '<h3>Eligibility</h3>'|escapejs }}{{ job.eligibility|linebreaks|escapejs }}{% endif %}",
   "datePosted": "{{ job.created_at|date:'Y-m-d' }}",
   {% if job.application_end_date %}"validThrough": "{{ job.application_end_date|date:'Y-m-d' }}T23:59:59+05:30",{% endif %}
-  "employmentType": "FULL_TIME",
+  "employmentType": "{% if 'apprentice' in job.title|lower %}INTERN{% else %}FULL_TIME{% endif %}",
   "directApply": false,
   "identifier": {
     "@type": "PropertyValue",

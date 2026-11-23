@@ -34,6 +34,9 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # WhiteNoise must come directly after SecurityMiddleware (index 1)
 MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 
+# One address for the whole site: sarkarinaukriresult.online -> www (301)
+MIDDLEWARE.insert(0, 'sarkarinaukri.middleware.CanonicalHostMiddleware')
+
 # CompressedStaticFilesStorage serves gzip-compressed files without a
 # manifest. Safe with Wagtail (whose admin CSS has url() references that
 # can confuse manifest post-processing). Cache-busting is handled via

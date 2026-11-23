@@ -138,8 +138,8 @@
                     <div class="collapse navbar-collapse" id="baseNavMenu">
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item"><a class="nav-link {% block nav_jobs %}{% endblock %}" href="{% url 'job_list' %}"><i class="fas fa-briefcase"></i> Jobs</a></li>
-                            {% if has_results %}<li class="nav-item"><a class="nav-link {% block nav_results %}{% endblock %}" href="{% url 'result_list' %}"><i class="fas fa-chart-bar"></i> Results</a></li>{% endif %}
-                            {% if has_admit_cards %}<li class="nav-item"><a class="nav-link {% block nav_admit %}{% endblock %}" href="{% url 'admit_card_list' %}"><i class="fas fa-id-card"></i> Admit Cards</a></li>{% endif %}
+                            {% if results_in_menu %}<li class="nav-item"><a class="nav-link {% block nav_results %}{% endblock %}" href="{% url 'result_list' %}"><i class="fas fa-chart-bar"></i> Results</a></li>{% endif %}
+                            {% if admit_cards_in_menu %}<li class="nav-item"><a class="nav-link {% block nav_admit %}{% endblock %}" href="{% url 'admit_card_list' %}"><i class="fas fa-id-card"></i> Admit Cards</a></li>{% endif %}
                             {% if has_answer_keys %}<li class="nav-item"><a class="nav-link {% block nav_answer %}{% endblock %}" href="{% url 'answer_key_list' %}"><i class="fas fa-key"></i> Answer Keys</a></li>{% endif %}
                             {% if has_syllabus %}<li class="nav-item"><a class="nav-link {% block nav_syllabus %}{% endblock %}" href="{% url 'syllabus_list' %}"><i class="fas fa-book"></i> Syllabus</a></li>{% endif %}
                             {% if has_board_results %}<li class="nav-item"><a class="nav-link {% block nav_board %}{% endblock %}" href="{% url 'board_results' %}"><i class="fas fa-graduation-cap"></i> Board</a></li>{% endif %}
@@ -158,8 +158,8 @@
                     <ul class="sub-nav-list">
                         <li><a href="/">Home</a></li>
                         <li><a href="{% url 'job_list' %}">Latest Jobs</a></li>
-                        {% if has_admit_cards %}<li><a href="{% url 'admit_card_list' %}">Admit Card</a></li>{% endif %}
-                        {% if has_results %}<li><a href="{% url 'result_list' %}">Results</a></li>{% endif %}
+                        {% if admit_cards_in_menu %}<li><a href="{% url 'admit_card_list' %}">Admit Card</a></li>{% endif %}
+                        {% if results_in_menu %}<li><a href="{% url 'result_list' %}">Results</a></li>{% endif %}
                         {% if has_answer_keys %}<li><a href="{% url 'answer_key_list' %}">Answer Key</a></li>{% endif %}
                         {% if has_syllabus %}<li><a href="{% url 'syllabus_list' %}">Syllabus</a></li>{% endif %}
                         {% if has_scholarships %}<li><a href="{% url 'scholarships' %}">Scholarship</a></li>{% endif %}
@@ -206,8 +206,8 @@
                             <h4>Quick Links</h4>
                             <ul>
                                 <li><a href="{% url 'job_list' %}">Latest Jobs</a></li>
-                                {% if has_results %}<li><a href="{% url 'result_list' %}">Exam Results</a></li>{% endif %}
-                                {% if has_admit_cards %}<li><a href="{% url 'admit_card_list' %}">Admit Cards</a></li>{% endif %}
+                                {% if results_in_menu %}<li><a href="{% url 'result_list' %}">Exam Results</a></li>{% endif %}
+                                {% if admit_cards_in_menu %}<li><a href="{% url 'admit_card_list' %}">Admit Cards</a></li>{% endif %}
                                 {% if has_syllabus %}<li><a href="{% url 'syllabus_list' %}">Syllabus</a></li>{% endif %}
                                 {% if has_answer_keys %}<li><a href="{% url 'answer_key_list' %}">Answer Keys</a></li>{% endif %}
                             </ul>

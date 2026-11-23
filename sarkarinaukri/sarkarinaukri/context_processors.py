@@ -14,6 +14,9 @@ def content_section_flags():
         Scholarship, Syllabus, written_up_jobs,
     )
 
+    results = ExamResult.listed()
+    admit_cards = AdmitCard.listed()
+
     return {
         'has_scholarships': Scholarship.objects.filter(status='Open').exists(),
         'has_notifications': ImportantNotification.objects.exists(),
@@ -21,8 +24,11 @@ def content_section_flags():
         'has_faqs': FAQ.objects.exists(),
         # Results, admit cards, answer keys and syllabus count only when an
         # entry has a real write-up, not just a title and a link
-        'has_results': bool(ExamResult.listed()),
-        'has_admit_cards': bool(AdmitCard.listed()),
+        'has_results': bool(results),
+        'has_admit_cards': bool(admit_cards),
+        # Menus link these sections only once they have a few entries
+        'results_in_menu': len(results) >= 3,
+        'admit_cards_in_menu': len(admit_cards) >= 3,
         'has_answer_keys': bool(AnswerKey.listed()),
         'has_syllabus': bool(Syllabus.listed()),
         # Closed jobs link only once a written-up post has closed
