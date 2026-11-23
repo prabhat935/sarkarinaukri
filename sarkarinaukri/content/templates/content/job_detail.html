@@ -41,9 +41,13 @@
   "jobLocation": {
     "@type": "Place",
     "address": {
-      "@type": "PostalAddress",
-      "addressCountry": "IN"{% if job.state %},
-      "addressRegion": "{{ job.state|escapejs }}"{% endif %}
+      "@type": "PostalAddress",{% if job.location_street %}
+      "streetAddress": "{{ job.location_street|escapejs }}",{% endif %}{% if job.location_city %}
+      "addressLocality": "{{ job.location_city|escapejs }}",{% endif %}{% if job.location_region %}
+      "addressRegion": "{{ job.location_region|escapejs }}",{% elif job.state %}
+      "addressRegion": "{{ job.state|escapejs }}",{% endif %}{% if job.location_postal_code %}
+      "postalCode": "{{ job.location_postal_code|escapejs }}",{% endif %}
+      "addressCountry": "IN"
     }
   }{% if job.vacancies %},
   "totalJobOpenings": {{ job.vacancies }}{% endif %}

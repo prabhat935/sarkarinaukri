@@ -31,6 +31,7 @@ VERIFIED_JOBS = [
     {
         # Source: NLCIL Advt. No. 10/2026 (official PDF on nlcindia.in)
         'slug': 'nlc-graduate-executive-trainee-gate-2025',
+        'location': ('Corporate Office, Block-1', 'Neyveli', 'Tamil Nadu', '607801'),
         'qualification': 'graduate',
         'title': 'NLC India Graduate Executive Trainee Recruitment 2026 (143 Posts through GATE 2025)',
         'organization': 'nlc-india',
@@ -92,6 +93,7 @@ VERIFIED_JOBS = [
     {
         # Source: SIDBI Advertisement No. 8/Grade 'A' and 'B'/2026-27 (official PDF on sidbi.in)
         'slug': 'sidbi-assistant-manager-grade-a-b-2026',
+        'location': ('SIDBI Tower, 15 Ashok Marg', 'Lucknow', 'Uttar Pradesh', '226001'),
         'qualification': 'graduate',
         'title': 'SIDBI Assistant Manager Grade A and Manager Grade B Recruitment 2026 (68 Posts)',
         'organization': 'sidbi',
@@ -156,6 +158,7 @@ VERIFIED_JOBS = [
     {
         # Source: ASRB F. No. 2(2)/2025-Exam dated 11 Nov 2026 (official PDF on asrb.gov.in)
         'slug': 'asrb-icar-technical-assistant-t3-t4-2026',
+        'location': ('Chayan Bhavan, Pusa Campus', 'New Delhi', 'Delhi', '110012'),
         'qualification': 'graduate',
         'title': 'ASRB ICAR Technical Assistant (T-3) and Senior Technical Assistant (T-4) Recruitment 2026 (1393 Posts)',
         'organization': 'asrb',
@@ -225,6 +228,7 @@ VERIFIED_JOBS = [
     {
         # Source: DSSSB Advertisement No. 06/2026 dated 06 Nov 2026 (official PDF on dsssb.delhi.gov.in)
         'slug': 'dsssb-mts-junior-engineer-electrical-2026',
+        'location': ('FC-18, Institutional Area, Karkardooma', 'Delhi', 'Delhi', '110092'),
         'qualification': '10th',
         'title': 'DSSSB MTS and Junior Engineer (Electrical) Recruitment 2026 (1260 Posts, Advt. 06/2026)',
         'organization': 'dsssb',
@@ -291,6 +295,7 @@ VERIFIED_JOBS = [
     {
         # Source: RRC Central Railway Notification No. RRC/CR/AA/2026 dated 03 Nov 2026 (official PDF on rrccr.com)
         'slug': 'rrc-central-railway-act-apprentice-2026',
+        'location': ("Wadi Bunder, P. D'Mello Road", 'Mumbai', 'Maharashtra', '400010'),
         'qualification': '10th',
         'title': 'Central Railway Act Apprentice Recruitment 2026 (2861 Slots, 10th + ITI, No Exam)',
         'organization': 'rrc-central-railway',
@@ -349,6 +354,7 @@ VERIFIED_JOBS = [
     {
         # Source: RRC Northern Railway Notification No. RRC/NR/03/2026/Act Apprentice dated 06 Nov 2026 (official PDF on rrcnr.org)
         'slug': 'rrc-northern-railway-act-apprentice-2026',
+        'location': ('Lajpat Nagar', 'New Delhi', 'Delhi', '110024'),
         'qualification': '10th',
         'title': 'Northern Railway Act Apprentice Recruitment 2026 (4651 Slots, 10th + ITI, Merit Based)',
         'organization': 'rrc-northern-railway',
@@ -406,6 +412,7 @@ VERIFIED_JOBS = [
     {
         # Source: UKSSSC Advt. No. 84/UKSSSC/2026 dated 17 Nov 2026 (official PDF on sssc.uk.gov.in, in Hindi)
         'slug': 'uksssc-uniformed-constable-1694-posts-2026',
+        'location': ('Thano Road, near Maharana Pratap Sports College, Raipur', 'Dehradun', 'Uttarakhand', '248008'),
         'qualification': '12th',
         'title': 'UKSSSC Uniformed Constable Recruitment 2026 (1694 Posts: Police, PAC, Fireman, Forest, Jail and More)',
         'organization': 'uksssc',
@@ -469,6 +476,7 @@ VERIFIED_JOBS = [
     {
         # Source: Exim Bank Advt. No. HRM/MT/M/2026-27/05 and addendum dated 20 Nov 2026 (official PDFs on eximbankindia.in/careers)
         'slug': 'exim-bank-management-trainee-manager-2026',
+        'location': ('', 'Mumbai', 'Maharashtra', ''),
         'qualification': 'pg',
         'title': 'Exim Bank Management Trainee and Manager Recruitment 2026 (120 Posts)',
         'organization': 'exim-bank',
@@ -538,6 +546,7 @@ VERIFIED_JOBS = [
     {
         # Source: NLCIL Advt. No. 11/2026 (official PDF on web.nlcindia.in/rec112026)
         'slug': 'nlc-india-executive-recruitment-advt-11-2026',
+        'location': ('Corporate Office, Block-1', 'Neyveli', 'Tamil Nadu', '607801'),
         'qualification': 'graduate',
         'title': 'NLC India Executive Recruitment 2026 (145 Experienced Posts, E1 to E7 Grades, Advt. 11/2026)',
         'organization': 'nlc-india',
@@ -669,6 +678,7 @@ VERIFIED_JOBS = [
     {
         # Source: BHU Advertisement No. 06/2026-27, Non-Teaching Group A, B & C (Medical Sector), bhu.ac.in
         'slug': 'bhu-non-teaching-medical-advt-06-2026-27',
+        'location': ('Banaras Hindu University', 'Varanasi', 'Uttar Pradesh', ''),
         'qualification': 'graduate',
         'title': 'BHU Non-Teaching Recruitment 2026 (601 Medical Posts incl. 381 Nursing Officers, Advt 06/2026-27)',
         'organization': 'bhu',
@@ -732,6 +742,7 @@ VERIFIED_JOBS = [
         # Source: RSSB Advt. No. 10/2026 Junior Engineer combined direct recruitment 2026, revised notice
         # (rssb.rajasthan.gov.in; downloaded by the site owner; in Hindi)
         'slug': 'rssb-junior-engineer-2026-revised-1909-posts',
+        'location': ('State Agriculture Management Institute Campus, Durgapura', 'Jaipur', 'Rajasthan', '302018'),
         'qualification': 'graduate',
         'title': 'RSSB Rajasthan Junior Engineer Recruitment 2026, Revised (1909 Posts, Advt 10/2026)',
         'organization': 'rssb',
@@ -794,6 +805,7 @@ VERIFIED_JOBS = [
         # Source: Bihar Vidhan Sabha Secretariat Advt. No. 01/2026 (Junior Secretariat Assistant) and
         # 02/2026 (Office Attendant), vidhansabha.bihar.gov.in (in Hindi)
         'slug': 'bihar-vidhan-sabha-jsa-office-attendant-2026',
+        'location': ('Bihar Vidhan Sabha Secretariat', 'Patna', 'Bihar', ''),
         'qualification': '12th',
         'title': 'Bihar Vidhan Sabha Junior Secretariat Assistant and Office Attendant Recruitment 2026 (20 Posts)',
         'organization': 'bihar-vidhan-sabha',
@@ -864,6 +876,9 @@ class Command(BaseCommand):
             category = ExamCategory.objects.filter(slug=data['category']).first()
             end = data['application_end_date']
             extra = {}
+            if data.get('location'):
+                (extra['location_street'], extra['location_city'],
+                 extra['location_region'], extra['location_postal_code']) = data['location']
             if data.get('qualification'):
                 extra['qualification_level'], _ = QualificationLevel.objects.get_or_create(level=data['qualification'])
             if data.get('state'):
@@ -905,5 +920,10 @@ class Command(BaseCommand):
         JobPosting.objects.filter(
             title__icontains='DVC Executive Trainee', qualification_level__isnull=True
         ).update(qualification_level=graduate)
+        # DVC was added in the admin; office address from its notice (DVC Towers, Kolkata)
+        JobPosting.objects.filter(title__icontains='DVC Executive Trainee', location_city='').update(
+            location_street='DVC Towers, VIP Road', location_city='Kolkata',
+            location_region='West Bengal', location_postal_code='700054',
+        )
 
         self.stdout.write(self.style.SUCCESS(f'\nDone. {len(VERIFIED_JOBS)} verified jobs.'))

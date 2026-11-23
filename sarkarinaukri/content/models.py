@@ -124,7 +124,14 @@ class JobPosting(models.Model):
     organization = models.ForeignKey(Organization, on_delete=models.PROTECT)
     exam_category = models.ForeignKey(ExamCategory, on_delete=models.SET_NULL, null=True, blank=True)
     state = models.ForeignKey(State, on_delete=models.SET_NULL, null=True, blank=True)
-    
+
+    # Hiring office, from the official notice (used for Google job listings).
+    # Leave blank for jobs posted across India with no single office.
+    location_street = models.CharField(max_length=200, blank=True, help_text="Office address as printed in the notice")
+    location_city = models.CharField(max_length=100, blank=True, help_text="e.g. Neyveli, Jaipur")
+    location_region = models.CharField(max_length=100, blank=True, help_text="State or UT, e.g. Tamil Nadu")
+    location_postal_code = models.CharField(max_length=10, blank=True, help_text="PIN code, only if printed in the notice")
+
     # Job Details
     vacancies = models.PositiveIntegerField(default=0)
     year = models.IntegerField(db_index=True, help_text="Recruitment year (e.g., 2026)")

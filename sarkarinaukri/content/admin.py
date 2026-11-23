@@ -83,6 +83,10 @@ class JobPostingAdmin(admin.ModelAdmin):
         ('Organization & Category', {
             'fields': ('organization', 'exam_category', 'state')
         }),
+        ('Job Location (for Google job search)', {
+            'fields': ('location_street', 'location_city', 'location_region', 'location_postal_code'),
+            'description': 'The hiring office as printed in the official notice. Leave blank if the job is across India with no single office.',
+        }),
         ('Job Details', {
             'fields': ('year', 'vacancies', 'job_level', 'qualification_level', 'min_age', 'max_age', 'salary_min', 'salary_max')
         }),
