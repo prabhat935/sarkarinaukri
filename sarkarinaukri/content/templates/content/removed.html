@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Page Removed - Sarkari Naukri{% endblock %}
+{% block meta_description %}This older listing has been removed. See current government jobs, results, admit cards and exam guides.{% endblock %}
+{% block robots %}noindex, follow{% endblock %}
+
+{% block content %}
+<div class="page-wrapper">
+    <section class="list-section">
+        <div class="container" style="max-width:760px; padding:48px 16px;">
+            <h1 style="font-size:1.6rem; font-weight:800; color:#1e3a8a;">This listing has been removed</h1>
+            <p style="font-size:1rem; line-height:1.7; color:#334155;">
+                It was an older short entry without full details. We now publish only posts written from the
+                official notification, with eligibility, dates, fees and the selection process explained.
+            </p>
+            <ul style="font-size:1rem; line-height:2;">
+                <li><a href="{% url 'job_list' %}">Open government jobs</a></li>
+                <li><a href="{% url 'article_list' %}">Exam guides</a></li>
+                <li><a href="/">Home page</a></li>
+            </ul>
+        </div>
+    </section>
+</div>
+{% endblock %}

@@ -59,6 +59,7 @@ class StaticPagesSitemap(HttpsSitemap):
             ('certificate_verification',  0.6),
             ('about_us',                  0.4),
             ('about_authors',             0.4),
+            ('contact',                   0.3),
             ('privacy_policy',            0.3),
             ('terms_of_service',          0.3),
             ('disclaimer',                0.3),

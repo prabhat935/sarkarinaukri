@@ -5,7 +5,7 @@ from django.db.models import Q
 from wagtail.models import Page
 from content.models import (
     JobPosting, ExamResult, AdmitCard, Organization, ImportantNotification, AnswerKey, Article,
-    MIN_INDEXABLE_WORDS, word_count,
+    MIN_INDEXABLE_WORDS, word_count, written_up_jobs,
 )
 
 
@@ -14,7 +14,7 @@ class HomePage(Page):
         context = super().get_context(request, *args, **kwargs)
 
         # Latest open jobs, soonest-closing last date first
-        context['latest_jobs'] = JobPosting.open_jobs().select_related('organization').order_by('application_end_date')[:12]
+        context['latest_jobs'] = written_up_jobs(JobPosting.open_jobs().select_related('organization').order_by('application_end_date'))[:12]
         context['active_jobs_count'] = JobPosting.open_jobs().count()
 
         # Latest exam guides
@@ -125,7 +125,24 @@ def job_highlights(today=None):
         else:
             j.next_step = 'Admit card and exam date awaited'
 
+    # Category cards: only categories that have open jobs right now
+    styles = {
+        'railway': ('fa-train', 'cc-railway'), 'bank': ('fa-piggy-bank', 'cc-banking'),
+        'police': ('fa-shield-alt', 'cc-police'), 'teaching': ('fa-chalkboard-teacher', 'cc-teaching'),
+        'ssc-central': ('fa-landmark', 'cc-ssc'), 'engineering': ('fa-cogs', 'cc-upsc'),
+        'medical': ('fa-notes-medical', 'cc-teaching'), 'state-psc': ('fa-university', 'cc-ssc'),
+    }
+    by_category = {}
+    for j in open_jobs:
+        if j.exam_category:
+            by_category.setdefault(j.exam_category.slug, [j.exam_category, 0])[1] += 1
+    job_categories = []
+    for slug, (cat, count) in sorted(by_category.items(), key=lambda kv: -kv[1][1]):
+        icon, css = styles.get(slug, ('fa-briefcase', 'cc-upsc'))
+        job_categories.append({'slug': slug, 'name': cat.name, 'count': count, 'icon': icon, 'css': css})
+
     return {
+        'job_categories': job_categories,
         'closing_soon': closing_soon[:8],
         'newly_added': newly_added,
         'qualification_counts': qualification_counts,

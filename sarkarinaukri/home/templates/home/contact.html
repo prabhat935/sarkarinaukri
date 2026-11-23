@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us - Sarkari Naukri{% endblock %}
+{% block meta_description %}How to contact Sarkari Naukri: report a mistake in a job post, suggest a notification, or ask about the site.{% endblock %}
+
+{% block extra_css %}
+<style>
+.contact-wrap { max-width: 820px; margin: 0 auto; padding: 40px 16px 56px; }
+.contact-wrap h1 { font-size: clamp(24px, 4vw, 32px); font-weight: 800; color: #1e3a8a; margin-bottom: 12px; }
+.contact-wrap h2 { font-size: 20px; font-weight: 700; color: #1e293b; margin: 28px 0 10px; }
+.contact-wrap p, .contact-wrap li { font-size: 16px; line-height: 1.75; color: #334155; }
+.contact-email { display: inline-block; font-size: 18px; font-weight: 700; color: #1e3a8a; background: #eff6ff;
+                 border: 1px solid #bfdbfe; border-radius: 8px; padding: 10px 16px; margin: 6px 0 4px; text-decoration: none; }
+.contact-note { background: #fff7ed; border-left: 4px solid #f97316; padding: 14px 16px; border-radius: 6px; margin-top: 24px; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-wrapper">
+    <div class="contact-wrap">
+        <h1>Contact Us</h1>
+        <p>Sarkari Naukri is run by a small editorial team that writes every job post, result and admit card page
+            from the official notification. If something on the site is wrong or unclear, we want to hear about it.</p>
+
+        <h2>Email</h2>
+        <a class="contact-email" href="mailto:support@sarkarinaukriresult.online">support@sarkarinaukriresult.online</a>
+        <p>We read every message and usually reply within two working days.</p>
+
+        <h2>What you can write to us about</h2>
+        <ul>
+            <li><strong>A mistake in a post</strong> - a wrong date, fee, age limit or vacancy count. Please include the
+                page link and, if you can, the official notice that shows the correct detail. We check it and
+                correct the page.</li>
+            <li><strong>A notification we have missed</strong> - send the recruiter's name or a link to the official
+                notice and we will consider writing it up.</li>
+            <li><strong>Questions about the site</strong> - how we choose and check what we publish, privacy, or
+                advertising on the site.</li>
+        </ul>
+
+        <div class="contact-note">
+            <p style="margin:0;"><strong>Please note:</strong> we are not a government body and are not linked to any
+                recruiting organisation. We cannot accept job applications, change your application, or tell you your
+                result. For those, contact the recruiting body through the official website named in each post.</p>
+        </div>
+
+        <h2>More about us</h2>
+        <p>Read <a href="{% url 'about_us' %}">About Us</a> and <a href="{% url 'about_authors' %}">our editorial team
+            and how we check our posts</a>. Our <a href="{% url 'privacy_policy' %}">Privacy Policy</a> explains what data
+            the site collects.</p>
+    </div>
+</div>
+{% endblock %}

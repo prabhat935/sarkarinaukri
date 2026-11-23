@@ -10,8 +10,8 @@ def content_section_flags():
     from navigation and the sitemap so visitors never land on a blank page.
     """
     from content.models import (
-        FAQ, AdmitCard, AnswerKey, ExamResult, ImportantNotification, OnlineForm,
-        Scholarship, Syllabus,
+        FAQ, AdmitCard, AnswerKey, ExamResult, ImportantNotification, JobPosting, OnlineForm,
+        Scholarship, Syllabus, written_up_jobs,
     )
 
     return {
@@ -25,6 +25,8 @@ def content_section_flags():
         'has_admit_cards': bool(AdmitCard.listed()),
         'has_answer_keys': bool(AnswerKey.listed()),
         'has_syllabus': bool(Syllabus.listed()),
+        # Closed jobs link only once a written-up post has closed
+        'has_closed_jobs': bool(written_up_jobs(JobPosting.objects.exclude(JobPosting.open_q()))),
         # Board results are bare links to board websites with no write-up
         'has_board_results': False,
     }

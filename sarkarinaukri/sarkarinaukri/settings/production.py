@@ -75,8 +75,8 @@ GOOGLE_ADSENSE_CLIENT_ID = "ca-pub-2969963906699889"
 GOOGLE_ANALYTICS_ID = ""
 
 # Site metadata
-SITE_NAME = "SarkariNaukri"
-SITE_DESCRIPTION = "Find latest government job announcements, exam results, admit cards, and answer keys"
+SITE_NAME = "Sarkari Naukri"
+SITE_DESCRIPTION = "Government job notifications, results, admit cards and exam guides, written from official notices"
 SITE_KEYWORDS = "sarkari naukri, government jobs, exam results, admit cards"
 
 # Skip heavy sample data population during deployment

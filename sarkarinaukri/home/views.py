@@ -30,6 +30,12 @@ def about_us(request):
 
 
 @require_http_methods(["GET"])
+def contact(request):
+    """Contact page: how to reach the site and what we can help with"""
+    return render(request, 'home/contact.html')
+
+
+@require_http_methods(["GET"])
 def about_authors(request):
     """Render about authors page - E-E-A-T credibility signal"""
     return render(request, 'home/about_authors.html')

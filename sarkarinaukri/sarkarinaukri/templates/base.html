@@ -96,7 +96,7 @@
           "@type": "WebSite",
           "name": "Sarkari Naukri",
           "url": "{{ request.scheme }}://{{ request.get_host }}/",
-          "description": "India's Most Trusted Government Jobs Portal – Latest Sarkari Naukri, Results, Admit Cards, Answer Keys",
+          "description": "Government job notifications, results, admit cards and exam guides, written from official notices.",
           "potentialAction": {
             "@type": "SearchAction",
             "target": {
@@ -172,10 +172,11 @@
                         <ul class="dropdown-menu dropdown-menu-end">
                             {% if has_faqs %}<li><a class="dropdown-item" href="{% url 'faq' %}">FAQ</a></li>{% endif %}
                             <li><a class="dropdown-item" href="{% url 'job_list' %}?qualification=pg">PG / CA / MBA Jobs</a></li>
-                            <li><a class="dropdown-item" href="{% url 'job_list' %}?status=Closed">Closed Jobs</a></li>
+                            {% if has_closed_jobs %}<li><a class="dropdown-item" href="{% url 'job_list' %}?status=Closed">Closed Jobs</a></li>{% endif %}
                             <li><a class="dropdown-item" href="{% url 'certificate_verification' %}">Certificate Verification</a></li>
                             <li><a class="dropdown-item" href="{% url 'about_us' %}">About Us</a></li>
                             <li><a class="dropdown-item" href="{% url 'about_authors' %}">Editorial Team</a></li>
+                            <li><a class="dropdown-item" href="{% url 'contact' %}">Contact Us</a></li>
                         </ul>
                 </div>
                 </div>
@@ -227,6 +228,7 @@
                             <ul>
                                 <li><a href="{% url 'about_us' %}">About Us</a></li>
                                 <li><a href="{% url 'about_authors' %}">Editorial Team</a></li>
+                                <li><a href="{% url 'contact' %}">Contact Us</a></li>
                                 <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
                                 <li><a href="{% url 'terms_of_service' %}">Terms of Service</a></li>
                                 <li><a href="{% url 'disclaimer' %}">Disclaimer</a></li>

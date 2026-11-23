@@ -49,31 +49,46 @@
                 <i class="fas fa-briefcase"></i> Jobs
                 {% if type_counts.jobs %}<span class="tab-count">{{ type_counts.jobs }}</span>{% endif %}
             </a>
+            <a href="{% url 'search' %}?query={{ query|urlencode }}&type=guides"
+               class="search-tab {% if filter_type == 'guides' %}active{% endif %}">
+                <i class="fas fa-book-open"></i> Guides
+                {% if type_counts.guides %}<span class="tab-count">{{ type_counts.guides }}</span>{% endif %}
+            </a>
+            {% if type_counts.results %}
             <a href="{% url 'search' %}?query={{ query|urlencode }}&type=results"
                class="search-tab {% if filter_type == 'results' %}active{% endif %}">
                 <i class="fas fa-chart-bar"></i> Results
                 {% if type_counts.results %}<span class="tab-count">{{ type_counts.results }}</span>{% endif %}
             </a>
+            {% endif %}
+            {% if type_counts.admit %}
             <a href="{% url 'search' %}?query={{ query|urlencode }}&type=admit"
                class="search-tab {% if filter_type == 'admit' %}active{% endif %}">
                 <i class="fas fa-id-card"></i> Admit Cards
                 {% if type_counts.admit %}<span class="tab-count">{{ type_counts.admit }}</span>{% endif %}
             </a>
+            {% endif %}
+            {% if type_counts.answer %}
             <a href="{% url 'search' %}?query={{ query|urlencode }}&type=answer"
                class="search-tab {% if filter_type == 'answer' %}active{% endif %}">
                 <i class="fas fa-key"></i> Answer Keys
                 {% if type_counts.answer %}<span class="tab-count">{{ type_counts.answer }}</span>{% endif %}
             </a>
+            {% endif %}
+            {% if type_counts.syllabus %}
             <a href="{% url 'search' %}?query={{ query|urlencode }}&type=syllabus"
                class="search-tab {% if filter_type == 'syllabus' %}active{% endif %}">
                 <i class="fas fa-book"></i> Syllabus
                 {% if type_counts.syllabus %}<span class="tab-count">{{ type_counts.syllabus }}</span>{% endif %}
             </a>
+            {% endif %}
+            {% if type_counts.notify %}
             <a href="{% url 'search' %}?query={{ query|urlencode }}&type=notify"
                class="search-tab {% if filter_type == 'notify' %}active{% endif %}">
                 <i class="fas fa-bell"></i> Notifications
                 {% if type_counts.notify %}<span class="tab-count">{{ type_counts.notify }}</span>{% endif %}
             </a>
+            {% endif %}
         </div>
 
         <!-- Results Header -->
@@ -101,6 +116,8 @@
                         <span class="search-type-badge stb-answer"><i class="fas fa-key"></i> Answer Key</span>
                     {% elif item.type == 'syllabus' %}
                         <span class="search-type-badge stb-syllabus"><i class="fas fa-book"></i> Syllabus</span>
+                    {% elif item.type == 'guides' %}
+                        <span class="search-type-badge stb-syllabus"><i class="fas fa-book-open"></i> Guide</span>
                     {% elif item.type == 'notify' %}
                         <span class="search-type-badge stb-notify"><i class="fas fa-bell"></i> Notification</span>
                     {% endif %}

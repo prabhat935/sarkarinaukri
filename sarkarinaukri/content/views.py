@@ -8,8 +8,24 @@ import django_filters
 from .models import (
     JobPosting, ExamResult, AdmitCard, Syllabus, AnswerKey,
     Organization, ExamCategory, State, AdmissionForm, CertificateVerification,
-    BoardExamResult, Scholarship, ImportantNotification, OnlineForm, Article, FAQ
+    BoardExamResult, Scholarship, ImportantNotification, OnlineForm, Article, FAQ,
+    written_up_jobs,
 )
+
+
+class GoneIfThinMixin:
+    """Old one-line placeholder entries answer 410 Gone with a short page
+    pointing to real content, so neither visitors nor search engines land on
+    an empty page. Only entries with a real write-up are shown."""
+    def is_substantial(self, obj):
+        return obj.is_indexable
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if not self.is_substantial(self.object):
+            return render(request, 'content/removed.html', status=410)
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
 
 
 # ============= FILTER CLASSES =============
@@ -78,6 +94,9 @@ class JobListView(ListView):
         # Qualification buttons on the homepage: "engineering" matches the job
         # category, the others the job's qualification level
         qualification = self.request.GET.get('qualification')
+        category = self.request.GET.get('category')
+        if category:
+            queryset = queryset.filter(exam_category__slug=category)
         if qualification == 'engineering':
             queryset = queryset.filter(exam_category__slug='engineering')
         elif qualification:
@@ -87,7 +106,8 @@ class JobListView(ListView):
         params = self.request.GET.copy()
         params.pop('status', None)  # handled above
         filterset = JobPostingFilter(params, queryset=queryset)
-        return filterset.qs
+        # Only posts with a real write-up; old placeholders are not listed
+        return written_up_jobs(filterset.qs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -100,21 +120,24 @@ class JobListView(ListView):
         return context
 
 
-class JobDetailView(DetailView):
+class JobDetailView(GoneIfThinMixin, DetailView):
     """Job detail page with related jobs"""
     model = JobPosting
     template_name = 'content/job_detail.html'
     context_object_name = 'job'
     slug_field = 'slug'
 
+    def is_substantial(self, obj):
+        return obj.is_written_up
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         job = self.get_object()
         
         # Show related jobs from same organization
-        context['related_jobs'] = JobPosting.open_jobs().filter(
+        context['related_jobs'] = written_up_jobs(JobPosting.open_jobs().filter(
             organization=job.organization
-        ).exclude(pk=job.pk)[:5]
+        ).exclude(pk=job.pk))[:5]
         
         # Check if user has saved this job
         if self.request.user.is_authenticated:
@@ -173,7 +196,7 @@ class ResultListView(ListView):
         return context
 
 
-class ResultDetailView(DetailView):
+class ResultDetailView(GoneIfThinMixin, DetailView):
     """Result detail page"""
     model = ExamResult
     template_name = 'content/result_detail.html'
@@ -211,7 +234,7 @@ class AdmitCardListView(ListView):
         return context
 
 
-class AdmitCardDetailView(DetailView):
+class AdmitCardDetailView(GoneIfThinMixin, DetailView):
     """Admit card detail page"""
     model = AdmitCard
     template_name = 'content/admit_card_detail.html'
@@ -267,7 +290,7 @@ class SyllabusListView(ListView):
         return context
 
 
-class SyllabusDetailView(DetailView):
+class SyllabusDetailView(GoneIfThinMixin, DetailView):
     """Syllabus detail page"""
     model = Syllabus
     template_name = 'content/syllabus_detail.html'

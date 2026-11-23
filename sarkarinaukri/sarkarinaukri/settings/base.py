@@ -184,7 +184,7 @@ GOOGLE_ADSENSE_ENABLED = os.environ.get('GOOGLE_ADSENSE_ENABLED', 'False') == 'T
 
 # SEO & Monetization
 SITE_NAME = 'Sarkari Naukri'
-SITE_DESCRIPTION = 'India\'s most trusted government jobs, exam results, and notifications portal'
+SITE_DESCRIPTION = 'Government job notifications, results, admit cards and exam guides, written from official notices'
 SITE_KEYWORDS = 'government jobs, sarkari naukri, exam results, admit cards, scholarships, SSC, UPSC, bank jobs'
 
 

@@ -14,12 +14,16 @@
 .hp-stack { display:flex; flex-direction:column; }
 .sb-jobs .sbr-link, .hp-stack .sbr-link { -webkit-line-clamp: 2; }
 .hl-bar { background:#fff; padding:8px 0; }
+.hp-intro { background:#fff; border-bottom:1px solid #e5e7eb; }
+.hp-intro p { margin:0; padding:14px 0 16px; font-size:.95rem; line-height:1.7; color:#334155; }
+.hp-intro a { color:#1d4ed8; font-weight:600; }
 .hl-line { overflow:hidden; padding:8px 0; margin:5px 0; border-radius:6px; white-space:nowrap; }
 .hl-line:nth-child(3n+1) { background:#fef3c7; }
 .hl-line:nth-child(3n+2) { background:#dbeafe; }
 .hl-line:nth-child(3n)   { background:#dcfce7; }
-.hl-track { display:inline-flex; align-items:center; width:max-content; animation: ticker-move 40s linear infinite; }
-.hl-reverse { animation-direction: reverse; }
+.hl-track { display:inline-flex; align-items:center; width:max-content; }
+.hl-track.hl-ready { animation: ticker-move 40s linear infinite; }
+.hl-reverse.hl-ready { animation-direction: reverse; }
 .hl-line:hover .hl-track { animation-play-state: paused; }
 .hl-link { font-size:1.02rem; font-weight:700; color:#b91c1c; text-decoration:none; padding:0 4px; }
 .hl-line:nth-child(3n+2) .hl-link { color:#1d4ed8; }
@@ -83,12 +87,12 @@ a.ticker-item:hover { color: var(--accent-light); text-decoration: underline; }
         {% for line in highlight_lines %}
         <div class="hl-line">
             <div class="hl-track{% if forloop.counter|divisibleby:2 %} hl-reverse{% endif %}">
-                {% for copy in "1234" %}{# repeated so the scroll loops without a gap #}
+                
                 {% for job in line %}
-                <a href="{% url 'job_detail' job.pk %}" class="hl-link"{% if copy != "1" %} tabindex="-1" aria-hidden="true"{% endif %}>{{ job.short_title }}{% if job.vacancies %} ({{ job.vacancies }} Posts){% endif %}{% if job.application_end_date %} <span class="hl-date">Last Date {{ job.application_end_date|date:"d M" }}</span>{% endif %}</a>
+                <a href="{% url 'job_detail' job.pk %}" class="hl-link">{{ job.short_title }}{% if job.vacancies %} ({{ job.vacancies }} Posts){% endif %}{% if job.application_end_date %} <span class="hl-date">Last Date {{ job.application_end_date|date:"d M" }}</span>{% endif %}</a>
                 <span class="hl-sep">||</span>
                 {% endfor %}
-                {% endfor %}
+                
             </div>
         </div>
         {% empty %}
@@ -97,7 +101,37 @@ a.ticker-item:hover { color: var(--accent-light); text-decoration: underline; }
     </div>
 </div>
 
+
+<script>
+/* Each scrolling line holds one copy of its links in the page; copies for the
+   seamless loop are added here, hidden from screen readers and keyboard focus. */
+document.querySelectorAll('.hl-track').forEach(function (track) {
+    var original = Array.prototype.slice.call(track.children);
+    for (var i = 0; i < 3; i++) {
+        original.forEach(function (node) {
+            var copy = node.cloneNode(true);
+            copy.setAttribute('aria-hidden', 'true');
+            if (copy.tagName === 'A') copy.setAttribute('tabindex', '-1');
+            track.appendChild(copy);
+        });
+    }
+    track.classList.add('hl-ready');
+});
+</script>
+
 <h1 class="visually-hidden">Sarkari Naukri 2026: Government Jobs, Exam Dates and Guides</h1>
+<section class="hp-intro">
+    <div class="container">
+        <p><strong>Sarkari Naukri</strong> covers central and state government jobs, results and admit cards for
+        students across India. Every post is written by our editorial team from the recruiter's official
+        notification: we check the vacancies, eligibility, age limits, fees, selection process and dates, explain
+        what they mean in plain language, and link to the official website to apply. We do not copy other job
+        portals, and we are not connected with any government body. Read <a href="/about-authors/">how we check
+        our posts</a>, browse our <a href="/content/guides/">exam guides</a>, or <a href="/contact/">contact us</a>
+        to report a mistake.</p>
+    </div>
+</section>
+
 
 <!-- ===== DYNAMIC COLORFUL DATA SECTIONS ===== -->
 <section class="hp-sections">
@@ -331,65 +365,22 @@ a.ticker-item:hover { color: var(--accent-light); text-decoration: underline; }
         <div class="section-header">
             <h2 class="section-title">
                 <i class="fas fa-th-large section-icon"></i>
-                Popular Exam Categories
+                Open Jobs by Category
             </h2>
-            <p class="section-subtitle">Explore government jobs by category and find your perfect career path</p>
+            <p class="section-subtitle">Current vacancies grouped by type of recruiter</p>
         </div>
 
         <div class="categories-grid">
-            <a href="/search/?query=SSC" class="category-card cc-ssc">
-                <div class="category-icon"><i class="fas fa-file-alt"></i></div>
+            {% for cat in job_categories %}
+            <a href="/content/jobs/?category={{ cat.slug }}" class="category-card {{ cat.css }}">
+                <div class="category-icon"><i class="fas {{ cat.icon }}"></i></div>
                 <div class="category-content">
-                    <h3>SSC Exams</h3>
-                    <p>CGL, CHSL, MTS, GD, Steno &amp; More</p>
+                    <h3>{{ cat.name }}</h3>
+                    <p>{{ cat.count }} open job{{ cat.count|pluralize }}</p>
                 </div>
                 <div class="category-arrow"><i class="fas fa-chevron-right"></i></div>
             </a>
-
-            <a href="/search/?query=UPSC" class="category-card cc-upsc">
-                <div class="category-icon"><i class="fas fa-crown"></i></div>
-                <div class="category-content">
-                    <h3>UPSC Exams</h3>
-                    <p>Civil Services, NDA, CDS, CAPF</p>
-                </div>
-                <div class="category-arrow"><i class="fas fa-chevron-right"></i></div>
-            </a>
-
-            <a href="/search/?query=Banking" class="category-card cc-banking">
-                <div class="category-icon"><i class="fas fa-piggy-bank"></i></div>
-                <div class="category-content">
-                    <h3>Banking Jobs</h3>
-                    <p>IBPS, SBI, RBI, Insurance, NABARD</p>
-                </div>
-                <div class="category-arrow"><i class="fas fa-chevron-right"></i></div>
-            </a>
-
-            <a href="/search/?query=Police" class="category-card cc-police">
-                <div class="category-icon"><i class="fas fa-shield-alt"></i></div>
-                <div class="category-content">
-                    <h3>Police &amp; Defence</h3>
-                    <p>Army, Navy, Air Force, CRPF, BSF</p>
-                </div>
-                <div class="category-arrow"><i class="fas fa-chevron-right"></i></div>
-            </a>
-
-            <a href="/search/?query=Teaching" class="category-card cc-teaching">
-                <div class="category-icon"><i class="fas fa-chalkboard-teacher"></i></div>
-                <div class="category-content">
-                    <h3>Teaching Jobs</h3>
-                    <p>TET, CTET, KVS, NVS, State TET</p>
-                </div>
-                <div class="category-arrow"><i class="fas fa-chevron-right"></i></div>
-            </a>
-
-            <a href="/search/?query=Railway" class="category-card cc-railway">
-                <div class="category-icon"><i class="fas fa-train"></i></div>
-                <div class="category-content">
-                    <h3>Railway Jobs</h3>
-                    <p>RRB NTPC, Group D, ALP, JE</p>
-                </div>
-                <div class="category-arrow"><i class="fas fa-chevron-right"></i></div>
-            </a>
+            {% endfor %}
         </div>
     </div>
 </section>

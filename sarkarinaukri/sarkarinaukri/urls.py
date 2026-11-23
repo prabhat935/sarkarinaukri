@@ -61,6 +61,7 @@ urlpatterns = [
     path("disclaimer/", home_views.disclaimer, name="disclaimer"),
     path("about-us/", home_views.about_us, name="about_us"),
     path("about-authors/", home_views.about_authors, name="about_authors"),
+    path("contact/", home_views.contact, name="contact"),
 ]
 
 

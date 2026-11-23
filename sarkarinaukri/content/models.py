@@ -102,6 +102,16 @@ def substantive(queryset, *text_fields):
     return [o for o in queryset.annotate(**annotations).filter(long_enough) if o.is_indexable]
 
 
+def written_up_jobs(queryset):
+    """Job posts with a real write-up (open or closed). Old one-line placeholder
+    posts are left out of every list, search and page on the site."""
+    from django.db.models.functions import Length
+    qs = queryset.annotate(_len_description=Length('description')).filter(
+        _len_description__gte=MIN_INDEXABLE_WORDS * 2
+    )
+    return [j for j in qs if j.is_written_up]
+
+
 class JobPosting(models.Model):
     """Government job notifications"""
     
@@ -180,6 +190,11 @@ class JobPosting(models.Model):
 
     def __str__(self):
         return self.title
+
+    @property
+    def is_written_up(self):
+        """Has a real description, not an old one-line placeholder."""
+        return word_count(self.description) >= MIN_INDEXABLE_WORDS
 
     @property
     def short_title(self):
