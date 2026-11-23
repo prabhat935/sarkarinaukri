@@ -12,11 +12,12 @@ from wagtail.documents import urls as wagtaildocs_urls
 from search import views as search_views
 from home import views as home_views
 from .sitemaps import sitemaps
-from content.search_ping import INDEXNOW_KEY
+from content.search_ping import INDEXNOW_KEY, SITE_URL
 
 
 def robots_txt(request):
-    host = request.build_absolute_uri('/').rstrip('/')
+    # Always the www address, the one the site is served on
+    host = SITE_URL if request.get_host().split(':')[0].endswith('sarkarinaukriresult.online')         else request.build_absolute_uri('/').rstrip('/')
     lines = [
         "User-agent: *",
         "Disallow: /django-admin/",

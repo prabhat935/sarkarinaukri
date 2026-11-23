@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}{{ job.short_title }}{% if job.vacancies %} ({{ job.vacancies }} Posts){% endif %} - Sarkari Naukri{% endblock %}
+{% block title %}{% with t=job.short_title %}{{ t }}{% if job.vacancies %} ({{ job.vacancies }} Posts){% endif %}{% if t|length <= 45 %} - Sarkari Naukri{% endif %}{% endwith %}{% endblock %}
 {% block meta_description %}{{ job.meta_description|default:job.description|truncatechars:160 }}{% endblock %}
 {% block nav_jobs %}active{% endblock %}
 {% block body_class %}page-jobs{% endblock %}

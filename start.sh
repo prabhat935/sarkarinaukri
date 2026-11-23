@@ -43,4 +43,4 @@ echo "==> Running daily SEO update..."
 python manage.py daily_seo_update
 
 echo "==> Starting gunicorn..."
-exec gunicorn sarkarinaukri.wsgi --log-file -
+exec gunicorn sarkarinaukri.wsgi --workers 2 --threads 4 --timeout 60 --log-file -

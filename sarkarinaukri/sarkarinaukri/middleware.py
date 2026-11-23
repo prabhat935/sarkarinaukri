@@ -14,6 +14,8 @@ class CanonicalHostMiddleware:
 
     def __call__(self, request):
         host = request.get_host().split(':')[0].lower()
-        if host == BARE_HOST:
+        # ads.txt and robots.txt are answered on both addresses: crawlers such
+        # as AdSense's check them at the bare domain and should not need a redirect
+        if host == BARE_HOST and request.path not in ('/ads.txt', '/robots.txt'):
             return HttpResponsePermanentRedirect(f'https://{CANONICAL_HOST}{request.get_full_path()}')
         return self.get_response(request)
