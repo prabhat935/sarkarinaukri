@@ -25,6 +25,7 @@ ORGANIZATIONS = [
     {'name': 'Banaras Hindu University (BHU)', 'slug': 'bhu', 'website': 'https://www.bhu.ac.in'},
     {'name': 'RSSB Rajasthan', 'slug': 'rssb', 'website': 'https://rssb.rajasthan.gov.in'},
     {'name': 'Bihar Vidhan Sabha', 'slug': 'bihar-vidhan-sabha', 'website': 'https://vidhansabha.bihar.gov.in'},
+    {'name': 'Union Public Service Commission', 'slug': 'upsc', 'website': 'https://www.upsc.gov.in'},
 ]
 
 
@@ -860,6 +861,77 @@ VERIFIED_JOBS = [
             'Important dates: apply online from 7 November to 6 December 2026, which is also the last day for '
             'the fee. If you will type in Hindi, practise on the Kruti Dev layout now; it is different from '
             'phonetic Hindi typing.'
+        ),
+    },
+    {
+        # Source: UPSC Advertisement No. 13/2026, published 14 Nov 2026 (official PDF on upsc.gov.in)
+        'slug': 'upsc-advt-13-2026-dental-surgeon-ayush-scientist-b',
+        'location': ('Dholpur House, Shahjahan Road', 'New Delhi', 'Delhi', '110069'),
+        'qualification': 'graduate',
+        'title': 'UPSC Advt 13/2026: Dental Surgeon, Ayurveda and Homeopathic Physician, Scientist B (13 Posts)',
+        'organization': 'upsc',
+        'category': 'medical',
+        'vacancies': 13,
+        'application_start_date': datetime.date(2026, 11, 14),
+        'application_end_date': datetime.date(2026, 12, 4),
+        'exam_date': None,
+        'max_age': 40,
+        'min_age': None,
+        'salary_min': Decimal('56100'),
+        'salary_max': Decimal('177500'),
+        'application_fee': Decimal('25'),
+        'application_link': 'https://upsconline.nic.in',
+        'meta_description': (
+            'UPSC Advt 13/2026: 5 Dental Surgeon, 2 Ayurveda Physician, 1 Homeopathic Physician and 5 Scientist B '
+            'posts at Pay Level 10. Apply on upsconline.nic.in by 6 pm, 4 Dec 2026.'
+        ),
+        'eligibility': (
+            'Dental Surgeon (5 posts): a recognised BDS degree under the Dentists Act, 1948 (or the older or '
+            'foreign dental qualifications the Act recognises), registration with a State Dental Council, and '
+            'completion of the compulsory rotating internship. You can apply before finishing the internship, '
+            'but it must be done before appointment.\n\n'
+            'Ayurveda Physician (2 posts): a degree in Ayurveda recognised under the Indian Medicine Central '
+            'Council Act, 1970, and enrolment on the Central or a State Register of Indian Medicine.\n\n'
+            'Homeopathic Physician (1 post): a degree in Homoeopathy recognised under the Homoeopathic Central '
+            'Council Act, 1973, and enrolment on the Central or a State Register of Homoeopathy.\n\n'
+            'Scientist B (5 posts): a Master\'s degree in Botany, Horticulture or Organic Chemistry. A doctorate '
+            'in the same subject is desirable. The posts are split as 3 for Botany, 1 for Horticulture and 1 for '
+            'Organic Chemistry.\n\n'
+            'Upper age limit: 35 for unreserved and EWS candidates, 38 for OBC (Scientist B only) and 40 for SC. '
+            'Candidates with benchmark disabilities get up to 10 more years. Age and all other eligibility are '
+            'judged on the closing date, 4 December 2026, except for Scientist B, where the original closing '
+            'date of 3 July 2026 still applies.'
+        ),
+        'description': (
+            'The Union Public Service Commission has advertised 13 Group A gazetted posts under Advertisement No. '
+            '13/2026. All are at Level 10 of the 7th Pay Commission pay matrix (Rs 56,100 to 1,77,500 basic), '
+            'and the two NDMC physician posts also carry a non-practising allowance.\n\n'
+            'The posts:\n'
+            '1. Dental Surgeon, Ministry of Health and Family Welfare: 5 vacancies (UR 3, EWS 1, SC 1), one '
+            'reserved for a candidate with a benchmark disability (hearing impairment). Work is in the OPDs and '
+            'wards of Safdarjung Hospital, Dr. RML Hospital and RHTC Najafgarh, and treating CGHS beneficiaries. '
+            'Headquarters anywhere in India; probation one year.\n'
+            '2. Ayurveda Physician, New Delhi Municipal Council: 2 vacancies (UR 1, EWS 1). OPD and IPD work, '
+            'running an Ayurveda unit and attending health camps. Based in New Delhi; private practice is not '
+            'allowed.\n'
+            '3. Homeopathic Physician, New Delhi Municipal Council: 1 vacancy (EWS). Same duties for a '
+            'Homoeopathy unit, also in New Delhi.\n'
+            '4. Scientist B, Botanical Survey of India (Ministry of Environment, Forest and Climate Change): 5 '
+            'vacancies (UR 2, EWS 1, OBC 1, SC 1). Research on plant taxonomy, identifying plants, field '
+            'excursions and supervising technical staff. Based at the CGO Complex, Salt Lake, Kolkata; probation '
+            'two years.\n\n'
+            'Note on Scientist B: these 5 posts were first advertised in Advertisement No. 06/2026 (closing date '
+            '3 July 2026). They are being advertised again only because the posts are now also open to candidates '
+            'with hearing impairment, specific learning disability, mental illness or multiple disabilities. If you '
+            'applied under 06/2026 you do not need to apply again; you can edit your old application if you wish.\n\n'
+            'Selection: UPSC usually shortlists candidates from the information in their online application and '
+            'then interviews them; it may hold a Recruitment Test first if many people apply. Shortlisting can be '
+            'based on higher qualifications or more experience than the minimum, so fill in every qualification '
+            'and upload clear, signed certificates. The minimum interview score is 50 out of 100 for unreserved, '
+            '45 for OBC and 40 for SC, ST and disabled candidates.\n\n'
+            'Fee: Rs 25, paid online by card, UPI or net banking. Women, SC, ST and disabled candidates pay no fee.\n\n'
+            'Important dates: apply on upsconline.nic.in from 14 November 2026 until 6 pm on 4 December 2026. '
+            'Interview dates will be announced separately.'
         ),
     },
 ]
