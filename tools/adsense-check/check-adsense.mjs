@@ -136,6 +136,13 @@ async function siteChecks(home) {
     }
   }
 
+  // Misrepresentation: a site about government jobs, schemes or forms must say on
+  // every page that it is not an official government site
+  const footText = strip(footerHtml(home.body));
+  if (/\b(sarkari|government|govt|yojana|official notification)\b/i.test(strip(home.body)) &&
+      !/not (?:a |an )?(?:official )?government|not affiliated|independent (?:website|site)/i.test(footText))
+    err('Misrepresentation', '/', 'Government-related site with no "independent, not a government website" notice in the footer; reviewers can treat it as impersonating an official source.');
+
   // AdSense code and ads.txt
   const client = (home.body.match(/ca-pub-\d{10,}/) || [])[0];
   if (!client) err('AdSense code', '/', 'No AdSense script (ca-pub-...) on the homepage; AdSense cannot verify the site.');
