@@ -868,7 +868,7 @@ VERIFIED_JOBS = [
         'slug': 'upsc-advt-13-2026-dental-surgeon-ayush-scientist-b',
         'location': ('Dholpur House, Shahjahan Road', 'New Delhi', 'Delhi', '110069'),
         'qualification': 'graduate',
-        'title': 'UPSC Advt 13/2026: Dental Surgeon, Ayurveda and Homeopathic Physician, Scientist B (13 Posts)',
+        'title': 'UPSC Dental Surgeon, AYUSH Physician and Scientist B Recruitment 2026 (13 Posts, Advt 13/2026)',
         'organization': 'upsc',
         'category': 'medical',
         'vacancies': 13,

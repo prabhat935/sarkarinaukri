@@ -1,0 +1,13 @@
+{
+  "name": "adsense-check",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Audits the deployed site for common Google AdSense rejection reasons. Kept out of the repo root so Railway's builder still treats the project as Python.",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "check:adsense": "node check-adsense.mjs"
+  }
+}

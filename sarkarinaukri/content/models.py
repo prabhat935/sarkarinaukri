@@ -209,6 +209,17 @@ class JobPosting(models.Model):
         return self.title.split(' (')[0].replace(' Recruitment', '').strip()
 
     @property
+    def page_title(self):
+        """<title> text kept within about 70 characters so Google shows it whole:
+        the post count and site name are added only while they fit."""
+        t = self.short_title
+        if self.vacancies and len(t) + len(f' ({self.vacancies} Posts)') <= 70:
+            t += f' ({self.vacancies} Posts)'
+        if len(t) <= 53:
+            t += ' - Sarkari Naukri'
+        return t
+
+    @property
     def days_remaining(self):
         from datetime import date
         if self.application_end_date:
