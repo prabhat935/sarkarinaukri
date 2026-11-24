@@ -882,8 +882,8 @@ VERIFIED_JOBS = [
         'application_fee': Decimal('25'),
         'application_link': 'https://upsconline.nic.in',
         'meta_description': (
-            'UPSC Advt 13/2026: 5 Dental Surgeon, 2 Ayurveda Physician, 1 Homeopathic Physician and 5 Scientist B '
-            'posts at Pay Level 10. Apply on upsconline.nic.in by 6 pm, 4 Dec 2026.'
+            'UPSC Advt 13/2026: 13 Dental Surgeon, Ayurveda and Homeopathic Physician and Scientist B posts at '
+            'Pay Level 10. Apply by 6 pm, 4 Dec 2026.'
         ),
         'eligibility': (
             'Dental Surgeon (5 posts): a recognised BDS degree under the Dentists Act, 1948 (or the older or '
@@ -945,6 +945,10 @@ class Command(BaseCommand):
             Organization.objects.get_or_create(slug=org['slug'], defaults=org)
 
         for data in VERIFIED_JOBS:
+            # Postgres rejects over-long values and would stop the deploy; SQLite does not check
+            if len(data['meta_description']) > 160:
+                self.stderr.write(f"  Skipped {data['slug']}: meta_description over 160 characters")
+                continue
             org = Organization.objects.get(slug=data['organization'])
             category = ExamCategory.objects.filter(slug=data['category']).first()
             end = data['application_end_date']
