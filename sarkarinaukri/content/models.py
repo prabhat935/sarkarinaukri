@@ -209,12 +209,20 @@ class JobPosting(models.Model):
         return self.title.split(' (')[0].replace(' Recruitment', '').strip()
 
     @property
+    def vacancy_label(self):
+        """'2861 Slots' for apprenticeships (training seats, not jobs), else '13 Posts'."""
+        if not self.vacancies:
+            return ''
+        word = 'Slots' if 'slots' in self.title.lower() else ('Post' if self.vacancies == 1 else 'Posts')
+        return f'{self.vacancies} {word}'
+
+    @property
     def page_title(self):
         """<title> text kept within about 70 characters so Google shows it whole:
         the post count and site name are added only while they fit."""
         t = self.short_title
-        if self.vacancies and len(t) + len(f' ({self.vacancies} Posts)') <= 70:
-            t += f' ({self.vacancies} Posts)'
+        if self.vacancies and len(t) + len(f' ({self.vacancy_label})') <= 70:
+            t += f' ({self.vacancy_label})'
         if len(t) <= 53:
             t += ' - Sarkari Naukri'
         return t

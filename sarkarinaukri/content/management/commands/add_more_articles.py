@@ -69,7 +69,7 @@ Attempt mock tests where you write answers in real exam conditions — no breaks
 """,
     },
     {
-        'title': 'Current Affairs for Government Exams: Best Sources and How to Notes-Taking',
+        'title': 'Current Affairs for Government Exams: Best Sources and How to Take Notes',
         'slug': 'current-affairs-government-exams-best-sources',
         'category': 'preparation',
         'published_date': datetime.date(2026, 5, 12),

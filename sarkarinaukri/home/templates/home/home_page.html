@@ -90,7 +90,7 @@ a.ticker-item:hover { color: var(--accent-light); text-decoration: underline; }
             <div class="hl-track{% if forloop.counter|divisibleby:2 %} hl-reverse{% endif %}">
                 
                 {% for job in line %}
-                <a href="{% url 'job_detail' job.pk %}" class="hl-link">{{ job.short_title }}{% if job.vacancies %} ({{ job.vacancies }} Posts){% endif %}{% if job.application_end_date %} <span class="hl-date">Last Date {{ job.application_end_date|date:"d M" }}</span>{% endif %}</a>
+                <a href="{% url 'job_detail' job.pk %}" class="hl-link">{{ job.short_title }}{% if job.vacancies %} ({{ job.vacancy_label }}){% endif %}{% if job.application_end_date %} <span class="hl-date">Last Date {{ job.application_end_date|date:"d M" }}</span>{% endif %}</a>
                 <span class="hl-sep">||</span>
                 {% endfor %}
                 
