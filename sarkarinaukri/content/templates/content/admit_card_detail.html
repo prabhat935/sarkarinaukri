@@ -29,7 +29,12 @@
                             </div>
                             <div class="detail-meta-top">
                                 <span class="detail-org">{{ admit_card.organization }}</span>
+                                {% now "Y-m-d" as today %}
+                                {% if admit_card.admit_card_date|date:"Y-m-d" > today %}
+                                <span class="status-badge badge-awaited">Admit Card Expected {{ admit_card.admit_card_date|date:"d M" }}</span>
+                                {% else %}
                                 <span class="status-badge badge-active">Admit Card Available</span>
+                                {% endif %}
                             </div>
                         </div>
                         <div class="detail-card-body">
@@ -51,7 +56,7 @@
                                     <span class="info-value">{{ admit_card.exam_date|date:"d M Y" }}</span>
                                 </div>
                                 <div class="info-item">
-                                    <span class="info-label"><i class="fas fa-download"></i> Card Released</span>
+                                    <span class="info-label"><i class="fas fa-download"></i> {% if admit_card.admit_card_date|date:"Y-m-d" > today %}Card Expected (tentative){% else %}Card Released{% endif %}</span>
                                     <span class="info-value">{{ admit_card.admit_card_date|date:"d M Y" }}</span>
                                 </div>
                                 {% if admit_card.exam_time %}

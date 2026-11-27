@@ -110,7 +110,66 @@ ADMIT_CARDS = [
             'certificate. SBI does not pay travel allowance for the exam.'
         ),
     },
+    {
+        # Source: SSC notice HQ-IT018/4/2024-IT (Comp. No. 10517) dated 23.11.2026, "Information regarding
+        # the city of examination and Admission Certificate... CHSL Examination, 2026 (Tier-I)", ssc.gov.in
+        'slug': 'ssc-chsl-2026-tier-1-admit-card',
+        'exam_name': 'SSC CHSL 2026 Tier-I (10+2 Level)',
+        'organization': 'ssc',
+        'category': 'ssc-central',
+        'exam_date': datetime.date(2026, 12, 3),
+        # Tentative: "two/three days" before each candidate's exam, and the first exams are on 3 Dec
+        'admit_card_date': datetime.date(2026, 11, 30),
+        'download_link': 'https://ssc.gov.in',
+        'exam_duration': '',
+        'description': (
+            'The Staff Selection Commission will hold the computer-based Tier-I exam of the Combined Higher '
+            'Secondary (10+2) Level Examination, 2026 (CHSL) from 3 December to 31 December 2026. In a notice '
+            'dated 23 November 2026, SSC said candidates can now see the city of their exam by logging in on '
+            'ssc.gov.in.\n\n'
+            'Exam city and admit card: your exam city can be checked now. The Admission Certificate (admit '
+            'card) itself will tentatively be available two or three days before your own exam date, through '
+            'the same login. So if your exam is on 15 December, expect your admit card around 12 or 13 '
+            'December; candidates with exams in the first days of December should check from 30 November. '
+            'SSC does not send admit cards by post.\n\n'
+            'How to check: open ssc.gov.in, log in with your registration number and password, and open the '
+            'CHSL 2026 entry to see your exam city now and to download the Admission Certificate once it is '
+            'released for your date. Plan your travel as soon as you know the city; the exact centre address '
+            'appears only on the admit card. SSC\'s detailed instructions are in its notice of 7 September '
+            '2026.\n\n'
+            'Candidates using their own scribe: the scribe must have a fresh registration on the SSC website, '
+            'because scribe registrations made before 5 November 2025 have been cancelled, and scribe '
+            'registration now requires Aadhaar authentication. You must then map your scribe\'s registration '
+            '(OTR) number in your login by 11 pm on 28 November 2026. A Scribe Entry Pass is generated only '
+            'for candidates who complete this mapping, so do not leave it to the last day. The maximum age of '
+            'a scribe follows SSC\'s updated policy of 4 November 2025; the other scribe rules are as given in '
+            'the CHSL 2026 notice.'
+        ),
+        'instructions': (
+            'As soon as your Admission Certificate is released, download it and check your name, photograph, '
+            'exam date, shift, reporting time and centre address. If anything is wrong, contact the SSC '
+            'regional office for your region (listed on ssc.gov.in) before the exam day.\n\n'
+            'Carry exactly the documents your Admission Certificate asks for. These normally include a clear '
+            'printout of the admit card and an original photo identity document; if your photo ID does not '
+            'show your date of birth, SSC usually asks for a separate proof of date of birth. Where the '
+            'instructions printed on your card differ from this page, follow the card.\n\n'
+            'Reach the centre well before the reporting time; entry closes before the exam starts. Candidates '
+            'with a scribe must bring the Scribe Entry Pass. Mobile phones and other electronic devices are '
+            'not allowed inside; the admit card lists the full set of prohibited items.'
+        ),
+    },
 ]
+
+
+ORG_NAMES = {'ssc': 'Staff Selection Commission'}
+
+
+def org_for(slug):
+    """The organisation by slug, or by its full name if it was added under another slug."""
+    org = Organization.objects.filter(slug=slug).first()
+    if org is None and slug in ORG_NAMES:
+        org = Organization.objects.filter(name__iexact=ORG_NAMES[slug]).first()
+    return org
 
 
 class Command(BaseCommand):
@@ -118,9 +177,15 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         new_urls = []
+        # Conducting bodies these posts need, in case the database does not have them yet
+        # (names are unique too, so look for either before creating; a clash would stop the deploy)
+        for slug, name, website in [('ssc', 'Staff Selection Commission', 'https://ssc.gov.in')]:
+            if not Organization.objects.filter(slug=slug).exists() and \
+                    not Organization.objects.filter(name__iexact=name).exists():
+                Organization.objects.create(slug=slug, name=name, website=website)
 
         for data in RESULTS:
-            org = Organization.objects.filter(slug=data['organization']).first()
+            org = org_for(data['organization'])
             if org is None:
                 self.stdout.write(self.style.WARNING(f"  SKIP (no org {data['organization']}): {data['slug']}"))
                 continue
@@ -144,7 +209,7 @@ class Command(BaseCommand):
                 new_urls.append(f'{SITE_URL}/content/result/{obj.pk}/')
 
         for data in ADMIT_CARDS:
-            org = Organization.objects.filter(slug=data['organization']).first()
+            org = org_for(data['organization'])
             if org is None:
                 self.stdout.write(self.style.WARNING(f"  SKIP (no org {data['organization']}): {data['slug']}"))
                 continue
