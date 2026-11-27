@@ -70,6 +70,8 @@ urlpatterns = [
     path("tools/exam-score-calculator/", home_views.score_calculator, name="score_calculator"),
     path("tools/cgpa-to-percentage/", home_views.cgpa_converter, name="cgpa_converter"),
     path("tools/exam-countdown/", home_views.exam_countdown, name="exam_countdown"),
+    path("tools/job-eligibility-finder/", home_views.eligibility_finder, name="eligibility_finder"),
+    path("tools/hindi-typing-test/", home_views.hindi_typing_test, name="hindi_typing_test"),
     path("about-authors/", home_views.about_authors, name="about_authors"),
     path("contact/", home_views.contact, name="contact"),
 ]

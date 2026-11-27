@@ -54,6 +54,8 @@ class StaticPagesSitemap(HttpsSitemap):
             ('score_calculator',          0.8),
             ('cgpa_converter',            0.8),
             ('exam_countdown',            0.8),
+            ('eligibility_finder',        0.8),
+            ('hindi_typing_test',         0.8),
             ('job_list',                  1.0),
             ('result_list',               0.9),
             ('admit_card_list',           0.9),

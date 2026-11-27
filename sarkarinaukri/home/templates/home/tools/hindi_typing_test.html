@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Hindi Typing Test for SSC Practice (30 WPM) - Sarkari Naukri{% endblock %}
+{% block meta_description %}Free Hindi typing test in Unicode (InScript or Remington GAIL): type a Hindi passage for 2, 5 or 10 minutes and see net WPM and accuracy against 30 WPM.{% endblock %}
+{% block og_title %}Hindi Typing Test for SSC Practice{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/tools.css' %}?v=1">
+<style>
+.tt-passage { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 16px; font-size: 19px;
+              line-height: 2; color: #1e293b; max-height: 260px; overflow-y: auto; user-select: none; }
+.tt-passage .ok { color: #15803d; }
+.tt-passage .bad { color: #b91c1c; text-decoration: underline; }
+.tt-passage .cur { background: #fde68a; border-radius: 3px; }
+.tt-input { width: 100%; min-height: 160px; margin-top: 12px; padding: 12px; font-size: 19px; line-height: 1.8;
+            border: 2px solid #c4b5fd; border-radius: 10px; font-family: inherit; resize: vertical; }
+.tt-input:disabled { background: #f1f5f9; }
+.tt-bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: end; }
+.tt-bar > div { flex: 1; min-width: 150px; }
+.tt-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 14px; }
+.tt-stat { background: #f5f3ff; border-radius: 10px; padding: 10px; text-align: center; }
+.tt-stat b { display: block; font-size: 24px; color: #4c1d95; }
+.tt-stat span { font-size: 12.5px; color: #475569; }
+@media (max-width: 600px) { .tt-stats { grid-template-columns: repeat(2, 1fr); } }
+</style>
+{% endblock %}
+
+{% block schema_markup %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Hindi Typing Test for SSC Practice",
+  "url": "https://www.sarkarinaukriresult.online/tools/hindi-typing-test/",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Any",
+  "inLanguage": ["hi", "en"],
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"},
+  "description": "Timed Hindi typing test in Unicode with net words per minute and accuracy, for SSC and state typing test practice."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What Hindi typing speed does SSC require?",
+     "acceptedAnswer": {"@type": "Answer", "text": "For posts with a typing test, such as CHSL Lower Division Clerk and Junior Secretariat Assistant, the Hindi standard is 30 words per minute, about 9,000 key depressions per hour. The notice for your exam states the exact rules."}},
+    {"@type": "Question", "name": "Can I practise Kruti Dev typing here?",
+     "acceptedAnswer": {"@type": "Answer", "text": "No. Kruti Dev is a legacy font that stores English letters and only looks like Hindi with that font installed. This test works with Unicode Hindi typed through an InScript or Remington (GAIL) keyboard. If your exam requires Kruti Dev, practise in a word processor with that font as well."}},
+    {"@type": "Question", "name": "How do I type Hindi on my computer for this test?",
+     "acceptedAnswer": {"@type": "Answer", "text": "On Windows, add Hindi as a language in Settings and choose the Hindi Traditional (InScript) keyboard, or install an input tool that offers the Remington (GAIL) layout. Switch to it with Windows key + Space before you start typing."}}
+  ]
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="page-wrapper">
+<div class="tool-wrap">
+    <h1>Hindi Typing Test (हिंदी टाइपिंग टेस्ट)</h1>
+    <p class="tool-lead">Practise for the Hindi typing test in SSC and state exams. Type the Hindi passage using a Unicode
+    Hindi keyboard (InScript or Remington GAIL). The timer starts with your first key, and at the end you see your net
+    speed and accuracy against the 30 words per minute Hindi standard.</p>
+
+    <div class="calc single">
+        <div class="tt-bar">
+            <div>
+                <label for="tt-time">Test length</label>
+                <select id="tt-time">
+                    <option value="2">2 minutes (warm-up)</option>
+                    <option value="5">5 minutes</option>
+                    <option value="10" selected>10 minutes (exam length)</option>
+                </select>
+            </div>
+            <div>
+                <label for="tt-pass">Passage</label>
+                <select id="tt-pass">
+                    <option value="0">अनुच्छेद 1: सरकारी कार्यालय</option>
+                    <option value="1">अनुच्छेद 2: शिक्षा और रोजगार</option>
+                </select>
+            </div>
+            <div style="flex:0">
+                <button type="button" class="tool-btn alt" id="tt-reset">Restart</button>
+            </div>
+        </div>
+        <div>
+            <div class="tt-passage" id="tt-passage" lang="hi" aria-label="Passage to type"></div>
+            <textarea class="tt-input" id="tt-input" lang="hi" placeholder="यहाँ टाइप करना शुरू करें। पहली कुंजी दबाते ही समय शुरू होगा।"
+                      autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Type here"></textarea>
+            <div class="tt-stats">
+                <div class="tt-stat"><b id="tt-left">10:00</b><span>Time left</span></div>
+                <div class="tt-stat"><b id="tt-net">0</b><span>Net WPM</span></div>
+                <div class="tt-stat"><b id="tt-kdph">0</b><span>Characters per hour</span></div>
+                <div class="tt-stat"><b id="tt-acc">100%</b><span>Word accuracy</span></div>
+            </div>
+            <div style="margin-top:12px"><button type="button" class="tool-btn" id="tt-stop">Finish now</button></div>
+            <div id="tt-result" aria-live="polite" style="margin-top:12px"></div>
+        </div>
+    </div>
+    <p class="privacy-line">Pasting is turned off. Nothing you type is stored or sent anywhere.</p>
+
+    <div class="tool-note"><strong>Unicode only.</strong> This test needs Hindi typed as Unicode, which is what InScript and
+    Remington (GAIL) keyboards produce. Kruti Dev and DevLys are older fonts that store English letters, so they cannot be
+    checked here. Some recruiters still ask for them: Bihar Vidhan Sabha's 2026 Junior Secretariat Assistant notice, for
+    example, requires Hindi typing in the Kruti Dev font. Always practise on the layout your notice names.</div>
+
+    <h2>Setting Up a Hindi Keyboard</h2>
+    <ul>
+        <li><strong>Windows:</strong> open Settings, then Time &amp; Language, then Language &amp; region, add Hindi, and
+        choose the "Hindi Traditional" keyboard, which uses the InScript layout. Press Windows key + Space to switch between
+        English and Hindi.</li>
+        <li><strong>Remington (GAIL):</strong> this typewriter-based layout is not built into Windows. Install an Indic input
+        tool that offers it, then select it in the same way.</li>
+        <li><strong>Phones:</strong> phone keyboards with transliteration are fine for messages but not for exam practice.
+        Use a computer with a physical keyboard, as in the test.</li>
+    </ul>
+
+    <h2>InScript, Remington and Kruti Dev</h2>
+    <p>InScript is the standard Indian layout: vowels sit on the left of the keyboard and consonants on the right, and it
+    works the same on every computer. Remington follows the old Hindi typewriter, and many people who learnt on a
+    typewriter prefer it. Kruti Dev is a font, not a keyboard: it maps Hindi shapes onto English keys and gives text that
+    cannot be searched or read without the font. Learn the layout your target exam allows; switching layouts later costs
+    weeks of speed.</p>
+
+    <h2>How Your Score Is Calculated</h2>
+    <p>Only words typed exactly right count towards net speed: their characters, including the space after each word, are
+    divided by five and by the minutes elapsed. Hindi words often contain matras and conjuncts that take several
+    keystrokes, so the "characters per hour" figure here counts Unicode characters, which is close to but not the same as
+    the key depressions SSC measures. Word accuracy is correct words as a share of the words you typed. The standard to aim
+    for is 30 words per minute, about 9,000 key depressions per hour; aim for around 36 WPM in practice so you have a margin
+    on the day. Practising English too? Try the <a href="{% url 'typing_test' %}">English typing test</a>, and read our
+    <a href="/content/guides/ssc-typing-skill-test-preparation/">SSC typing test guide</a> for a six-week plan.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    <h3>What Hindi typing speed does SSC require?</h3>
+    <p>For posts with a typing test, such as CHSL Lower Division Clerk and Junior Secretariat Assistant, the Hindi standard
+    is 30 words per minute, about 9,000 key depressions per hour. The notice for your exam states the exact rules.</p>
+    <h3>Can I practise Kruti Dev typing here?</h3>
+    <p>No. Kruti Dev is a legacy font that stores English letters and only looks like Hindi with that font installed. This
+    test works with Unicode Hindi typed through an InScript or Remington (GAIL) keyboard. If your exam requires Kruti Dev,
+    practise in a word processor with that font as well.</p>
+    <h3>How do I type Hindi on my computer for this test?</h3>
+    <p>On Windows, add Hindi as a language in Settings and choose the Hindi Traditional (InScript) keyboard, or install an
+    input tool that offers the Remington (GAIL) layout. Switch to it with Windows key + Space before you start typing.</p>
+</div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+window.TYPING_TEST = { language: 'Hindi', target: 30, passages: [
+    "हर साल लाखों युवा सरकारी नौकरी की तैयारी करते हैं। उनके लिए सरकारी नौकरी केवल वेतन का साधन नहीं, बल्कि सुरक्षा और सम्मान का प्रतीक भी है। किसी जिला कार्यालय में लिपिक का काम बाहर से साधारण दिखता है, परंतु यह बहुत जिम्मेदारी का काम है। लिपिक फाइलों की जाँच करता है, पत्रों का उत्तर देता है और अभिलेखों को अद्यतन रखता है। पेंशन, प्रमाण पत्र या भूमि अभिलेख से जुड़े प्रश्न लेकर आने वाले नागरिकों की सहायता करना भी उसी का काम है। एक गलत तारीख या छूटे हुए हस्ताक्षर के कारण किसी की पेंशन महीनों तक रुक सकती है। इसलिए काम में गति के साथ शुद्धता भी बहुत आवश्यक है। आज अधिकतर कार्यालयों में कंप्यूटर पर काम होता है, इसलिए कई पदों के लिए टंकण परीक्षा ली जाती है। जो उम्मीदवार प्रतिदिन थोड़ा अभ्यास करता है, वह परीक्षा में आत्मविश्वास के साथ बैठता है।",
+    "शिक्षा और रोजगार का गहरा संबंध है। अच्छी शिक्षा से व्यक्ति के सामने रोजगार के अनेक रास्ते खुलते हैं। हमारे देश में हर वर्ष बड़ी संख्या में विद्यार्थी स्नातक की पढ़ाई पूरी करते हैं और प्रतियोगी परीक्षाओं की तैयारी में लग जाते हैं। सफल होने के लिए केवल किताबें पढ़ना पर्याप्त नहीं है। उम्मीदवार को अधिसूचना ध्यान से पढ़नी चाहिए, आयु सीमा और शैक्षिक योग्यता की जाँच करनी चाहिए और आवेदन की अंतिम तिथि से पहले सभी दस्तावेज तैयार रखने चाहिए। पिछले वर्षों के प्रश्न पत्र हल करने से परीक्षा के स्वरूप की समझ बढ़ती है। समय का सही उपयोग भी उतना ही जरूरी है। प्रतिदिन एक निश्चित समय पर पढ़ाई करने और सप्ताह में एक बार अपनी प्रगति का आकलन करने से तैयारी व्यवस्थित रहती है। धैर्य और निरंतर परिश्रम से ही लक्ष्य प्राप्त होता है।"
+] };
+</script>
+<script src="{% static 'js/typing-test.js' %}?v=1"></script>
+{% endblock %}

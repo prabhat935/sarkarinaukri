@@ -80,7 +80,7 @@ a.ticker-item:hover { color: var(--accent-light); text-decoration: underline; }
 /* Free tools: one tile per tool, each with its own badge */
 .hp-tools { background:#f8fafc; padding:18px 0 20px; border-bottom:1px solid #e5e7eb; }
 .hp-tools-title { font-size:1.05rem; font-weight:800; color:#1e3a8a; margin:0 0 12px; }
-.tool-tiles { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+.tool-tiles { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
 .tool-tile { display:flex; flex-direction:column; align-items:center; text-align:center; gap:8px; padding:18px 12px 16px;
              background:#fff; border:1px solid #e2e8f0; border-radius:16px; text-decoration:none;
              box-shadow:0 1px 3px rgba(15,23,42,.06); transition:transform .18s, box-shadow .18s, border-color .18s; }
@@ -99,6 +99,9 @@ a.ticker-item:hover { color: var(--accent-light); text-decoration: underline; }
 .tb-score  { background:linear-gradient(135deg,#facc15,#ca8a04); --glow:#b45309; }
 .tb-cgpa   { background:linear-gradient(135deg,#2dd4bf,#0e7490); --glow:#0e7490; }
 .tb-count  { background:linear-gradient(135deg,#f87171,#b91c1c); --glow:#b91c1c; }
+.tb-find   { background:linear-gradient(135deg,#f472b6,#be185d); --glow:#be185d; }
+.tb-hindi  { background:linear-gradient(135deg,#fb923c,#c2410c); --glow:#c2410c; }
+.tool-badge .glyph { font-size:34px; font-weight:800; line-height:1; font-family:'Nirmala UI','Mangal','Noto Sans Devanagari',sans-serif; }
 .tool-name { font-weight:800; color:#0f172a; font-size:.98rem; line-height:1.3; }
 .tool-desc { font-size:.8rem; color:#64748b; line-height:1.45; }
 @media (max-width: 860px) { .tool-tiles { grid-template-columns:repeat(2,1fr); } }
@@ -391,6 +394,11 @@ document.querySelectorAll('.hl-track').forEach(function (track) {
     <div class="container">
         <h2 class="hp-tools-title" id="hp-tools-title"><i class="fas fa-toolbox"></i> Free Tools for Exam Candidates</h2>
         <div class="tool-tiles">
+            <a class="tool-tile" href="{% url 'eligibility_finder' %}">
+                <span class="tool-badge tb-find"><i class="fas fa-magnifying-glass"></i><span class="mini"><i class="fas fa-briefcase"></i></span></span>
+                <span class="tool-name">Job Eligibility Finder</span>
+                <span class="tool-desc">Which open jobs fit your age and qualification</span>
+            </a>
             <a class="tool-tile" href="{% url 'age_calculator' %}">
                 <span class="tool-badge tb-age"><i class="fas fa-user-clock"></i><span class="mini"><i class="fas fa-check"></i></span></span>
                 <span class="tool-name">Age Eligibility Calculator</span>
@@ -405,6 +413,11 @@ document.querySelectorAll('.hl-track').forEach(function (track) {
                 <span class="tool-badge tb-typing"><i class="fas fa-keyboard"></i><span class="mini"><i class="fas fa-stopwatch"></i></span></span>
                 <span class="tool-name">SSC Typing Test</span>
                 <span class="tool-desc">Timed practice with net WPM and KDPH against 35 WPM</span>
+            </a>
+            <a class="tool-tile" href="{% url 'hindi_typing_test' %}">
+                <span class="tool-badge tb-hindi"><span class="glyph" lang="hi">अ</span><span class="mini"><i class="fas fa-keyboard"></i></span></span>
+                <span class="tool-name">Hindi Typing Test</span>
+                <span class="tool-desc">Unicode InScript or Remington practice against 30 WPM</span>
             </a>
             <a class="tool-tile" href="{% url 'salary_calculator' %}">
                 <span class="tool-badge tb-salary"><i class="fas fa-indian-rupee-sign"></i><span class="mini"><i class="fas fa-calculator"></i></span></span>

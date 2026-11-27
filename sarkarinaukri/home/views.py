@@ -100,6 +100,55 @@ def exam_countdown(request):
 
 
 @require_http_methods(["GET"])
+def eligibility_finder(request):
+    """Open jobs with the data the browser needs to match them against a
+    visitor's date of birth and qualification (nothing is sent back to us)"""
+    import datetime
+    import re
+    from content.models import JobPosting, written_up_jobs
+
+    age_on_re = re.compile(r'\b[Aa]ge (?:on|as on) (\d{1,2} [A-Z][a-z]+ \d{4})')
+    jobs = []
+    for j in written_up_jobs(JobPosting.objects.filter(JobPosting.open_q())
+                             .select_related('organization', 'qualification_level', 'state')):
+        if not j.is_open:
+            continue
+        text = j.eligibility or ''
+        age_on, assumed = None, False
+        m = age_on_re.search(text)
+        if m:
+            try:
+                age_on = datetime.datetime.strptime(m.group(1), '%d %B %Y').date()
+            except ValueError:
+                age_on = None
+        if age_on is None and j.application_end_date:
+            age_on, assumed = j.application_end_date, True
+        # The paragraph of the eligibility text that sets out the age rules
+        age_rule = next((p.strip() for p in text.split('\n\n') if re.search(r'\b[Aa]ge\b', p)), '')
+        jobs.append({
+            'title': j.short_title,
+            'url': f'/content/job/{j.pk}/',
+            'org': j.organization.name,
+            'last': j.application_end_date.isoformat() if j.application_end_date else '',
+            'qual': j.qualification_level.level if j.qualification_level else '',
+            'minAge': j.min_age or 0,
+            'maxAge': j.max_age or 0,
+            'ageOn': age_on.isoformat() if age_on else '',
+            'ageOnAssumed': assumed,
+            'ageRule': age_rule[:600],
+            'state': j.state.name if j.state else '',
+        })
+    jobs.sort(key=lambda x: x['last'] or '9999')
+    return render(request, 'home/tools/eligibility_finder.html', {'jobs': jobs})
+
+
+@require_http_methods(["GET"])
+def hindi_typing_test(request):
+    """Hindi (Unicode) typing test practice; runs in the browser"""
+    return render(request, 'home/tools/hindi_typing_test.html')
+
+
+@require_http_methods(["GET"])
 def salary_calculator(request):
     """7th CPC in-hand salary calculator; runs in the browser"""
     return render(request, 'home/tools/salary_calculator.html')

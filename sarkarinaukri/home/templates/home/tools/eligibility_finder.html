@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Job Eligibility Finder: Which Govt Jobs Can I Apply For? - Sarkari Naukri{% endblock %}
+{% block meta_description %}Enter your date of birth and qualification to see which open government jobs match, with your exact age on each notice's cut-off date and its age rules.{% endblock %}
+{% block og_title %}Job Eligibility Finder for Government Jobs{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/tools.css' %}?v=1">
+<style>
+.ef-group h3 { display: flex; align-items: center; gap: 8px; margin-top: 22px; }
+.ef-count { font-size: 13px; font-weight: 700; background: #e2e8f0; color: #334155; border-radius: 999px; padding: 1px 9px; }
+.ef-job { border: 1px solid #e2e8f0; border-left-width: 5px; border-radius: 10px; padding: 12px 14px; margin: 10px 0; background: #fff; }
+.ef-job.match { border-left-color: #16a34a; }
+.ef-job.check { border-left-color: #f59e0b; }
+.ef-job.no { border-left-color: #dc2626; opacity: .85; }
+.ef-job a.t { font-weight: 700; color: #0f172a; text-decoration: none; }
+.ef-job a.t:hover { color: #1d4ed8; text-decoration: underline; }
+.ef-meta { font-size: 13.5px; color: #64748b; margin-top: 3px; }
+.ef-age { font-size: 14.5px; margin-top: 8px; color: #1e293b; }
+.ef-age b { color: #1e3a8a; }
+.ef-rule { font-size: 13.5px; color: #475569; background: #f8fafc; border-radius: 8px; padding: 8px 10px; margin-top: 8px; line-height: 1.6; }
+.ef-why { font-size: 13.5px; color: #b91c1c; margin-top: 6px; font-weight: 600; }
+</style>
+{% endblock %}
+
+{% block schema_markup %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Job Eligibility Finder for Government Jobs",
+  "url": "https://www.sarkarinaukriresult.online/tools/job-eligibility-finder/",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"},
+  "description": "Matches a date of birth and qualification against open government job notifications and shows the age on each notice's cut-off date."
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="page-wrapper">
+<div class="tool-wrap">
+    <h1>Job Eligibility Finder</h1>
+    <p class="tool-lead">Which of the open government jobs can you apply for? Enter your date of birth and your highest
+    qualification. For every open post on this site, the finder works out your exact age on that notice's cut-off date,
+    checks the qualification level and minimum age, and shows the post's own age rules so you can check the upper limit
+    for your category.</p>
+
+    <form class="calc" id="ef" onsubmit="return false">
+        <div>
+            <label for="dob">Your date of birth</label>
+            <input type="date" id="dob">
+            <div class="hint">As on your Class 10 certificate.</div>
+        </div>
+        <div>
+            <label for="qual">Your highest qualification</label>
+            <select id="qual">
+                <option value="1">10th pass (including 10th + ITI)</option>
+                <option value="2">12th pass (or diploma after 10th)</option>
+                <option value="3" selected>Graduate (including B.E. / B.Tech)</option>
+                <option value="4">Post graduate (including MBA, CA, M.Tech)</option>
+                <option value="5">Ph.D</option>
+            </select>
+            <label class="check"><input type="checkbox" id="final"> I am in the final year of this qualification</label>
+        </div>
+    </form>
+    <p class="privacy-line">Matching happens in your browser. Your date of birth is not sent to us or stored.</p>
+
+    <div id="ef-out" aria-live="polite"><p class="hint">Enter your date of birth to see the matching jobs. {{ jobs|length }} open posts are checked.</p></div>
+
+    <div class="tool-note"><strong>How to read the result.</strong> "Matches" means your qualification level and minimum
+    age fit. Each post still has its own subject or branch requirement and an upper age limit that depends on your
+    category, so read the age rules shown and the full post before applying. The finder never says you are eligible for
+    something the notice may not allow.</div>
+
+    <h2>What the Finder Checks</h2>
+    <ul>
+        <li><strong>Age on the right date.</strong> Each notice fixes the date on which age is counted, such as 1 January 2027
+        or 1 August 2026. The finder reads it from our write-up of the notice and calculates your age in completed years,
+        months and days on that date. Where a notice gives no separate date, it uses the last date to apply and says so.</li>
+        <li><strong>Minimum age.</strong> If you are below a post's minimum age on its cut-off date, the post is listed as not
+        open to you.</li>
+        <li><strong>Qualification level.</strong> Posts are tagged with the minimum level of education they need, from 10th
+        pass to post graduate. A post that needs a higher level than yours is listed as not open to you. Final-year students
+        are shown posts at their next level with a reminder to check whether the notice accepts final-year candidates.</li>
+        <li><strong>Upper age limit.</strong> This depends on your category, disability, ex-servicemen status and, in state
+        jobs, often on where you live. The finder shows each post's age rule and leaves that comparison to you; use the
+        <a href="{% url 'age_calculator' %}">age eligibility calculator</a> to work out your relaxed limit.</li>
+    </ul>
+
+    <h2>Things the Finder Cannot Check</h2>
+    <p>Many posts need a particular subject or branch (for example a B.E. in Civil Engineering, or an ITI in a named trade),
+    a minimum percentage, a GATE score, experience, physical standards or registration with a council. State recruitment
+    usually reserves posts and age relaxation for that state's residents. Read the eligibility section of each post before
+    you pay a fee. Our guide to <a href="/content/guides/how-to-read-government-job-notification/">reading a government job
+    notification</a> explains where each condition is written.</p>
+    <p>The list covers the open notifications we have written up from official notices; it is not every vacancy in the
+    country. New posts are added to <a href="{% url 'job_list' %}">latest jobs</a> as notices are published.</p>
+</div>
+</div>
+{{ jobs|json_script:"ef-data" }}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+    var JOBS = JSON.parse(document.getElementById('ef-data').textContent);
+    var LEVEL = { '10th': 1, '12th': 2, 'graduate': 3, 'pg': 4, 'phd': 5 };
+    var LABEL = { 1: '10th pass', 2: '12th pass', 3: 'graduation', 4: 'post graduation', 5: 'Ph.D' };
+    var MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var $ = function (id) { return document.getElementById(id); };
+
+    function parse(v) { var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(v || ''); return m ? { y: +m[1], m: +m[2], d: +m[3] } : null; }
+    function dim(y, m) { return new Date(Date.UTC(y, m, 0)).getUTCDate(); }
+    function utc(d) { return Date.UTC(d.y, d.m - 1, d.d); }
+    function addMonths(d, n) { var i = d.y * 12 + (d.m - 1) + n, y = Math.floor(i / 12), m = (i % 12) + 1; return { y: y, m: m, d: Math.min(d.d, dim(y, m)) }; }
+    function diff(a, b) {
+        var months = (b.y - a.y) * 12 + (b.m - a.m), anchor = addMonths(a, months);
+        if (utc(anchor) > utc(b)) { months -= 1; anchor = addMonths(a, months); }
+        return { y: Math.floor(months / 12), m: months % 12, d: Math.round((utc(b) - utc(anchor)) / 86400000) };
+    }
+    function fmt(d) { return d.d + ' ' + MON[d.m - 1] + ' ' + d.y; }
+    function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+    function card(j, cls, age, why) {
+        var on = parse(j.ageOn), last = parse(j.last);
+        var h = '<div class="ef-job ' + cls + '"><a class="t" href="' + j.url + '">' + esc(j.title) + '</a>';
+        h += '<div class="ef-meta">' + esc(j.org) + (j.state ? ' &middot; ' + esc(j.state) + ' state recruitment' : '') +
+             (last ? ' &middot; Last date ' + fmt(last) : '') + '</div>';
+        if (age && on) h += '<div class="ef-age">Your age on ' + fmt(on) + (j.ageOnAssumed ? ' (last date; check the notice\'s age date)' : '') +
+             ': <b>' + age.y + ' years, ' + age.m + ' months, ' + age.d + ' days</b></div>';
+        if (why) h += '<div class="ef-why">' + why + '</div>';
+        if (j.ageRule && cls !== 'no') h += '<div class="ef-rule">' + esc(j.ageRule) + '</div>';
+        return h + '</div>';
+    }
+
+    function run() {
+        var dob = parse($('dob').value);
+        if (!dob) { $('ef-out').innerHTML = '<p class="hint">Enter your date of birth to see the matching jobs. ' + JOBS.length + ' open posts are checked.</p>'; return; }
+        var mine = +$('qual').value, finalYear = $('final').checked;
+        var match = [], check = [], no = [];
+        JOBS.forEach(function (j) {
+            var on = parse(j.ageOn);
+            var age = on && utc(dob) <= utc(on) ? diff(dob, on) : null;
+            var need = LEVEL[j.qual] || 0;
+            if (need && need > mine + (finalYear ? 1 : 0)) {
+                no.push(card(j, 'no', age, 'Needs ' + LABEL[need] + '.')); return;
+            }
+            if (age && j.minAge && age.y < j.minAge) {
+                no.push(card(j, 'no', age, 'Below the minimum age of ' + j.minAge + ' on the cut-off date.')); return;
+            }
+            // Beyond the highest limit in the post plus the largest usual relaxation (15 years)
+            if (age && j.maxAge && age.y > j.maxAge + 15) {
+                no.push(card(j, 'no', age, 'Well above the upper age limits in this notice (ex-servicemen should check their own rules).')); return;
+            }
+            var overMax = age && j.maxAge && age.y > j.maxAge;
+            if (!need || (finalYear && need === mine + 1) || j.ageOnAssumed || !age || overMax) {
+                var note = !need ? 'Qualification level not tagged: check the post.' :
+                    (finalYear && need === mine + 1) ? 'Open to you only if the notice accepts final-year candidates.' :
+                    overMax ? 'You are above the upper age limit of ' + j.maxAge + ' given for this post; it is open to you only if the relaxation for your category covers the difference.' : '';
+                check.push(card(j, 'check', age, note));
+            } else {
+                match.push(card(j, 'match', age, ''));
+            }
+        });
+        var out = '';
+        function group(title, items, intro) {
+            if (!items.length) return '';
+            return '<div class="ef-group"><h3>' + title + ' <span class="ef-count">' + items.length + '</span></h3>' +
+                   (intro ? '<p class="hint">' + intro + '</p>' : '') + items.join('') + '</div>';
+        }
+        out += group('Matches your qualification and minimum age', match, 'Now compare your age with the upper limit for your category in each post\'s age rule.');
+        out += group('Check these posts', check, '');
+        out += group('Not open to you', no, '');
+        $('ef-out').innerHTML = out || '<p class="hint">No open posts right now.</p>';
+    }
+    $('ef').addEventListener('input', run);
+    $('ef').addEventListener('change', run);
+    run();
+})();
+</script>
+{% endblock %}
