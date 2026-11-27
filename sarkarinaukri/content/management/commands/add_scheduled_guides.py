@@ -478,6 +478,127 @@ SCHEDULED_GUIDES = [
 <p>Arrive early, check that your keyboard and chair are comfortable, and tell the invigilator immediately if any key is faulty, before the test starts. Read the instructions on screen carefully: some tests do not allow backspace, or count errors in a particular way. Stay calm, keep a steady rhythm, and remember that you only need to qualify, not to top the test.</p>
 """,
     },
+    {
+        'title': 'Percentages for SSC, Railway and Bank Exams: Concepts, Shortcuts and 15 Practice Questions',
+        'slug': 'percentages-government-exams-practice',
+        'category': 'preparation',
+        'published_date': datetime.date(2026, 11, 27),
+        'excerpt': 'Percentages sit underneath profit and loss, interest, data interpretation and many reasoning questions. Learn the concepts, the fraction table and the shortcuts, then try 15 exam-style questions with step-by-step answers.',
+        'meta_description': 'Percentages for SSC, railway and bank exams: fraction table, percentage change, successive change shortcuts and 15 practice questions with solutions.',
+        'content': """<p>Percentages are the most useful single topic in the quantitative section of government exams. Even when a question is labelled profit and loss, discount, simple interest, population growth or data interpretation, the working underneath is usually a percentage calculation. Getting fast and accurate here pays off across the whole paper. This tutorial covers the ideas you need, the shortcuts that save time, and fifteen practice questions in the style of SSC, railway and bank exams, each with a worked solution.</p>
+
+<h2>1. What a Percentage Means</h2>
+<p>"Per cent" means "out of 100". So 35% means 35 out of every 100, or 35/100. Three conversions cover almost everything:</p>
+<ul>
+<li><strong>x% of y</strong> = x &times; y / 100. For example, 12% of 450 = 12 &times; 450 / 100 = 54.</li>
+<li><strong>What percentage is a of b?</strong> = a / b &times; 100. For example, 45 out of 180 is 45 / 180 &times; 100 = 25%.</li>
+<li><strong>Percentage to fraction:</strong> divide by 100 and simplify. 37.5% = 37.5/100 = 3/8.</li>
+</ul>
+<p><strong>Swap trick:</strong> x% of y is always equal to y% of x. To find 8% of 50, work out 50% of 8 instead, which is 4. To find 16% of 25, work out 25% of 16, which is 4.</p>
+
+<h2>2. The Fraction Table to Learn by Heart</h2>
+<p>Most exam numbers are chosen to fit these fractions. Knowing them turns long multiplication into a single step: 37.5% of 640 is 3/8 of 640, which is 240.</p>
+<table>
+<thead><tr><th>Fraction</th><th>Percentage</th><th>Fraction</th><th>Percentage</th></tr></thead>
+<tbody>
+<tr><td>1/2</td><td>50%</td><td>1/9</td><td>11.11% (11 1/9%)</td></tr>
+<tr><td>1/3</td><td>33.33% (33 1/3%)</td><td>1/10</td><td>10%</td></tr>
+<tr><td>1/4</td><td>25%</td><td>1/11</td><td>9.09% (9 1/11%)</td></tr>
+<tr><td>1/5</td><td>20%</td><td>1/12</td><td>8.33% (8 1/3%)</td></tr>
+<tr><td>1/6</td><td>16.67% (16 2/3%)</td><td>1/16</td><td>6.25%</td></tr>
+<tr><td>1/7</td><td>14.29% (14 2/7%)</td><td>1/20</td><td>5%</td></tr>
+<tr><td>1/8</td><td>12.5%</td><td>1/25</td><td>4%</td></tr>
+</tbody>
+</table>
+<p>Multiples follow directly: 3/8 = 37.5%, 5/8 = 62.5%, 2/3 = 66.67%, 5/6 = 83.33% and 4/7 = 57.14%.</p>
+
+<h2>3. Percentage Increase and Decrease</h2>
+<p><strong>Percentage change = (new value &minus; old value) / old value &times; 100.</strong> Always divide by the <em>old</em> value, the one you start from. This is where most mistakes happen.</p>
+<p><em>Example:</em> a bus fare rises from &#8377;250 to &#8377;300. The increase is 50, and 50 / 250 &times; 100 = 20%. If the fare then falls back from &#8377;300 to &#8377;250, the decrease is 50 / 300 &times; 100 = 16.67%, not 20%, because the starting value is now 300.</p>
+<p><strong>Multiplying factors</strong> make chained calculations quick. An increase of r% multiplies a value by (1 + r/100), and a decrease of r% multiplies it by (1 &minus; r/100). A 15% increase is &times; 1.15; a 15% decrease is &times; 0.85.</p>
+
+<h2>4. Successive Changes</h2>
+<p>When a value changes by a% and then by b%, the overall change is <strong>a + b + (a &times; b)/100</strong>. Use a negative number for a decrease.</p>
+<ul>
+<li>+20% then &minus;10%: 20 &minus; 10 + (20 &times; &minus;10)/100 = 10 &minus; 2 = <strong>+8%</strong>.</li>
+<li>+10% then &minus;10%: 10 &minus; 10 &minus; 1 = <strong>&minus;1%</strong>. Equal rises and falls always leave you slightly lower.</li>
+<li>Successive discounts of 20% and 10%: &minus;20 &minus; 10 + 2 = &minus;28%, so the single equivalent discount is <strong>28%</strong>, not 30%.</li>
+</ul>
+
+<h2>5. Price and Consumption</h2>
+<p>If the price of an item rises by r% and you want to spend the same amount, you must cut consumption by <strong>r / (100 + r) &times; 100</strong>%. If the price falls by r%, you can increase consumption by <strong>r / (100 &minus; r) &times; 100</strong>%.</p>
+<p><em>Example:</em> petrol becomes 25% dearer. To keep spending the same, cut use by 25 / 125 &times; 100 = 20%. The same formula answers "A is 25% more than B; by what percentage is B less than A?" The answer is again 20%.</p>
+
+<h2>6. Working Backwards to the Original</h2>
+<p>If a value after an r% increase is V, the original is V / (1 + r/100). After a 20% increase a price is &#8377;360, so the original was 360 / 1.2 = &#8377;300. A common trap is to take 20% of 360 (72) and subtract it, which gives 288 and is wrong.</p>
+
+<h2>7. Growth Over Several Years</h2>
+<p>When a population or amount grows by r% every year on the new total, the value after n years is <strong>P &times; (1 + r/100)<sup>n</sup></strong>. A town of 10,000 growing at 10% a year has 10,000 &times; 1.1 &times; 1.1 = 12,100 people after two years, not 12,000, because the second year's growth is on 11,000.</p>
+
+<h2>8. Marks and Election Questions</h2>
+<p>These questions give two facts about the same total and ask for the total. Write each fact as an equation in the total and compare.</p>
+<p><em>Example:</em> one candidate scores 40% of the maximum marks and fails by 20 marks; another scores 50% and gets 10 marks more than the pass mark. The gap between them is 50% &minus; 40% = 10% of the maximum, and in marks it is 20 + 10 = 30. So 10% of the maximum is 30, the maximum is 300, and the pass mark is 40% of 300 + 20 = 140.</p>
+
+<h2>Practice Questions</h2>
+<p>Try each one before opening the answer. In the exam, aim to solve this type in under a minute.</p>
+
+<p><strong>1.</strong> What is 15% of 480?</p>
+<details><summary>Show answer</summary><p><strong>72.</strong> 10% of 480 is 48 and 5% is 24; 48 + 24 = 72.</p></details>
+
+<p><strong>2.</strong> What percentage of 250 is 45?</p>
+<details><summary>Show answer</summary><p><strong>18%.</strong> 45 / 250 &times; 100 = 18.</p></details>
+
+<p><strong>3.</strong> A salary of &#8377;25,000 is increased by 12%. What is the new salary?</p>
+<details><summary>Show answer</summary><p><strong>&#8377;28,000.</strong> 12% of 25,000 is 3,000, and 25,000 + 3,000 = 28,000.</p></details>
+
+<p><strong>4.</strong> The price of sugar rises by 25%. By what percentage must a family reduce its consumption to keep its spending the same?</p>
+<details><summary>Show answer</summary><p><strong>20%.</strong> 25 / (100 + 25) &times; 100 = 20.</p></details>
+
+<p><strong>5.</strong> A number is increased by 10% and then by 20%. What is the total percentage increase?</p>
+<details><summary>Show answer</summary><p><strong>32%.</strong> 10 + 20 + (10 &times; 20)/100 = 32.</p></details>
+
+<p><strong>6.</strong> When a number is decreased by 20%, the result is 64. What is the number?</p>
+<details><summary>Show answer</summary><p><strong>80.</strong> 64 is 80% of the number, so the number is 64 / 0.8 = 80.</p></details>
+
+<p><strong>7.</strong> A's income is 20% more than B's. By what percentage is B's income less than A's?</p>
+<details><summary>Show answer</summary><p><strong>16.67% (16 2/3%).</strong> Take B = 100, so A = 120. B is 20 less than A, and 20 / 120 &times; 100 = 16.67.</p></details>
+
+<p><strong>8.</strong> A town has 20,000 people and its population grows by 5% a year. What will it be after 2 years?</p>
+<details><summary>Show answer</summary><p><strong>22,050.</strong> 20,000 &times; 1.05 = 21,000 after one year, and 21,000 &times; 1.05 = 22,050 after two.</p></details>
+
+<p><strong>9.</strong> A student needs 35% to pass. She scores 210 marks and fails by 35 marks. What are the maximum marks?</p>
+<details><summary>Show answer</summary><p><strong>700.</strong> The pass mark is 210 + 35 = 245, which is 35% of the maximum. 245 / 0.35 = 700.</p></details>
+
+<p><strong>10.</strong> In an election between two candidates, the winner gets 58% of the valid votes and wins by 1,120 votes. How many valid votes were cast?</p>
+<details><summary>Show answer</summary><p><strong>7,000.</strong> The loser gets 42%, so the margin is 58% &minus; 42% = 16% of the valid votes. 16% is 1,120, so 100% is 1,120 / 0.16 = 7,000.</p></details>
+
+<p><strong>11.</strong> An item priced at &#8377;500 is first reduced by 10% and then increased by 10%. What is its final price?</p>
+<details><summary>Show answer</summary><p><strong>&#8377;495.</strong> The net change is &minus;10 + 10 &minus; 1 = &minus;1%, and 1% of 500 is 5. Check: 500 &times; 0.9 = 450, and 450 &times; 1.1 = 495.</p></details>
+
+<p><strong>12.</strong> In an exam, 70% of students passed in English, 60% passed in Maths and 40% passed in both. What percentage failed in both subjects?</p>
+<details><summary>Show answer</summary><p><strong>10%.</strong> Students who passed at least one subject = 70 + 60 &minus; 40 = 90%, so 100 &minus; 90 = 10% failed both.</p></details>
+
+<p><strong>13.</strong> 30% of a number is 72. What is 45% of the same number?</p>
+<details><summary>Show answer</summary><p><strong>108.</strong> Without finding the number: 72 &times; 45 / 30 = 108. (The number is 240, and 45% of 240 is 108.)</p></details>
+
+<p><strong>14.</strong> After a 20% fall in the price of rice, a person can buy 2 kg more for &#8377;240. What was the original price per kg?</p>
+<details><summary>Show answer</summary><p><strong>&#8377;30 per kg.</strong> The fall saves 20% of 240 = &#8377;48, which buys the extra 2 kg, so the new price is 48 / 2 = &#8377;24 per kg. That is 80% of the original, so the original was 24 / 0.8 = &#8377;30. Check: 240 / 30 = 8 kg before and 240 / 24 = 10 kg after.</p></details>
+
+<p><strong>15.</strong> A shop gives successive discounts of 20% and 10%. What single discount is equal to both?</p>
+<details><summary>Show answer</summary><p><strong>28%.</strong> &minus;20 &minus; 10 + (20 &times; 10)/100 = &minus;28. On a &#8377;1,000 item: 1,000 &times; 0.8 &times; 0.9 = 720, a 28% discount.</p></details>
+
+<h2>Common Mistakes</h2>
+<ul>
+<li>Dividing a change by the new value instead of the old one.</li>
+<li>Adding successive percentages (20% + 10% = 30%) instead of using a + b + ab/100.</li>
+<li>Subtracting r% of the final value to get back to the original.</li>
+<li>Treating "A is 25% more than B" and "B is 25% less than A" as the same statement.</li>
+</ul>
+
+<h2>How to Practise</h2>
+<p>Learn the fraction table until you can recall any entry in a second; it is the biggest single time-saver. Then practise mixed sets against the clock, because in the exam you will not be told which formula to use. Once percentages are fast, move on to profit and loss and simple and compound interest, which reuse the same multiplying factors. When you take a mock test, use our <a href="/tools/exam-score-calculator/">exam score calculator</a> to see what your wrong answers cost you under negative marking, and read our guide on <a href="/content/guides/negative-marking-when-to-guess/">when to guess</a>.</p>
+""",
+    },
 ]
 
 
