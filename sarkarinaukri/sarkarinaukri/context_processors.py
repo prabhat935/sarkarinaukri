@@ -2,9 +2,18 @@
 Context processors for passing global settings to templates
 """
 from django.conf import settings
+from django.core.cache import cache
+
+SECTION_FLAGS_SECONDS = 300
 
 
 def content_section_flags():
+    """Section flags, cached for a few minutes: they run about ten queries and
+    only change when content does, but every page needs them for the menus."""
+    return cache.get_or_set('content_section_flags', _compute_section_flags, SECTION_FLAGS_SECONDS)
+
+
+def _compute_section_flags():
     """
     Which optional sections have something to show. Empty sections are hidden
     from navigation and the sitemap so visitors never land on a blank page.
