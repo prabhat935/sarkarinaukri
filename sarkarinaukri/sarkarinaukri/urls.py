@@ -64,6 +64,9 @@ urlpatterns = [
     path("disclaimer/", home_views.disclaimer, name="disclaimer"),
     path("about-us/", home_views.about_us, name="about_us"),
     path("tools/age-eligibility-calculator/", home_views.age_calculator, name="age_calculator"),
+    path("tools/photo-signature-resizer/", home_views.photo_resizer, name="photo_resizer"),
+    path("tools/ssc-typing-test/", home_views.typing_test, name="typing_test"),
+    path("tools/7th-pay-commission-salary-calculator/", home_views.salary_calculator, name="salary_calculator"),
     path("about-authors/", home_views.about_authors, name="about_authors"),
     path("contact/", home_views.contact, name="contact"),
 ]

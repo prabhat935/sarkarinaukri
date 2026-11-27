@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}7th Pay Commission In-Hand Salary Calculator - Sarkari Naukri{% endblock %}
+{% block meta_description %}Work out the monthly in-hand salary for any 7th CPC pay level: basic, DA, HRA and transport allowance, minus NPS, CGHS, CGEGIS and income tax.{% endblock %}
+{% block og_title %}7th Pay Commission In-Hand Salary Calculator{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/tools.css' %}?v=1">
+{% endblock %}
+
+{% block schema_markup %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "7th Pay Commission In-Hand Salary Calculator",
+  "url": "https://www.sarkarinaukriresult.online/tools/7th-pay-commission-salary-calculator/",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"},
+  "description": "Calculates gross pay, deductions and in-hand salary for central government pay levels 1 to 10 under the 7th Pay Commission."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is the in-hand salary at Pay Level 7 in an X city?",
+     "acceptedAnswer": {"@type": "Answer", "text": "With the starting basic of Rs 44,900 and DA at 63%, the gross is about Rs 92,525 a month (basic, DA, 30% HRA and transport allowance with DA). After NPS, CGHS and CGEGIS the in-hand pay is about Rs 84,496, and no income tax is due under the new regime at this level."}},
+    {"@type": "Question", "name": "Is HRA paid if I live in government quarters?",
+     "acceptedAnswer": {"@type": "Answer", "text": "No. Employees in government accommodation do not get HRA; a licence fee is deducted instead."}},
+    {"@type": "Question", "name": "Why is income tax zero in most results?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Under the new tax regime for FY 2026-27, a salaried person with income up to Rs 12.75 lakh a year (Rs 12 lakh plus the Rs 75,000 standard deduction) pays no tax because of the Section 87A rebate. Starting salaries up to Pay Level 7 fall below this."}}
+  ]
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="page-wrapper">
+<div class="tool-wrap">
+    <h1>7th Pay Commission In-Hand Salary Calculator</h1>
+    <p class="tool-lead">A notification says "Pay Level 6 (Rs 35,400 to 1,12,400)", but what reaches your bank account each
+    month? Choose the pay level and where you will be posted to see the gross pay, every deduction and the in-hand salary.</p>
+
+    <form class="calc" id="sal" onsubmit="return false">
+        <div>
+            <label for="lvl">Pay level (from the notification)</label>
+            <select id="lvl">
+                <option value="1">Level 1 (Rs 18,000)</option>
+                <option value="2">Level 2 (Rs 19,900)</option>
+                <option value="3">Level 3 (Rs 21,700)</option>
+                <option value="4">Level 4 (Rs 25,500)</option>
+                <option value="5">Level 5 (Rs 29,200)</option>
+                <option value="6">Level 6 (Rs 35,400)</option>
+                <option value="7" selected>Level 7 (Rs 44,900)</option>
+                <option value="8">Level 8 (Rs 47,600)</option>
+                <option value="9">Level 9 (Rs 53,100)</option>
+                <option value="10">Level 10 (Rs 56,100)</option>
+            </select>
+            <label for="basic">Basic pay (Rs a month)</label>
+            <input type="number" id="basic" min="1000" max="300000" step="100" inputmode="numeric">
+            <div class="hint">Filled in with the starting basic for the level. Change it if you are past your first increment.</div>
+
+            <label for="da">Dearness Allowance (% of basic)</label>
+            <input type="number" id="da" min="0" max="200" step="1" value="63" inputmode="numeric">
+            <div class="hint">63% from 1 July 2026. Update it when the government announces a new rate.</div>
+
+            <label for="city">City where you are posted</label>
+            <select id="city">
+                <option value="X">X city: Delhi, Mumbai, Kolkata, Chennai, Bengaluru, Hyderabad, Ahmedabad, Pune (HRA 30%)</option>
+                <option value="Y">Y city: most other large cities and state capitals (HRA 20%)</option>
+                <option value="Z">Z city: all other places (HRA 10%)</option>
+            </select>
+            <label class="check"><input type="checkbox" id="tpta" checked> The city is on the transport allowance list of larger cities (higher TA)</label>
+            <label class="check"><input type="checkbox" id="quarters"> I live in government accommodation (no HRA)</label>
+            <label class="check"><input type="checkbox" id="nps" checked> NPS or UPS pension deduction (10% of basic + DA)</label>
+            <label class="check"><input type="checkbox" id="cghs" checked> CGHS deduction (city covered by CGHS)</label>
+            <label for="grp">Group of the post (for group insurance)</label>
+            <select id="grp">
+                <option value="30">Group C (Rs 30)</option>
+                <option value="60">Group B (Rs 60)</option>
+                <option value="120">Group A (Rs 120)</option>
+            </select>
+        </div>
+        <div class="result" id="out" aria-live="polite"></div>
+    </form>
+    <p class="privacy-line">Calculated in your browser. Figures are estimates, not an official pay slip.</p>
+
+    <div class="tool-note"><strong>Check the details for your post.</strong> The pay level is printed in the notification
+    against each post. Which list a city is on (for HRA and transport allowance) and whether CGHS covers it are set by
+    government orders; your department's pay slip is the final word.</div>
+
+    <h2>How the Salary Is Worked Out</h2>
+    <ul>
+        <li><strong>Basic pay:</strong> new joiners start at the first cell of their level in the 7th CPC pay matrix, and rise by about 3% at each annual increment.</li>
+        <li><strong>DA:</strong> basic x the DA rate. It is revised every January and July.</li>
+        <li><strong>HRA:</strong> 30%, 20% or 10% of basic for X, Y and Z cities. These rates apply because DA has passed 50%. No HRA in government accommodation.</li>
+        <li><strong>Transport allowance:</strong> Rs 1,350 / 900 for Levels 1 and 2, Rs 3,600 / 1,800 for Levels 3 to 8, and Rs 7,200 / 3,600 for Level 9 and above (larger cities / other places), plus DA on that amount.</li>
+        <li><strong>Deductions:</strong> 10% of basic + DA for NPS or UPS, the CGHS subscription (Rs 250 for Levels 1 to 5, Rs 450 for Level 6, Rs 650 for Levels 7 to 11) and group insurance (CGEGIS).</li>
+        <li><strong>Income tax:</strong> estimated under the new regime for FY 2026-27, with the Rs 75,000 standard deduction and the Section 87A rebate. The government's 14% NPS contribution is added to taxable salary and deducted again under Section 80CCD(2), so it does not change the tax.</li>
+    </ul>
+    <p>Example, Level 4 in an X city at 63% DA: basic 25,500 + DA 16,065 + HRA 7,650 + TA 5,868 = gross Rs 55,083. Minus
+    NPS 4,157, CGHS 250 and CGEGIS 30 gives about Rs 50,646 in hand. Our guide to
+    <a href="/content/guides/7th-pay-commission-in-hand-salary-level-4-to-7/">in-hand salary for Levels 4 to 7</a> sets
+    out the same calculation for each level with X and Z city tables.</p>
+
+    <h2>Which Posts Are at Which Level?</h2>
+    <p>As a rough guide from recent SSC notices: Level 2 for Lower Division Clerk and Junior Secretariat Assistant, Level 4
+    for Postal and Sorting Assistants and Tax Assistants, Level 5 for Auditors and Accountants, Level 6 for posts such as
+    Junior Statistical Officer, and Level 7 for Assistant Section Officer and Inspector posts. The same post can sit at
+    different levels in different departments, so always use the level printed in your notification. Our guide to
+    <a href="/content/guides/group-a-b-c-d-posts-explained/">Group A, B, C and D posts</a> explains how levels relate to
+    the post groups.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    <h3>What is the in-hand salary at Pay Level 7 in an X city?</h3>
+    <p>With the starting basic of Rs 44,900 and DA at 63%, the gross is about Rs 92,525 a month (basic, DA, 30% HRA and
+    transport allowance with DA). After NPS, CGHS and CGEGIS the in-hand pay is about Rs 84,496, and no income tax is due
+    under the new regime at this level.</p>
+    <h3>Is HRA paid if I live in government quarters?</h3>
+    <p>No. Employees in government accommodation do not get HRA; a licence fee is deducted instead.</p>
+    <h3>Why is income tax zero in most results?</h3>
+    <p>Under the new tax regime for FY 2026-27, a salaried person with income up to Rs 12.75 lakh a year (Rs 12 lakh plus
+    the Rs 75,000 standard deduction) pays no tax because of the Section 87A rebate. Starting salaries up to Pay Level 7
+    fall below this.</p>
+</div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+    var START = { 1: 18000, 2: 19900, 3: 21700, 4: 25500, 5: 29200, 6: 35400, 7: 44900, 8: 47600, 9: 53100, 10: 56100 };
+    var HRA = { X: 0.30, Y: 0.20, Z: 0.10 };
+    // New regime, FY 2026-27 (Budget 2026 kept the FY 2025-26 slabs)
+    var SLABS = [[400000, 0], [800000, 0.05], [1200000, 0.10], [1600000, 0.15], [2000000, 0.20], [2400000, 0.25], [Infinity, 0.30]];
+    var $ = function (id) { return document.getElementById(id); };
+
+    function ta(level, big) {
+        if (level <= 2) return big ? 1350 : 900;
+        if (level <= 8) return big ? 3600 : 1800;
+        return big ? 7200 : 3600;
+    }
+    function cghs(level) { return level <= 5 ? 250 : level === 6 ? 450 : 650; }
+    function slabTax(income) {
+        var tax = 0, lower = 0;
+        for (var i = 0; i < SLABS.length; i++) {
+            if (income <= lower) break;
+            tax += (Math.min(income, SLABS[i][0]) - lower) * SLABS[i][1];
+            lower = SLABS[i][0];
+        }
+        return tax;
+    }
+    function incomeTax(annualGross) {
+        var taxable = Math.max(0, annualGross - 75000);
+        var tax = slabTax(taxable);
+        if (taxable <= 1200000) tax = 0;                                  // Section 87A rebate
+        else tax = Math.min(tax, taxable - 1200000);                      // marginal relief
+        return Math.round(tax * 1.04);                                    // 4% cess
+    }
+    function rs(n) { return 'Rs ' + Math.round(n).toLocaleString('en-IN'); }
+
+    function setDefaults() {
+        var level = +$('lvl').value;
+        $('basic').value = START[level];
+        $('grp').value = level <= 6 ? '30' : level <= 9 ? '60' : '120';
+    }
+    function run() {
+        var level = +$('lvl').value;
+        var basic = Math.max(0, +$('basic').value || 0);
+        var daRate = Math.max(0, +$('da').value || 0) / 100;
+        var city = $('city').value;
+        var da = Math.round(basic * daRate);
+        var hra = $('quarters').checked ? 0 : Math.round(basic * HRA[city]);
+        var taBase = ta(level, $('tpta').checked), taTotal = Math.round(taBase * (1 + daRate));
+        var gross = basic + da + hra + taTotal;
+        var nps = $('nps').checked ? Math.round((basic + da) * 0.10) : 0;
+        var cg = $('cghs').checked ? cghs(level) : 0;
+        var gis = +$('grp').value;
+        var annualTax = incomeTax(gross * 12);
+        var tds = Math.round(annualTax / 12);
+        var inhand = gross - nps - cg - gis - tds;
+
+        var h = '<div class="verdict info">In hand: ' + rs(inhand) + ' a month</div>';
+        h += '<div class="res-row"><span>Basic pay</span><span>' + rs(basic) + '</span></div>';
+        h += '<div class="res-row"><span>DA (' + Math.round(daRate * 100) + '%)</span><span>' + rs(da) + '</span></div>';
+        h += '<div class="res-row"><span>HRA (' + ($('quarters').checked ? 'govt. accommodation' : Math.round(HRA[city] * 100) + '%') + ')</span><span>' + rs(hra) + '</span></div>';
+        h += '<div class="res-row"><span>Transport allowance + DA</span><span>' + rs(taTotal) + '</span></div>';
+        h += '<div class="res-row total"><span>Gross salary</span><span>' + rs(gross) + '</span></div>';
+        h += '<div class="res-row"><span>NPS / UPS (10%)</span><span>- ' + rs(nps) + '</span></div>';
+        h += '<div class="res-row"><span>CGHS</span><span>- ' + rs(cg) + '</span></div>';
+        h += '<div class="res-row"><span>CGEGIS</span><span>- ' + rs(gis) + '</span></div>';
+        h += '<div class="res-row"><span>Income tax (monthly estimate)</span><span>- ' + rs(tds) + '</span></div>';
+        h += '<div class="res-row total"><span>In-hand salary</span><span>' + rs(inhand) + '</span></div>';
+        h += '<div class="res-note">Annual gross ' + rs(gross * 12) + '. ' + (annualTax
+            ? 'Estimated income tax ' + rs(annualTax) + ' a year under the new regime for FY 2026-27, including 4% cess.'
+            : 'No income tax under the new regime for FY 2026-27: taxable income is within the Rs 12 lakh rebate limit.') +
+            (nps ? ' The government also adds 14% of basic + DA (' + rs((basic + da) * 0.14) + ') to your pension account, which is not part of in-hand pay.' : '') + '</div>';
+        $('out').innerHTML = h;
+    }
+
+    $('lvl').addEventListener('change', function () { setDefaults(); run(); });
+    $('city').addEventListener('change', function () { $('tpta').checked = this.value === 'X'; run(); });
+    $('sal').addEventListener('input', run);
+    $('sal').addEventListener('change', run);
+    setDefaults(); run();
+})();
+</script>
+{% endblock %}

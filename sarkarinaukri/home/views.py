@@ -45,3 +45,21 @@ def about_authors(request):
 def age_calculator(request):
     """Age eligibility calculator; the calculation runs in the browser"""
     return render(request, 'home/age_calculator.html')
+
+
+@require_http_methods(["GET"])
+def photo_resizer(request):
+    """Photo and signature resizer for exam forms; runs in the browser"""
+    return render(request, 'home/tools/photo_resizer.html')
+
+
+@require_http_methods(["GET"])
+def typing_test(request):
+    """SSC typing test practice; runs in the browser"""
+    return render(request, 'home/tools/typing_test.html')
+
+
+@require_http_methods(["GET"])
+def salary_calculator(request):
+    """7th CPC in-hand salary calculator; runs in the browser"""
+    return render(request, 'home/tools/salary_calculator.html')

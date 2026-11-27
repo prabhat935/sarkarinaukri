@@ -1,0 +1,298 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Photo and Signature Resizer for Exam Forms - Sarkari Naukri{% endblock %}
+{% block meta_description %}Resize your photo, signature, thumb impression and declaration to the exact pixels and KB that IBPS, SBI and other exam forms ask for. Works in your browser.{% endblock %}
+{% block og_title %}Photo and Signature Resizer for Exam Forms{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/tools.css' %}?v=1">
+<style>
+.pr-preview { display: flex; align-items: center; justify-content: center; background: repeating-conic-gradient(#f1f5f9 0 25%, #fff 0 50%) 50% / 16px 16px;
+              border: 1px dashed #cbd5e1; border-radius: 10px; min-height: 180px; padding: 12px; }
+.pr-preview canvas { max-width: 100%; height: auto; box-shadow: 0 1px 4px rgba(0,0,0,.15); background: #fff; }
+.pr-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+.pr-spec { font-size: 13px; color: #1e3a8a; background: #eff6ff; border-radius: 6px; padding: 6px 10px; margin-top: 6px; }
+</style>
+{% endblock %}
+
+{% block schema_markup %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Photo and Signature Resizer for Exam Forms",
+  "url": "https://www.sarkarinaukriresult.online/tools/photo-signature-resizer/",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "Any",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"},
+  "description": "Resizes photographs, signatures, thumb impressions and hand-written declarations to the pixel size and file size that online exam application forms require."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What size should the photo be for IBPS and SBI forms?",
+     "acceptedAnswer": {"@type": "Answer", "text": "The IBPS PO/MT-XVI and SBI Junior Associates 2026 notices ask for a photograph of 200 x 230 pixels (preferred) with a file size between 20 KB and 50 KB, and a signature of 140 x 60 pixels between 10 KB and 20 KB."}},
+    {"@type": "Question", "name": "Why does the form say my signature is too small in KB?",
+     "acceptedAnswer": {"@type": "Answer", "text": "A small, plain image such as a 140 x 60 signature can compress to well under 10 KB. This tool adds harmless padding data to the JPEG file so it meets the minimum size, without changing the picture."}},
+    {"@type": "Question", "name": "Are my photos uploaded to your server?",
+     "acceptedAnswer": {"@type": "Answer", "text": "No. The image is resized and compressed inside your browser. It never leaves your device."}},
+    {"@type": "Question", "name": "Which format does the tool save?",
+     "acceptedAnswer": {"@type": "Answer", "text": "JPG (JPEG), which is the format almost every government and bank application form accepts for photographs and signatures."}}
+  ]
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="page-wrapper">
+<div class="tool-wrap">
+    <h1>Photo and Signature Resizer for Exam Forms</h1>
+    <p class="tool-lead">Online application forms reject photos and signatures that are a few pixels or kilobytes off.
+    Choose what you are uploading, pick your scanned image, and download a JPG in the exact size the form asks for.</p>
+
+    <div class="calc">
+        <div>
+            <label for="pr-type">What are you uploading?</label>
+            <select id="pr-type">
+                <option value="photo">Photograph (200 x 230 px, 20 to 50 KB)</option>
+                <option value="sign">Signature (140 x 60 px, 10 to 20 KB)</option>
+                <option value="thumb">Left thumb impression (240 x 240 px, 20 to 50 KB)</option>
+                <option value="decl">Hand-written declaration (800 x 400 px, 50 to 100 KB)</option>
+                <option value="custom">Custom size from my notice</option>
+            </select>
+            <div class="pr-spec" id="pr-spec"></div>
+
+            <div id="pr-custom" style="display:none">
+                <div class="row2">
+                    <div><label for="pr-w">Width (pixels)</label><input type="number" id="pr-w" min="20" max="3000" value="350"></div>
+                    <div><label for="pr-h">Height (pixels)</label><input type="number" id="pr-h" min="20" max="3000" value="450"></div>
+                </div>
+                <div class="row2">
+                    <div><label for="pr-min">Minimum KB</label><input type="number" id="pr-min" min="0" max="2000" value="20"></div>
+                    <div><label for="pr-max">Maximum KB</label><input type="number" id="pr-max" min="1" max="5000" value="50"></div>
+                </div>
+            </div>
+
+            <label for="pr-file">Choose your image</label>
+            <input type="file" id="pr-file" accept="image/jpeg,image/png,image/webp">
+            <div class="hint">A clear scan or phone photo, taken in good light. JPG, PNG or WebP.</div>
+
+            <label for="pr-fit">How to fit it</label>
+            <select id="pr-fit">
+                <option value="cover">Crop to fill the size (best for photos)</option>
+                <option value="contain">Fit inside with a white border (best for signatures)</option>
+            </select>
+            <div id="pr-pos">
+                <label for="pr-x">Move the frame left / right</label>
+                <input type="range" id="pr-x" min="0" max="100" value="50">
+                <label for="pr-y">Move the frame up / down</label>
+                <input type="range" id="pr-y" min="0" max="100" value="50">
+            </div>
+        </div>
+
+        <div class="result">
+            <div class="pr-preview" id="pr-preview"><span class="hint">Your resized image will appear here.</span></div>
+            <div id="pr-out" aria-live="polite"></div>
+            <div class="pr-actions">
+                <button type="button" class="tool-btn" id="pr-dl" disabled>Download JPG</button>
+            </div>
+        </div>
+    </div>
+    <p class="privacy-line">Your image is processed in your browser and never uploaded to our server.</p>
+
+    <div class="tool-note"><strong>Check your own notice.</strong> The presets come from the IBPS PO/MT-XVI (2026) and SBI
+    Junior Associates (2026) notifications, which use the same specifications. SSC, UPSC, RRB and state boards set their
+    own sizes, and some change them between years, so read the "scanning and upload" section of your notice and use the
+    custom option if it differs.</div>
+
+    <h2>Sizes Used in Recent Bank Exam Notices</h2>
+    <table class="rtable">
+        <tr><th>Document</th><th>Dimensions</th><th>File size</th></tr>
+        <tr><td>Photograph</td><td>200 x 230 pixels (preferred)</td><td>20 KB to 50 KB</td></tr>
+        <tr><td>Signature</td><td>140 x 60 pixels (preferred)</td><td>10 KB to 20 KB</td></tr>
+        <tr><td>Left thumb impression</td><td>240 x 240 pixels at 200 DPI (3 x 3 cm)</td><td>20 KB to 50 KB</td></tr>
+        <tr><td>Hand-written declaration</td><td>800 x 400 pixels at 200 DPI (10 x 5 cm)</td><td>50 KB to 100 KB</td></tr>
+    </table>
+    <p>Source: Annexure on scanning and uploading documents in the IBPS CRP PO/MT-XVI notification and Annexure-II of the
+    SBI Junior Associates (CRPD/CR/2026-27/17) advertisement.</p>
+
+    <h2>How to Get an Image the Form Will Accept</h2>
+    <h3>Photograph</h3>
+    <p>Use a recent colour photo against a light, preferably white, background, looking straight at the camera. Caps and
+    dark glasses are not accepted, and if you wear glasses there should be no reflection over your eyes. Religious
+    headwear is allowed if it does not cover the face. Use "Crop to fill" and move the frame so that your face and the top
+    of your shoulders are centred. Bank notices advise keeping several prints of the same photo, because you paste it on
+    the call letter and bring extra copies to the exam.</p>
+    <h3>Signature</h3>
+    <p>Sign on plain white paper with a black ink pen, in your usual running hand. A signature in capital letters is not
+    accepted by IBPS and SBI. Photograph or scan it, crop away the empty paper as closely as you can, and use "Fit inside
+    with a white border" so the whole signature stays visible. Use the same signature on the call letter and attendance
+    sheet at the exam.</p>
+    <h3>Thumb impression and declaration</h3>
+    <p>Put your left thumb impression on white paper with black or blue ink. If you do not have a left thumb, the notices
+    allow the right thumb. For the hand-written declaration, copy the exact text given in the notice in your own
+    handwriting in English; typed or capital-letter declarations are rejected.</p>
+
+    <h2>Why Forms Reject Images</h2>
+    <ul>
+        <li><strong>File too large:</strong> phone photos are often 2 to 5 MB, far above a 50 KB limit. The tool lowers the JPEG quality step by step until the file fits.</li>
+        <li><strong>File too small:</strong> a small signature can compress to 4 or 5 KB, below a 10 KB minimum. The tool adds padding data inside the JPEG file (not to the picture) to reach the minimum.</li>
+        <li><strong>Wrong dimensions:</strong> the image is resized to exactly the width and height chosen.</li>
+        <li><strong>Unclear image:</strong> no tool can fix a blurred or dark original. Retake the photo in daylight if the preview looks poor; the notices say unclear images can lead to rejection.</li>
+    </ul>
+    <p>Going through the whole application? Read our guide on <a href="/content/guides/how-to-apply-government-jobs-online/">how
+    to apply for government jobs online</a>, and check your age limit with the <a href="{% url 'age_calculator' %}">age
+    eligibility calculator</a>.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    <h3>What size should the photo be for IBPS and SBI forms?</h3>
+    <p>The IBPS PO/MT-XVI and SBI Junior Associates 2026 notices ask for a photograph of 200 x 230 pixels (preferred) with a
+    file size between 20 KB and 50 KB, and a signature of 140 x 60 pixels between 10 KB and 20 KB.</p>
+    <h3>Why does the form say my signature is too small in KB?</h3>
+    <p>A small, plain image such as a 140 x 60 signature can compress to well under 10 KB. This tool adds harmless padding
+    data to the JPEG file so it meets the minimum size, without changing the picture.</p>
+    <h3>Are my photos uploaded to your server?</h3>
+    <p>No. The image is resized and compressed inside your browser. It never leaves your device.</p>
+    <h3>Which format does the tool save?</h3>
+    <p>JPG (JPEG), which is the format almost every government and bank application form accepts for photographs and
+    signatures.</p>
+</div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+    var PRESETS = {
+        photo: { w: 200, h: 230, min: 20, max: 50, fit: 'cover', name: 'photo' },
+        sign:  { w: 140, h: 60,  min: 10, max: 20, fit: 'contain', name: 'signature' },
+        thumb: { w: 240, h: 240, min: 20, max: 50, fit: 'contain', name: 'thumb' },
+        decl:  { w: 800, h: 400, min: 50, max: 100, fit: 'contain', name: 'declaration' }
+    };
+    var $ = function (id) { return document.getElementById(id); };
+    var img = null, blob = null, fileName = 'photo';
+
+    function spec() {
+        var t = $('pr-type').value;
+        if (t !== 'custom') return PRESETS[t];
+        var n = function (id, d) { var v = parseInt($(id).value, 10); return isNaN(v) ? d : v; };
+        return { w: Math.max(20, Math.min(3000, n('pr-w', 350))), h: Math.max(20, Math.min(3000, n('pr-h', 450))),
+                 min: Math.max(0, n('pr-min', 0)), max: Math.max(1, n('pr-max', 50)), name: 'image' };
+    }
+    function kb(bytes) { var k = bytes / 1024; return (k < 100 ? k.toFixed(1) : k.toFixed(0)) + ' KB'; }
+
+    function toBlob(canvas, q) {
+        return new Promise(function (res) { canvas.toBlob(res, 'image/jpeg', q); });
+    }
+
+    // Adds a JPEG comment segment (ignored by viewers) right after the start marker to reach `target` bytes
+    function padJpeg(b, target) {
+        return b.arrayBuffer().then(function (buf) {
+            var src = new Uint8Array(buf), need = target - src.length, parts = [src.subarray(0, 2)];
+            while (need > 0) {
+                var len = Math.min(65533, Math.max(need - 4, 1)); // payload bytes in this segment
+                var seg = new Uint8Array(len + 4);
+                seg[0] = 0xFF; seg[1] = 0xFE; seg[2] = ((len + 2) >> 8) & 0xFF; seg[3] = (len + 2) & 0xFF;
+                for (var i = 4; i < seg.length; i++) seg[i] = 0x20;
+                parts.push(seg); need -= seg.length;
+            }
+            parts.push(src.subarray(2));
+            return new Blob(parts, { type: 'image/jpeg' });
+        });
+    }
+
+    function draw() {
+        var s = spec();
+        var canvas = document.createElement('canvas');
+        canvas.width = s.w; canvas.height = s.h;
+        var ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, s.w, s.h);
+        ctx.imageSmoothingQuality = 'high';
+        var iw = img.naturalWidth, ih = img.naturalHeight;
+        if ($('pr-fit').value === 'cover') {
+            var k = Math.max(s.w / iw, s.h / ih), dw = iw * k, dh = ih * k;
+            var px = +$('pr-x').value / 100, py = +$('pr-y').value / 100;
+            ctx.drawImage(img, (s.w - dw) * px, (s.h - dh) * py, dw, dh);
+        } else {
+            var k2 = Math.min(s.w / iw, s.h / ih), w2 = iw * k2, h2 = ih * k2;
+            ctx.drawImage(img, (s.w - w2) / 2, (s.h - h2) / 2, w2, h2);
+        }
+        return canvas;
+    }
+
+    var busy = 0;
+    function run() {
+        var s = spec();
+        $('pr-spec').textContent = 'Output: ' + s.w + ' x ' + s.h + ' pixels, ' + s.min + ' to ' + s.max + ' KB, JPG';
+        $('pr-custom').style.display = $('pr-type').value === 'custom' ? 'block' : 'none';
+        $('pr-pos').style.display = $('pr-fit').value === 'cover' ? 'block' : 'none';
+        if (!img) return;
+        if (s.max < s.min) { $('pr-out').innerHTML = '<div class="err">The maximum KB must be more than the minimum.</div>'; return; }
+        var token = ++busy, canvas = draw();
+        var maxB = s.max * 1024, minB = s.min * 1024;
+        // Highest JPEG quality that fits under the maximum (binary search)
+        var lo = 0.05, hi = 0.95, best = null;
+        (function step(i) {
+            var q = i === 0 ? hi : (lo + hi) / 2;
+            toBlob(canvas, q).then(function (b) {
+                if (token !== busy) return;
+                if (b.size <= maxB) { best = b; lo = q; } else { hi = q; }
+                if (i === 0 && b.size <= maxB) return done(b);
+                if (i < 8) return step(i + 1);
+                if (best) return done(best);
+                return toBlob(canvas, 0.05).then(function (b2) { done(b2, true); });
+            });
+        })(0);
+
+        function done(b, tooBig) {
+            var pad = !tooBig && b.size < minB ? padJpeg(b, minB + 512) : Promise.resolve(b);
+            pad.then(function (finalBlob) {
+                if (token !== busy) return;
+                blob = finalBlob;
+                var prev = $('pr-preview'); prev.innerHTML = ''; prev.appendChild(canvas);
+                var ok = blob.size <= maxB && blob.size >= minB;
+                var h = '<div class="verdict ' + (ok ? 'ok' : 'no') + '" style="margin-top:12px">' +
+                    (ok ? 'Ready to upload' : 'Still above ' + s.max + ' KB') + '</div>';
+                h += '<div class="res-row"><span>Dimensions</span><span>' + s.w + ' x ' + s.h + ' px</span></div>';
+                h += '<div class="res-row"><span>File size</span><span>' + kb(blob.size) + '</span></div>';
+                h += '<div class="res-row"><span>Format</span><span>JPG</span></div>';
+                if (finalBlob !== b) h += '<div class="res-note">The compressed image was ' + kb(b.size) + ', below the minimum, so padding data was added to the file. The picture is unchanged.</div>';
+                if (tooBig) h += '<div class="res-note">Even at the lowest quality the file is larger than the limit. Choose smaller dimensions, or crop away empty background first.</div>';
+                $('pr-out').innerHTML = h;
+                $('pr-dl').disabled = !blob;
+            });
+        }
+    }
+
+    $('pr-file').addEventListener('change', function () {
+        var f = this.files && this.files[0];
+        if (!f) return;
+        if (!/^image\//.test(f.type)) { $('pr-out').innerHTML = '<div class="err">Please choose a JPG, PNG or WebP image.</div>'; return; }
+        fileName = (f.name || 'image').replace(/\.[^.]+$/, '').replace(/[^\w-]+/g, '_').slice(0, 40) || 'image';
+        var url = URL.createObjectURL(f), im = new Image();
+        im.onload = function () { img = im; run(); };
+        im.onerror = function () { $('pr-out').innerHTML = '<div class="err">This image could not be opened. Try saving it as JPG first.</div>'; };
+        im.src = url;
+    });
+    $('pr-type').addEventListener('change', function () {
+        var p = PRESETS[this.value]; if (p) $('pr-fit').value = p.fit;
+        run();
+    });
+    ['pr-fit', 'pr-x', 'pr-y', 'pr-w', 'pr-h', 'pr-min', 'pr-max'].forEach(function (id) {
+        $(id).addEventListener('input', run); $(id).addEventListener('change', run);
+    });
+    $('pr-dl').addEventListener('click', function () {
+        if (!blob) return;
+        var s = spec(), a = document.createElement('a'), url = URL.createObjectURL(blob);
+        a.href = url; a.download = fileName + '_' + s.name + '_' + s.w + 'x' + s.h + '.jpg';
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+    });
+    run();
+})();
+</script>
+{% endblock %}

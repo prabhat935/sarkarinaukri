@@ -1,0 +1,262 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}SSC Typing Test Practice (35 WPM, 10,500 KDPH) - Sarkari Naukri{% endblock %}
+{% block meta_description %}Free typing test for SSC CHSL and CGL practice: type an exam-style English passage for 2, 5 or 10 minutes and see your net WPM, KDPH and accuracy.{% endblock %}
+{% block og_title %}SSC Typing Test Practice{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/tools.css' %}?v=1">
+<style>
+.tt-passage { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 16px; font-size: 17px;
+              line-height: 1.9; color: #1e293b; max-height: 260px; overflow-y: auto; user-select: none; }
+.tt-passage .ok { color: #15803d; }
+.tt-passage .bad { color: #b91c1c; text-decoration: underline; }
+.tt-passage .cur { background: #fde68a; border-radius: 3px; }
+.tt-input { width: 100%; min-height: 160px; margin-top: 12px; padding: 12px; font-size: 17px; line-height: 1.7;
+            border: 2px solid #93c5fd; border-radius: 10px; font-family: inherit; resize: vertical; }
+.tt-input:disabled { background: #f1f5f9; }
+.tt-bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: end; }
+.tt-bar > div { flex: 1; min-width: 150px; }
+.tt-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 14px; }
+.tt-stat { background: #eff6ff; border-radius: 10px; padding: 10px; text-align: center; }
+.tt-stat b { display: block; font-size: 24px; color: #1e3a8a; }
+.tt-stat span { font-size: 12.5px; color: #475569; }
+@media (max-width: 600px) { .tt-stats { grid-template-columns: repeat(2, 1fr); } }
+</style>
+{% endblock %}
+
+{% block schema_markup %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "SSC Typing Test Practice",
+  "url": "https://www.sarkarinaukriresult.online/tools/ssc-typing-test/",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Any",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"},
+  "description": "Timed English typing test with net words per minute, key depressions per hour and accuracy, for SSC skill test practice."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What typing speed is required in SSC CHSL?",
+     "acceptedAnswer": {"@type": "Answer", "text": "For Lower Division Clerk and Junior Secretariat Assistant posts, the typing test standard is 35 words per minute in English or 30 words per minute in Hindi, which is about 10,500 or 9,000 key depressions per hour. Data entry posts are tested in key depressions per hour instead."}},
+    {"@type": "Question", "name": "What is KDPH?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Key depressions per hour: the number of keystrokes you would make in an hour at your current pace. 35 words per minute at five keystrokes per word is 175 keystrokes a minute, or 10,500 an hour."}},
+    {"@type": "Question", "name": "Is the result here the same as the SSC result?",
+     "acceptedAnswer": {"@type": "Answer", "text": "No. It is a practice measure. SSC uses its own software, passages and rules for counting errors, which are explained in each exam notice. Use this test to track your progress and aim for a margin above the required speed."}}
+  ]
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="page-wrapper">
+<div class="tool-wrap">
+    <h1>SSC Typing Test Practice</h1>
+    <p class="tool-lead">Practise for the SSC typing and skill tests with an exam-style English passage. The timer starts
+    with your first key. When time is up you see your net speed, key depressions per hour (KDPH) and accuracy against the
+    35 words per minute standard.</p>
+
+    <div class="calc single">
+        <div class="tt-bar">
+            <div>
+                <label for="tt-time">Test length</label>
+                <select id="tt-time">
+                    <option value="2">2 minutes (warm-up)</option>
+                    <option value="5">5 minutes</option>
+                    <option value="10" selected>10 minutes (exam length)</option>
+                </select>
+            </div>
+            <div>
+                <label for="tt-pass">Passage</label>
+                <select id="tt-pass">
+                    <option value="0">Passage 1: Public services</option>
+                    <option value="1">Passage 2: Railways</option>
+                    <option value="2">Passage 3: Water and farming</option>
+                </select>
+            </div>
+            <div style="flex:0">
+                <button type="button" class="tool-btn alt" id="tt-reset">Restart</button>
+            </div>
+        </div>
+        <div>
+            <div class="tt-passage" id="tt-passage" aria-label="Passage to type"></div>
+            <textarea class="tt-input" id="tt-input" placeholder="Start typing the passage here. The timer starts with your first key."
+                      autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Type here"></textarea>
+            <div class="tt-stats">
+                <div class="tt-stat"><b id="tt-left">10:00</b><span>Time left</span></div>
+                <div class="tt-stat"><b id="tt-net">0</b><span>Net WPM</span></div>
+                <div class="tt-stat"><b id="tt-kdph">0</b><span>KDPH</span></div>
+                <div class="tt-stat"><b id="tt-acc">100%</b><span>Word accuracy</span></div>
+            </div>
+            <div style="margin-top:12px"><button type="button" class="tool-btn" id="tt-stop">Finish now</button></div>
+            <div id="tt-result" aria-live="polite" style="margin-top:12px"></div>
+        </div>
+    </div>
+    <p class="privacy-line">Pasting is turned off so the result reflects real typing. Nothing you type is stored or sent anywhere.</p>
+
+    <h2>SSC Typing and Skill Test Standards</h2>
+    <table class="rtable">
+        <tr><th>Test</th><th>Standard</th></tr>
+        <tr><td>Typing test, English (CHSL LDC/JSA and similar posts)</td><td>35 words per minute (about 10,500 KDPH)</td></tr>
+        <tr><td>Typing test, Hindi</td><td>30 words per minute (about 9,000 KDPH)</td></tr>
+        <tr><td>Data entry skill test / DEST</td><td>8,000 key depressions per hour</td></tr>
+    </table>
+    <p>These are the standards in recent SSC notices; the notice for your exam states the exact rules, the test length and
+    how errors are treated, and candidates with certain disabilities may get extra time or an exemption. Our
+    <a href="/content/guides/ssc-typing-skill-test-preparation/">guide to the SSC typing and skill tests</a> explains
+    which posts need which test, with a six-week practice plan.</p>
+
+    <h2>How Your Score Is Calculated</h2>
+    <ul>
+        <li><strong>Net WPM:</strong> only the words you typed exactly right count. Their characters, including the space
+        after each word, are divided by five (the standard length of a "word") and by the minutes elapsed.</li>
+        <li><strong>KDPH:</strong> all the characters in your answer, scaled to an hour. This shows your raw pace, whether
+        or not the words were correct.</li>
+        <li><strong>Word accuracy:</strong> correct words as a share of the words you typed. A misspelt, missed or extra
+        word counts as an error, and a word you fix with backspace before moving on counts as correct.</li>
+    </ul>
+    <p>Example: in a 10-minute test you type 400 words, 380 of them correct, with an average of 5.5 characters per word
+    including the space. Net WPM is 380 x 5.5 / 5 / 10 = 41.8, and accuracy is 95%. That is above the 35 WPM line with a
+    useful margin.</p>
+
+    <h2>Getting From 25 to 40 WPM</h2>
+    <ul>
+        <li>Type with all ten fingers from the home row, without looking at the keys. Your speed drops for the first two
+        weeks and then climbs past where you started.</li>
+        <li>Practise every day for 30 to 45 minutes. Short daily sessions beat one long session a week.</li>
+        <li>Take a full 10-minute test at least twice a week to build stamina, and note your net WPM each time.</li>
+        <li>Fix accuracy before speed. In the exam, a fast answer full of mistakes can fail where a steady one passes.</li>
+        <li>Aim for about 20% above the requirement, around 42 WPM, so nerves on the day do not take you below 35.</li>
+    </ul>
+
+    <h2>Frequently Asked Questions</h2>
+    <h3>What typing speed is required in SSC CHSL?</h3>
+    <p>For Lower Division Clerk and Junior Secretariat Assistant posts, the typing test standard is 35 words per minute in
+    English or 30 words per minute in Hindi, which is about 10,500 or 9,000 key depressions per hour. Data entry posts are
+    tested in key depressions per hour instead.</p>
+    <h3>What is KDPH?</h3>
+    <p>Key depressions per hour: the number of keystrokes you would make in an hour at your current pace. 35 words per
+    minute at five keystrokes per word is 175 keystrokes a minute, or 10,500 an hour.</p>
+    <h3>Is the result here the same as the SSC result?</h3>
+    <p>No. It is a practice measure. SSC uses its own software, passages and rules for counting errors, which are explained
+    in each exam notice. Use this test to track your progress and aim for a margin above the required speed.</p>
+</div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+    var PASSAGES = [
+        "Every year, lakhs of young people across the country prepare for government jobs. For many families, a steady post in a ministry, a bank or a railway office means security and respect. The work itself is often less dramatic than people imagine. A clerk in a district office checks files, answers letters, keeps records up to date and helps citizens who come with questions about pensions, certificates or land records. Good public service depends on these small tasks being done carefully and on time. A missing signature or a wrong date can delay a pension for months, and a polite answer at the counter can save a visitor a second journey from a distant village. Offices now use computers for most of this work, which is why typing and data entry skills are tested for many posts. A clerk who can type quickly and accurately finishes routine work early and has more time to deal with difficult cases. Speed alone is not enough, however. Accuracy matters even more, because an error in a record can travel through many offices before anyone notices it. The best way to prepare is to practise a little every day, to read official letters and notices to become familiar with their language, and to treat each practice test as if it were the real examination.",
+        "Indian Railways carries crores of passengers every day, along with coal, cement, food grains and containers for industry. Running such a large network needs people with many different skills. Station masters manage the movement of trains, track maintainers walk long distances to inspect the rails, and engineers plan new lines and bridges. In offices, clerks and accounts staff handle reservations, salaries, contracts and the movement of goods. Each year the railway recruitment boards and the railway recruitment cells announce vacancies for these posts, from apprentices with an industrial training certificate to graduates for station and commercial roles. Candidates often find that the competition is intense, with many applicants for every vacancy. Those who succeed usually prepare in a planned way. They read the notification carefully, note the age limit and the date on which it is counted, and keep their certificates ready well before document verification. They practise previous papers under time limits and revise general awareness regularly. For posts that require a typing test, they build speed over several months rather than a few weeks. Working on the railways is demanding, with shifts, transfers and responsibility for public safety, but it offers a respected career and the chance to serve people in every corner of the country.",
+        "Agriculture still supports a large share of India's population, and water is at the centre of almost every decision a farmer makes. In many districts, the timing of the monsoon decides whether a family will have a good year or a difficult one. Government departments of water resources, irrigation and agriculture work to reduce this uncertainty. Engineers design canals and check dams, while field staff help farmers adopt drip and sprinkler irrigation, which can save a great deal of water compared with flooding the fields. Soil testing tells a farmer which nutrients are missing, so that fertiliser is used where it is actually needed. Crop insurance and minimum support prices aim to protect income when prices fall or the weather fails. None of these schemes works well without reliable records. Village officials must register land correctly, enter crop details on time and make sure payments reach the right bank accounts. Mistakes in spelling a name or entering an account number can stop a payment completely. This is one reason why recruitment for many office posts now includes a test of computer skills. Candidates who prepare for these tests are not only learning to pass an examination; they are learning a skill that helps the department deliver its schemes accurately to the people who depend on them."
+    ];
+    var $ = function (id) { return document.getElementById(id); };
+    var words = [], start = null, timer = null, ended = false, minutes = 10;
+
+    function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+
+    function score(final) {
+        var typed = $('tt-input').value;
+        var tw = typed.trim() ? typed.trim().split(/\s+/) : [];
+        // While typing, the last word may be unfinished, so it is not judged yet
+        var judged = final || /\s$/.test(typed) ? tw.length : Math.max(0, tw.length - 1);
+        var correct = 0, chars = 0;
+        for (var i = 0; i < judged; i++) {
+            if (tw[i] === words[i]) { correct++; chars += words[i].length + 1; }
+        }
+        var elapsed = start ? Math.max(1, (Date.now() - start) / 1000) : 0;
+        var mins = elapsed / 60;
+        return {
+            tw: tw, judged: judged, correct: correct,
+            net: mins ? chars / 5 / mins : 0,
+            kdph: mins ? typed.length / mins * 60 : 0,
+            acc: judged ? correct / judged * 100 : 100,
+            elapsed: elapsed
+        };
+    }
+
+    function paint(s) {
+        var h = '';
+        for (var i = 0; i < words.length; i++) {
+            var cls = i < s.judged ? (s.tw[i] === words[i] ? 'ok' : 'bad') : (i === s.judged ? 'cur' : '');
+            h += (cls ? '<span class="' + cls + '">' : '<span>') + esc(words[i]) + '</span> ';
+        }
+        $('tt-passage').innerHTML = h;
+        var cur = $('tt-passage').querySelector('.cur');
+        if (cur) {
+            var box = $('tt-passage');
+            if (cur.offsetTop - box.offsetTop > box.scrollTop + box.clientHeight - 40) box.scrollTop = cur.offsetTop - box.offsetTop - 40;
+        }
+    }
+
+    function tick() {
+        var s = score(false);
+        var left = Math.max(0, minutes * 60 - s.elapsed);
+        $('tt-left').textContent = Math.floor(left / 60) + ':' + ('0' + Math.floor(left % 60)).slice(-2);
+        $('tt-net').textContent = Math.round(s.net);
+        $('tt-kdph').textContent = Math.round(s.kdph).toLocaleString('en-IN');
+        $('tt-acc').textContent = Math.round(s.acc) + '%';
+        paint(s);
+        if (start && left <= 0) finish();
+    }
+
+    function finish() {
+        if (ended || !start) return;
+        ended = true; clearInterval(timer);
+        $('tt-input').disabled = true;
+        var s = score(true);
+        $('tt-net').textContent = Math.round(s.net);
+        $('tt-kdph').textContent = Math.round(s.kdph).toLocaleString('en-IN');
+        $('tt-acc').textContent = Math.round(s.acc) + '%';
+        paint(s);
+        var pass = s.net >= 35;
+        var h = '<div class="verdict ' + (pass ? 'ok' : 'no') + '">' + (pass
+            ? 'Net ' + s.net.toFixed(1) + ' WPM: above the 35 WPM English standard'
+            : 'Net ' + s.net.toFixed(1) + ' WPM: below the 35 WPM English standard') + '</div>';
+        h += '<div class="res-row"><span>Time taken</span><span>' + Math.floor(s.elapsed / 60) + ' min ' + Math.round(s.elapsed % 60) + ' s</span></div>';
+        h += '<div class="res-row"><span>Words typed / correct</span><span>' + s.judged + ' / ' + s.correct + '</span></div>';
+        h += '<div class="res-row"><span>Key depressions per hour</span><span>' + Math.round(s.kdph).toLocaleString('en-IN') + '</span></div>';
+        h += '<div class="res-row"><span>Word accuracy</span><span>' + s.acc.toFixed(1) + '%</span></div>';
+        h += '<div class="res-note">' + (pass && s.net < 42
+            ? 'You are above the line but with little margin. Aim for about 42 WPM so exam nerves do not pull you below 35.'
+            : pass ? 'Good margin. Keep practising full 10-minute tests to hold this speed for the whole exam.'
+                   : 'Keep going: daily practice of 30 to 45 minutes usually adds several WPM a month. Focus on accuracy first.') +
+            ' This is a practice measure; SSC applies its own counting rules.</div>';
+        $('tt-result').innerHTML = h;
+    }
+
+    function reset() {
+        clearInterval(timer); start = null; ended = false;
+        minutes = +$('tt-time').value;
+        words = PASSAGES[+$('tt-pass').value].split(/\s+/);
+        $('tt-input').value = ''; $('tt-input').disabled = false;
+        $('tt-result').innerHTML = '';
+        $('tt-passage').scrollTop = 0;
+        tick();
+    }
+
+    $('tt-input').addEventListener('input', function () {
+        if (ended) return;
+        if (!start) { start = Date.now(); timer = setInterval(tick, 500); }
+        tick();
+        if (score(false).judged >= words.length) finish();
+    });
+    $('tt-input').addEventListener('paste', function (e) { e.preventDefault(); });
+    $('tt-input').addEventListener('drop', function (e) { e.preventDefault(); });
+    $('tt-reset').addEventListener('click', reset);
+    $('tt-stop').addEventListener('click', finish);
+    $('tt-time').addEventListener('change', reset);
+    $('tt-pass').addEventListener('change', reset);
+    reset();
+})();
+</script>
+{% endblock %}
