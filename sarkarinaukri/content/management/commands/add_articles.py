@@ -25,7 +25,7 @@ ARTICLES = [
 <li><strong>Educational qualification:</strong> Exact degree and subject requirements</li>
 <li><strong>Age limit:</strong> Check the age cutoff date mentioned in the notification (usually January 1 of the year)</li>
 <li><strong>Nationality:</strong> Most posts require Indian citizenship</li>
-<li><strong>Category relaxation:</strong> SC/ST/OBC/EWS/PH candidates often get age and fee concessions</li>
+<li><strong>Category relaxation:</strong> SC, ST, OBC and disabled candidates usually get extra years on the upper age limit (EWS candidates do not), and fee exemptions differ from one recruiter to another</li>
 </ul>
 <p>Applying without meeting eligibility criteria results in rejection during document verification, wasting your time and application fee.</p>
 

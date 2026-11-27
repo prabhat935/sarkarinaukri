@@ -167,57 +167,56 @@ Exam angle: Probable question about India's renewable energy targets, hydrogen p
         'slug': 'age-relaxation-government-jobs-2026',
         'category': 'career',
         'published_date': datetime.date(2026, 5, 13),
-        'excerpt': 'Detailed guide to age relaxation available under different categories (SC/ST/OBC) for government jobs in India — eligibility, how to apply, documents required.',
-        'meta_description': 'Age relaxation government jobs 2026: SC/ST/OBC/EWS age limit increases, guidelines for defense personnel, persons with disabilities.',
-        'content': """<p>Age limit is one of the most critical factors determining eligibility for government jobs. However, the Union and State governments provide age relaxation to certain categories of citizens to promote equality and inclusive recruitment. This guide covers age relaxation rules across all major categories and recruitment channels.</p>
+        'excerpt': 'How much age relaxation SC, ST, OBC, PwBD and ex-servicemen candidates get in central government jobs, why EWS gets none, how relaxations combine, and which date your age is counted on.',
+        'meta_description': 'Age relaxation in central government jobs: SC/ST 5 years, OBC 3, PwBD 10 to 15, ex-servicemen rules, why EWS gets none, and how relaxations combine.',
+        'content': """<p>Every government job notification sets a minimum and maximum age, and then lets some groups of candidates go above the maximum. Getting this right matters: an application from a candidate who is over age is rejected at document verification, often after they have cleared the exam. This guide explains the relaxations used in central government recruitment such as SSC, UPSC, RRB and the public sector banks, and how to work out your own limit.</p>
 
-<h2>General Age Relaxation Categories</h2>
-<p><strong>SC/ST Candidates: +5 years relaxation</strong><br>
-Scheduled Caste and Scheduled Tribe candidates get 5 years extra age relaxation beyond the general age limit. This applies across most central and state government exams. Example: If the age limit is 18–27 for general candidates, SC/ST candidates can apply up to age 32.</p>
+<h2>The Standard Central Government Relaxations</h2>
+<p>These are the usual figures. Each notification has an age relaxation table, and that table is what counts for that recruitment.</p>
+<ul>
+<li><strong>SC and ST: 5 years</strong> above the upper age limit.</li>
+<li><strong>OBC (non-creamy layer): 3 years.</strong> You need an OBC certificate in the central government format showing that you are not in the creamy layer; a creamy-layer OBC candidate applies as unreserved.</li>
+<li><strong>EWS: no age relaxation.</strong> EWS candidates get reserved vacancies, but they follow the same age limit as unreserved candidates. For example, UPSC's Advertisement 13/2026 sets 35 years for both UR and EWS.</li>
+<li><strong>Persons with benchmark disabilities (40% or more): 10 years</strong>, added on top of the category relaxation. That gives 10 years for an unreserved or EWS candidate, 13 years for OBC and 15 years for SC or ST.</li>
+<li><strong>Ex-servicemen:</strong> for most Group C and non-gazetted Group B posts, the period of military service is deducted from your actual age, and the result may be up to 3 years above the limit. Our <a href="/content/guides/ex-servicemen-age-relaxation-calculation/">ex-servicemen age guide</a> works through examples. Gazetted posts filled through UPSC have their own ex-servicemen rules, given in each notice.</li>
+</ul>
+<p>Many notices add further relaxations for particular groups, such as central government civilian employees with a set period of regular service, widows and divorced or judicially separated women who have not remarried, and the children of personnel killed in action. The amounts differ between exams, so look them up in the notice rather than assuming a figure.</p>
 
-<p><strong>OBC Candidates: +3 years relaxation</strong><br>
-Other Backward Class (OBC — Non-Creamy Layer) candidates receive 3 years age relaxation. Creamy layer OBC candidates (those with high income/status) do not get this relaxation. You must obtain OBC-NCL certificate to avail this benefit.</p>
-
-<p><strong>EWS Candidates: +5 years relaxation</strong><br>
-Economically Weaker Section (EWS) — a category introduced in 2019 for unreserved candidates with low income — get 5 years relaxation. EWS certificate is required.</p>
-
-<h2>Special Age Relaxation Categories</h2>
-<p><strong>Persons with Disabilities (PwD): +10 years relaxation</strong><br>
-Candidates with 40% or more disability (as per guidelines) get 10 years age relaxation. This applies to almost all central government exams. You need a disability certificate issued by a medical board.</p>
-
-<p><strong>Ex-Servicemen (ESM): Relaxation as per norms</strong><br>
-The relaxation for ex-servicemen is calculated as: Age limit + Period of service + 3 years (capped at 50 years typically, varies by exam). Example: If an ex-serviceman served 5 years in the armed forces, they get 5 + 3 = 8 years relaxation. Some exams waive the upper age limit entirely for ex-servicemen.</p>
-
-<p><strong>War Widows / Wards of Paramilitary Personnel killed in action: +10 years relaxation</strong><br>
-Family members of armed forces/paramilitary personnel killed during service get special age relaxation.</p>
-
-<p><strong>Domicile-Based Relaxation (State-Specific)</strong><br>
-Some state PSC exams grant age relaxation to candidates who are domiciled in that state. Example: UP PSC exams sometimes relax age limits for candidates domiciled in UP.</p>
+<h2>A Worked Example</h2>
+<p>Suppose a post has an age limit of 18 to 27 years on 1 January 2027.</p>
+<ul>
+<li>Unreserved or EWS candidate: must be born on or after 2 January 1999 and on or before 1 January 2009.</li>
+<li>OBC candidate: upper limit 27 + 3 = 30 years.</li>
+<li>SC or ST candidate: upper limit 27 + 5 = 32 years.</li>
+<li>OBC candidate with a benchmark disability: 27 + 13 = 40 years.</li>
+<li>SC candidate with a benchmark disability: 27 + 15 = 42 years.</li>
+</ul>
+<p>Relaxation only raises the upper limit. The minimum age stays the same for everyone.</p>
 
 <h2>How Relaxations Combine</h2>
-<p>A candidate can claim the HIGHEST applicable relaxation, but relaxations do not stack. For example, an SC candidate with disability does not get 5 + 10 = 15 years relaxation. Instead, they get the maximum single relaxation (10 years for disability, as it's higher).</p>
+<p>The disability relaxation is designed to be added to the category relaxation, which is why an SC candidate with a benchmark disability gets 15 years rather than 10. Ex-servicemen who are also SC, ST or OBC usually have their own rows in the relaxation table. Most other relaxations do not add up: if you qualify for two of them, you take the one that gives you the higher limit. When in doubt, the notice's table decides, not a rule of thumb.</p>
 
-<p>However, some exams allow specific combinations. For instance, an ex-serviceman SC candidate may get: max(5 years for SC, ESM relaxation). Always check the specific exam notification.</p>
+<h2>The Date Your Age Is Counted On</h2>
+<p>Your age is not counted on the day you apply. Each notice names a "crucial date" or "as on" date, and you must be within the limits on that date. SSC usually fixes a specific date such as 1 January or 1 August of the exam year. UPSC recruitment advertisements generally use the closing date for applications. State commissions set their own dates. Read this line of the notice first; a single day either way can decide whether you are eligible.</p>
 
-<h2>How to Claim Age Relaxation</h2>
-<ol>
-<li><strong>Obtain relevant certificate:</strong> SC/ST certificate from revenue office, OBC-NCL certificate, EWS certificate, or disability certificate</li>
-<li><strong>Fill application form carefully:</strong> During online application, select your category and upload the certificate scan</li>
-<li><strong>Verify in admit card:</strong> Once your admit card is released, verify that the correct age relaxation has been applied</li>
-<li><strong>Carry original certificate to exam:</strong> Bring original documents for document verification stage</li>
-</ol>
+<h2>State Government Jobs Are Different</h2>
+<p>State recruitment follows the state's own rules, and these often differ from central ones. For example, Rajasthan's RSSB gives 5 years to general category women and 10 years to reserved category women of Rajasthan, which central rules do not. State reservation and relaxation are usually only for that state's residents; candidates from other states apply as unreserved.</p>
 
-<h2>Important Points to Remember</h2>
+<h2>How to Claim It</h2>
 <ul>
-<li>Age limit is calculated as on a specific cutoff date mentioned in the notification (usually January 1 of exam year) — not from when you fill the form</li>
-<li>OBC-NCL certificate is valid only if issued within last 1 year by competent authority</li>
-<li>An EWS certificate for central government jobs requires gross family income below ₹8 lakh in the previous financial year, as set by the government in 2019 (see our <a href="/content/guides/ews-certificate-central-government-jobs/">EWS certificate guide</a> for the asset limits)</li>
-<li>Some exams have NO upper age limit for certain categories (e.g., ex-servicemen in some recruitment)</li>
-<li>For women candidates applying to defense forces, age relaxation rules are different — check specific exam notification</li>
-<li>State government jobs may have different age relaxation from central jobs for the same category</li>
+<li><strong>Get the right certificate in time.</strong> OBC certificates for central jobs must be in the central format and show non-creamy layer status for the year the notice asks for. Disability certificates must be issued by the competent medical authority. Ex-servicemen need their discharge book or release order.</li>
+<li><strong>Choose your category correctly in the form.</strong> The relaxation is applied from what you declare, and changing it later is usually not allowed.</li>
+<li><strong>Keep the originals for document verification.</strong> If a certificate does not match your claim, the candidature is cancelled even after selection.</li>
 </ul>
 
-<p>Age relaxation is a right, not a privilege. Ensure you claim it if eligible — it significantly expands your window to apply for multiple attempts.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Assuming EWS gives extra age. It does not in central recruitment.</li>
+<li>Counting age on the application date instead of the notice's crucial date.</li>
+<li>Using a state-format OBC certificate for a central job.</li>
+<li>Applying the same relaxation in a state exam as in a central one.</li>
+</ul>
+<p>Our <a href="/content/guides/how-to-read-government-job-notification/">guide to reading a notification</a> shows where to find the age table in a typical notice.</p>
 """,
     },
     {
