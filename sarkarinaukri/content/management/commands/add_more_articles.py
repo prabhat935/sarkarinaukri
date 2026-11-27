@@ -216,7 +216,7 @@ Exam angle: Probable question about India's renewable energy targets, hydrogen p
 <li>Using a state-format OBC certificate for a central job.</li>
 <li>Applying the same relaxation in a state exam as in a central one.</li>
 </ul>
-<p>Our <a href="/content/guides/how-to-read-government-job-notification/">guide to reading a notification</a> shows where to find the age table in a typical notice.</p>
+<p>Our <a href="/content/guides/how-to-read-government-job-notification/">guide to reading a notification</a> shows where to find the age table in a typical notice. To check your own case, use our <a href="/tools/age-eligibility-calculator/">age eligibility calculator</a>: enter your date of birth, the notice's cut-off date and your category, and it works out your age and your relaxed upper limit.</p>
 """,
     },
     {

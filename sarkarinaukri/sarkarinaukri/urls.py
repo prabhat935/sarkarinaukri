@@ -63,6 +63,7 @@ urlpatterns = [
     path("terms-of-service/", home_views.terms_of_service, name="terms_of_service"),
     path("disclaimer/", home_views.disclaimer, name="disclaimer"),
     path("about-us/", home_views.about_us, name="about_us"),
+    path("tools/age-eligibility-calculator/", home_views.age_calculator, name="age_calculator"),
     path("about-authors/", home_views.about_authors, name="about_authors"),
     path("contact/", home_views.contact, name="contact"),
 ]

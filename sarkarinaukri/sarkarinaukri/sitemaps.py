@@ -47,6 +47,7 @@ class StaticPagesSitemap(HttpsSitemap):
             ('home',                      1.0),
             ('article_list',              0.9),
             ('faq',                       0.8),
+            ('age_calculator',            0.8),
             ('job_list',                  1.0),
             ('result_list',               0.9),
             ('admit_card_list',           0.9),

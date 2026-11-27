@@ -39,3 +39,9 @@ def contact(request):
 def about_authors(request):
     """Render about authors page - E-E-A-T credibility signal"""
     return render(request, 'home/about_authors.html')
+
+
+@require_http_methods(["GET"])
+def age_calculator(request):
+    """Age eligibility calculator; the calculation runs in the browser"""
+    return render(request, 'home/age_calculator.html')

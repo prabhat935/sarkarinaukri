@@ -1,0 +1,313 @@
+{% extends "base.html" %}
+
+{% block title %}Age Eligibility Calculator for Government Jobs - Sarkari Naukri{% endblock %}
+{% block meta_description %}Check your exact age on an exam's cut-off date and your upper age limit after SC, ST, OBC, PwBD or ex-servicemen relaxation, with the birth date range allowed.{% endblock %}
+{% block og_title %}Age Eligibility Calculator for Government Jobs{% endblock %}
+
+{% block extra_css %}
+<style>
+.tool-wrap { max-width: 900px; margin: 0 auto; padding: 32px 16px 56px; }
+.tool-wrap h1 { font-size: clamp(24px, 4vw, 32px); font-weight: 800; color: #1e3a8a; margin-bottom: 10px; }
+.tool-wrap h2 { font-size: 21px; font-weight: 700; color: #1e293b; margin: 32px 0 10px; }
+.tool-wrap h3 { font-size: 17px; font-weight: 700; color: #1e293b; margin: 18px 0 6px; }
+.tool-wrap p, .tool-wrap li { font-size: 16px; line-height: 1.75; color: #334155; }
+.tool-lead { font-size: 17px !important; }
+.calc { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; background: #fff; border: 1px solid #dbeafe;
+        border-radius: 12px; padding: 20px; margin: 20px 0 8px; box-shadow: 0 1px 3px rgba(0,0,0,.05); }
+.calc label { display: block; font-weight: 600; font-size: 14px; color: #1e293b; margin: 12px 0 4px; }
+.calc label:first-child { margin-top: 0; }
+.calc input[type=date], .calc input[type=number], .calc select { width: 100%; padding: 9px 10px; border: 1px solid #cbd5e1;
+        border-radius: 8px; font-size: 15px; background: #fff; color: #0f172a; }
+.calc .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.calc .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+.calc .hint { font-size: 12.5px; color: #64748b; margin-top: 3px; line-height: 1.5; }
+.calc .check { display: flex; gap: 8px; align-items: flex-start; margin-top: 12px; font-weight: 500; }
+.calc .check input { margin-top: 4px; }
+.calc .esm-box { display: none; background: #f8fafc; border-radius: 8px; padding: 10px; margin-top: 8px; }
+.result { background: #f8fbff; border-radius: 10px; padding: 18px; min-height: 200px; }
+.result .empty { color: #64748b; text-align: center; padding-top: 60px; }
+.verdict { font-size: 20px; font-weight: 800; border-radius: 8px; padding: 10px 12px; margin-bottom: 12px; }
+.verdict.ok { background: #dcfce7; color: #166534; }
+.verdict.no { background: #fee2e2; color: #991b1b; }
+.res-row { display: flex; justify-content: space-between; gap: 12px; padding: 7px 0; border-bottom: 1px solid #e2e8f0; font-size: 15px; }
+.res-row span:first-child { color: #475569; }
+.res-row span:last-child { font-weight: 700; color: #0f172a; text-align: right; }
+.res-note { font-size: 13px; color: #64748b; margin-top: 10px; line-height: 1.6; }
+.err { color: #b91c1c; font-size: 14px; margin-top: 8px; }
+.rtable { width: 100%; border-collapse: collapse; margin: 8px 0 4px; font-size: 15px; }
+.rtable th, .rtable td { border: 1px solid #e2e8f0; padding: 8px 10px; text-align: left; }
+.rtable th { background: #eff6ff; color: #1e3a8a; }
+.tool-note { background: #fff7ed; border-left: 4px solid #f97316; padding: 12px 14px; border-radius: 6px; margin: 16px 0; }
+@media (max-width: 720px) { .calc { grid-template-columns: 1fr; } }
+</style>
+{% endblock %}
+
+{% block schema_markup %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Age Eligibility Calculator for Government Jobs",
+  "url": "https://www.sarkarinaukriresult.online/tools/age-eligibility-calculator/",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"},
+  "description": "Calculates age on an exam's cut-off date and the upper age limit after category, disability and ex-servicemen relaxation."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "Do EWS candidates get age relaxation in central government jobs?",
+     "acceptedAnswer": {"@type": "Answer", "text": "No. EWS candidates have reserved vacancies but follow the same upper age limit as unreserved candidates in central government recruitment."}},
+    {"@type": "Question", "name": "Is the disability relaxation added to the SC, ST or OBC relaxation?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Yes, in central recruitment the 10 years for a benchmark disability is added to the category relaxation: 10 years for unreserved and EWS, 13 for OBC and 15 for SC and ST candidates."}},
+    {"@type": "Question", "name": "On which date is my age counted?",
+     "acceptedAnswer": {"@type": "Answer", "text": "On the crucial date given in the notification, not on the day you apply. SSC usually fixes a date such as 1 January or 1 August; UPSC recruitment advertisements usually use the closing date."}},
+    {"@type": "Question", "name": "If I turn 28 on the cut-off date, am I within a limit of 27 years?",
+     "acceptedAnswer": {"@type": "Answer", "text": "No. A limit of 27 years means you must not have completed 28 years on the cut-off date. If your 28th birthday falls on that date, you are over the limit."}},
+    {"@type": "Question", "name": "Does this calculator work for state government jobs?",
+     "acceptedAnswer": {"@type": "Answer", "text": "It calculates the age correctly for any date, but its relaxation figures are the usual central government ones. State jobs often have different relaxations, so for those enter the upper limit for your category from the notice and choose Unreserved."}}
+  ]
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="page-wrapper">
+<div class="tool-wrap">
+    <h1>Age Eligibility Calculator for Government Jobs</h1>
+    <p class="tool-lead">Enter your date of birth and the age limits from the notification. The calculator shows your
+    exact age on the exam's cut-off date, your upper age limit after relaxation, and whether you are within it.</p>
+
+    <form class="calc" id="age-calc" onsubmit="return false" novalidate>
+        <div>
+            <label for="dob">Your date of birth</label>
+            <input type="date" id="dob" required>
+            <div class="hint">As written on your Class 10 certificate.</div>
+
+            <label for="cutoff">Cut-off date in the notification</label>
+            <input type="date" id="cutoff" required>
+            <div class="hint">The "age as on" or crucial date. It is often 1 January or 1 August, or the last date to apply.</div>
+
+            <div class="row2">
+                <div>
+                    <label for="minage">Minimum age</label>
+                    <input type="number" id="minage" min="0" max="60" value="18" inputmode="numeric">
+                </div>
+                <div>
+                    <label for="maxage">Upper age limit</label>
+                    <input type="number" id="maxage" min="1" max="70" value="27" inputmode="numeric">
+                </div>
+            </div>
+            <div class="hint">The limit for unreserved candidates, before any relaxation.</div>
+
+            <label for="cat">Your category</label>
+            <select id="cat">
+                <option value="UR">Unreserved (General)</option>
+                <option value="EWS">EWS</option>
+                <option value="OBC">OBC (non-creamy layer)</option>
+                <option value="SC">SC</option>
+                <option value="ST">ST</option>
+            </select>
+
+            <label class="check"><input type="checkbox" id="pwbd"> I have a benchmark disability (40% or more)</label>
+            <label class="check"><input type="checkbox" id="esm"> I am an ex-serviceman</label>
+            <div class="esm-box" id="esm-box">
+                <div class="hint" style="margin-top:0">Military service rendered (from your discharge book):</div>
+                <div class="row3">
+                    <div><label for="sy">Years</label><input type="number" id="sy" min="0" max="45" value="0" inputmode="numeric"></div>
+                    <div><label for="sm">Months</label><input type="number" id="sm" min="0" max="11" value="0" inputmode="numeric"></div>
+                    <div><label for="sd">Days</label><input type="number" id="sd" min="0" max="30" value="0" inputmode="numeric"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="result" id="result" aria-live="polite">
+            <div class="empty">Enter your date of birth and the cut-off date to see the result.</div>
+        </div>
+    </form>
+    <p class="hint" style="font-size:13px;color:#64748b">Everything is calculated in your browser. Nothing you enter is sent to us or stored.</p>
+
+    <div class="tool-note"><strong>The notification decides.</strong> This calculator uses the standard central government
+    relaxations. Every notice has its own age relaxation table, and some posts and most state recruitments differ. If your
+    notice gives a different limit for your category, choose "Unreserved" and enter that limit as the upper age limit.</div>
+
+    <h2>How the Calculation Works</h2>
+    <p>Your age is counted in completed years, months and days on the cut-off date, the same way it is counted at document
+    verification. A limit of 27 years means you must not have completed 28 years on that date, so a candidate whose 28th
+    birthday falls exactly on the cut-off date is over the limit, while one whose birthday is the next day is not.</p>
+    <p>The upper limit is then raised by the relaxation for your category. Relaxation never changes the minimum age. The
+    calculator also shows the range of birth dates that the notice allows for your category, which is how many notices
+    state the limit ("born not before ... and not later than ...").</p>
+
+    <h2>Relaxations Used</h2>
+    <table class="rtable">
+        <tr><th>Category</th><th>Extra years</th><th>With benchmark disability</th></tr>
+        <tr><td>Unreserved</td><td>0</td><td>10</td></tr>
+        <tr><td>EWS</td><td>0</td><td>10</td></tr>
+        <tr><td>OBC (non-creamy layer)</td><td>3</td><td>13</td></tr>
+        <tr><td>SC / ST</td><td>5</td><td>15</td></tr>
+    </table>
+    <p>For ex-servicemen, the calculator uses the rule found in SSC and most Group C notices: the military service you
+    have rendered is deducted from your actual age, and the result may exceed the upper limit by 3 years. Ex-servicemen
+    who are OBC or SC/ST usually get 3 or 5 more years on top of that (6 and 8 years in total). Gazetted posts filled
+    through UPSC have different ex-servicemen rules, so check the notice. The calculator does not combine ex-servicemen
+    and disability relaxation, because notices treat that case separately.</p>
+
+    <h2>A Worked Example</h2>
+    <p>An SSC-style post has an age limit of 18 to 27 years on 1 January 2027. Riya, an OBC candidate, was born on
+    15 March 1997. On 1 January 2027 she is 29 years, 9 months and 17 days old. Her upper limit is 27 + 3 = 30 years, and
+    she has not completed 30 years on the cut-off date, so she is eligible. The birth date range for OBC candidates is
+    2 January 1996 to 1 January 2009.</p>
+    <p>Arjun, an ex-serviceman in the unreserved category, is 38 years and 2 months old on the same date and served
+    17 years and 6 months. After deducting his service his age is 20 years and 8 months, which is within the 30-year limit
+    (27 + 3) that applies to him.</p>
+
+    <h2>Before You Apply</h2>
+    <ul>
+        <li>Find the cut-off date in the notice first. It is in the age limit section, usually just above the relaxation table.</li>
+        <li>Make sure your category certificate is in the format and for the year the notice asks for. Our guides to the
+        <a href="/content/guides/obc-non-creamy-layer-certificate-central-jobs/">OBC non-creamy layer certificate</a> and the
+        <a href="/content/guides/ews-certificate-central-government-jobs/">EWS certificate</a> explain the common problems.</li>
+        <li>Read our full guide to <a href="/content/guides/age-relaxation-government-jobs-2026/">age relaxation in government
+        jobs</a> and, for ex-servicemen, the <a href="/content/guides/ex-servicemen-age-relaxation-calculation/">ex-servicemen
+        age guide</a> with more examples.</li>
+        <li>Browse <a href="{% url 'job_list' %}">open government jobs</a>: each post lists its age limits and relaxations from the official notice.</li>
+    </ul>
+
+    <h2>Frequently Asked Questions</h2>
+    <h3>Do EWS candidates get age relaxation in central government jobs?</h3>
+    <p>No. EWS candidates have reserved vacancies but follow the same upper age limit as unreserved candidates in central
+    government recruitment.</p>
+    <h3>Is the disability relaxation added to the SC, ST or OBC relaxation?</h3>
+    <p>Yes. In central recruitment the 10 years for a benchmark disability is added to the category relaxation: 10 years
+    for unreserved and EWS, 13 for OBC and 15 for SC and ST candidates.</p>
+    <h3>On which date is my age counted?</h3>
+    <p>On the crucial date given in the notification, not on the day you apply. SSC usually fixes a date such as 1 January
+    or 1 August; UPSC recruitment advertisements usually use the closing date.</p>
+    <h3>If I turn 28 on the cut-off date, am I within a limit of 27 years?</h3>
+    <p>No. A limit of 27 years means you must not have completed 28 years on the cut-off date. If your 28th birthday falls
+    on that date, you are over the limit.</p>
+    <h3>Does this calculator work for state government jobs?</h3>
+    <p>It calculates the age correctly for any date, but its relaxation figures are the usual central government ones.
+    State jobs often have different relaxations, so for those enter the upper limit for your category from the notice and
+    choose Unreserved.</p>
+</div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+    // Calendar-date arithmetic in UTC so time zones cannot shift a day.
+    function parse(v) {
+        var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(v || '');
+        if (!m) return null;
+        var d = { y: +m[1], m: +m[2], d: +m[3] };
+        if (d.m < 1 || d.m > 12 || d.d < 1 || d.d > dim(d.y, d.m)) return null;
+        return d;
+    }
+    function dim(y, m) { return new Date(Date.UTC(y, m, 0)).getUTCDate(); }
+    function utc(d) { return Date.UTC(d.y, d.m - 1, d.d); }
+    function cmp(a, b) { return utc(a) - utc(b); }
+    function addMonths(d, n) {
+        var i = d.y * 12 + (d.m - 1) + n, y = Math.floor(i / 12), m = (i % 12) + 1;
+        return { y: y, m: m, d: Math.min(d.d, dim(y, m)) };
+    }
+    function addDays(d, n) {
+        var t = new Date(utc(d) + n * 86400000);
+        return { y: t.getUTCFullYear(), m: t.getUTCMonth() + 1, d: t.getUTCDate() };
+    }
+    // Completed years, months and days from `a` to `b` (anniversary method)
+    function diff(a, b) {
+        var months = (b.y - a.y) * 12 + (b.m - a.m), anchor = addMonths(a, months);
+        if (cmp(anchor, b) > 0) { months -= 1; anchor = addMonths(a, months); }
+        return { y: Math.floor(months / 12), m: months % 12, d: Math.round((utc(b) - utc(anchor)) / 86400000) };
+    }
+    var MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    function fmt(d) { return d.d + ' ' + MON[d.m - 1] + ' ' + d.y; }
+    function ymd(a) {
+        function p(n, w) { return n + ' ' + w + (n === 1 ? '' : 's'); }
+        return p(a.y, 'year') + ', ' + p(a.m, 'month') + ', ' + p(a.d, 'day');
+    }
+    function num(id, max) {
+        var v = parseInt(document.getElementById(id).value, 10);
+        return isNaN(v) || v < 0 ? 0 : Math.min(v, max);
+    }
+
+    var CAT = { UR: 0, EWS: 0, OBC: 3, SC: 5, ST: 5 };
+    var form = document.getElementById('age-calc');
+    var out = document.getElementById('result');
+    var esm = document.getElementById('esm');
+    var pwbd = document.getElementById('pwbd');
+
+    function run() {
+        document.getElementById('esm-box').style.display = esm.checked ? 'block' : 'none';
+        var dob = parse(document.getElementById('dob').value);
+        var cut = parse(document.getElementById('cutoff').value);
+        if (!dob || !cut) {
+            out.innerHTML = '<div class="empty">Enter your date of birth and the cut-off date to see the result.</div>';
+            return;
+        }
+        if (cmp(dob, cut) > 0) {
+            out.innerHTML = '<div class="err">Your date of birth must be before the cut-off date.</div>';
+            return;
+        }
+        var minAge = num('minage', 60), maxAge = num('maxage', 70);
+        if (maxAge < minAge) {
+            out.innerHTML = '<div class="err">The upper age limit must be at least the minimum age.</div>';
+            return;
+        }
+        var cat = document.getElementById('cat').value;
+        var useEsm = esm.checked, usePwbd = pwbd.checked && !useEsm;
+        var relax = CAT[cat] + (usePwbd ? 10 : 0) + (useEsm ? 3 : 0);
+        var limit = maxAge + relax;
+
+        var age = diff(dob, cut);
+        // Ex-servicemen: service is deducted from age, i.e. the birth date moves forward by the service period
+        var counted = age, effDob = dob;
+        if (useEsm) {
+            effDob = addDays(addMonths(dob, num('sy', 45) * 12 + num('sm', 11)), num('sd', 30));
+            counted = cmp(effDob, cut) > 0 ? { y: 0, m: 0, d: 0 } : diff(effDob, cut);
+        }
+        var tooYoung = age.y < minAge;      // minimum age uses actual age
+        var tooOld = counted.y > limit;     // over the limit once `limit + 1` years are completed
+        var ok = !tooYoung && !tooOld;
+
+        // Birth date range for this category (without ex-servicemen deduction)
+        var latest = addMonths(cut, -12 * minAge);
+        var earliest = addDays(addMonths(cut, -12 * (limit + 1)), 1);
+
+        var parts = CAT[cat] ? [cat + ' +' + CAT[cat]] : [];
+        if (usePwbd) parts.push('disability +10');
+        if (useEsm) parts.push('ex-servicemen +3 after deducting service');
+        if (!parts.length) parts.push('none for ' + (cat === 'EWS' ? 'EWS' : 'unreserved'));
+
+        var h = '<div class="verdict ' + (ok ? 'ok' : 'no') + '">' +
+            (ok ? 'Eligible by age' : (tooYoung ? 'Below the minimum age' : 'Over the upper age limit')) + '</div>';
+        h += '<div class="res-row"><span>Age on ' + fmt(cut) + '</span><span>' + ymd(age) + '</span></div>';
+        if (useEsm) h += '<div class="res-row"><span>Age after deducting service</span><span>' + ymd(counted) + '</span></div>';
+        h += '<div class="res-row"><span>Relaxation</span><span>' + parts.join(', ') + '</span></div>';
+        h += '<div class="res-row"><span>Your age limit</span><span>' + minAge + ' to ' + limit + ' years</span></div>';
+        if (!useEsm) h += '<div class="res-row"><span>Birth dates allowed</span><span>' + fmt(earliest) + ' to ' + fmt(latest) + '</span></div>';
+        if (tooOld) {
+            var crossed = addMonths(useEsm ? effDob : dob, 12 * (limit + 1));
+            h += '<div class="res-note">' + (useEsm ? 'Your age after deducting service reached ' : 'You completed ') +
+                (limit + 1) + ' years ' + (cmp(crossed, cut) === 0 ? 'on the cut-off date itself' : 'on ' + fmt(crossed)) +
+                ', so you are over the limit of ' + limit + ' years.</div>';
+        }
+        if (pwbd.checked && useEsm) h += '<div class="res-note">Disability relaxation is not combined with ex-servicemen relaxation here; check the notice\'s table for your case.</div>';
+        if (cat === 'EWS') h += '<div class="res-note">EWS candidates follow the unreserved age limit in central government jobs.</div>';
+        h += '<div class="res-note">Standard central government relaxations. Your notice\'s own age table is final.</div>';
+        out.innerHTML = h;
+    }
+
+    form.addEventListener('input', run);
+    form.addEventListener('change', run);
+    run();
+})();
+</script>
+{% endblock %}
