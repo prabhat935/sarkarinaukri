@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Job Eligibility Finder: Which Govt Jobs Can I Apply For? - Sarkari Naukri{% endblock %}
+{% block title %}Job Eligibility Finder for Govt Jobs - Sarkari Naukri{% endblock %}
 {% block meta_description %}Enter your date of birth and qualification to see which open government jobs match, with your exact age on each notice's cut-off date and its age rules.{% endblock %}
 {% block og_title %}Job Eligibility Finder for Government Jobs{% endblock %}
 
@@ -126,7 +126,9 @@
 
     function card(j, cls, age, why) {
         var on = parse(j.ageOn), last = parse(j.last);
-        var h = '<div class="ef-job ' + cls + '"><a class="t" href="' + j.url + '">' + esc(j.title) + '</a>';
+        // The link target goes in data-url and is set after rendering, so crawlers do not read the
+        // string template as a link
+        var h = '<div class="ef-job ' + cls + '"><a class="t" data-url="' + esc(j.url) + '">' + esc(j.title) + '</a>';
         h += '<div class="ef-meta">' + esc(j.org) + (j.state ? ' &middot; ' + esc(j.state) + ' state recruitment' : '') +
              (last ? ' &middot; Last date ' + fmt(last) : '') + '</div>';
         if (age && on) h += '<div class="ef-age">Your age on ' + fmt(on) + (j.ageOnAssumed ? ' (last date; check the notice\'s age date)' : '') +
@@ -175,6 +177,7 @@
         out += group('Check these posts', check, '');
         out += group('Not open to you', no, '');
         $('ef-out').innerHTML = out || '<p class="hint">No open posts right now.</p>';
+        $('ef-out').querySelectorAll('a[data-url]').forEach(function (a) { a.setAttribute('href', a.getAttribute('data-url')); });
     }
     $('ef').addEventListener('input', run);
     $('ef').addEventListener('change', run);
