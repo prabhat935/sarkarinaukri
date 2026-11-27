@@ -342,7 +342,7 @@ SCHEDULED_GUIDES = [
 </ul>
 
 <h2>Step 5: File an Objection That Gets Accepted</h2>
-<p>Objections are submitted online during the window, usually with a fee per question challenged; the SSC, for example, has charged ₹100 per question. The fee is often refunded if your challenge is accepted. To give your objection the best chance:</p>
+<p>Objections are submitted online during the window, usually with a fee per question challenged; for example, the SSC's notice for the Junior Engineer Examination, 2026 set ₹50 per question challenged. The notice for your exam states the fee and whether it is refunded when a challenge is accepted. To give your objection the best chance:</p>
 <ul>
 <li><strong>Be specific.</strong> State the question number, the official answer, and the answer you believe is correct.</li>
 <li><strong>Cite an authoritative source.</strong> Standard textbooks, NCERT books, government websites and official documents carry weight. Coaching notes, YouTube videos and unsourced websites generally do not.</li>

@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}CGPA to Percentage Converter for Job Applications - Sarkari Naukri{% endblock %}
+{% block meta_description %}Convert CGPA or SGPA to percentage with the CBSE (x 9.5), AICTE ((CGPA - 0.75) x 10) and x 10 formulas, and check a notice's minimum marks requirement.{% endblock %}
+{% block og_title %}CGPA to Percentage Converter{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/tools.css' %}?v=1">
+{% endblock %}
+
+{% block schema_markup %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "CGPA to Percentage Converter",
+  "url": "https://www.sarkarinaukriresult.online/tools/cgpa-to-percentage/",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Any",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"},
+  "description": "Converts a CGPA on a 10-point scale to a percentage using common formulas and checks it against a minimum marks requirement."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "How do I convert CBSE Class 10 CGPA to percentage?",
+     "acceptedAnswer": {"@type": "Answer", "text": "CBSE's indicative formula for the CGPA system is percentage = CGPA x 9.5. A CGPA of 8.4 is about 79.8%."}},
+    {"@type": "Question", "name": "Which formula should I use for a job application?",
+     "acceptedAnswer": {"@type": "Answer", "text": "The one your university or board prescribes, usually printed on the back of the marksheet or given in a university notification. Many recruitment notices say that candidates with a CGPA must give the percentage as per their institution's conversion norms, and the certificate may be checked at document verification."}},
+    {"@type": "Question", "name": "What if my university has no conversion formula?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Ask the university or college for a certificate showing the equivalent percentage. Keep it with your marksheets for document verification, because a percentage you calculated yourself may not be accepted."}}
+  ]
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="page-wrapper">
+<div class="tool-wrap">
+    <h1>CGPA to Percentage Converter</h1>
+    <p class="tool-lead">Many job notifications ask for "a degree with at least 60% marks" or need your percentage in the
+    application form, but your marksheet shows a CGPA. Enter your CGPA, choose the formula your university or board uses,
+    and check whether you meet the requirement.</p>
+
+    <form class="calc" id="cg" onsubmit="return false">
+        <div>
+            <label for="cgpa">Your CGPA (out of 10)</label>
+            <input type="number" id="cgpa" min="0" max="10" step="0.01" placeholder="e.g. 7.8" inputmode="decimal">
+            <label for="formula">Conversion formula</label>
+            <select id="formula">
+                <option value="aicte">(CGPA - 0.75) x 10: AICTE conversion, used by many engineering universities</option>
+                <option value="cbse">CGPA x 9.5: CBSE (Class 10 CGPA system)</option>
+                <option value="x10">CGPA x 10: universities that use a direct multiple</option>
+                <option value="custom">My university's own multiplier</option>
+            </select>
+            <div id="custom-box" style="display:none">
+                <div class="row2">
+                    <div><label for="mult">Multiply by</label><input type="number" id="mult" step="0.01" value="9.5" inputmode="decimal"></div>
+                    <div><label for="add">Then add</label><input type="number" id="add" step="0.01" value="0" inputmode="decimal"></div>
+                </div>
+                <div class="hint">For a formula like (CGPA - 0.5) x 10, enter 10 and -5.</div>
+            </div>
+            <label for="need">Minimum percentage in the notice (optional)</label>
+            <input type="number" id="need" min="0" max="100" step="0.01" placeholder="e.g. 60" inputmode="decimal">
+        </div>
+        <div class="result" id="out" aria-live="polite"></div>
+    </form>
+    <p class="privacy-line">Calculated in your browser. Nothing you enter is stored.</p>
+
+    <div class="tool-note"><strong>Your institution's formula is what counts.</strong> There is no single national
+    conversion. Recruiters generally accept the percentage worked out by the method your university or board prescribes,
+    and may check it at document verification. Look for the formula on the back of your marksheet or in your university's
+    notification, and if there is none, ask the college for an equivalence certificate.</div>
+
+    <h2>The Formulas</h2>
+    <table class="rtable">
+        <tr><th>Formula</th><th>Used by</th><th>CGPA 7.5 gives</th></tr>
+        <tr><td>(CGPA - 0.75) x 10</td><td>AICTE's conversion for a 10-point scale, followed by many technical universities</td><td>67.5%</td></tr>
+        <tr><td>CGPA x 9.5</td><td>CBSE's indicative formula for the Class 10 CGPA system</td><td>71.25%</td></tr>
+        <tr><td>CGPA x 10</td><td>Some universities that state a direct conversion</td><td>75%</td></tr>
+    </table>
+    <p>The same CGPA can give results several points apart, which is why a notice that asks for 60% or 65% can depend on the
+    formula. A CGPA of 6.9 is 61.5% under the AICTE formula but 65.55% under CBSE's, so check yours before you assume you
+    qualify or not.</p>
+
+    <h2>SGPA, CGPA and the Final Result</h2>
+    <p>SGPA is the grade point average for a single semester, and CGPA is the average across all semesters so far. For
+    eligibility, notices go by your final result, so use the final CGPA on your degree or consolidated marksheet. If you are
+    in the final year and the notice allows final-year students to apply, you will usually need to show the final result
+    by a date given in the notice.</p>
+
+    <h2>Filling It in the Application Form</h2>
+    <ul>
+        <li>If the form has separate fields for CGPA and percentage, fill both exactly as on your documents and the conversion certificate.</li>
+        <li>Round only as your university does. Do not round 59.6% up to 60% to meet a requirement; the notice's cut-off is applied to the exact figure.</li>
+        <li>Keep the marksheet, degree and any conversion certificate together for document verification. Our <a href="/content/guides/document-verification-government-exams-checklist/">document verification checklist</a> lists what else to carry.</li>
+        <li>Check the rest of the eligibility in the notice too: our guide on <a href="/content/guides/how-to-read-government-job-notification/">reading a notification</a> shows where each condition is given.</li>
+    </ul>
+
+    <h2>Frequently Asked Questions</h2>
+    <h3>How do I convert CBSE Class 10 CGPA to percentage?</h3>
+    <p>CBSE's indicative formula for the CGPA system is percentage = CGPA x 9.5. A CGPA of 8.4 is about 79.8%.</p>
+    <h3>Which formula should I use for a job application?</h3>
+    <p>The one your university or board prescribes, usually printed on the back of the marksheet or given in a university
+    notification. Many recruitment notices say that candidates with a CGPA must give the percentage as per their
+    institution's conversion norms, and the certificate may be checked at document verification.</p>
+    <h3>What if my university has no conversion formula?</h3>
+    <p>Ask the university or college for a certificate showing the equivalent percentage. Keep it with your marksheets for
+    document verification, because a percentage you calculated yourself may not be accepted.</p>
+</div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+    var $ = function (id) { return document.getElementById(id); };
+    var NAMES = { aicte: '(CGPA - 0.75) x 10', cbse: 'CGPA x 9.5', x10: 'CGPA x 10' };
+    function f(x) { return (Math.round(x * 100) / 100).toString(); }
+    function conv(c, k) {
+        if (k === 'aicte') return (c - 0.75) * 10;
+        if (k === 'cbse') return c * 9.5;
+        if (k === 'x10') return c * 10;
+        return c * (parseFloat($('mult').value) || 0) + (parseFloat($('add').value) || 0);
+    }
+    function run() {
+        var k = $('formula').value;
+        $('custom-box').style.display = k === 'custom' ? 'block' : 'none';
+        var c = parseFloat($('cgpa').value);
+        if (isNaN(c)) { $('out').innerHTML = '<div class="empty">Enter your CGPA to see the percentage.</div>'; return; }
+        if (c < 0 || c > 10) { $('out').innerHTML = '<div class="err">Enter a CGPA between 0 and 10.</div>'; return; }
+        var p = Math.max(0, Math.min(100, conv(c, k)));
+        var need = parseFloat($('need').value), h;
+        if (!isNaN(need)) {
+            var ok = p >= need;
+            h = '<div class="verdict ' + (ok ? 'ok' : 'no') + '">' + f(p) + '%: ' + (ok ? 'meets' : 'below') + ' the ' + f(need) + '% requirement</div>';
+        } else {
+            h = '<div class="verdict info">' + f(p) + '%</div>';
+        }
+        h += '<div class="res-row"><span>Formula used</span><span>' + (NAMES[k] || 'custom') + '</span></div>';
+        ['aicte', 'cbse', 'x10'].forEach(function (key) {
+            if (key !== k) h += '<div class="res-row"><span>With ' + NAMES[key] + '</span><span>' + f(Math.max(0, Math.min(100, conv(c, key)))) + '%</span></div>';
+        });
+        // CGPA needed for the requirement under the chosen formula
+        if (!isNaN(need) && k !== 'custom') {
+            var needC = k === 'aicte' ? need / 10 + 0.75 : k === 'cbse' ? need / 9.5 : need / 10;
+            h += '<div class="res-row"><span>CGPA needed for ' + f(need) + '%</span><span>' + (Math.ceil(needC * 100) / 100).toFixed(2) + '</span></div>';
+        }
+        h += '<div class="res-note">Use the formula your university or board prescribes; the others are shown only for comparison.</div>';
+        $('out').innerHTML = h;
+    }
+    $('cg').addEventListener('input', run);
+    $('cg').addEventListener('change', run);
+    run();
+})();
+</script>
+{% endblock %}

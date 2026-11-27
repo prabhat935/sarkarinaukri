@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Exam Score Calculator with Negative Marking - Sarkari Naukri{% endblock %}
+{% block meta_description %}Calculate your raw score from the answer key: enter correct and wrong answers, choose the marking scheme (+2/-0.5, +1/-0.25, one-third) and see your marks.{% endblock %}
+{% block og_title %}Exam Score Calculator with Negative Marking{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/tools.css' %}?v=1">
+{% endblock %}
+
+{% block schema_markup %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Exam Score Calculator with Negative Marking",
+  "url": "https://www.sarkarinaukriresult.online/tools/exam-score-calculator/",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Any",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"},
+  "description": "Calculates the raw score in an objective exam from the number of correct and wrong answers and the marking scheme."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "How is the score calculated with negative marking?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Raw score = (correct answers x marks per question) - (wrong answers x marks deducted). Unattempted questions score zero. For example, with 2 marks per question and 0.5 deducted, 70 correct and 18 wrong gives 140 - 9 = 131."}},
+    {"@type": "Question", "name": "Will my final marks be the same as this raw score?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Not always. Exams held in many shifts are often normalised, so your final score can be a little higher or lower, and questions dropped or corrected in the final answer key also change the total."}},
+    {"@type": "Question", "name": "Do unattempted questions carry negative marks?",
+     "acceptedAnswer": {"@type": "Answer", "text": "No. Only wrong answers are penalised. A question you leave blank scores zero."}}
+  ]
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="page-wrapper">
+<div class="tool-wrap">
+    <h1>Exam Score Calculator with Negative Marking</h1>
+    <p class="tool-lead">When the answer key comes out, count your correct and wrong answers from the response sheet,
+    choose the marking scheme in your notice and see your raw score, the marks lost to wrong answers and how far you are
+    from the expected cut-off.</p>
+
+    <form class="calc" id="sc" onsubmit="return false">
+        <div>
+            <label for="scheme">Marking scheme</label>
+            <select id="scheme">
+                <option value="2|0.5|100">+2 for correct, -0.5 for wrong (SSC style, one-quarter)</option>
+                <option value="1|0.25|100">+1 for correct, -0.25 for wrong (bank prelims style, one-quarter)</option>
+                <option value="1|0.3333|100">+1 for correct, -1/3 for wrong (railway style, one-third)</option>
+                <option value="2|0.66|100">+2 for correct, -0.66 for wrong (UPSC Prelims GS style)</option>
+                <option value="custom">Custom, from my notice</option>
+            </select>
+            <div class="row2">
+                <div><label for="plus">Marks per correct</label><input type="number" id="plus" step="0.01" min="0" value="2" inputmode="decimal"></div>
+                <div><label for="minus">Marks deducted per wrong</label><input type="number" id="minus" step="0.01" min="0" value="0.5" inputmode="decimal"></div>
+            </div>
+            <label for="total">Total questions in the paper</label>
+            <input type="number" id="total" min="1" max="1000" value="100" inputmode="numeric">
+            <div class="row2">
+                <div><label for="right">Correct answers</label><input type="number" id="right" min="0" max="1000" value="" inputmode="numeric"></div>
+                <div><label for="wrong">Wrong answers</label><input type="number" id="wrong" min="0" max="1000" value="" inputmode="numeric"></div>
+            </div>
+            <label for="cutoff">Expected cut-off (optional)</label>
+            <input type="number" id="cutoff" step="0.01" min="0" placeholder="e.g. 130" inputmode="decimal">
+            <div class="hint">Use last year's official cut-off for your category as a rough guide.</div>
+        </div>
+        <div class="result" id="out" aria-live="polite"></div>
+    </form>
+    <p class="privacy-line">Calculated in your browser. Nothing you enter is stored.</p>
+
+    <div class="tool-note"><strong>Use your own notice's scheme.</strong> Marking schemes differ between exams, tiers and
+    even sections; some papers have sections with no negative marking, or different marks per question. The presets are
+    common patterns. If your paper differs, choose "Custom" or work out each section separately and add them up.</div>
+
+    <h2>The Formula</h2>
+    <p><strong>Raw score = (correct x marks per question) - (wrong x marks deducted)</strong>. Unattempted questions score
+    nothing and lose nothing. With 2 marks per question and 0.5 deducted, a candidate with 70 correct, 18 wrong and 12 left
+    blank scores 70 x 2 - 18 x 0.5 = 140 - 9 = 131 out of 200.</p>
+    <p>The calculator also shows what the wrong answers cost you, and your accuracy on the questions you attempted. If your
+    accuracy is low, attempting fewer questions with more care often raises the score; our guide to
+    <a href="/content/guides/negative-marking-when-to-guess/">negative marking and when to guess</a> explains the
+    expected-value maths behind that.</p>
+
+    <h2>From Raw Score to Final Marks</h2>
+    <ul>
+        <li><strong>Final answer key:</strong> after objections, some answers may be corrected and some questions dropped,
+        which changes your raw score.</li>
+        <li><strong>Normalisation:</strong> exams held across many shifts, such as most SSC and railway computer-based
+        tests, adjust scores so that candidates in harder shifts are not disadvantaged. Your normalised marks can be a few
+        marks above or below your raw score.</li>
+        <li><strong>Sectional cut-offs:</strong> some exams, particularly bank exams, need a minimum in each section as well
+        as overall. Check each section separately.</li>
+    </ul>
+    <p>Read our guide on <a href="/content/guides/answer-key-calculate-score-raise-objection/">using an answer key and
+    raising an objection</a> before the challenge window closes.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    <h3>How is the score calculated with negative marking?</h3>
+    <p>Raw score = (correct answers x marks per question) - (wrong answers x marks deducted). Unattempted questions score
+    zero. For example, with 2 marks per question and 0.5 deducted, 70 correct and 18 wrong gives 140 - 9 = 131.</p>
+    <h3>Will my final marks be the same as this raw score?</h3>
+    <p>Not always. Exams held in many shifts are often normalised, so your final score can be a little higher or lower, and
+    questions dropped or corrected in the final answer key also change the total.</p>
+    <h3>Do unattempted questions carry negative marks?</h3>
+    <p>No. Only wrong answers are penalised. A question you leave blank scores zero.</p>
+</div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+    var $ = function (id) { return document.getElementById(id); };
+    function n(id) { var v = parseFloat($(id).value); return isNaN(v) || v < 0 ? 0 : v; }
+    function f(x) { return (Math.round(x * 100) / 100).toLocaleString('en-IN'); }
+
+    function run() {
+        var plus = n('plus'), minus = n('minus'), total = Math.floor(n('total'));
+        var right = Math.floor(n('right')), wrong = Math.floor(n('wrong'));
+        if ($('right').value === '' && $('wrong').value === '') {
+            $('out').innerHTML = '<div class="empty">Enter your correct and wrong answers to see your score.</div>';
+            return;
+        }
+        if (right + wrong > total) {
+            $('out').innerHTML = '<div class="err">Correct and wrong answers add up to more than the ' + total + ' questions in the paper.</div>';
+            return;
+        }
+        var blank = total - right - wrong;
+        var lost = wrong * minus, score = right * plus - lost, max = total * plus;
+        var acc = right + wrong ? right / (right + wrong) * 100 : 0;
+        var h = '<div class="verdict info">Score: ' + f(score) + ' / ' + f(max) + '</div>';
+        h += '<div class="res-row"><span>Correct (+' + f(plus) + ' each)</span><span>' + right + ' = +' + f(right * plus) + '</span></div>';
+        h += '<div class="res-row"><span>Wrong (-' + f(minus) + ' each)</span><span>' + wrong + ' = -' + f(lost) + '</span></div>';
+        h += '<div class="res-row"><span>Not attempted</span><span>' + blank + '</span></div>';
+        h += '<div class="res-row"><span>Accuracy on attempted</span><span>' + f(acc) + '%</span></div>';
+        h += '<div class="res-row"><span>Percentage of maximum</span><span>' + f(max ? score / max * 100 : 0) + '%</span></div>';
+        var cut = $('cutoff').value === '' ? null : n('cutoff');
+        if (cut !== null) {
+            var gap = score - cut;
+            h += '<div class="res-row total"><span>Against cut-off ' + f(cut) + '</span><span>' + (gap >= 0 ? '+' : '') + f(gap) + '</span></div>';
+        }
+        if (wrong && minus) h += '<div class="res-note">Wrong answers cost you ' + f(lost) + ' marks. Breaking even on a guess needs about ' +
+            f(minus / (plus + minus) * 100) + '% accuracy with this scheme; you were at ' + f(acc) + '% overall.</div>';
+        h += '<div class="res-note">Raw score only. Final marks can change after the final answer key and normalisation.</div>';
+        $('out').innerHTML = h;
+    }
+    $('scheme').addEventListener('change', function () {
+        if (this.value === 'custom') return run();
+        var p = this.value.split('|');
+        $('plus').value = p[0]; $('minus').value = p[1];
+        run();
+    });
+    ['plus', 'minus'].forEach(function (id) { $(id).addEventListener('input', function () { $('scheme').value = 'custom'; }); });
+    $('sc').addEventListener('input', run);
+    run();
+})();
+</script>
+{% endblock %}

@@ -67,6 +67,9 @@ urlpatterns = [
     path("tools/photo-signature-resizer/", home_views.photo_resizer, name="photo_resizer"),
     path("tools/ssc-typing-test/", home_views.typing_test, name="typing_test"),
     path("tools/7th-pay-commission-salary-calculator/", home_views.salary_calculator, name="salary_calculator"),
+    path("tools/exam-score-calculator/", home_views.score_calculator, name="score_calculator"),
+    path("tools/cgpa-to-percentage/", home_views.cgpa_converter, name="cgpa_converter"),
+    path("tools/exam-countdown/", home_views.exam_countdown, name="exam_countdown"),
     path("about-authors/", home_views.about_authors, name="about_authors"),
     path("contact/", home_views.contact, name="contact"),
 ]

@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Government Exam Countdown and Last Dates - Sarkari Naukri{% endblock %}
+{% block meta_description %}Days left to upcoming government exams and to the last dates for applying, from the official notices we have covered. Updated automatically.{% endblock %}
+{% block og_title %}Government Exam Countdown and Last Dates{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/tools.css' %}?v=1">
+<style>
+.cd-list { list-style: none; padding: 0; margin: 12px 0 8px; }
+.cd-item { display: flex; align-items: center; gap: 14px; padding: 12px 14px; border: 1px solid #e2e8f0; border-radius: 12px;
+           margin-bottom: 10px; background: #fff; }
+.cd-days { flex-shrink: 0; width: 74px; text-align: center; border-radius: 10px; padding: 8px 4px; color: #fff;
+           background: linear-gradient(135deg, #0ea5e9, #6366f1); }
+.cd-days b { display: block; font-size: 24px; line-height: 1.1; }
+.cd-days span { font-size: 11px; text-transform: uppercase; letter-spacing: .4px; }
+.cd-days.soon { background: linear-gradient(135deg, #f97316, #dc2626); }
+.cd-days.today { background: linear-gradient(135deg, #16a34a, #15803d); }
+.cd-body a { font-weight: 700; color: #1e293b; text-decoration: none; }
+.cd-body a:hover { color: #1d4ed8; text-decoration: underline; }
+.cd-meta { font-size: 13.5px; color: #64748b; margin-top: 2px; }
+.cd-empty { color: #64748b; background: #f8fafc; border-radius: 10px; padding: 14px; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-wrapper">
+<div class="tool-wrap">
+    <h1>Government Exam Countdown and Last Dates</h1>
+    <p class="tool-lead">How many days are left before your exam, and before the last date to apply? This page lists the
+    dates from the official notices we have written up on this site, and counts down to each one on your own device.</p>
+
+    <h2>Upcoming Exams</h2>
+    {% if exams %}
+    <ul class="cd-list">
+        {% for e in exams %}
+        <li class="cd-item" data-date="{{ e.date|date:'Y-m-d' }}">
+            <div class="cd-days"><b>{{ e.days }}</b><span>days</span></div>
+            <div class="cd-body">
+                <a href="{{ e.url }}">{{ e.name }}</a>
+                <div class="cd-meta">{{ e.org }} &middot; Exam date {{ e.date|date:"l, d M Y" }}</div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="cd-empty">No exam dates have been announced in the notices we cover right now. They appear here as soon as an
+    official notice or admit card gives a date.</p>
+    {% endif %}
+    <p class="hint" style="font-size:13px;color:#64748b">Exam dates are as given in the official notices and admit card
+    notices, and can be changed by the conducting body. For exams held over several days, the date shown is the first day;
+    your admit card gives your own date and shift.</p>
+
+    <h2>Last Dates to Apply</h2>
+    {% if deadlines %}
+    <ul class="cd-list">
+        {% for e in deadlines %}
+        <li class="cd-item" data-date="{{ e.date|date:'Y-m-d' }}">
+            <div class="cd-days"><b>{{ e.days }}</b><span>days</span></div>
+            <div class="cd-body">
+                <a href="{{ e.url }}">{{ e.name }}</a>
+                <div class="cd-meta">{{ e.org }} &middot; Last date {{ e.date|date:"l, d M Y" }}</div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="cd-empty">No open applications at the moment. New notifications appear on our <a href="{% url 'job_list' %}">latest jobs</a> page.</p>
+    {% endif %}
+
+    <h2>Using the Countdown Well</h2>
+    <ul>
+        <li><strong>Apply early, not on the last day.</strong> Official websites slow down near the deadline, and payment
+        failures or a rejected photo can cost you the chance. Aim to finish a week before the last date, and make sure your
+        <a href="{% url 'photo_resizer' %}">photo and signature are the right size</a> before you start.</li>
+        <li><strong>Check eligibility before you pay.</strong> Work out your age on the notice's cut-off date with the
+        <a href="{% url 'age_calculator' %}">age eligibility calculator</a>.</li>
+        <li><strong>Plan revision backwards from the exam date.</strong> With 30 days left, most candidates do best moving
+        from learning new topics to full-length mock tests and revision.</li>
+        <li><strong>Watch for the admit card.</strong> Many commissions release it only a few days before the exam, and
+        sometimes only a city slip first. Keep your registration number and password safe.</li>
+    </ul>
+    <p>Dates on this page come from the notices behind our posts; we do not list exams we have not checked. For anything
+    else, the commission's own website is the place to confirm a date.</p>
+</div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+    // Recount from the visitor's own date, so the page stays right however long it is cached
+    var now = new Date(), today = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+    document.querySelectorAll('.cd-item[data-date]').forEach(function (li) {
+        var p = li.getAttribute('data-date').split('-');
+        var days = Math.round((Date.UTC(+p[0], +p[1] - 1, +p[2]) - today) / 86400000);
+        var box = li.querySelector('.cd-days');
+        if (days < 0) { li.style.display = 'none'; return; }
+        box.querySelector('b').textContent = days === 0 ? 'Today' : days;
+        box.querySelector('span').textContent = days === 0 ? '' : (days === 1 ? 'day' : 'days');
+        box.className = 'cd-days' + (days === 0 ? ' today' : days <= 7 ? ' soon' : '');
+    });
+})();
+</script>
+{% endblock %}
