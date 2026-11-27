@@ -156,34 +156,6 @@ document.querySelectorAll('.hl-track').forEach(function (track) {
     </div>
 </section>
 
-<!-- Free tools: each tool has its own tile and badge -->
-<section class="hp-tools" aria-labelledby="hp-tools-title">
-    <div class="container">
-        <h2 class="hp-tools-title" id="hp-tools-title"><i class="fas fa-toolbox"></i> Free Tools for Exam Candidates</h2>
-        <div class="tool-tiles">
-            <a class="tool-tile" href="{% url 'age_calculator' %}">
-                <span class="tool-badge tb-age"><i class="fas fa-user-clock"></i><span class="mini"><i class="fas fa-check"></i></span></span>
-                <span class="tool-name">Age Eligibility Calculator</span>
-                <span class="tool-desc">Your age on the cut-off date, with OBC, SC/ST and PwBD relaxation</span>
-            </a>
-            <a class="tool-tile" href="{% url 'photo_resizer' %}">
-                <span class="tool-badge tb-photo"><i class="fas fa-camera-retro"></i><span class="mini"><i class="fas fa-signature"></i></span></span>
-                <span class="tool-name">Photo &amp; Signature Resizer</span>
-                <span class="tool-desc">Exact pixels and KB for online application forms</span>
-            </a>
-            <a class="tool-tile" href="{% url 'typing_test' %}">
-                <span class="tool-badge tb-typing"><i class="fas fa-keyboard"></i><span class="mini"><i class="fas fa-stopwatch"></i></span></span>
-                <span class="tool-name">SSC Typing Test</span>
-                <span class="tool-desc">Timed practice with net WPM and KDPH against 35 WPM</span>
-            </a>
-            <a class="tool-tile" href="{% url 'salary_calculator' %}">
-                <span class="tool-badge tb-salary"><i class="fas fa-indian-rupee-sign"></i><span class="mini"><i class="fas fa-calculator"></i></span></span>
-                <span class="tool-name">In-Hand Salary Calculator</span>
-                <span class="tool-desc">7th Pay Commission pay after DA, HRA, NPS and tax</span>
-            </a>
-        </div>
-    </div>
-</section>
 
 
 <!-- ===== DYNAMIC COLORFUL DATA SECTIONS ===== -->
@@ -408,6 +380,35 @@ document.querySelectorAll('.hl-track').forEach(function (track) {
 
         </div><!-- /hp-row-2 -->
 
+    </div>
+</section>
+
+<!-- Free tools: each tool has its own tile and badge -->
+<section class="hp-tools" aria-labelledby="hp-tools-title">
+    <div class="container">
+        <h2 class="hp-tools-title" id="hp-tools-title"><i class="fas fa-toolbox"></i> Free Tools for Exam Candidates</h2>
+        <div class="tool-tiles">
+            <a class="tool-tile" href="{% url 'age_calculator' %}">
+                <span class="tool-badge tb-age"><i class="fas fa-user-clock"></i><span class="mini"><i class="fas fa-check"></i></span></span>
+                <span class="tool-name">Age Eligibility Calculator</span>
+                <span class="tool-desc">Your age on the cut-off date, with OBC, SC/ST and PwBD relaxation</span>
+            </a>
+            <a class="tool-tile" href="{% url 'photo_resizer' %}">
+                <span class="tool-badge tb-photo"><i class="fas fa-camera-retro"></i><span class="mini"><i class="fas fa-signature"></i></span></span>
+                <span class="tool-name">Photo &amp; Signature Resizer</span>
+                <span class="tool-desc">Exact pixels and KB for online application forms</span>
+            </a>
+            <a class="tool-tile" href="{% url 'typing_test' %}">
+                <span class="tool-badge tb-typing"><i class="fas fa-keyboard"></i><span class="mini"><i class="fas fa-stopwatch"></i></span></span>
+                <span class="tool-name">SSC Typing Test</span>
+                <span class="tool-desc">Timed practice with net WPM and KDPH against 35 WPM</span>
+            </a>
+            <a class="tool-tile" href="{% url 'salary_calculator' %}">
+                <span class="tool-badge tb-salary"><i class="fas fa-indian-rupee-sign"></i><span class="mini"><i class="fas fa-calculator"></i></span></span>
+                <span class="tool-name">In-Hand Salary Calculator</span>
+                <span class="tool-desc">7th Pay Commission pay after DA, HRA, NPS and tax</span>
+            </a>
+        </div>
     </div>
 </section>
 
